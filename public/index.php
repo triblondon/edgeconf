@@ -368,7 +368,7 @@
         </div>
       </div>
       <div class='span4'>
-        <label for='query'>Search video transcripts:</label><input id="query" type="text" autofocus="true" class='input-block-level' />
+        <label for='query'>Search video transcripts:</label><input id="query" type="text" class='input-block-level' />
         <span class='help-block'>Enter text to search transcripts, then click on a result to view video.</span>
         <div id="numResults"></div>
         <!-- begin results container, content generated dynamically -->
@@ -991,7 +991,7 @@
 
   <div class='row'>
     <div class='span3'>
-      <p>Edge was held at Facebook's London office, in Covent Garden:</p>
+      <p>Edge was held at Facebook's colourful London event space in Covent Garden:</p>
 
       <address>
       <strong>Facebook London</strong><br>
