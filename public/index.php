@@ -8,7 +8,6 @@
     <meta name="description" content="Edge is a one-day conference for web developers and browser vendors.">
 
     <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css" rel="stylesheet">
-    <link href="css/videoSearch.css" rel="stylesheet">
     <style>
 
     /* Lighter body text */
@@ -66,7 +65,6 @@
     #___plusone_0 { left: 210px }
 
     /* Sessions */
-    #schedule { margin-top: 40px; }
     #schedule a { color: #beb }
     #schedule a:hover { color:#2bff47 }
     .session-time { background: black; color: white; font-weight: bold; position: relative; font-size: 20px; padding: 7px 10px 7px 15px; display: inline-block; margin-top: 5px; }
@@ -105,6 +103,142 @@
       .modal { width: 700px; margin-left: -350px }
     }
     .modal-body { overflow:hidden; max-height: none }
+
+    /* Video search */
+    #video { margin-top: 40px; }
+    .videoframe { width: 100%; height: 0; padding-top: 56.25%; position: relative; margin-bottom: 10px; }
+    .videoframe > *:first-child { position: absolute; display: block; top:0; left:0; right:0; bottom:0; width: 100%; height: 100%; }
+
+    div#queryExplanation{
+    color: #ddd;
+    margin: 0 0.7em 1em 0;
+    }
+
+    div#numResults {
+    color: darkRed;
+    margin: 0 0 1em 0;
+    }
+
+    div#results {
+    max-height: 300px;
+    overflow-y: auto;
+    }
+
+    div.cue {
+    cursor: pointer;
+    font-size: 10pt;
+    margin: 0 0 0.5em 0;
+    line-height: 1.3em;
+    }
+
+    div.cues {
+    margin: 1em 0 0 0;
+    padding: 0 0 0 1em;
+    }
+
+    div.video {
+    margin: 0 0 1.3em 0;
+    border-bottom: 1px dotted #999;
+    padding: 0 0 0.6em 0;
+    }
+
+    div.video div.videoRating {
+    color: #666;
+    font-size: 10pt;
+    margin: 0 0 0.4em 0;
+    clear: left;
+    }
+
+    div.video div.videoViewCount {
+    border-bottom: 1px solid #333;
+    color: #666;
+    font-size: 10pt;
+    margin: 0 0 0.6em 0;
+    padding: 0 0 0.6em 0;
+    }
+
+    div.video div.speakers {
+    color: #999;
+    font-size: 11pt;
+    margin: 0 0 -0.1em 0;
+    padding: 0 0 0 16px;
+    }
+
+    div.video div.videoSummary {
+    color: #ddd;
+    font-size: 11pt;
+    margin: 0 0 5px 0;
+    line-height: 1.3em;
+    padding: 28px 0 0 0;
+    }
+
+    div.video div.videoTitle {
+    color: #ccc;
+    font-size: 12pt;
+    margin: 0 0 0.4em 0;
+    }
+
+    div.watchVideo {
+      color: #beb;
+      cursor: pointer;
+      font-weight: bold;
+      margin: 0 0 0.5em 0;
+    }
+
+    div.watchVideo:hover {
+      color: #2bff47;
+    }
+
+    div.watchVideo span:hover {
+      text-decoration: underline;
+    }
+
+    span.cueText em {
+    font-style: normal;
+    background: rgba(224, 79, 23, 0.49);
+    }
+
+    img.videoThumbnail {
+    float: left;
+    height: 180px;
+    margin: 9px 10px 10px 0;
+    width: 240px;
+    }
+
+    span.cueStartTime {
+    color: #aaa;
+    }
+
+    span.cueText {
+    color: #ccc;
+    }
+
+    span.cueText:hover {
+    color: white;
+    }
+
+    span.inputLabel {
+    color: #eee;
+    float: left;
+    font-size: 11pt;
+    font-family: Arial, sans-serif;
+    line-height: 1em;
+    }
+
+    summary{
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+    outline: none;
+    }
+
+    summary.videoTitle {
+    display: block; /* for browsers that don't support <summary> */
+    margin: 0 0 0 0;
+    padding: 0 0 0 18px;
+    text-indent: -18px;
+    line-height: 1.2em;
+    }
 
 
     /* RESPONSIVE CSS */
@@ -174,6 +308,7 @@
           <div class="nav-collapse collapse">
             <ul class="nav">
               <li class="active"><a href="#about">About</a></li>
+              <li><a href="#video">Videos</a></li>
               <li><a href="#schedule">Schedule</a></li>
               <li><a href="#format">Session format</a></li>
               <li><a href="#panellists">Panellists</a></li>
@@ -222,22 +357,27 @@
   </div>
 
   <div class='wrap wrap-grey' id='video'>
-    <div class='container'>
+  <div class='container'>
 
     <h2>Videos from the conference</h2>
 
-    <iframe id='youTubePlayer' src='http://www.youtube.com/embed/videoseries?list=PLNYkxOF6rcICCU_UD67Ga0qLvMjnBBwft&html5=1'
-      frameborder='0'></iframe>
-    <div id="info">
-      <label for='query'>Search video transcripts:</label><input id="query" type="text" autofocus="true"  />
-      <div id="queryExplanation">Enter text to search transcripts, then click on a result to view video.</div>
-    </div> <!-- info -->
-    <div id="numResults"></div>
-    <!-- begin results container, content generated dynamically -->
-    <div id="results"></div>
-    <!-- end results container, content generated dynamically -->
-
+    <div class='row'>
+      <div class='span8'>
+        <div class='videoframe'>
+          <iframe id='youTubePlayer' src='http://www.youtube.com/embed/videoseries?list=PLNYkxOF6rcICCU_UD67Ga0qLvMjnBBwft&amp;html5=1' frameborder='0'></iframe>
+        </div>
+      </div>
+      <div class='span4'>
+        <label for='query'>Search video transcripts:</label><input id="query" type="text" autofocus="true" class='input-block-level' />
+        <span class='help-block'>Enter text to search transcripts, then click on a result to view video.</span>
+        <div id="numResults"></div>
+        <!-- begin results container, content generated dynamically -->
+        <div id="results"></div>
+        <!-- end results container, content generated dynamically -->
+      </div>
     </div>
+
+  </div>
   </div>
 
   <div class='wrap wrap-green' id='schedule'>
@@ -269,7 +409,6 @@
     <div class='span6'>
       <h3>1. Offline</h3>
       <p>What's the <em>right</em> way to build offline into a web application?  Despite wide support of technologies like appcache and web storage, solutions remain hackish.  Why?</p>
-      <div class="watchVideo" data-topic="offline">► <span>Watch video</span></div>
       <ul class='spec-links'>
         <li><i class="icon-asterisk icon-white"></i> <a href='http://www.whatwg.org/specs/web-apps/current-work/multipage/offline.html#appcache'>App Cache</a></li>
         <li><i class="icon-asterisk icon-white"></i> <a href='http://www.whatwg.org/specs/web-apps/current-work/multipage/webstorage.html'>Web Storage</a></li>
@@ -285,6 +424,7 @@
       <a href='#panellists-mark-christian'><img src='img/heads/mark-christian.jpg' title='Mark Christian' /></a>
     </p>
     <p>Moderator: <a href="#panellists-andrew-betts">Andrew Betts</a></p>
+    <div class="watchVideo" data-topic="offline"><i class='icon-play-circle icon-white'></i> <span>Watch video</span></div>
     </div>
   </div>
 
@@ -293,7 +433,6 @@
     <div class='span6'>
       <h3>2. Network</h3>
       <p>It's easy to poke fun at websites with multi-megabyte pages, but latency and number of round trips are the biggest killers of page load performance, especially over 3G.  How can we get the best out of the network and not let it slow down our apps?  What's the best way to handle foreign resources, dependency management, batching and minification?</p>
-      <div class="watchVideo" data-topic="network">► <span>Watch video</span></div>
       <ul class='spec-links'>
         <li><i class="icon-asterisk icon-white"></i> <a href='http://www.w3.org/TR/netinfo-api/'>Net-info API</a></li>
         <li><i class="icon-asterisk icon-white"></i> <a href='http://www.whatwg.org/specs/web-apps/current-work/multipage/network.html#network'>Websockets</a></li>
@@ -311,6 +450,7 @@
       <a href='#panellists-andy-davies'><img src='img/heads/andy-davies.jpg' title='Andy Davies' /></a>
     </p>
     <p>Moderator: <a href='#panellists-steve-thair'>Steve Thair</a></p>
+    <div class="watchVideo" data-topic="network"><i class='icon-play-circle icon-white'></i> <span>Watch video</span></div>
     </div>
   </div>
 
@@ -326,7 +466,6 @@
     <div class='span6'>
       <h3>3. Performance</h3>
       <p>How can we get faster repaints, more frames per second, quicker layout updates?  Why are in-browser operations still perceptibly slower than native?  And with page session time growing dramatically, are web developers worried enough about memory leaks and garbage collection?</p>
-      <div class="watchVideo" data-topic="performance">► <span>Watch video</span></div>
       <ul class='spec-links'>
         <li><i class="icon-asterisk icon-white"></i> <a href='http://www.whatwg.org/specs/web-apps/current-work/multipage/workers.html'>Web workers</a></li>
         <li><i class="icon-asterisk icon-white"></i> <a href='http://www.w3.org/TR/performance-timeline/'>Performance timeline</a></li>
@@ -350,6 +489,7 @@
       <a href='#panellists-pavel-feldman'><img src='img/heads/pavel-feldman.jpg' title='Pavel Feldman' /></a>
     </p>
     <p>Moderator: <a href='#panellists-matt-delaney'>Matt Delaney</a></p>
+    <div class="watchVideo" data-topic="performance"><i class='icon-play-circle icon-white'></i> <span>Watch video</span></div>
     </div>
   </div>
 
@@ -365,7 +505,6 @@
     <div class='span6'>
       <h3>4. Responsive layout</h3>
       <p>Why are some designs easy to implement and others almost impossible?  Can we make it easier to do magazine style column layout, fitted wrapping or embedding sandboxed content?  For those aiming for truly responsive design, are variables like CPU power, viewing distance, input interface and pixel density just as important as viewport-width?</p>
-      <div class="watchVideo" data-topic="responsive">► <span>Watch video</span></div>
       <ul class='spec-links'>
         <li><a href='http://www.whatwg.org/specs/web-apps/current-work/multipage/the-iframe-element.html#attr-iframe-seamlesse'><i class="icon-asterisk icon-white"></i> Seamless IFRAMEs</a></li>
         <li><a href='http://dev.w3.org/csswg/css3-regions/'><i class="icon-asterisk icon-white"></i> CSS regions</a></li>
@@ -386,6 +525,7 @@
       <a href='#panellists-andy-hume'><img src='img/heads/andy-hume.jpg' title='Andy Hume' /></a>
     </p>
     <p>Moderator: <a href='#panellists-amber-weinberg'>Amber Weinberg</a></p>
+    <div class="watchVideo" data-topic="responsive"><i class='icon-play-circle icon-white'></i> <span>Watch video</span></div>
     </div>
   </div>
 
@@ -394,7 +534,6 @@
     <div class='span6'>
       <h3>5. Input</h3>
       <p>How do we write web apps that are agnostic to different input technologies?  What about devices that combine touch and mouse, and what of new interaction methods like remote controls, speech and 3D gestures? What problems do we encounter when we expand support to encompass embedded browsers in devices like kiosks, TVs, games consoles, in-flight and in-car screens?</p>
-      <div class="watchVideo" data-topic="input">► <span>Watch video</span></div>
       <ul class='spec-links'>
         <li><a href='http://github.com/ftlabs/fastclick'><i class="icon-asterisk icon-white"></i> FT Fastclick</a></li>
         <li><a href='http://smus.com/mouse-touch-pointer/'><i class="icon-asterisk icon-white"></i> pointer.js</a></li>
@@ -413,6 +552,7 @@
       <a href='#panellists-francois-daoust'><img src='img/heads/francois-daoust.jpg' title='François Daoust' /></a>
     </p>
     <p>Moderator: <a href='#panellists-pete-lepage'>Pete LePage</a></p>
+    <div class="watchVideo" data-topic="input"><i class='icon-play-circle icon-white'></i> <span>Watch video</span></div>
     </div>
   </div>
 
@@ -428,7 +568,6 @@
     <div class='span6'>
       <h3>6. Privileged access</h3>
       <p>Slowly, websites have been peeking outside the browser sandbox, though we remain some way off an interoperable solution for the holy grail of a website-as-desktop-app without any runtime other than the browser.  How do we get there more quickly, and in the meantime navigate problems like conflicting and confusing user permission prompts, testing and updating, and do we get the access we actually need?</p>
-      <div class="watchVideo" data-topic="privileged">► <span>Watch video</span></div>
       <ul class='spec-links'>
         <li><a href='http://developer.chrome.com/trunk/apps/about_apps.html'><i class="icon-asterisk icon-white"></i> Chrome packaged apps</a></li>
         <li><a href='http://phonegap.com/'><i class="icon-asterisk icon-white"></i> Phonegap</a></li>
@@ -446,6 +585,7 @@
     <p>
       Moderator: <a href='#panellists-chris-heilmann'>Chris Heilmann</a>
     </p>
+    <div class="watchVideo" data-topic="privileged"><i class='icon-play-circle icon-white'></i> <span>Watch video</span></div>
     </div>
   </div>
 
@@ -454,7 +594,6 @@
     <div class='span6'>
       <h3>7. Testing and tooling</h3>
       <p>Sites have become too complex to build by hand, and too complex to test without automation.  What are the tools we now rely on for authoring and testing?  Where are the gaps?  Where do we need to focus attention to improve support?</p>
-      <div class="watchVideo" data-topic="testing">► <span>Watch video</span></div>
       <ul class='spec-links'>
         <li><a href='https://developers.google.com/chrome-developer-tools/docs/overview'><i class="icon-asterisk icon-white"></i> Chrome DevTools</a></li>
         <li><a href='http://html.adobe.com/edge/'><i class="icon-asterisk icon-white"></i> Adobe Edge</a></li>
@@ -474,6 +613,7 @@
     <p>
       Moderator: <a href='#panellists-ivan-zuzak'>Ivan Žužak</a>
     </p>
+    <div class="watchVideo" data-topic="testing"><i class='icon-play-circle icon-white'></i> <span>Watch video</span></div>
     </div>
   </div>
 
@@ -839,17 +979,7 @@
         <p class='bio'><a href='http://shaneosullivan.wordpress.com/'>UI</a> <a href='http://facebook.com/shaneos'>engineer</a> focusing on <a href='https://play.google.com/store/apps/details?id=com.facebook.pages.app'>mobile</a> and desktop framework development for building <a href='http://facebook.com/ads/create'>business interfaces</a> at Facebook.  <a href='http://dojocampus.org/explorer/'>Contributor</a> to the <a href='http://dojotoolkit.org/'>Dojo Toolkit</a>.</p>
       </div>
     </div>
-    <!--<div class='span6'>
-      <div class='speaker' id='panellists-pavel-feldman'>
-        <img src='img/heads/pavel-feldman.jpg' alt='Pavel Feldman' />
-        <h3>Pavel Feldman</h3>
-        <p class='affil'>Google</p>
-        <p class='bio'>Pavel is a software engineer working on Google <a href='https://developers.google.com/chrome-developer-tools/'>Chrome Developer Tools</a> and <a href='http://webkit.org/'>WebKit's</a> Web Inspector.</p>
-      </div>
-    </div>-->
   </div>
-
-  <p style='margin-top: 30px'>Panellist profiles will be posted as they are announced.</p>
 
   </div>
   </div>
@@ -861,7 +991,7 @@
 
   <div class='row'>
     <div class='span3'>
-      <p>Edge is being held at Facebook's London office, in Covent Garden:</p>
+      <p>Edge was held at Facebook's London office, in Covent Garden:</p>
 
       <address>
       <strong>Facebook London</strong><br>
@@ -876,10 +1006,10 @@
        <li>Covent Garden</li>
      </ul>
 
-     <p><a href="https://www.google.co.uk/maps?f=q&amp;source=embed&amp;hl=en&amp;geocode=&amp;q=wc2h+9la&amp;aq=&amp;sll=47.754098,-4.306641&amp;sspn=41.824571,126.210937&amp;ie=UTF8&amp;hq=&amp;hnear=London+WC2H+9LA,+United+Kingdom&amp;t=m&amp;ll=51.513764,-0.125742&amp;spn=0.025639,0.054932&amp;z=14&amp;iwloc=A">View map on Google Maps</a></p>
+     <p><a href="http://www.google.co.uk/maps?f=q&amp;source=embed&amp;hl=en&amp;geocode=&amp;q=wc2h+9la&amp;aq=&amp;sll=47.754098,-4.306641&amp;sspn=41.824571,126.210937&amp;ie=UTF8&amp;hq=&amp;hnear=London+WC2H+9LA,+United+Kingdom&amp;t=m&amp;ll=51.513764,-0.125742&amp;spn=0.025639,0.054932&amp;z=14&amp;iwloc=A">View map on Google Maps</a></p>
     </div>
     <div class='span9'>
-      <iframe width="100%" height="300" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://www.google.co.uk/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=wc2h+9la&amp;aq=&amp;sll=47.754098,-4.306641&amp;sspn=41.824571,126.210937&amp;ie=UTF8&amp;hq=&amp;hnear=London+WC2H+9LA,+United+Kingdom&amp;t=m&amp;ll=51.513764,-0.125742&amp;spn=0.025639,0.054932&amp;z=12&amp;iwloc=A&amp;output=embed"></iframe>
+      <img src='img/fblondon.jpg' />
     </div>
   </div>
 
@@ -932,7 +1062,7 @@
   <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script>
 
   <script src="js/videos.js"></script>
-  <script src="js/videoSearch.js"></script>
+  <script src="js/videosearch.js"></script>
 
   <script type="text/javascript">
 
