@@ -152,9 +152,9 @@ function insertCues(videoId, cues) {
 function addClickHandler(cueDiv, cue) {
   cueDiv.click(function() {
     // don't reload video if the clicked cue is for current video
-    //if (iframe.src.indexOf(cue.videoId) != -1){
-    //  callPlayer("youTubePlayer", "seekTo", [cue.startTime]);
-    //} else {
+      if (iframe.src.indexOf(cue.videoId) != -1){
+       callPlayer("youTubePlayer", "seekTo", [cue.startTime]);
+      } else {
       iframe.src =
         "http://www.youtube.com/embed/" + cue.videoId +
         "?start=" + cue.startTime +
