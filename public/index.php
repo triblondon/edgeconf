@@ -368,7 +368,7 @@
         </div>
       </div>
       <div class='span4'>
-        <label for='query'>Search video transcripts:</label><input id="query" type="text" autofocus="true" class='input-block-level' />
+        <label for='query'>Search video transcripts:</label><input id="query" type="text" class='input-block-level' />
         <span class='help-block'>Enter text to search transcripts, then click on a result to view video.</span>
         <div id="numResults"></div>
         <!-- begin results container, content generated dynamically -->
@@ -1063,6 +1063,7 @@
 
   <script src="js/videos.js"></script>
   <script src="js/videosearch.js"></script>
+  <script src="js/lib/callPlayer.js"></script>
 
   <script type="text/javascript">
 
