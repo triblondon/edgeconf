@@ -991,7 +991,7 @@
 
   <div class='row'>
     <div class='span3'>
-      <p>Edge was held at Facebook's London office, in Covent Garden:</p>
+      <p>Edge was held at Facebook's colourful London event space in Covent Garden:</p>
 
       <address>
       <strong>Facebook London</strong><br>
