@@ -159,7 +159,7 @@ function addClickHandler(cueDiv, cue) {
         "http://www.youtube.com/embed/" + cue.videoId +
         "?start=" + cue.startTime +
         "&autoplay=1&enablejsapi=1"
-    //}
+    }
     document.location.href = '#video';
   });
 }
