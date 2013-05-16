@@ -1,8 +1,8 @@
 3.2.1 (Media Mark)
-80dbc72f376c6a25a5c5fed5c2b685dbdd50f014
+d809fbde338c2f9dbba59defea42889624c7270b
 o:Sass::Tree::RootNode
 :
-@linei:@template"äx// Required global settings and mixins for Foundation
+@linei:@template"…x// Required global settings and mixins for Foundation
 @import "foundation/foundation-global";
 
 // Settings file to override Foundation variables
@@ -32,6 +32,9 @@
 // $text-direction: ltr;
 
 // We use these as default colors throughout
+$edgeBlue: #0043ff;
+$edgeGreen: #3daa94;
+$edgeYellow: #f9f900;
 // $primary-color: #2ba6cb;
 // $secondary-color: #e9e9e9;
 // $alert-color: #c60f13;
@@ -997,7 +1000,7 @@
 // $topbar-breakpoint: emCalc(940px); // Change to 9999px for always mobile layout
 // $topbar-media-query: "only screen and (min-width "#{$topbar-breakpoint}")";
 
-:@has_childrenT:@options{ :@children[øo:Sass::Tree::CommentNode
+:@has_childrenT:@options{ :@children[√o:Sass::Tree::CommentNode
 :
 @type:silent;i;	@;
 [ :@value["=/* Required global settings and mixins for Foundation */o:Sass::Tree::ImportNode
@@ -1030,48 +1033,56 @@
 [ ;["S/* We use these to control text direction settings
  * $text-direction: ltr; */o;
 ;;;i#;	@;
-[ ;["ü/* We use these as default colors throughout
- * $primary-color: #2ba6cb;
+[ ;["4/* We use these as default colors throughout */o:Sass::Tree::VariableNode:@guarded0:
+@name"edgeBlue;i$:
+@expro:Sass::Script::Color	:@attrs{	:
+alphai:
+greeniH:	blueiˇ:redi ;i$;	@;0;	@;
+[ o;;0;"edgeGreen;i%;o;	;{	;i;i™;iî;iB;i%;	@;0;	@;
+[ o;;0;"edgeYellow;i&;o;	;{	;i;i˘;i ;i˘;i&;	@;0;	@;
+[ o;
+;;;i';	@;
+[ ;["w/* $primary-color: #2ba6cb;
  * $secondary-color: #e9e9e9;
  * $alert-color: #c60f13;
  * $success-color: #5da423; */o;
-;;;i);	@;
+;;;i,;	@;
 [ ;["Ü/* We use these to make sure border radius matches unless we want it different.
  * $global-radius: 3px;
  * $global-rounded: 1000px; */o;
-;;;i-;	@;
+;;;i0;	@;
 [ ;["∏/* We use these to control inset shadow shiny edges and depressions.
  * $shiny-edge-size: 0 1px 0;
  * $shiny-edge-color: rgba(#fff, .5);
  * $shiny-edge-active-color: rgba(#000, .2); */o;
-;;;i2;	@;
+;;;i5;	@;
 [ ;["ñ/* We use this to control whether or not CSS classes come through in the gem files.
  * $include-html-classes: true;
  * $include-print-styles: true; */o;
-;;;i6;	@;
+;;;i9;	@;
 [ ;["/*
  * Grid Variables
  * */o;
-;;;i:;	@;
+;;;i=;	@;
 [ ;["Q/* $row-width: 62.5em;
  * $column-gutter: 1.875em;
  * $total-columns: 12; */o;
-;;;i>;	@;
+;;;iA;	@;
 [ ;["%/*
  * Block Grid Variables
  * */o;
-;;;iB;	@;
+;;;iE;	@;
 [ ;["ë/* We use this to control the maximum number of block grid elements per row
  * $block-grid-elements: 12;
  * $block-grid-default-spacing: 10px; */o;
-;;;iF;	@;
+;;;iI;	@;
 [ ;["~/* Enables media queries for block-grid classes. Set to false if writing semantic HTML.
  * $block-grid-media-queries: true; */o;
-;;;iI;	@;
+;;;iL;	@;
 [ ;["%/*
  * Typography Variables
  * */o;
-;;;iM;	@;
+;;;iP;	@;
 [ ;["h/* We use these to control header font styles
  * $header-font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
  * $header-font-weight: bold;
@@ -1081,7 +1092,7 @@
  * $header-top-margin: .2em;
  * $header-bottom-margin: .5em;
  * $header-text-rendering: optimizeLegibility; */o;
-;;;iW;	@;
+;;;iZ;	@;
 [ ;["Ê/* We use these to control header font sizes
  * $h1-font-size: emCalc(44px);
  * $h2-font-size: emCalc(37px);
@@ -1089,18 +1100,18 @@
  * $h4-font-size: emCalc(23px);
  * $h5-font-size: emCalc(18px);
  * $h6-font-size: 1em; */o;
-;;;i_;	@;
+;;;ib;	@;
 [ ;["Ì/* These control how subheaders are styled.
  * $subheader-line-height: 1.4;
  * $subheader-font-color: lighten($header-font-color, 30%);
  * $subheader-font-weight: 300;
  * $subheader-top-margin: .2em;
  * $subheader-bottom-margin: .5em; */o;
-;;;if;	@;
+;;;ii;	@;
 [ ;["v/* A general <small> styling
  * $small-font-size: 60%;
  * $small-font-color: lighten($header-font-color, 30%); */o;
-;;;ij;	@;
+;;;im;	@;
 [ ;["R/* We use these to style paragraphs
  * $paragraph-font-family: inherit;
  * $paragraph-font-weight: normal;
@@ -1110,30 +1121,30 @@
  * $paragraph-aside-font-size: emCalc(14px);
  * $paragraph-aside-line-height: 1.35;
  * $paragraph-aside-font-style: italic; */o;
-;;;it;	@;
+;;;iw;	@;
 [ ;["µ/* We use these to style <code> tags
  * $code-color: darken($alert-color, 15%);
  * $code-font-family: Consolas, 'Liberation Mono', Courier, monospace;
  * $code-font-weight: bold; */o;
-;;;iy;	@;
+;;;i|;	@;
 [ ;["•/* We use these to style anchors
  * $anchor-text-decoration: none;
  * $anchor-font-color: $primary-color;
  * $anchor-font-color-hover: darken($primary-color, 5%); */o;
-;;;i~;	@;
+;;;i|;	@;
 [ ;["ö/* We use these to style the <hr> element
  * $hr-border-width: 1px;
  * $hr-border-style: solid;
  * $hr-border-color: #ddd;
  * $hr-margin: emCalc(20px); */o;
-;;;i;	@;
+;;;iÇ;	@;
 [ ;["Ò/* We use these to style lists
  * $list-style-position: outside;
  * $list-side-margin: emCalc(18px);
  * $definition-list-header-weight: bold;
  * $definition-list-header-margin-bottom: .3em;
  * $definition-list-margin-bottom: emCalc(12px); */o;
-;;;iÜ;	@;
+;;;iâ;	@;
 [ ;["x/* We use these to style blockquotes
  * $blockquote-font-color: lighten($header-font-color, 30%);
  * $blockquote-padding: emCalc(9px) emCalc(20px) 0 emCalc(19px);
@@ -1141,40 +1152,40 @@
  * $blockquote-cite-font-size: emCalc(13px);
  * $blockquote-cite-font-color: lighten($header-font-color, 20%);
  * $blockquote-cite-link-color: $blockquote-cite-font-color; */o;
-;;;ié;	@;
+;;;ië;	@;
 [ ;["A/* Acronym styles
  * $acronym-underline: 1px dotted #ddd; */o;
-;;;ië;	@;
+;;;iî;	@;
 [ ;["ê/* We use these to control padding and margin
  * $microformat-padding: emCalc(10px) emCalc(12px);
  * $microformat-margin: 0 0 emCalc(20px) 0; */o;
-;;;iï;	@;
+;;;iò;	@;
 [ ;["õ/* We use these to control the border styles
  * $microformat-border-width: 1px;
  * $microformat-border-style: solid;
  * $microformat-border-color: #ddd; */o;
-;;;iö;	@;
+;;;iù;	@;
 [ ;["ë/* We use these to control full name font styles
  * $microformat-fullname-font-weight: bold;
  * $microformat-fullname-font-size: emCalc(15px); */o;
-;;;iû;	@;
+;;;i°;	@;
 [ ;["d/* We use this to control the summary font styles
  * $microformat-summary-font-weight: bold; */o;
-;;;i°;	@;
+;;;i§;	@;
 [ ;["[/* We use this to control abbr padding
  * $microformat-abbr-padding: 0 emCalc(1px); */o;
-;;;i§;	@;
+;;;iß;	@;
 [ ;["Å/* We use this to control abbr font styles
  * $microformat-abbr-font-weight: bold;
  * $microformat-abbr-font-decoration: none; */o;
-;;;i®;	@;
+;;;i´;	@;
 [ ;["/*
  * Form Variables
  * */o;
-;;;i¨;	@;
+;;;iØ;	@;
 [ ;["v/* We use this to set the base for lots of form spacing and positioning styles
  * $form-spacing: emCalc(16px); */o;
-;;;iØ;	@;
+;;;i≤;	@;
 [ ;["Ä/* We use these to style the labels in different ways
  * $label-pointer: pointer;
  * $label-font-size: emCalc(14px);
@@ -1192,19 +1203,19 @@
  * $input-border-width: 1px;
  * $input-disabled-bg: #ddd;
  * $input-box-shadow: inset 0 1px 2px rgba(0,0,0,0.1); */o;
-;;;i¡;	@;
+;;;iƒ;	@;
 [ ;["Ë/* We use these to style the fieldset border and spacing.
  * $fieldset-border-style: solid;
  * $fieldset-border-width: 1px;
  * $fieldset-border-color: #ddd;
  * $fieldset-padding: emCalc(20px);
  * $fieldset-margin: emCalc(18px) 0; */o;
-;;;i»;	@;
+;;;iÀ;	@;
 [ ;["è/* We use these to style the legends when you use them
  * $legend-bg: #fff;
  * $legend-font-weight: bold;
  * $legend-padding: 0 emCalc(3px); */o;
-;;;iÕ;	@;
+;;;i–;	@;
 [ ;["O/* We use these to style the prefix and postfix input elements
  * $input-prefix-bg: darken(#fff, 5%);
  * $input-prefix-border-color: darken(#fff, 20%);
@@ -1213,7 +1224,7 @@
  * $input-prefix-overflow: hidden;
  * $input-prefix-font-color: #333;
  * $input-prefix-font-color-alt: #fff; */o;
-;;;i÷;	@;
+;;;iŸ;	@;
 [ ;["m/* We use these to style the error states for inputs and labels
  * $input-error-message-padding: emCalc(6px) emCalc(4px);
  * $input-error-message-top: -($form-spacing) - emCalc(5px);
@@ -1221,17 +1232,17 @@
  * $input-error-message-font-weight: bold;
  * $input-error-message-font-color: #fff;
  * $input-error-message-font-color-alt: #333; */o;
-;;;iﬁ;	@;
+;;;i·;	@;
 [ ;["¶/* We use these to build padding for buttons.
  * $button-med: emCalc(12px);
  * $button-tny: emCalc(7px);
  * $button-sml: emCalc(9px);
  * $button-lrg: emCalc(16px); */o;
-;;;i‰;	@;
+;;;iÁ;	@;
 [ ;["|/* We use this to control the display property.
  * $button-display: inline-block;
  * $button-margin-bottom: emCalc(20px); */o;
-;;;iË;	@;
+;;;iÎ;	@;
 [ ;["Y/* We use these to control button text styles.
  * $button-font-family: inherit;
  * $button-font-color: #fff;
@@ -1242,116 +1253,116 @@
  * $button-font-lrg: emCalc(20px);
  * $button-font-weight: bold;
  * $button-font-align: center; */o;
-;;;iÛ;	@;
+;;;iˆ;	@;
 [ ;["Z/* We use these to control various hover effects.
  * $button-function-factor: 10%; */o;
-;;;iˆ;	@;
+;;;i˘;	@;
 [ ;["ª/* We use these to control button border styles.
  * $button-border-width: 1px;
  * $button-border-style: solid;
  * $button-border-color: darken($primary-color, $button-function-factor); */o;
-;;;i˚;	@;
+;;;i˛;	@;
 [ ;["m/* We use this to set the default radius used throughout the core.
  * $button-radius: $global-radius; */o;
-;;;i˛;	@;
+;;;i;	@;
 [ ;["e/* We use this to set default opacity for disabled buttons.
  * $button-disabled-opacity: 0.6; */o;
-;;;i;	@;
+;;;i;	@;
 [ ;["*/*
  * Dropdown Button Variables
  * */o;
-;;;i;	@;
+;;;i;	@;
 [ ;["ê/* We use these to set the color of the pip in dropdown buttons
  * $dropdown-button-pip-color: #fff;
  * $dropdown-button-pip-color-alt: #333; */o;
-;;;i	;	@;
+;;;i;	@;
 [ ;["/* We use these to style tiny dropdown buttons
  * $dropdown-button-padding-tny: $button-tny * 5;
  * $dropdown-button-pip-size-tny: $button-tny;
  * $dropdown-button-pip-right-tny: $button-tny * 2;
  * $dropdown-button-pip-top-tny: -$button-tny / 2 + emCalc(1px); */o;
-;;;i;	@;
+;;;i;	@;
 [ ;["/* We use these to style small dropdown buttons
  * $dropdown-button-padding-sml: $button-sml * 5;
  * $dropdown-button-pip-size-sml: $button-sml;
  * $dropdown-button-pip-right-sml: $button-sml * 2;
  * $dropdown-button-pip-top-sml: -$button-sml / 2 + emCalc(1px); */o;
-;;;i;	@;
+;;;i;	@;
 [ ;["%/* We use these to style medium dropdown buttons
  * $dropdown-button-padding-med: $button-med * 4 + emCalc(3px);
  * $dropdown-button-pip-size-med: $button-med - emCalc(3px);
  * $dropdown-button-pip-right-med: $button-med * 2;
  * $dropdown-button-pip-top-med: -$button-med / 2 + emCalc(2px); */o;
-;;;i;	@;
+;;;i;	@;
 [ ;["!/* We use these to style large dropdown buttons
  * $dropdown-button-padding-lrg: $button-lrg * 4;
  * $dropdown-button-pip-size-lrg: $button-lrg - emCalc(6px);
  * $dropdown-button-pip-right-lrg: $button-lrg + emCalc(12px);
  * $dropdown-button-pip-top-lrg: -$button-lrg / 2 + emCalc(3px); */o;
-;;;i!;	@;
+;;;i$;	@;
 [ ;["'/*
  * Split Button Variables
  * */o;
-;;;i%;	@;
+;;;i(;	@;
 [ ;["Ë/* We use these to control different shared styles for Split Buttons
  * $split-button-function-factor: 15%;
  * $split-button-pip-color: #fff;
  * $split-button-pip-color-alt: #333;
  * $split-button-active-bg-tint: rgba(0,0,0,0.1); */o;
-;;;i+;	@;
+;;;i.;	@;
 [ ;["/* We use these to control tiny split buttons
  * $split-button-padding-tny: $button-tny * 9;
  * $split-button-span-width-tny: $button-tny * 6.5;
  * $split-button-pip-size-tny: $button-tny;
  * $split-button-pip-top-tny: $button-tny * 2;
  * $split-button-pip-left-tny: emCalc(-5px); */o;
-;;;i2;	@;
+;;;i5;	@;
 [ ;["/* We use these to control small split buttons
  * $split-button-padding-sml: $button-sml * 7;
  * $split-button-span-width-sml: $button-sml * 5;
  * $split-button-pip-size-sml: $button-sml;
  * $split-button-pip-top-sml: $button-sml * 1.5;
  * $split-button-pip-left-sml: emCalc(-9px); */o;
-;;;i9;	@;
+;;;i<;	@;
 [ ;["-/* We use these to control medium split buttons
  * $split-button-padding-med: $button-med * 6.4;
  * $split-button-span-width-med: $button-med * 4;
  * $split-button-pip-size-med: $button-med - emCalc(3px);
  * $split-button-pip-top-med: $button-med * 1.5;
  * $split-button-pip-left-med: emCalc(-9px); */o;
-;;;i@;	@;
+;;;iC;	@;
 [ ;["5/* We use these to control large split buttons
  * $split-button-padding-lrg: $button-lrg * 6;
  * $split-button-span-width-lrg: $button-lrg * 3.75;
  * $split-button-pip-size-lrg: $button-lrg - emCalc(6px);
  * $split-button-pip-top-lrg: $button-lrg + emCalc(5px);
  * $split-button-pip-left-lrg: emCalc(-9px); */o;
-;;;iG;	@;
+;;;iJ;	@;
 [ ;[" /*
  * Alert Variables
  * */o;
-;;;iK;	@;
+;;;iN;	@;
 [ ;["Ù/* We use this to control alert padding.
  * $alert-padding-top: emCalc(11px);
  * $alert-padding-left: $alert-padding-top;
  * $alert-padding-right: $alert-padding-top + emCalc(10px);
  * $alert-padding-bottom: $alert-padding-top + emCalc(1px); */o;
-;;;iQ;	@;
+;;;iT;	@;
 [ ;["æ/* We use these to control text style.
  * $alert-font-weight: bold;
  * $alert-font-size: emCalc(14px);
  * $alert-font-color: #fff;
  * $alert-font-color-alt: darken($secondary-color, 60%); */o;
-;;;iW;	@;
+;;;iZ;	@;
 [ ;["N/* We use this for close hover effect.
  * $alert-function-factor: 10%; */o;
-;;;iZ;	@;
+;;;i];	@;
 [ ;["◊/* We use these to control border styles.
  * $alert-border-style: solid;
  * $alert-border-width: 1px;
  * $alert-border-color: darken($primary-color, $alert-function-factor);
  * $alert-bottom-margin: emCalc(20px); */o;
-;;;i`;	@;
+;;;ic;	@;
 [ ;["/* We use these to style the close buttons
  * $alert-close-color: #333;
  * $alert-close-position: emCalc(5px);
@@ -1359,28 +1370,28 @@
  * $alert-close-opacity: 0.3;
  * $alert-close-opacity-hover: 0.5;
  * $alert-close-padding: 5px 4px 4px; */o;
-;;;ih;	@;
+;;;ik;	@;
 [ ;["Q/* We use this to control border radius
  * $alert-radius: $global-radius; */o;
-;;;ik;	@;
+;;;in;	@;
 [ ;["%/*
  * Breadcrumb Variables
  * */o;
-;;;io;	@;
+;;;ir;	@;
 [ ;["}/* We use this to set the background color for the breadcrumb container.
  * $crumb-bg: lighten($secondary-color, 5%); */o;
-;;;ir;	@;
+;;;iu;	@;
 [ ;["ú/* We use these to set the padding around the breadcrumbs.
  * $crumb-padding: emCalc(6px) emCalc(14px) emCalc(9px);
  * $crumb-side-padding: emCalc(12px); */o;
-;;;iv;	@;
+;;;iy;	@;
 [ ;["Ï/* We use these to control border styles.
  * $crumb-function-factor: 10%;
  * $crumb-border-size: 1px;
  * $crumb-border-style: solid;
  * $crumb-border-color: darken($crumb-bg, $crumb-function-factor);
  * $crumb-radius: $button-radius; */o;
-;;;i};	@;
+;;;iÄ;	@;
 [ ;["/* We use these to set various text styles for breadcrumbs.
  * $crumb-font-size: emCalc(11px);
  * $crumb-font-color: $primary-color;
@@ -1388,49 +1399,49 @@
  * $crumb-font-color-unavailable: #999;
  * $crumb-font-transform: uppercase;
  * $crumb-link-decor: underline; */o;
-;;;iÖ;	@;
+;;;ià;	@;
 [ ;["s/* We use these to control the slash between breadcrumbs
  * $crumb-slash-color: #aaa;
  * $crumb-slash: "/"; */o;
-;;;iâ;	@;
+;;;iå;	@;
 [ ;["#/*
  * Clearing Variables
  * */o;
-;;;iç;	@;
+;;;iê;	@;
 [ ;["«/* We use these to set the background colors for parts of Clearing.
  * $clearing-bg: #111;
  * $clearing-caption-bg: $clearing-bg;
  * $clearing-carousel-bg: #111;
  * $clearing-img-bg: $clearing-bg; */o;
-;;;iì;	@;
+;;;iñ;	@;
 [ ;["p/* We use these to style the close button
  * $clearing-close-color: #fff;
  * $clearing-close-size: 40px; */o;
-;;;ió;	@;
+;;;iö;	@;
 [ ;["{/* We use these to style the arrows
  * $clearing-arrow-size: 16px;
  * $clearing-arrow-color: $clearing-close-color; */o;
-;;;iõ;	@;
+;;;iû;	@;
 [ ;["y/* We use these to style captions
  * $clearing-caption-font-color: #fff;
  * $clearing-caption-padding: 10px 30px; */o;
-;;;iü;	@;
+;;;i¢;	@;
 [ ;["˝/* We use these to make the image and carousel height and style
  * $clearing-active-img-height: 75%;
  * $clearing-carousel-height: 150px;
  * $clearing-carousel-thumb-width: 175px;
  * $clearing-carousel-thumb-active-border: 4px solid rgb(255,255,255); */o;
-;;;i•;	@;
+;;;i®;	@;
 [ ;["&/*
  * Custom Form Variables
  * */o;
-;;;i©;	@;
+;;;i¨;	@;
 [ ;["ƒ/* We use these to control the basic form styles input styles
  * $custom-form-border-color: #ccc;
  * $custom-form-bg: #fff;
  * $custom-form-bg-disabled: #ddd;
  * $custom-form-check-color: #222; */o;
-;;;iØ;	@;
+;;;i≤;	@;
 [ ;["√/* We use these to style the custom select form element.
  * $custom-select-bg: #fff;
  * $custom-select-fade-to-color: #f3f3f3;
@@ -1441,7 +1452,7 @@
  * $custom-select-margin-bottom: emCalc(20px);
  * $custom-select-font-color-selected: #141414;
  * $custom-select-disabled-color: #888; */o;
-;;;i∫;	@;
+;;;iΩ;	@;
 [ ;["Î/* We use these to control the style of the custom select dropdown element.
  * $custom-dropdown-height: 200px;
  * $custom-dropdown-bg: #fff;
@@ -1458,30 +1469,30 @@
  * $custom-dropdown-left-padding: emCalc(6px);
  * $custom-dropdown-right-padding: emCalc(38px);
  * $custom-dropdown-list-item-min-height: emCalc(24px); */o;
-;;;iÀ;	@;
+;;;iŒ;	@;
 [ ;["#/*
  * Dropdown Variables
  * */o;
-;;;iœ;	@;
+;;;i“;	@;
 [ ;["∂/* We use these to controls height and width styles.
  * $f-dropdown-max-width: 200px;
  * $f-dropdown-height: auto;
  * $f-dropdown-max-height: none;
  * $f-dropdown-margin-top: 2px; */o;
-;;;i’;	@;
+;;;iÿ;	@;
 [ ;["O/* We use this to control the background color
  * $f-dropdown-bg: #fff; */o;
-;;;iÿ;	@;
+;;;i€;	@;
 [ ;["Ø/* We use this to set the border styles for dropdowns.
  * $f-dropdown-border-style: solid;
  * $f-dropdown-border-width: 1px;
  * $f-dropdown-border-color: darken(#fff, 20%); */o;
-;;;i›;	@;
+;;;i‡;	@;
 [ ;["†/* We use these to style the triangle pip.
  * $f-dropdown-triangle-size: 6px;
  * $f-dropdown-triangle-color: #fff;
  * $f-dropdown-triangle-side-offset: 10px; */o;
-;;;i‚;	@;
+;;;iÂ;	@;
 [ ;["J/* We use these to control styles for the list elements.
  * $f-dropdown-list-style: none;
  * $f-dropdown-font-color: #555;
@@ -1490,44 +1501,44 @@
  * $f-dropdown-line-height: emCalc(18px);
  * $f-dropdown-list-hover-bg: #eeeeee;
  * $dropdown-mobile-left: 0; */o;
-;;;iÎ;	@;
+;;;iÓ;	@;
 [ ;["/* We use this to control the styles for when the dropdown has custom content.
  * $f-dropdown-content-padding: emCalc(20px); */o;
-;;;iÓ;	@;
+;;;iÒ;	@;
 [ ;["%/*
  * Flex Video Variables
  * */o;
-;;;iÚ;	@;
+;;;iı;	@;
 [ ;["Ω/* We use these to control video container padding and margins
  * $flex-video-padding-top: emCalc(25px);
  * $flex-video-padding-bottom: 67.5%;
  * $flex-video-margin-bottom: emCalc(16px); */o;
-;;;i˜;	@;
+;;;i˙;	@;
 [ ;["m/* We use this to control widescreen bottom padding
  * $flex-video-widescreen-padding-bottom: 57.25%; */o;
-;;;i˙;	@;
+;;;i˝;	@;
 [ ;["&/*
  * Inline List Variables
  * */o;
-;;;i˛;	@;
+;;;i;	@;
 [ ;["Ω/* We use this to control the margins and padding of the inline list.
  * $inline-list-margin-bottom: emCalc(17px) emCalc(-22px );
  * $inline-list-margin: 0 0;
  * $inline-list-padding: 0; */o;
-;;;i;	@;
+;;;i;	@;
 [ ;["d/* We use this to control the overflow of the inline list.
  * $inline-list-overflow: hidden; */o;
-;;;i;	@;
+;;;i	;	@;
 [ ;["P/* We use this to control the list items
  * $inline-list-display: block; */o;
-;;;i	;	@;
+;;;i;	@;
 [ ;["h/* We use this to control any elments within list items
  * $inline-list-children-display: block; */o;
-;;;i;	@;
+;;;i;	@;
 [ ;[""/*
  * Joyride Variables
  * */o;
-;;;i;	@;
+;;;i;	@;
 [ ;["/* Controlling default Joyride styles
  * $joyride-tip-bg: rgb(0,0,0);
  * $joyride-tip-default-width: 300px;
@@ -1535,155 +1546,155 @@
  * $joyride-tip-border: solid 1px #555;
  * $joyride-tip-radius: 4px;
  * $joyride-tip-position-offset: 22px; */o;
-;;;i;	@;
+;;;i;	@;
 [ ;["ù/* Here, we're setting the tip dont styles
  * $joyride-tip-font-color: #fff;
  * $joyride-tip-font-size: emCalc(14px);
  * $joyride-tip-header-weight: bold; */o;
-;;;i;	@;
+;;;i ;	@;
 [ ;["D/* This changes the nub size
  * $joyride-tip-nub-size: 14px; */o;
-;;;i ;	@;
+;;;i#;	@;
 [ ;["•/* This adjusts the styles for the timer when its enabled
  * $joyride-tip-timer-width: 50px;
  * $joyride-tip-timer-height: 3px;
  * $joyride-tip-timer-color: #666; */o;
-;;;i%;	@;
+;;;i(;	@;
 [ ;["†/* This changes up the styles for the close button
  * $joyride-tip-close-color: #777;
  * $joyride-tip-close-size: 30px;
  * $joyride-tip-close-weight: normal; */o;
-;;;i*;	@;
+;;;i-;	@;
 [ ;["t/* When Joyride is filling the screen, we use this style for the bg
  * $joyride-screenfill: rgba(0,0,0,0.5); */o;
-;;;i-;	@;
+;;;i0;	@;
 [ ;["$/*
  * Keystroke Variables
  * */o;
-;;;i1;	@;
+;;;i4;	@;
 [ ;["˜/* We use these to control text styles.
  * $keystroke-font: "Consolas", "Menlo", "Courier", monospace;
  * $keystroke-font-size: emCalc(15px);
  * $keystroke-font-color: #222;
  * $keystroke-font-color-alt: #fff;
  * $keystroke-function-factor: 7%; */o;
-;;;i8;	@;
+;;;i;;	@;
 [ ;["p/* We use this to control keystroke padding.
  * $keystroke-padding: emCalc(2px) emCalc(4px) emCalc(0px); */o;
-;;;i;;	@;
+;;;i>;	@;
 [ ;["0/* We use these to control background and border styles.
  * $keystroke-bg: darken(#fff, $keystroke-function-factor);
  * $keystroke-border-style: solid;
  * $keystroke-border-width: 1px;
  * $keystroke-border-color: darken($keystroke-bg, $keystroke-function-factor);
  * $keystroke-radius: $button-radius; */o;
-;;;iB;	@;
+;;;iE;	@;
 [ ;[" /*
  * Label Variables
  * */o;
-;;;iF;	@;
+;;;iI;	@;
 [ ;["Å/* We use these to style the labels
  * $label-padding: emCalc(3px) emCalc(10px) emCalc(4px);
  * $label-radius: $button-radius; */o;
-;;;iJ;	@;
+;;;iM;	@;
 [ ;["o/* We use these to style the label text
  * $label-font-size: emCalc(14px);
  * $label-font-weight: bold; */o;
-;;;iN;	@;
+;;;iQ;	@;
 [ ;["/*
  * Orbit Settings
  * */o;
-;;;iR;	@;
+;;;iU;	@;
 [ ;["Í/* We use these to control the caption styles
  * $orbit-container-bg: #f5f5f5;
  * $orbit-caption-bg-old-browser: #000;
  * $orbit-caption-bg-old: rgb(0,0,0);
  * $orbit-caption-bg: rgba(0,0,0,0.6);
  * $orbit-caption-font-color: #fff; */o;
-;;;iY;	@;
+;;;i\;	@;
 [ ;["|/* We use these to control the left/right nav styles
  * $orbit-nav-bg-old: rgb(0,0,0);
  * $orbit-nav-bg: rgba(0,0,0,0.6); */o;
-;;;i];	@;
+;;;i`;	@;
 [ ;["|/* We use these to control the timer styles
  * $orbit-timer-bg-old: rgb(0,0,0);
  * $orbit-timer-bg: rgba(0,0,0,0.6); */o;
-;;;ia;	@;
+;;;id;	@;
 [ ;["~/* We use these to control the bullet nav styles
  * $orbit-bullet-nav-color: #999;
  * $orbit-bullet-nav-color-active: #222; */o;
-;;;ie;	@;
+;;;ih;	@;
 [ ;["µ/* We use thes to controls the style of slide numbers
  * $orbit-slide-number-bg: rgb(0,0,0);
  * $orbit-slide-number-font-color: #fff;
  * $orbit-slide-number-padding: emCalc(5px); */o;
-;;;ij;	@;
+;;;im;	@;
 [ ;["Å/* Margin for when Orbit is stacked on small screens
  * $stack-on-small-margin-bottom: emCalc(20px); // Doesn't quite work yet */o;
-;;;im;	@;
+;;;ip;	@;
 [ ;["%/*
  * Pagination Variables
  * */o;
-;;;iq;	@;
+;;;it;	@;
 [ ;["Ä/* We use these to control the pagination container
  * $pagination-height: emCalc(24px);
  * $pagination-margin: emCalc(-5px); */o;
-;;;iu;	@;
+;;;ix;	@;
 [ ;["˘/* We use these to set the list-item properties
  * $pagination-li-float: $default-float;
  * $pagination-li-height: emCalc(24px);
  * $pagination-li-font-color: #222;
  * $pagination-li-font-size: emCalc(14px);
  * $pagination-li-margin: emCalc(5px); */o;
-;;;i|;	@;
+;;;i;	@;
 [ ;["»/* We use these for the pagination anchor links
  * $pagination-link-pad: emCalc(1px) emCalc(7px) emCalc(1px);
  * $pagination-link-font-color: #999;
  * $pagination-link-active-bg: darken(#fff, 10%); */o;
-;;;iÅ;	@;
+;;;iÑ;	@;
 [ ;["«/* We use these for disabled anchor links
  * $pagination-link-unavailable-cursor: default;
  * $pagination-link-unavailable-font-color: #999;
  * $pagination-link-unavailable-bg-active: transparent; */o;
-;;;iÜ;	@;
+;;;iâ;	@;
 [ ;["//* We use these for currently selected anchor links
  * $pagination-link-current-background: $primary-color;
  * $pagination-link-current-font-color: #fff;
  * $pagination-link-current-font-weight: bold;
  * $pagination-link-current-cursor: default;
  * $pagination-link-current-active-bg: $primary-color; */o;
-;;;iç;	@;
+;;;iê;	@;
 [ ;[" /*
  * Panel Variables
  * */o;
-;;;ië;	@;
+;;;iî;	@;
 [ ;["ô/* We use these to control the background and border styles
  * $panel-bg: darken(#fff, 5%);
  * $panel-border-style: solid;
  * $panel-border-size: 1px; */o;
-;;;iñ;	@;
+;;;iô;	@;
 [ ;["§/* We use this % to control how much we darken things on hover
  * $panel-function-factor: 10%;
  * $panel-border-color: darken($panel-bg, $panel-function-factor); */o;
-;;;iö;	@;
+;;;iù;	@;
 [ ;["â/* We use these to set default inner padding and bottom margin
  * $panel-margin-bottom: emCalc(20px);
  * $panel-padding: emCalc(20px); */o;
-;;;iû;	@;
+;;;i°;	@;
 [ ;["n/* We use these to set default font colors
  * $panel-font-color: #333;
  * $panel-font-color-alt: #fff; */o;
-;;;i¢;	@;
+;;;i•;	@;
 [ ;["(/*
  * Pricing Table Variables
  * */o;
-;;;i¶;	@;
+;;;i©;	@;
 [ ;["Z/* We use this to control the border color
  * $price-table-border: solid 1px #ddd; */o;
-;;;i©;	@;
+;;;i¨;	@;
 [ ;["u/* We use this to control the bottom margin of the pricing table
  * $price-table-margin-bottom: emCalc(20px); */o;
-;;;i¨;	@;
+;;;iØ;	@;
 [ ;["˙/* We use these to control the title styles
  * $price-title-bg: #ddd;
  * $price-title-padding: emCalc(15px) emCalc(20px);
@@ -1691,7 +1702,7 @@
  * $price-title-color: #333;
  * $price-title-weight: bold;
  * $price-title-size: emCalc(16px); */o;
-;;;i¥;	@;
+;;;i∑;	@;
 [ ;["¸/* We use these to control the price styles
  * $price-money-bg: #eee;
  * $price-money-padding: emCalc(15px) emCalc(20px);
@@ -1699,7 +1710,7 @@
  * $price-money-color: #333;
  * $price-money-weight: normal;
  * $price-money-size: emCalc(20px); */o;
-;;;iº;	@;
+;;;iø;	@;
 [ ;["?/* We use these to control the description styles
  * $price-bg: #fff;
  * $price-desc-color: #777;
@@ -1709,7 +1720,7 @@
  * $price-desc-weight: normal;
  * $price-desc-line-height: 1.4;
  * $price-desc-bottom-border: dotted 1px #ddd; */o;
-;;;i∆;	@;
+;;;i…;	@;
 [ ;["/* We use these to control the list item styles
  * $price-item-color: #333;
  * $price-item-padding: emCalc(15px);
@@ -1717,158 +1728,158 @@
  * $price-item-font-size: emCalc(14px);
  * $price-item-weight: normal;
  * $price-item-bottom-border: dotted 1px #ddd; */o;
-;;;iŒ;	@;
+;;;i—;	@;
 [ ;["ù/* We use these to control the CTA area styles
  * $price-cta-bg: #f5f5f5;
  * $price-cta-align: center;
  * $price-cta-padding: emCalc(20px) emCalc(20px) 0; */o;
-;;;i”;	@;
+;;;i÷;	@;
 [ ;["'/*
  * Progress Bar Variables
  * */o;
-;;;i◊;	@;
+;;;i⁄;	@;
 [ ;["|/* We use this to se the prog bar height
  * $progress-bar-height: emCalc(25px);
  * $progress-bar-color: transparent; */o;
-;;;i€;	@;
+;;;iﬁ;	@;
 [ ;["⁄/* We use these to control the border styles
  * $progress-bar-border-color: darken(#fff, 20%);
  * $progress-bar-border-size: 1px;
  * $progress-bar-border-style: solid;
  * $progress-bar-border-radius: $button-radius; */o;
-;;;i·;	@;
+;;;i‰;	@;
 [ ;["É/* We use these to control the margin & padding
  * $progress-bar-pad: emCalc(2px);
  * $progress-bar-margin-bottom: emCalc(10px); */o;
-;;;iÂ;	@;
+;;;iË;	@;
 [ ;["Í/* We use these to set the meter colors
  * $progress-meter-color: $primary-color;
  * $progress-meter-secondary-color: $secondary-color;
  * $progress-meter-success-color: $success-color;
  * $progress-meter-alert-color: $alert-color; */o;
-;;;iÎ;	@;
+;;;iÓ;	@;
 [ ;["(/* NEED TO FINISH THE LOGIC HERE */o;
-;;;iÌ;	@;
+;;;i;	@;
 [ ;["!/*
  * Reveal Variables
  * */o;
-;;;iÒ;	@;
+;;;iÙ;	@;
 [ ;["á/* We use these to control the style of the reveal overlay.
  * $reveal-overlay-bg: rgba(#000, .45);
  * $reveal-overlay-bg-old: #000; */o;
-;;;iı;	@;
+;;;i¯;	@;
 [ ;["Ï/* We use these to control the style of the modal itself.
  * $reveal-modal-bg: #fff;
  * $reveal-position-top: 50px;
  * $reveal-default-width: 80%;
  * $reveal-modal-padding: emCalc(20px);
  * $reveal-box-shadow: 0 0 10px rgba(#000,.4); */o;
-;;;i¸;	@;
+;;;iˇ;	@;
 [ ;["‚/* We use these to style the reveal close button
  * $reveal-close-font-size: emCalc(22px);
  * $reveal-close-top: emCalc(8px);
  * $reveal-close-side: emCalc(11px);
  * $reveal-close-color: #aaa;
  * $reveal-close-weight: bold; */o;
-;;;i;	@;
+;;;i;	@;
 [ ;["ã/* We use these to control the modal border
  * $reveal-border-style: solid;
  * $reveal-border-width: 1px;
  * $reveal-border-color: #666; */o;
-;;;i;	@;
+;;;i;	@;
 [ ;[""/*
  * Section Variables
  * */o;
-;;;i;	@;
+;;;i;	@;
 [ ;["|/* We use these to set padding and hover factor
  * $section-padding: emCalc(15px);
  * $section-function-factor: 10%; */o;
-;;;i;	@;
+;;;i;	@;
 [ ;["‘/* These style the titles
  * $section-title-color: #333;
  * $section-title-bg: #efefef;
  * $section-title-bg-active: darken($section-title-bg, $section-function-factor);
  * $section-title-bg-active-tabs: #fff; */o;
-;;;i;	@;
+;;;i;	@;
 [ ;["ç/* Want to control border size, here ya go!
  * $section-border-size: 1px;
  * $section-border-style: solid;
  * $section-border-color: #ccc; */o;
-;;;i;	@;
+;;;i;	@;
 [ ;["π/* Control the color of the background and some size options
  * $section-content-bg: #fff;
  * $section-vertical-nav-min-width: emCalc(200px);
  * $section-bottom-margin: emCalc(20px); */o;
-;;;i ;	@;
+;;;i#;	@;
 [ ;["#/*
  * Side Nav Variables
  * */o;
-;;;i$;	@;
+;;;i';	@;
 [ ;["P/* We use this to control padding.
  * $side-nav-padding: emCalc(14px) 0; */o;
-;;;i';	@;
+;;;i*;	@;
 [ ;["ô/* We use these to control list styles.
  * $side-nav-list-type: none;
  * $side-nav-list-position: inside;
  * $side-nav-list-margin: 0 0 emCalc(7px) 0; */o;
-;;;i,;	@;
+;;;i/;	@;
 [ ;["Õ/* We use these to control link styles.
  * $side-nav-link-color: $primary-color;
  * $side-nav-link-color-active: lighten(#000, 30%);
  * $side-nav-font-size: emCalc(14px);
  * $side-nav-font-weight: bold; */o;
-;;;i2;	@;
+;;;i5;	@;
 [ ;["ù/* We use these to control border styles
  * $side-nav-divider-size: 1px;
  * $side-nav-divider-style: solid;
  * $side-nav-divider-color: darken(#fff, 10%); */o;
-;;;i7;	@;
+;;;i:;	@;
 [ ;[""/*
  * Sub Nav Variables
  * */o;
-;;;i;;	@;
+;;;i>;	@;
 [ ;["ë/* We use these to control margin and padding
  * $sub-nav-list-margin: emCalc(-4px) 0 emCalc(18px);
  * $sub-nav-list-padding-top: emCalc(4px); */o;
-;;;i?;	@;
+;;;iB;	@;
 [ ;["’/* We use this to control the definition
  * $sub-nav-font-size: emCalc(14px);
  * $sub-nav-font-color: #999;
  * $sub-nav-font-weight: normal;
  * $sub-nav-text-decoration: none;
  * $sub-nav-border-radius: 1000px; */o;
-;;;iF;	@;
+;;;iI;	@;
 [ ;["˙/* We use these to control the active item styles
  * $sub-nav-active-font-weight: bold;
  * $sub-nav-active-bg: $primary-color;
  * $sub-nav-active-color: #fff;
  * $sub-nav-active-padding: emCalc(3px) emCalc(9px);
  * $sub-nav-active-cursor: default; */o;
-;;;iM;	@;
+;;;iP;	@;
 [ ;["!/*
  * Switch Variables
  * */o;
-;;;iQ;	@;
+;;;iT;	@;
 [ ;["Õ/* Controlling border styles and background colors for the switch container
  * $switch-border-color: darken(#fff, 20%);
  * $switch-border-style: solid;
  * $switch-border-width: 1px;
  * $switch-bg: #fff; */o;
-;;;iW;	@;
+;;;iZ;	@;
 [ ;["‰/* We use these to control the switch heights for our default classes
  * $switch-height-tny: 22px;
  * $switch-height-sml: 28px;
  * $switch-height-med: 36px;
  * $switch-height-lrg: 44px;
  * $switch-bottom-margin: emCalc(20px); */o;
-;;;i^;	@;
+;;;ia;	@;
 [ ;["Â/* We use these to control default font sizes for our classes.
  * $switch-font-size-tny: 11px;
  * $switch-font-size-sml: 12px;
  * $switch-font-size-med: 14px;
  * $switch-font-size-lrg: 17px;
  * $switch-label-side-padding: 6px; */o;
-;;;ie;	@;
+;;;ih;	@;
 [ ;["…/* We use these to style the switch-paddle
  * $switch-paddle-bg: #fff;
  * $switch-paddle-fade-to-color: darken($switch-paddle-bg, 10%);
@@ -1879,55 +1890,55 @@
  * $switch-paddle-transition-ease: ease-out;
  * $switch-positive-color: lighten($success-color, 50%);
  * $switch-negative-color: #f5f5f5; */o;
-;;;ip;	@;
+;;;is;	@;
 [ ;["`/* Outline Style for tabbing through switches
  * $switch-label-outline: 1px dotted #888; */o;
-;;;is;	@;
+;;;iv;	@;
 [ ;[" /*
  * Table Variables
  * */o;
-;;;iw;	@;
+;;;iz;	@;
 [ ;["}/* These control the background color for the table and even rows
  * $table-bg: #fff;
  * $table-even-row-bg: #f9f9f9; */o;
-;;;i{;	@;
+;;;i~;	@;
 [ ;["à/* These control the table cell border style
  * $table-border-style: solid;
  * $table-border-size: 1px;
  * $table-border-color: #ddd; */o;
-;;;iÄ;	@;
+;;;iÉ;	@;
 [ ;["Ô/* These control the table head styles
  * $table-head-bg: #f5f5f5;
  * $table-head-font-size: emCalc(14px);
  * $table-head-font-color: #222;
  * $table-head-font-weight: bold;
  * $table-head-padding: emCalc(8px) emCalc(10px) emCalc(10px); */o;
-;;;iá;	@;
+;;;iä;	@;
 [ ;["–/* These control the row padding and font styles
  * $table-row-padding: emCalc(9px) emCalc(10px);
  * $table-row-font-size: emCalc(14px);
  * $table-row-font-color: #222;
  * $table-line-height: emCalc(18px); */o;
-;;;iç;	@;
+;;;iê;	@;
 [ ;["Ü/* These are for controlling the display and margin of tables
  * $table-display: table-cell;
  * $table-margin-bottom: emCalc(20px); */o;
-;;;ië;	@;
+;;;iî;	@;
 [ ;["*/*
  * Image Thumbnail Variables
  * */o;
-;;;iï;	@;
+;;;iò;	@;
 [ ;["ˆ/* We use these to control border styles
  * $thumb-border-style: solid;
  * $thumb-border-width: 4px;
  * $thumb-border-color: #fff;
  * $thumb-box-shadow: 0 0 0 1px rgba(#000,.2);
  * $thumb-box-shadow-hover: 0 0 6px 1px rgba($primary-color,0.5); */o;
-;;;iú;	@;
+;;;iü;	@;
 [ ;["v/* Radius and transition speed for thumbs
  * $thumb-radius: $global-radius;
  * $thumb-transition-speed: 200ms; */o;
-;;;i†;	@;
+;;;i£;	@;
 [ ;["/*
  * Tooltip Variables
  *
@@ -1937,7 +1948,7 @@
  * $has-tip-border-bottom-hover: dotted 1px darken($primary-color, 20%);
  * $has-tip-font-color-hover: $primary-color;
  * $has-tip-cursor-type: help; */o;
-;;;i™;	@;
+;;;i≠;	@;
 [ ;["ò/* $tooltip-padding: emCalc(8px);
  * $tooltip-bg: #000;
  * $tooltip-font-size: emCalc(15px);
@@ -1950,30 +1961,30 @@
  * $tooltip-font-size-sml: emCalc(14px);
  * $tooltip-radius: $global-radius;
  * $tooltip-pip-size: 5px; */o;
-;;;i∑;	@;
+;;;i∫;	@;
 [ ;[""/*
  * Top Bar Variables
  * */o;
-;;;iª;	@;
+;;;iæ;	@;
 [ ;["@/* Background color for the top bar
  * $topbar-bg: #111; */o;
-;;;iæ;	@;
+;;;i¡;	@;
 [ ;["]/* Height and margin
  * $topbar-height: 45px;
  * $topbar-margin-bottom: emCalc(30px); */o;
-;;;i¬;	@;
+;;;i≈;	@;
 [ ;["L/* Control Input height for top bar
  * $topbar-input-height: 2.45em; */o;
-;;;i≈;	@;
+;;;i»;	@;
 [ ;["Ç/* Controlling the styles for the title in the top bar
  * $topbar-title-weight: bold;
  * $topbar-title-font-size: emCalc(17px); */o;
-;;;i…;	@;
+;;;iÃ;	@;
 [ ;["ö/* Set the link colors and styles for top-level nav
  * $topbar-link-color: #fff;
  * $topbar-link-weight: bold;
  * $topbar-link-font-size: emCalc(13px); */o;
-;;;iŒ;	@;
+;;;i—;	@;
 [ ;["/* Style the top bar dropdown elements
  * $topbar-dropdown-bg: #333;
  * $topbar-dropdown-link-color: #fff;
@@ -1981,7 +1992,7 @@
  * $topbar-dropdown-toggle-color: #fff;
  * $topbar-dropdown-toggle-alpha: 0.5;
  * $dropdown-label-color: #555; */o;
-;;;i÷;	@;
+;;;iŸ;	@;
 [ ;["./* Top menu icon styles
  * $topbar-menu-link-transform: uppercase;
  * $topbar-menu-link-font-size: emCalc(13px);
@@ -1990,7 +2001,7 @@
  * $topbar-menu-icon-color: #fff;
  * $topbar-menu-link-color-toggled: #888;
  * $topbar-menu-icon-color-toggled: #888; */o;
-;;;iﬂ;	@;
+;;;i‚;	@;
 [ ;["Ì/* Transitions and breakpoint styles
  * $topbar-transition-speed: 300ms;
  * $topbar-breakpoint: emCalc(940px); // Change to 9999px for always mobile layout

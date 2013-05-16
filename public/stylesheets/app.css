@@ -5454,3 +5454,95 @@ table tfoot tr td {
 .f-dropdown.large {
   max-width: 800px;
 }
+
+/* line 61, ../sass/app.scss */
+body {
+  font-family: 'Lato', sans-serif;
+}
+
+/* line 64, ../sass/app.scss */
+h1, h2, h3, h4, h5, h6 {
+  color: #333;
+  font-family: 'Lato', sans-serif;
+  text-transform: uppercase;
+}
+
+/* line 69, ../sass/app.scss */
+header {
+  background: #000;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 3;
+}
+/* line 76, ../sass/app.scss */
+header nav ul {
+  margin: 0;
+  padding: 7px 0;
+}
+/* line 80, ../sass/app.scss */
+header nav li {
+  display: inline-block;
+  text-align: center;
+  width: 19.65%;
+}
+/* line 84, ../sass/app.scss */
+header nav li a {
+  color: #fff;
+  font-size: 0.75em;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+/* line 93, ../sass/app.scss */
+#billboard {
+  background: #222222 url(/images/bg_billboard.jpg) center top no-repeat;
+  background-size: cover;
+  margin-top: 35px;
+  min-height: 330px;
+  padding: 50px 0;
+}
+/* line 99, ../sass/app.scss */
+#billboard h1 {
+  background: url(/images/logo.png) center top no-repeat;
+  background-size: 100%;
+  min-height: 245px;
+}
+
+/* line 105, ../sass/app.scss */
+.layer {
+  border-top: none;
+  border-right: none;
+  border-bottom: 10px solid #333;
+  border-left: none;
+  padding: 20px 0;
+}
+/* line 113, ../sass/app.scss */
+.layer h2 {
+  font-size: 2.25em;
+  font-weight: 900;
+  text-align: center;
+}
+/* line 118, ../sass/app.scss */
+.layer h2 + p {
+  font-size: 1.125em;
+  text-align: center;
+}
+
+/* line 123, ../sass/app.scss */
+.layer.connect {
+  border: none;
+}
+
+/* line 126, ../sass/app.scss */
+#billboard + .layer {
+  background: #3daa94;
+}
+/* line 128, ../sass/app.scss */
+#billboard + .layer h2, #billboard + .layer p {
+  color: #fff;
+}
+/* line 131, ../sass/app.scss */
+#billboard + .layer h2 + p {
+  font-size: 1.5em;
+}
