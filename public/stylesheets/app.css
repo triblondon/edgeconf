@@ -3951,8 +3951,8 @@ form.custom .custom.disabled {
   z-index: 99;
   height: auto;
   background-color: #fff;
-  margin-left: -40%;
-  width: 80%;
+  margin-left: -35%;
+  width: 70%;
   background-color: white;
   padding: 1.25em;
   border: solid 1px #666666;
@@ -5468,6 +5468,24 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* line 69, ../sass/app.scss */
+.button {
+  background: #333;
+  border: none;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  -o-border-radius: 4px;
+  border-radius: 4px;
+  box-shadow: none;
+  text-transform: uppercase;
+}
+
+/* line 76, ../sass/app.scss */
+.button:hover {
+  background: #444;
+}
+
+/* line 79, ../sass/app.scss */
 header {
   background: #000;
   position: fixed;
@@ -5475,18 +5493,18 @@ header {
   width: 100%;
   z-index: 3;
 }
-/* line 76, ../sass/app.scss */
+/* line 86, ../sass/app.scss */
 header nav ul {
   margin: 0;
   padding: 7px 0;
 }
-/* line 80, ../sass/app.scss */
+/* line 90, ../sass/app.scss */
 header nav li {
   display: inline-block;
   text-align: center;
   width: 19.65%;
 }
-/* line 84, ../sass/app.scss */
+/* line 94, ../sass/app.scss */
 header nav li a {
   color: #fff;
   font-size: 0.75em;
@@ -5494,7 +5512,7 @@ header nav li a {
   text-transform: uppercase;
 }
 
-/* line 93, ../sass/app.scss */
+/* line 103, ../sass/app.scss */
 #billboard {
   background: #222222 url(/images/bg_billboard.jpg) center top no-repeat;
   background-size: cover;
@@ -5502,14 +5520,14 @@ header nav li a {
   min-height: 330px;
   padding: 50px 0;
 }
-/* line 99, ../sass/app.scss */
+/* line 109, ../sass/app.scss */
 #billboard h1 {
   background: url(/images/logo.png) center top no-repeat;
   background-size: 100%;
   min-height: 245px;
 }
 
-/* line 105, ../sass/app.scss */
+/* line 115, ../sass/app.scss */
 .layer {
   border-top: none;
   border-right: none;
@@ -5517,32 +5535,32 @@ header nav li a {
   border-left: none;
   padding: 20px 0;
 }
-/* line 113, ../sass/app.scss */
+/* line 123, ../sass/app.scss */
 .layer h2 {
   font-size: 2.25em;
   font-weight: 900;
   text-align: center;
 }
-/* line 118, ../sass/app.scss */
+/* line 128, ../sass/app.scss */
 .layer h2 + p {
   font-size: 1.125em;
   text-align: center;
 }
 
-/* line 123, ../sass/app.scss */
+/* line 133, ../sass/app.scss */
 .layer.connect {
   border: none;
 }
 
-/* line 126, ../sass/app.scss */
+/* line 136, ../sass/app.scss */
 #billboard + .layer {
   background: #3daa94;
 }
-/* line 128, ../sass/app.scss */
+/* line 138, ../sass/app.scss */
 #billboard + .layer h2, #billboard + .layer p {
   color: #fff;
 }
-/* line 131, ../sass/app.scss */
+/* line 141, ../sass/app.scss */
 #billboard + .layer h2 + p {
   font-size: 1.5em;
 }

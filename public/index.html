@@ -41,6 +41,7 @@
 			<div class="small-12 columns">
 				<h2>What is Edge?</h2>
 				<p>A new kind of one-day conference on advanced web technologies for developers and browser vendors.</p>
+				<a href="#" class="button" data-reveal-id="registration-form">Register</a>
 			</div>
 		</div>
 	</section>
@@ -107,6 +108,13 @@
 			</div>
 		</div>
 	</section>
+	
+	
+	<div id="registration-form" class="reveal-modal">
+		<h2>Register</h2>
+		<iframe src="https://docs.google.com/spreadsheet/embeddedform?formkey=dEJtUjA3UDR3MnQtbWdwdWM3Vm85Rnc6MA" width="760" height="871" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe>
+		<a class="close-reveal-modal">&#215;</a>
+	</div>
 
   <script>
   document.write('<script src=' +
@@ -142,9 +150,16 @@
 	
 	<script src="javascripts/foundation/foundation.topbar.js"></script>
 	
+	<script>
+		$(document).ready(function() {
+			$('a.modal-trigger').trigger('click');
+		});
+	</script>
   
   <script>
     $(document).foundation();
   </script>
+  
+  
 </body>
 </html>

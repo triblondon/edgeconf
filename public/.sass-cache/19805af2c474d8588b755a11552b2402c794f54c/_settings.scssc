@@ -1,8 +1,8 @@
 3.2.1 (Media Mark)
-d809fbde338c2f9dbba59defea42889624c7270b
+d2ef50864ea5ef376394960637cc454ee1bd4b5a
 o:Sass::Tree::RootNode
 :
-@linei:@template"Éx// Required global settings and mixins for Foundation
+@linei:@template"Åx// Required global settings and mixins for Foundation
 @import "foundation/foundation-global";
 
 // Settings file to override Foundation variables
@@ -763,8 +763,8 @@ $edgeYellow: #f9f900;
 
 // We use these to control the style of the modal itself.
 // $reveal-modal-bg: #fff;
-// $reveal-position-top: 50px;
-// $reveal-default-width: 80%;
+//$reveal-position-top: 50px;
+$reveal-default-width: 70%;
 // $reveal-modal-padding: emCalc(20px);
 // $reveal-box-shadow: 0 0 10px rgba(#000,.4);
 
@@ -1000,7 +1000,7 @@ $edgeYellow: #f9f900;
 // $topbar-breakpoint: emCalc(940px); // Change to 9999px for always mobile layout
 // $topbar-media-query: "only screen and (min-width "#{$topbar-breakpoint}")";
 
-:@has_childrenT:@options{ :@children[Ão:Sass::Tree::CommentNode
+:@has_childrenT:@options{ :@children[Åo:Sass::Tree::CommentNode
 :
 @type:silent;i;	@;
 [ :@value["=/* Required global settings and mixins for Foundation */o:Sass::Tree::ImportNode
@@ -1768,11 +1768,12 @@ greeniH:	blueiÿ:redi ;i$;	@;0;	@;
  * $reveal-overlay-bg: rgba(#000, .45);
  * $reveal-overlay-bg-old: #000; */o;
 ;;;iø;	@;
-[ ;["ì/* We use these to control the style of the modal itself.
+[ ;["z/* We use these to control the style of the modal itself.
  * $reveal-modal-bg: #fff;
- * $reveal-position-top: 50px;
- * $reveal-default-width: 80%;
- * $reveal-modal-padding: emCalc(20px);
+ *$reveal-position-top: 50px; */o;;0;"reveal-default-width;iû;o:Sass::Script::Number:@original"70%;iû;	@:@denominator_units[ ;iK:@numerator_units["%;	@;
+[ o;
+;;;iü;	@;
+[ ;["^/* $reveal-modal-padding: emCalc(20px);
  * $reveal-box-shadow: 0 0 10px rgba(#000,.4); */o;
 ;;;iÿ;	@;
 [ ;["â/* We use these to style the reveal close button
