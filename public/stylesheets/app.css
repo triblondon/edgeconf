@@ -5468,7 +5468,17 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* line 69, ../sass/app.scss */
-.button {
+a:link, a:visited {
+  color: #0043ff;
+}
+
+/* line 72, ../sass/app.scss */
+a:hover, a:active {
+  color: #1a56ff;
+}
+
+/* line 75, ../sass/app.scss */
+a.button {
   background: #333;
   border: none;
   -webkit-border-radius: 4px;
@@ -5477,15 +5487,17 @@ h1, h2, h3, h4, h5, h6 {
   -o-border-radius: 4px;
   border-radius: 4px;
   box-shadow: none;
+  color: #fff;
   text-transform: uppercase;
 }
 
-/* line 76, ../sass/app.scss */
+/* line 83, ../sass/app.scss */
 .button:hover {
-  background: #444;
+  background: #f9f900;
+  color: #333;
 }
 
-/* line 79, ../sass/app.scss */
+/* line 87, ../sass/app.scss */
 header {
   background: #000;
   position: fixed;
@@ -5493,74 +5505,137 @@ header {
   width: 100%;
   z-index: 3;
 }
-/* line 86, ../sass/app.scss */
+/* line 94, ../sass/app.scss */
 header nav ul {
   margin: 0;
   padding: 7px 0;
 }
-/* line 90, ../sass/app.scss */
+/* line 98, ../sass/app.scss */
 header nav li {
   display: inline-block;
   text-align: center;
   width: 19.65%;
 }
-/* line 94, ../sass/app.scss */
-header nav li a {
+/* line 102, ../sass/app.scss */
+header nav li a:link, header nav li a:visited {
   color: #fff;
   font-size: 0.75em;
   font-weight: 900;
   text-transform: uppercase;
 }
 
-/* line 103, ../sass/app.scss */
+/* line 111, ../sass/app.scss */
 #billboard {
   background: #222222 url(/images/bg_billboard.jpg) center top no-repeat;
   background-size: cover;
   margin-top: 35px;
-  min-height: 330px;
+  min-height: 270px;
   padding: 50px 0;
 }
-/* line 109, ../sass/app.scss */
+/* line 117, ../sass/app.scss */
 #billboard h1 {
   background: url(/images/logo.png) center top no-repeat;
   background-size: 100%;
-  min-height: 245px;
+  min-height: 185px;
 }
 
-/* line 115, ../sass/app.scss */
+/* line 123, ../sass/app.scss */
 .layer {
   border-top: none;
   border-right: none;
   border-bottom: 10px solid #333;
   border-left: none;
-  padding: 20px 0;
+  padding: 30px 0 30px 0;
+  text-align: center;
 }
-/* line 123, ../sass/app.scss */
+/* line 132, ../sass/app.scss */
 .layer h2 {
   font-size: 2.25em;
   font-weight: 900;
   text-align: center;
 }
-/* line 128, ../sass/app.scss */
+/* line 137, ../sass/app.scss */
 .layer h2 + p {
   font-size: 1.125em;
   text-align: center;
 }
+/* line 141, ../sass/app.scss */
+.layer img:last-child {
+  width: 100%;
+  margin-top: 30px;
+  margin-bottom: -32px;
+}
+/* line 148, ../sass/app.scss */
+.layer .button {
+  margin-bottom: 30px;
+}
 
-/* line 133, ../sass/app.scss */
+/* line 152, ../sass/app.scss */
 .layer.connect {
   border: none;
 }
 
-/* line 136, ../sass/app.scss */
+/* line 155, ../sass/app.scss */
 #billboard + .layer {
   background: #3daa94;
+  padding-bottom: 30px;
 }
-/* line 138, ../sass/app.scss */
+/* line 158, ../sass/app.scss */
 #billboard + .layer h2, #billboard + .layer p {
   color: #fff;
 }
-/* line 141, ../sass/app.scss */
-#billboard + .layer h2 + p {
+/* line 161, ../sass/app.scss */
+#billboard + .layer p {
   font-size: 1.5em;
+  margin-bottom: 35px;
+}
+/* line 164, ../sass/app.scss */
+#billboard + .layer p strong {
+  font-weight: 900;
+  text-transform: uppercase;
+}
+/* line 169, ../sass/app.scss */
+#billboard + .layer h2 + p {
+  margin-bottom: 20px;
+}
+/* line 172, ../sass/app.scss */
+#billboard + .layer .row .row {
+  text-align: left;
+}
+/* line 174, ../sass/app.scss */
+#billboard + .layer .row .row p {
+  margin-bottom: 15px;
+}
+
+/* line 180, ../sass/app.scss */
+.social-icons li {
+  display: block;
+  float: left;
+  list-style-type: none;
+  margin-right: 20px;
+  width: 12%;
+}
+/* line 186, ../sass/app.scss */
+.social-icons li a {
+  background-size: cover;
+  display: block;
+  min-height: 55px;
+  min-width: 55px;
+  opacity: .9;
+}
+/* line 193, ../sass/app.scss */
+.social-icons li a:hover {
+  opacity: 1;
+}
+/* line 196, ../sass/app.scss */
+.social-icons li .facebook {
+  background: url(/images/icon_facebook.png) center top no-repeat;
+}
+/* line 199, ../sass/app.scss */
+.social-icons li .twitter {
+  background: url(/images/icon_twitter.png) center top no-repeat;
+}
+/* line 202, ../sass/app.scss */
+.social-icons li .google-plus {
+  background: url(/images/icon_googleplus.png) center top no-repeat;
 }
