@@ -5625,6 +5625,14 @@ header nav li a:link, header nav li a:visited {
 #billboard + .layer .row .row p {
   margin-bottom: 15px;
 }
+/* line 198, ../sass/app.scss */
+#billboard + .layer p a:link, #billboard + .layer p a:visited {
+  color: #0043ff;
+}
+/* line 201, ../sass/app.scss */
+#billboard + .layer p a:hover, #billboard + .layer p a:active {
+  color: #1a56ff;
+}
 
 /* line 206, ../sass/app.scss */
 .social-icons li {

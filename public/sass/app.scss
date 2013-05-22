@@ -157,6 +157,19 @@ header {
 }
 .layer.connect {
 	border: none;
+	.social-icons {
+		li {
+			.facebook {
+				background: url(/images/icon_facebook_dark.png) center top no-repeat;
+			}
+			.twitter {
+				background: url(/images/icon_twitter_dark.png) center top no-repeat;
+			}
+			.google-plus {
+				background: url(/images/icon_googleplus_dark.png) center top no-repeat;
+			}
+		}
+	}
 }
 #billboard + .layer {
 	background: $edgeGreen;
