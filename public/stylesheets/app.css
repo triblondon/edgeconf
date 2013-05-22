@@ -5469,12 +5469,12 @@ h1, h2, h3, h4, h5, h6 {
 
 /* line 69, ../sass/app.scss */
 a:link, a:visited {
-  color: #0043ff;
+  color: #3daa94;
 }
 
 /* line 72, ../sass/app.scss */
 a:hover, a:active {
-  color: #1a56ff;
+  color: #44bca4;
 }
 
 /* line 75, ../sass/app.scss */
@@ -5498,6 +5498,16 @@ a.button {
 }
 
 /* line 87, ../sass/app.scss */
+ul {
+  margin-bottom: 30px;
+}
+/* line 89, ../sass/app.scss */
+ul li {
+  font-size: 1.125em;
+  list-style-type: none;
+}
+
+/* line 94, ../sass/app.scss */
 header {
   background: #000;
   position: fixed;
@@ -5505,18 +5515,18 @@ header {
   width: 100%;
   z-index: 3;
 }
-/* line 94, ../sass/app.scss */
+/* line 101, ../sass/app.scss */
 header nav ul {
   margin: 0;
   padding: 7px 0;
 }
-/* line 98, ../sass/app.scss */
+/* line 105, ../sass/app.scss */
 header nav li {
   display: inline-block;
   text-align: center;
   width: 19.65%;
 }
-/* line 102, ../sass/app.scss */
+/* line 109, ../sass/app.scss */
 header nav li a:link, header nav li a:visited {
   color: #fff;
   font-size: 0.75em;
@@ -5524,7 +5534,7 @@ header nav li a:link, header nav li a:visited {
   text-transform: uppercase;
 }
 
-/* line 111, ../sass/app.scss */
+/* line 118, ../sass/app.scss */
 #billboard {
   background: #222222 url(/images/bg_billboard.jpg) center top no-repeat;
   background-size: cover;
@@ -5532,14 +5542,14 @@ header nav li a:link, header nav li a:visited {
   min-height: 270px;
   padding: 50px 0;
 }
-/* line 117, ../sass/app.scss */
+/* line 124, ../sass/app.scss */
 #billboard h1 {
   background: url(/images/logo.png) center top no-repeat;
   background-size: 100%;
   min-height: 185px;
 }
 
-/* line 123, ../sass/app.scss */
+/* line 130, ../sass/app.scss */
 .layer {
   border-top: none;
   border-right: none;
@@ -5547,64 +5557,76 @@ header nav li a:link, header nav li a:visited {
   border-left: none;
   padding: 30px 0 30px 0;
 }
-/* line 133, ../sass/app.scss */
+/* line 140, ../sass/app.scss */
 .layer h2 {
   font-size: 2.25em;
   font-weight: 900;
 }
-/* line 137, ../sass/app.scss */
+/* line 144, ../sass/app.scss */
 .layer h2 + p {
   font-size: 1.125em;
 }
-/* line 140, ../sass/app.scss */
+/* line 147, ../sass/app.scss */
 .layer img:last-child {
   width: 100%;
   margin-top: 30px;
 }
-/* line 147, ../sass/app.scss */
+/* line 154, ../sass/app.scss */
 .layer .button {
   margin-bottom: 30px;
 }
 
-/* line 151, ../sass/app.scss */
+/* line 158, ../sass/app.scss */
 .layer.connect {
   border: none;
 }
+/* line 162, ../sass/app.scss */
+.layer.connect .social-icons li .facebook {
+  background: url(/images/icon_facebook_dark.png) center top no-repeat;
+}
+/* line 165, ../sass/app.scss */
+.layer.connect .social-icons li .twitter {
+  background: url(/images/icon_twitter_dark.png) center top no-repeat;
+}
+/* line 168, ../sass/app.scss */
+.layer.connect .social-icons li .google-plus {
+  background: url(/images/icon_googleplus_dark.png) center top no-repeat;
+}
 
-/* line 154, ../sass/app.scss */
+/* line 174, ../sass/app.scss */
 #billboard + .layer {
   background: #3daa94;
   padding-bottom: 30px;
   border-bottom: none;
 }
-/* line 158, ../sass/app.scss */
+/* line 178, ../sass/app.scss */
 #billboard + .layer h2, #billboard + .layer p {
   color: #fff;
 }
-/* line 161, ../sass/app.scss */
+/* line 181, ../sass/app.scss */
 #billboard + .layer p {
   font-size: 1.5em;
   margin-bottom: 35px;
 }
-/* line 164, ../sass/app.scss */
+/* line 184, ../sass/app.scss */
 #billboard + .layer p strong {
   font-weight: 900;
   text-transform: uppercase;
 }
-/* line 169, ../sass/app.scss */
+/* line 189, ../sass/app.scss */
 #billboard + .layer h2 + p {
   margin-bottom: 20px;
 }
-/* line 172, ../sass/app.scss */
+/* line 192, ../sass/app.scss */
 #billboard + .layer .row .row {
   text-align: left;
 }
-/* line 174, ../sass/app.scss */
+/* line 194, ../sass/app.scss */
 #billboard + .layer .row .row p {
   margin-bottom: 15px;
 }
 
-/* line 180, ../sass/app.scss */
+/* line 206, ../sass/app.scss */
 .social-icons li {
   display: block;
   float: left;
@@ -5612,7 +5634,7 @@ header nav li a:link, header nav li a:visited {
   margin-right: 20px;
   width: 12%;
 }
-/* line 186, ../sass/app.scss */
+/* line 212, ../sass/app.scss */
 .social-icons li a {
   background-size: cover;
   display: block;
@@ -5620,19 +5642,19 @@ header nav li a:link, header nav li a:visited {
   min-width: 55px;
   opacity: .9;
 }
-/* line 193, ../sass/app.scss */
+/* line 219, ../sass/app.scss */
 .social-icons li a:hover {
   opacity: 1;
 }
-/* line 196, ../sass/app.scss */
+/* line 222, ../sass/app.scss */
 .social-icons li .facebook {
   background: url(/images/icon_facebook.png) center top no-repeat;
 }
-/* line 199, ../sass/app.scss */
+/* line 225, ../sass/app.scss */
 .social-icons li .twitter {
   background: url(/images/icon_twitter.png) center top no-repeat;
 }
-/* line 202, ../sass/app.scss */
+/* line 228, ../sass/app.scss */
 .social-icons li .google-plus {
   background: url(/images/icon_googleplus.png) center top no-repeat;
 }

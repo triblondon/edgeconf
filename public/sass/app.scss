@@ -67,10 +67,10 @@ h1, h2 ,h3, h4, h5, h6 {
 	text-transform: uppercase;
 }
 a:link, a:visited {
-	color: $edgeBlue;
+	color: $edgeGreen;
 }
 a:hover, a:active {
-	color: lighten($edgeBlue, 5);
+	color: lighten($edgeGreen, 5);
 }
 a.button {
 	background: #333;
@@ -83,6 +83,13 @@ a.button {
 .button:hover {
 	background: $edgeYellow;
 	color: #333;
+}
+ul {
+	margin-bottom: 30px;
+	li {
+		font-size: em(18px);
+		list-style-type: none;
+	}
 }
 header {
 	background: #000;
@@ -174,6 +181,12 @@ header {
 		p {
 			margin-bottom: 15px;
 		}
+	}
+	p a:link, p a:visited {
+		color: $edgeBlue;
+	}
+	p a:hover, p a:active {
+		color: lighten($edgeBlue, 5);
 	}
 }
 .social-icons {
