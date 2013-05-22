@@ -5678,22 +5678,30 @@ header nav li a:hover, header nav li a:active {
   overflow: scroll;
   position: fixed;
   top: 50px !important;
-  z-index: 3000;
+}
+/* line 242, ../sass/app.scss */
+#registration-form h2 {
+  margin-left: 10px;
+}
+/* line 245, ../sass/app.scss */
+#registration-form iframe {
+  max-width: 1000px;
+  width: 100%;
 }
 
-/* line 244, ../sass/app.scss */
+/* line 250, ../sass/app.scss */
 .modal-open {
   overflow: hidden;
 }
 
-/* line 247, ../sass/app.scss */
+/* line 253, ../sass/app.scss */
 footer {
   background: #333;
   padding: 10px 0;
   text-align: center;
   width: 100%;
 }
-/* line 252, ../sass/app.scss */
+/* line 258, ../sass/app.scss */
 footer p {
   color: #fff;
   font-size: 0.875em;

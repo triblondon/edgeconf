@@ -239,7 +239,13 @@ header {
 	overflow: scroll;
 	position: fixed;
 	top: 50px !important;
-	z-index: 3000;
+	h2 {
+		margin-left: 10px;
+	}
+	iframe {
+		max-width: 1000px;
+		width: 100%;
+	}
 }
 .modal-open {
 	overflow: hidden;
