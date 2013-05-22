@@ -141,7 +141,7 @@ header {
 		font-size: em(36px);
 		font-weight: 900;
 	}
-	h2 + p {
+	p {
 		font-size: em(18px);
 	}
 	img:last-child {
@@ -228,5 +228,16 @@ header {
 		.google-plus {
 			background: url(/images/icon_googleplus.png) center top no-repeat;
 		}
+	}
+}
+footer {
+	background: #333;
+	padding: 10px 0;
+	text-align: center;
+	width: 100%;
+	p {
+		color: #fff;
+		font-size: em(14px);
+		margin-bottom: 0;
 	}
 }

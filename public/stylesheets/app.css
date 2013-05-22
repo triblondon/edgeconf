@@ -5563,7 +5563,7 @@ header nav li a:link, header nav li a:visited {
   font-weight: 900;
 }
 /* line 144, ../sass/app.scss */
-.layer h2 + p {
+.layer p {
   font-size: 1.125em;
 }
 /* line 147, ../sass/app.scss */
@@ -5665,4 +5665,18 @@ header nav li a:link, header nav li a:visited {
 /* line 228, ../sass/app.scss */
 .social-icons li .google-plus {
   background: url(/images/icon_googleplus.png) center top no-repeat;
+}
+
+/* line 233, ../sass/app.scss */
+footer {
+  background: #333;
+  padding: 10px 0;
+  text-align: center;
+  width: 100%;
+}
+/* line 238, ../sass/app.scss */
+footer p {
+  color: #fff;
+  font-size: 0.875em;
+  margin-bottom: 0;
 }
