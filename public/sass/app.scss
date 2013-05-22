@@ -124,25 +124,24 @@ header {
 	border: {
 		top: none;
 		right: none;
-		bottom: 10px solid #333;
+		//bottom: 10px solid #333;
+		bottom: 2px dotted #aaa;
 		left: none;
 	}
 	padding: 30px 0 30px 0;
-	text-align: center;
+	//text-align: center;
 	h2 {
 		font-size: em(36px);
 		font-weight: 900;
-		text-align: center;
 	}
 	h2 + p {
 		font-size: em(18px);
-		text-align: center;
 	}
 	img:last-child {
 		width: 100%;
 		margin: {
 			top: 30px;
-			bottom: -32px; // Set photo even with the bottom of the .layer div
+			//bottom: -32px; // Set photo even with the bottom of the .layer div
 		}
 	}
 	.button {
@@ -155,6 +154,7 @@ header {
 #billboard + .layer {
 	background: $edgeGreen;
 	padding-bottom: 30px;
+	border-bottom: none;
 	h2, p {
 		color: #fff;
 	}
