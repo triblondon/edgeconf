@@ -233,7 +233,14 @@
 	
 	<script>
 		$(document).ready(function() {
-			$('a.modal-trigger').trigger('click');
+			$('#registration-form').foundation('reveal', { 
+				open: function(){
+					$('body').addClass('modal-open');
+				},
+				closed: function(){
+					$('body').removeClass('modal-open');
+				}
+			});
 		});
 	</script>
   
