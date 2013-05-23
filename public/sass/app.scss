@@ -244,6 +244,49 @@ header {
 			width: 100%;
 		}
 	}
+	.next-button {
+		background: $edgeGreen;
+		color: #fff;
+		display: block;
+		font-size: em(36px);
+		font-weight: 300;
+		margin-top: 40px;
+		opacity: .85;
+		padding: 20px 0;
+		position: relative;
+		text-align: center;
+		text-transform: uppercase;
+		-webkit-transition: opacity 0.2s ease;
+		-moz-transition: opacity 0.2s ease;
+		-ms-transition: opacity 0.2s ease;
+		-o-transition: opacity 0.2s ease;
+		transition: opacity 0.2s ease;
+		width: 97%;
+		strong {
+			font-weight: 900;
+		}
+	}
+	.next-button:after {
+		border: {
+			top: 38px solid transparent;
+			bottom: 38px solid transparent;
+			left: 30px solid $edgeGreen;
+		}
+		content: "";
+		display: block;
+		position: absolute;
+		right: -30px;
+		top: 0;
+		width: 3%;
+	}
+	.next-button:hover {
+		opacity: 1;
+		-webkit-transition: opacity 0.2s ease;
+		-moz-transition: opacity 0.2s ease;
+		-ms-transition: opacity 0.2s ease;
+		-o-transition: opacity 0.2s ease;
+		transition: opacity 0.2s ease;
+	}
 }
 .layer.connect {
 	border: none;
