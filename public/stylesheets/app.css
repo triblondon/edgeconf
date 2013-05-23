@@ -7639,7 +7639,7 @@ header nav i {
   font-size: 1.125em;
 }
 /* line 226, ../sass/app.scss */
-.layer img:last-child {
+.layer img.full {
   width: 100%;
   margin-top: 30px;
 }
@@ -7726,7 +7726,61 @@ header nav i {
   }
 }
 
-/* line 301, ../sass/app.scss */
+/* line 300, ../sass/app.scss */
+.layer.panelists {
+  border: none;
+}
+
+/* line 303, ../sass/app.scss */
+.panelist {
+  margin: 20px 0;
+}
+/* line 305, ../sass/app.scss */
+.panelist dt {
+  font-size: 1.125em;
+  text-transform: uppercase;
+}
+/* line 309, ../sass/app.scss */
+.panelist dt, .panelist dd {
+  clear: right;
+  float: right;
+  margin-bottom: 5px;
+  width: 75%;
+}
+/* line 315, ../sass/app.scss */
+.panelist dd.headshot {
+  clear: left;
+  float: left;
+  margin-top: 5px;
+  width: 20%;
+}
+/* line 320, ../sass/app.scss */
+.panelist dd.headshot img {
+  opacity: .1;
+  -webkit-transition: opacity 0.2s ease;
+  -moz-transition: opacity 0.2s ease;
+  -ms-transition: opacity 0.2s ease;
+  -o-transition: opacity 0.2s ease;
+  transition: opacity 0.2s ease;
+  width: 100%;
+}
+/* line 330, ../sass/app.scss */
+.panelist dd.headshot + dd {
+  font-size: 1.125em;
+  font-style: italic;
+}
+
+/* line 336, ../sass/app.scss */
+.panelist:hover dd.headshot img {
+  opacity: 1;
+  -webkit-transition: opacity 0.2s ease;
+  -moz-transition: opacity 0.2s ease;
+  -ms-transition: opacity 0.2s ease;
+  -o-transition: opacity 0.2s ease;
+  transition: opacity 0.2s ease;
+}
+
+/* line 346, ../sass/app.scss */
 .social-icons li {
   display: block;
   float: left;
@@ -7734,7 +7788,7 @@ header nav i {
   margin-right: 20px;
   width: 12%;
 }
-/* line 307, ../sass/app.scss */
+/* line 352, ../sass/app.scss */
 .social-icons li a {
   background-size: cover;
   display: block;
@@ -7742,34 +7796,34 @@ header nav i {
   min-width: 55px;
   opacity: .9;
 }
-/* line 314, ../sass/app.scss */
+/* line 359, ../sass/app.scss */
 .social-icons li a:hover {
   opacity: 1;
 }
-/* line 317, ../sass/app.scss */
+/* line 362, ../sass/app.scss */
 .social-icons li .facebook {
   background: url(/images/icon_facebook.png) center top no-repeat;
 }
-/* line 320, ../sass/app.scss */
+/* line 365, ../sass/app.scss */
 .social-icons li .twitter {
   background: url(/images/icon_twitter.png) center top no-repeat;
 }
-/* line 323, ../sass/app.scss */
+/* line 368, ../sass/app.scss */
 .social-icons li .google-plus {
   background: url(/images/icon_googleplus.png) center top no-repeat;
 }
 @media only screen and (max-width: 768px) {
-  /* line 328, ../sass/app.scss */
+  /* line 373, ../sass/app.scss */
   .social-icons li {
     margin-right: 35px;
   }
-  /* line 330, ../sass/app.scss */
+  /* line 375, ../sass/app.scss */
   .social-icons li a {
     text-indent: 180%;
   }
 }
 
-/* line 336, ../sass/app.scss */
+/* line 381, ../sass/app.scss */
 #registration-form {
   /* Override default Foundation styles */
   bottom: 50px;
@@ -7777,48 +7831,48 @@ header nav i {
   position: fixed;
   top: 50px !important;
 }
-/* line 342, ../sass/app.scss */
+/* line 387, ../sass/app.scss */
 #registration-form h2 {
   margin-left: 10px;
 }
-/* line 345, ../sass/app.scss */
+/* line 390, ../sass/app.scss */
 #registration-form iframe {
   max-width: 1000px;
   width: 100%;
 }
 @media only screen and (max-width: 768px) {
-  /* line 336, ../sass/app.scss */
+  /* line 381, ../sass/app.scss */
   #registration-form {
     width: 90%;
     left: 5%;
     margin: 0;
   }
-  /* line 353, ../sass/app.scss */
+  /* line 398, ../sass/app.scss */
   #registration-form iframe {
     height: 1500px !important;
   }
 }
 
-/* line 358, ../sass/app.scss */
+/* line 403, ../sass/app.scss */
 .modal-open {
   overflow: hidden;
 }
 
-/* line 361, ../sass/app.scss */
+/* line 406, ../sass/app.scss */
 footer {
   background: #333;
   padding: 10px 0;
   text-align: center;
   width: 100%;
 }
-/* line 366, ../sass/app.scss */
+/* line 411, ../sass/app.scss */
 footer p {
   color: #fff;
   font-size: 0.875em;
   margin-bottom: 0;
 }
 @media only screen and (max-width: 768px) {
-  /* line 372, ../sass/app.scss */
+  /* line 417, ../sass/app.scss */
   footer p {
     font-size: 0.75em;
   }

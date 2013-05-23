@@ -223,7 +223,7 @@ header {
 	p {
 		font-size: em(18px);
 	}
-	img:last-child {
+	img.full {
 		width: 100%;
 		margin: {
 			top: 30px;
@@ -295,6 +295,51 @@ header {
 		p {
 			font-size: em(16px);
 		}
+	}
+}
+.layer.panelists {
+	border: none;
+}
+.panelist {
+	margin: 20px 0;
+	dt {
+		font-size: em(18px);
+		text-transform: uppercase;
+	}
+	dt, dd {	
+		clear: right;
+		float: right;
+		margin-bottom: 5px;
+		width: 75%;
+	}
+	dd.headshot {
+		clear: left;
+		float: left;
+		margin-top: 5px;
+		width: 20%;
+		img {
+			opacity: .1;
+			-webkit-transition: opacity 0.2s ease;
+			-moz-transition: opacity 0.2s ease;
+			-ms-transition: opacity 0.2s ease;
+			-o-transition: opacity 0.2s ease;
+			transition: opacity 0.2s ease;
+			width: 100%;
+		}
+	}
+	dd.headshot + dd {
+		font-size: em(18px);
+		font-style: italic;
+	}
+}
+.panelist:hover {
+	dd.headshot img {
+		opacity: 1;
+		-webkit-transition: opacity 0.2s ease;
+		-moz-transition: opacity 0.2s ease;
+		-ms-transition: opacity 0.2s ease;
+		-o-transition: opacity 0.2s ease;
+		transition: opacity 0.2s ease;
 	}
 }
 .social-icons {
