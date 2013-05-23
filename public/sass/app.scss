@@ -73,6 +73,7 @@ body {
 h1, h2 ,h3, h4, h5, h6 {	
 	color: #333;
 	font-family: 'Lato', sans-serif;
+	line-height: 1em;
 	text-transform: uppercase;
 }
 a:link, a:visited {
@@ -92,6 +93,9 @@ a.button {
 .button:hover {
 	background: $edgeYellow;
 	color: #333;
+}
+p {
+	line-height: 1.5em;
 }
 ul {
 	margin-bottom: 30px;
@@ -121,8 +125,8 @@ header {
 				font-weight: 900;
 				text-transform: uppercase;
 			}
-			a:hover, a:active {
-				color: $edgeYellow;
+			a:hover, a:active, a.active {
+				color: $edgeGreen;
 			}
 		}
 		i {
@@ -214,6 +218,7 @@ header {
 	h2 {
 		font-size: em(36px);
 		font-weight: 900;
+		margin-bottom: 10px;
 	}
 	p {
 		font-size: em(18px);
