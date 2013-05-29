@@ -1,0 +1,139 @@
+
+<!DOCTYPE html>
+<!--[if IE 8]> 				 <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+
+<head>
+	<meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width" />
+  <title>FAQ | Edge Conference</title>
+
+  <link rel="stylesheet" href="stylesheets/normalize.css" />
+  <link rel="stylesheet" href="stylesheets/app.css" />
+  <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,900' rel='stylesheet' type='text/css'>
+
+
+  <script src="javascripts/vendor/custom.modernizr.js"></script>
+
+</head>
+<body>
+
+	<header>
+		<nav class="row">
+			<ul class="small-10 columns small-centered">
+				<li><a href="index.html">Overview</a></li>
+				<li><a href="schedule.html" class="active">Schedule</a></li>
+				<li><a href="faq.html">FAQs</a></li>
+				<li><a href="#">Contact</a></li>
+			</ul>
+			<i class="icon-reorder"></i>
+		</nav>
+	</header>
+
+	<div id="billboard" class="inner">
+		<div class="row">
+			<div class="small-7 large-2 columns">
+				<h1 class="hide-text">Edge Conference</h1>
+			</div>
+			<div class="small-12 large-10 columns">
+				<h2>FAQ</h2>
+			</div>
+		</div>
+	</div>
+
+	<section class="layer">
+		<div class="row">
+			<div class="small-12 columns">
+				<div>
+					<h3>The first question</h3>
+					<p>Answered in a useful manner.</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="layer">
+		<div class="row">
+			<div class="small-12 columns">
+				<div>
+					<h3>A second question</h3>
+					<p>Another very thoughtful answer.</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<footer>
+		<div class="row">
+			<div class="small-12 columns">
+				<p>©2013 Edge contributors. This work is licensed under a <a href="#">Creative Commons License</a>.</p>
+			</div>
+		</div>
+	</footer>
+
+
+	<div id="registration-form" class="reveal-modal">
+		<h2>Pre-registration</h2>
+		<iframe src="https://docs.google.com/spreadsheet/embeddedform?formkey=dEJtUjA3UDR3MnQtbWdwdWM3Vm85Rnc6MA" width="760" height="1000" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe>
+		<a class="close-reveal-modal">&#215;</a>
+	</div>
+
+  <script>
+  document.write('<script src=' +
+  ('__proto__' in {} ? 'javascripts/vendor/zepto' : 'javascripts/vendor/jquery') +
+  '.js><\/script>')
+  </script>
+
+  <script src="javascripts/foundation/foundation.js"></script>
+
+	<script src="javascripts/foundation/foundation.alerts.js"></script>
+
+	<script src="javascripts/foundation/foundation.clearing.js"></script>
+
+	<script src="javascripts/foundation/foundation.cookie.js"></script>
+
+	<script src="javascripts/foundation/foundation.dropdown.js"></script>
+
+	<script src="javascripts/foundation/foundation.forms.js"></script>
+
+	<script src="javascripts/foundation/foundation.joyride.js"></script>
+
+	<script src="javascripts/foundation/foundation.magellan.js"></script>
+
+	<script src="javascripts/foundation/foundation.orbit.js"></script>
+
+	<script src="javascripts/foundation/foundation.placeholder.js"></script>
+
+	<script src="javascripts/foundation/foundation.reveal.js"></script>
+
+	<script src="javascripts/foundation/foundation.section.js"></script>
+
+	<script src="javascripts/foundation/foundation.tooltips.js"></script>
+
+	<script src="javascripts/foundation/foundation.topbar.js"></script>
+
+	<script>
+		$(document).ready(function() {
+			$('#registration-form').foundation('reveal', {
+				open: function(){
+					$('body').addClass('modal-open');
+				},
+				closed: function(){
+					$('body').removeClass('modal-open');
+				}
+			});
+
+			// Reveal mobile nav
+			$('header nav i.icon-reorder').click(function() {
+				$('header nav ul').fadeToggle(100);
+			});
+		});
+	</script>
+
+  <script>
+    $(document).foundation();
+  </script>
+
+
+</body>
+</html>
