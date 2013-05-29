@@ -7647,21 +7647,7 @@ header nav i {
 .layer .button {
   margin-bottom: 30px;
 }
-@media only screen and (max-width: 768px) {
-  /* line 237, ../sass/app.scss */
-  .layer h2 {
-    font-size: 1.625em;
-  }
-  /* line 240, ../sass/app.scss */
-  .layer p {
-    font-size: 0.875em;
-  }
-  /* line 243, ../sass/app.scss */
-  .layer .button {
-    width: 100%;
-  }
-}
-/* line 247, ../sass/app.scss */
+/* line 236, ../sass/app.scss */
 .layer .next-button {
   background: #3daa94;
   color: #fff;
@@ -7681,11 +7667,11 @@ header nav i {
   transition: opacity 0.2s ease;
   width: 97%;
 }
-/* line 265, ../sass/app.scss */
+/* line 254, ../sass/app.scss */
 .layer .next-button strong {
   font-weight: 900;
 }
-/* line 269, ../sass/app.scss */
+/* line 258, ../sass/app.scss */
 .layer .next-button:after {
   border-top: 38px solid transparent;
   border-bottom: 38px solid transparent;
@@ -7697,7 +7683,7 @@ header nav i {
   top: 0;
   width: 3%;
 }
-/* line 282, ../sass/app.scss */
+/* line 271, ../sass/app.scss */
 .layer .next-button:hover {
   opacity: 1;
   -webkit-transition: opacity 0.2s ease;
@@ -7706,100 +7692,122 @@ header nav i {
   -o-transition: opacity 0.2s ease;
   transition: opacity 0.2s ease;
 }
+/* line 279, ../sass/app.scss */
+.layer .large-6 {
+  margin-bottom: 20px;
+}
+/* line 281, ../sass/app.scss */
+.layer .large-6 h2 {
+  font-size: 1.5em;
+}
+@media only screen and (max-width: 768px) {
+  /* line 286, ../sass/app.scss */
+  .layer h2 {
+    font-size: 1.625em;
+  }
+  /* line 289, ../sass/app.scss */
+  .layer p {
+    font-size: 0.875em;
+  }
+  /* line 292, ../sass/app.scss */
+  .layer .button {
+    width: 100%;
+  }
+}
 
-/* line 291, ../sass/app.scss */
+/* line 297, ../sass/app.scss */
 .layer.connect {
   border: none;
 }
-/* line 295, ../sass/app.scss */
+/* line 301, ../sass/app.scss */
 .layer.connect .social-icons li .facebook {
   background: url(/images/icon_facebook_dark.png) center top no-repeat;
 }
-/* line 298, ../sass/app.scss */
+/* line 304, ../sass/app.scss */
 .layer.connect .social-icons li .twitter {
   background: url(/images/icon_twitter_dark.png) center top no-repeat;
 }
-/* line 301, ../sass/app.scss */
+/* line 307, ../sass/app.scss */
 .layer.connect .social-icons li .google-plus {
   background: url(/images/icon_googleplus_dark.png) center top no-repeat;
 }
 
-/* line 307, ../sass/app.scss */
+/* line 313, ../sass/app.scss */
 #billboard + .layer {
   background: #3daa94;
   padding-bottom: 30px;
   border-bottom: none;
 }
-/* line 311, ../sass/app.scss */
+/* line 317, ../sass/app.scss */
 #billboard + .layer h2, #billboard + .layer p {
   color: #fff;
 }
-/* line 314, ../sass/app.scss */
+/* line 320, ../sass/app.scss */
 #billboard + .layer p {
   font-size: 1.5em;
   margin-bottom: 35px;
 }
-/* line 317, ../sass/app.scss */
+/* line 323, ../sass/app.scss */
 #billboard + .layer p strong {
   font-weight: 900;
   text-transform: uppercase;
 }
-/* line 322, ../sass/app.scss */
+/* line 328, ../sass/app.scss */
 #billboard + .layer h2 + p {
   margin-bottom: 20px;
 }
-/* line 325, ../sass/app.scss */
+/* line 331, ../sass/app.scss */
 #billboard + .layer .row .row {
   text-align: left;
 }
-/* line 327, ../sass/app.scss */
+/* line 333, ../sass/app.scss */
 #billboard + .layer .row .row p {
   margin-bottom: 15px;
 }
-/* line 331, ../sass/app.scss */
+/* line 337, ../sass/app.scss */
 #billboard + .layer p a:link, #billboard + .layer p a:visited {
   color: #0043ff;
 }
-/* line 334, ../sass/app.scss */
+/* line 340, ../sass/app.scss */
 #billboard + .layer p a:hover, #billboard + .layer p a:active {
   color: #1a56ff;
 }
 @media only screen and (max-width: 768px) {
-  /* line 338, ../sass/app.scss */
+  /* line 344, ../sass/app.scss */
   #billboard + .layer p {
     font-size: 1em;
   }
 }
 
-/* line 343, ../sass/app.scss */
+/* line 349, ../sass/app.scss */
 .layer.panelists {
   border: none;
 }
 
-/* line 346, ../sass/app.scss */
+/* line 352, ../sass/app.scss */
 .panelist {
   margin: 20px 0;
 }
-/* line 348, ../sass/app.scss */
+/* line 354, ../sass/app.scss */
 .panelist dt {
   font-size: 1.125em;
   text-transform: uppercase;
 }
-/* line 352, ../sass/app.scss */
+/* line 358, ../sass/app.scss */
 .panelist dt, .panelist dd {
   clear: right;
   float: right;
   margin-bottom: 5px;
   width: 75%;
 }
-/* line 358, ../sass/app.scss */
+/* line 364, ../sass/app.scss */
 .panelist dd.headshot {
   clear: left;
   float: left;
   margin-top: 5px;
   width: 20%;
 }
-/* line 363, ../sass/app.scss */
+/* line 369, ../sass/app.scss */
 .panelist dd.headshot img {
   opacity: .1;
   -webkit-transition: opacity 0.2s ease;
@@ -7809,13 +7817,13 @@ header nav i {
   transition: opacity 0.2s ease;
   width: 100%;
 }
-/* line 373, ../sass/app.scss */
+/* line 379, ../sass/app.scss */
 .panelist dd.headshot + dd {
   font-size: 1.125em;
   font-style: italic;
 }
 
-/* line 379, ../sass/app.scss */
+/* line 385, ../sass/app.scss */
 .panelist:hover dd.headshot img {
   opacity: 1;
   -webkit-transition: opacity 0.2s ease;
@@ -7825,7 +7833,7 @@ header nav i {
   transition: opacity 0.2s ease;
 }
 
-/* line 389, ../sass/app.scss */
+/* line 395, ../sass/app.scss */
 .social-icons li {
   display: block;
   float: left;
@@ -7833,7 +7841,7 @@ header nav i {
   margin-right: 20px;
   width: 12%;
 }
-/* line 395, ../sass/app.scss */
+/* line 401, ../sass/app.scss */
 .social-icons li a {
   background-size: cover;
   display: block;
@@ -7841,34 +7849,34 @@ header nav i {
   min-width: 55px;
   opacity: .9;
 }
-/* line 402, ../sass/app.scss */
+/* line 408, ../sass/app.scss */
 .social-icons li a:hover {
   opacity: 1;
 }
-/* line 405, ../sass/app.scss */
+/* line 411, ../sass/app.scss */
 .social-icons li .facebook {
   background: url(/images/icon_facebook.png) center top no-repeat;
 }
-/* line 408, ../sass/app.scss */
+/* line 414, ../sass/app.scss */
 .social-icons li .twitter {
   background: url(/images/icon_twitter.png) center top no-repeat;
 }
-/* line 411, ../sass/app.scss */
+/* line 417, ../sass/app.scss */
 .social-icons li .google-plus {
   background: url(/images/icon_googleplus.png) center top no-repeat;
 }
 @media only screen and (max-width: 768px) {
-  /* line 416, ../sass/app.scss */
+  /* line 422, ../sass/app.scss */
   .social-icons li {
     margin-right: 35px;
   }
-  /* line 418, ../sass/app.scss */
+  /* line 424, ../sass/app.scss */
   .social-icons li a {
     text-indent: 180%;
   }
 }
 
-/* line 424, ../sass/app.scss */
+/* line 430, ../sass/app.scss */
 #registration-form {
   /* Override default Foundation styles */
   bottom: 50px;
@@ -7876,48 +7884,48 @@ header nav i {
   position: fixed;
   top: 50px !important;
 }
-/* line 430, ../sass/app.scss */
+/* line 436, ../sass/app.scss */
 #registration-form h2 {
   margin-left: 10px;
 }
-/* line 433, ../sass/app.scss */
+/* line 439, ../sass/app.scss */
 #registration-form iframe {
   max-width: 1000px;
   width: 100%;
 }
 @media only screen and (max-width: 768px) {
-  /* line 424, ../sass/app.scss */
+  /* line 430, ../sass/app.scss */
   #registration-form {
     width: 90%;
     left: 5%;
     margin: 0;
   }
-  /* line 441, ../sass/app.scss */
+  /* line 447, ../sass/app.scss */
   #registration-form iframe {
     height: 1500px !important;
   }
 }
 
-/* line 446, ../sass/app.scss */
+/* line 452, ../sass/app.scss */
 .modal-open {
   overflow: hidden;
 }
 
-/* line 449, ../sass/app.scss */
+/* line 455, ../sass/app.scss */
 footer {
   background: #333;
   padding: 10px 0;
   text-align: center;
   width: 100%;
 }
-/* line 454, ../sass/app.scss */
+/* line 460, ../sass/app.scss */
 footer p {
   color: #fff;
   font-size: 0.875em;
   margin-bottom: 0;
 }
 @media only screen and (max-width: 768px) {
-  /* line 460, ../sass/app.scss */
+  /* line 466, ../sass/app.scss */
   footer p {
     font-size: 0.75em;
   }

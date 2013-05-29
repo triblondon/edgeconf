@@ -233,17 +233,6 @@ header {
 	.button {
 		margin-bottom: 30px;
 	}
-	@include breakpoint(mobile) {
-		h2 {
-			font-size: em(26px);
-		}
-		p {
-			font-size: em(14px);
-		}
-		.button {
-			width: 100%;
-		}
-	}
 	.next-button {
 		background: $edgeGreen;
 		color: #fff;
@@ -286,6 +275,23 @@ header {
 		-ms-transition: opacity 0.2s ease;
 		-o-transition: opacity 0.2s ease;
 		transition: opacity 0.2s ease;
+	}
+	.large-6 {
+		margin-bottom: 20px;
+		h2 {
+			font-size: em(24px, 16px);
+		}
+	}
+	@include breakpoint(mobile) {
+		h2 {
+			font-size: em(26px);
+		}
+		p {
+			font-size: em(14px);
+		}
+		.button {
+			width: 100%;
+		}
 	}
 }
 .layer.connect {
