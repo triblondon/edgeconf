@@ -191,11 +191,16 @@ header {
 	background-size: cover;
 	margin-top: 35px; //Account for fixed header bar
 	min-height: 270px;
-	padding: 50px 0;
+	padding: 45px 0 0 0;
 	h1 {
 		background: url(/images/logo.png) center top no-repeat;
 		background-size: 100%;
 		min-height: 185px;
+	}
+	.tagline {
+		color: #fff;
+		font-size: em(26px);
+		margin-top: 55px;
 	}
 	@include breakpoint(mobile) {
 		min-height: 0;
@@ -310,16 +315,19 @@ header {
 		}
 	}
 }
-#billboard + .layer {
-	background: $edgeGreen;
-	padding-bottom: 30px;
+#billboard .layer {
+	background: rgba(0,0,0, .4);
 	border-bottom: none;
+	margin-bottom: 0;
+	margin-top: 40px;
+	padding-bottom: 5px;
 	h2, p {
 		color: #fff;
+		text-align: center;
 	}
 	p {	
 		font-size: em(24px);
-		margin-bottom: 35px;
+		margin-bottom: 45px;
 		strong {
 			font-weight: 900;
 			text-transform: uppercase;
@@ -328,10 +336,10 @@ header {
 	h2 + p {
 		margin-bottom: 20px;
 	}
-	.row .row {
-		text-align: left;
+	.row {
 		p {
 			margin-bottom: 15px;
+			text-align: left;
 		}
 	}
 	p a:link, p a:visited {
