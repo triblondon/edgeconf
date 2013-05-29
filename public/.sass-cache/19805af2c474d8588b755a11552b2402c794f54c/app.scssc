@@ -1,5 +1,5 @@
 3.2.1 (Media Mark)
-3be32386d2cf44ee1ae2fd4764ff3418002559ae
+5c07b24558dfb17e9575324b4dd49453eef20428
 o:Sass::Tree::RootNode
 :
 @linei:@template"õ%// Global Foundation Settings
@@ -122,7 +122,7 @@ header {
 		li {	
 			display: inline-block;
 			text-align: center;
-			width: 19.65%;
+			width: 23.65%;
 			a:link, a:visited {
 				color: #fff;
 				font-size: em(12px);
@@ -668,7 +668,7 @@ o;;["display;i|;	@;i ;
 [ ;;;o;!;;";	@;"inline-blocko;;["text-align;i};	@;i ;
 [ ;;;o;!;;";	@;"centero;;["
 width;i~;	@;i ;
-[ ;;;o;!;;";	@;"19.65%o;-;.o;/;0" ;i;1[o;2;1[o;3
+[ ;;;o;!;;";	@;"23.65%o;-;.o;/;0" ;i;1[o;2;1[o;3
 ;0@i;i;4o;5;6{ ;70;1[o;8	;0@i;["a;i;90o;;
 ;0@i;["	link;;<;i;=0o;2;1[o;3
 ;0@i;i;4o;5;6{ ;70;1[o;8	;0@i;["a;i;90o;;
