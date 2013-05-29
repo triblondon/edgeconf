@@ -1,5 +1,5 @@
 3.2.1 (Media Mark)
-ed2f8fc078d38ac6642523cd94464b6a2591db3a
+d4faa57d5792f7f1465c53ed7b65b9026f5f8274
 o:Sass::Tree::RootNode
 :
 @linei:@template"ü$// Global Foundation Settings
@@ -323,7 +323,7 @@ header {
 	background: rgba(0,0,0, .4);
 	border-bottom: none;
 	margin-bottom: 0;
-	margin-top: 40px;
+	margin-top: 25px;
 	padding-bottom: 5px;
 	h2, p {
 		color: #fff;
@@ -904,7 +904,7 @@ layer;i>;i>;T;	@;i ;
 [ ;;;o;>;"	rgba;i?;?{ ;	@;0;[	o;@;A"0;i?;	@;B@A;i ;C[ o;@;A"0;i?;	@;B@A;i ;C[ o;@;A"0;i?;	@;B@A;i ;C[ o;@;A"0.4;i?;	@;B@A;f0.40000000000000002 ™š;C[ o;;["border-bottom;i@;	@;i ;
 [ ;;;o;!;;";	@;"	noneo;;["margin-bottom;iA;	@;i ;
 [ ;;;o;!;;";	@;"0o;;["margin-top;iB;	@;i ;
-[ ;;;o;!;;";	@;"	40pxo;;["padding-bottom;iC;	@;i ;
+[ ;;;o;!;;";	@;"	25pxo;;["padding-bottom;iC;	@;i ;
 [ ;;;o;!;;";	@;"5pxo;-;.o;/;0" ;iD;1[o;2;1[o;3
 ;0@r;iD;4o;5;6{ ;70;1[o;8	;0@r;["h2;iD;90o;2;1[o;3
 ;0@r;iD;4o;5;6{ ;70;1[o;8	;0@r;["p;iD;90;iD;T;	@;i ;
