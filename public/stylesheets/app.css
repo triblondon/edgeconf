@@ -7859,7 +7859,12 @@ header nav i {
   transition: opacity 0.2s ease;
 }
 
-/* line 419, ../sass/app.scss */
+/* line 418, ../sass/app.scss */
+.layer.final-session {
+  border: none;
+}
+
+/* line 422, ../sass/app.scss */
 .social-icons li {
   display: block;
   float: left;
@@ -7867,7 +7872,7 @@ header nav i {
   margin-right: 20px;
   width: 12%;
 }
-/* line 425, ../sass/app.scss */
+/* line 428, ../sass/app.scss */
 .social-icons li a {
   background-size: cover;
   display: block;
@@ -7875,34 +7880,34 @@ header nav i {
   min-width: 55px;
   opacity: .9;
 }
-/* line 432, ../sass/app.scss */
+/* line 435, ../sass/app.scss */
 .social-icons li a:hover {
   opacity: 1;
 }
-/* line 435, ../sass/app.scss */
+/* line 438, ../sass/app.scss */
 .social-icons li .facebook {
   background: url(/images/icon_facebook.png) center top no-repeat;
 }
-/* line 438, ../sass/app.scss */
+/* line 441, ../sass/app.scss */
 .social-icons li .twitter {
   background: url(/images/icon_twitter.png) center top no-repeat;
 }
-/* line 441, ../sass/app.scss */
+/* line 444, ../sass/app.scss */
 .social-icons li .google-plus {
   background: url(/images/icon_googleplus.png) center top no-repeat;
 }
 @media only screen and (max-width: 768px) {
-  /* line 446, ../sass/app.scss */
+  /* line 449, ../sass/app.scss */
   .social-icons li {
     margin-right: 35px;
   }
-  /* line 448, ../sass/app.scss */
+  /* line 451, ../sass/app.scss */
   .social-icons li a {
     text-indent: 180%;
   }
 }
 
-/* line 454, ../sass/app.scss */
+/* line 457, ../sass/app.scss */
 #registration-form {
   /* Override default Foundation styles */
   bottom: 50px;
@@ -7910,48 +7915,48 @@ header nav i {
   position: fixed;
   top: 50px !important;
 }
-/* line 460, ../sass/app.scss */
+/* line 463, ../sass/app.scss */
 #registration-form h2 {
   margin-left: 10px;
 }
-/* line 463, ../sass/app.scss */
+/* line 466, ../sass/app.scss */
 #registration-form iframe {
   max-width: 1000px;
   width: 100%;
 }
 @media only screen and (max-width: 768px) {
-  /* line 454, ../sass/app.scss */
+  /* line 457, ../sass/app.scss */
   #registration-form {
     width: 90%;
     left: 5%;
     margin: 0;
   }
-  /* line 471, ../sass/app.scss */
+  /* line 474, ../sass/app.scss */
   #registration-form iframe {
     height: 1500px !important;
   }
 }
 
-/* line 476, ../sass/app.scss */
+/* line 479, ../sass/app.scss */
 .modal-open {
   overflow: hidden;
 }
 
-/* line 479, ../sass/app.scss */
+/* line 482, ../sass/app.scss */
 footer {
   background: #333;
   padding: 10px 0;
   text-align: center;
   width: 100%;
 }
-/* line 484, ../sass/app.scss */
+/* line 487, ../sass/app.scss */
 footer p {
   color: #fff;
   font-size: 0.875em;
   margin-bottom: 0;
 }
 @media only screen and (max-width: 768px) {
-  /* line 490, ../sass/app.scss */
+  /* line 493, ../sass/app.scss */
   footer p {
     font-size: 0.75em;
   }
