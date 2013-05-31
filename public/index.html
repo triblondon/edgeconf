@@ -11,7 +11,9 @@
   <link rel="stylesheet" href="stylesheets/normalize.css" />
   <link rel="stylesheet" href="stylesheets/app.css" />
   <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,900' rel='stylesheet' type='text/css'>
-
+  <style>
+  .session-list li { font-size: 22px; list-style-type:disc; padding: 0 0 0 10px; margin-left: 70px;}
+  </style>
 
   <script src="javascripts/vendor/custom.modernizr.js"></script>
 
@@ -21,9 +23,9 @@
 	<header>
 		<nav class="row">
 			<ul class="small-10 columns small-centered">
-				<li><a href="#" class="active">Overview</a></li>
-				<li><a href="schedule.html">Schedule</a></li>
-				<li><a href="faq.html">FAQs</a></li>
+				<li><a href="/" class="active">Overview</a></li>
+				<li><a href="/schedule.html">Schedule</a></li>
+				<li><a href="/faq.html">FAQs</a></li>
 			</ul>
 			<i class="icon-reorder"></i>
 		</nav>
@@ -44,14 +46,14 @@
 					<div class="row">
 						<div class="small-12 columns large-6 columns">
 							<p><strong>New York City, September 23, 2013</strong></p>
-							<a href="#" class="button" data-reveal-id="registration-form">Sign Up</a>
+							<a href="https://docs.google.com/spreadsheet/viewform?formkey=dEJtUjA3UDR3MnQtbWdwdWM3Vm85Rnc6MA#gid=0" class="button" data-reveal-id="registration-form">Register</a>
 						</div>
 						<div class="small-12 columns large-6 columns">
-							<p>Presented by <a href="#">FT Labs</a> and <a href="#">Google</a></p>
+							<p>Presented by <a href="http://labs.ft.com">FT Labs</a> and <a href="http://developers.google.com/chrome">Google</a></p>
 							<ul class="social-icons">
-								<li><a href="#" class="hide-text facebook">Facebook</a></li>
-								<li><a href="#" class="hide-text twitter">Twitter</a></li>
-								<li><a href="#" class="hide-text google-plus">Google Plus</a></li>
+								<li><a href="https://www.facebook.com/edgeconf" class="hide-text facebook">Facebook</a></li>
+								<li><a href="https://www.twitter.com/edgeconf" class="hide-text twitter">Twitter</a></li>
+								<li><a href="https://plus.google.com/108628202147718146531/" class="hide-text google-plus">Google Plus</a></li>
 							</ul>
 						</div>
 					</div>
@@ -67,7 +69,7 @@
 				<p>You can’t simply buy a ticket for Edge.  We ask you to apply, and if you have something to contribute, you’ll be very welcome to join us.  Edge is about everyone learning from everyone else, so you need to bring something to teach as well as a desire to learn.</p>
 			</div>
 			<div class="small-12 large-6 columns">
-				<h2>As advanced as it gets</h2>
+				<h2>Advanced topics</h2>
 				<p>There are lots of excellent conferences to learn as a beginner.  Edge is for those who push boundaries.  If it doesn’t make your brain hurt, we’re not trying hard enough.</p>
 			</div>
 		</div>
@@ -75,10 +77,10 @@
 			<div class="small-12 large-6 columns">
 				<h2>Unique format</h2>
 				<p>We open each hour long session with a ten minute talk.  After that, we’re into the discussion, and we keep it moving fast.  We record everything, on video and in text.  Everything is released for free to the world the moment the event ends.</p>
-				<a href="#" class="button">View the Schedule</a>
+				<a href="/schedule.html" class="button">View the Schedule</a>
 			</div>
 			<div class="small-12 large-6 columns">
-				<h2>What a conference was meant to be</h2>
+				<h2>Engaging and collaborative</h2>
 				<p>Forget the regimented rows of seats.  A big discussion needs a team, not an audience.  Expect comfy seating, excellent wifi and room to think.  Don’t expect in-your-face sponsorship, goody bags, or unreadable name badges.</p>
 			</div>
 			<div class="small-12 columns">
@@ -86,7 +88,29 @@
 			</div>
 		</div>
 	</section>
-	
+
+	<section class="layer">
+		<div class="row">
+			<div class="small-12 columns">
+				<h2>Sessions</h2>
+				<p>We chose our sessions based on where the most activity is happening in developing the web platform.  These are the topics that will shape the next generation of innovations in web technologies.  So let's get them right.</p>
+				<div class="row session-list">
+					<ul class="small-12 large-6 columns">
+						<li>Responsive images</li>
+						<li>Rendering performance</li>
+						<li>Offline</li>
+						<li>Real time data</li>
+					</ul>
+					<ul class="small-12 large-6 columns">
+						<li>Third party scripts</li>
+						<li>Legacy clients</li>
+						<li>Payments</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</section>
+
 	<section class="layer">
 		<div class="row">
 			<div class="small-12 columns">
@@ -94,24 +118,31 @@
 				<p>You make Edge, but we invite expert panelists to help us get the discussion going.  Here is a list of the organizations and panelists for the New York 2013 conference:</p>
 				<div class="row">
 					<ul class="small-12 large-6 columns">
-						<li><a href="#">Andre Behrens</a>, The New York Times</li>
-						<li><a href="#">Ariya Hidayat</a>, Sencha</li>
-						<li><a href="#">Ben Vinegar</a>, Disqus</li>
-						<li><a href="#">Chris Wilson</a>, Google</li>
-						<li><a href="#">Guy Podjarny</a>, Akamai</li>
-						<li><a href="#">Lori Michaels</a>, The Economist</li>
+						<li><strong>Andre Behrens</strong>, The New York Times</li>
+						<li><strong>Andrew Betts</strong>, FT Labs</li>
+						<li><strong>Ariya Hidayat</strong>, Sencha</li>
+						<li><strong>Ben Vinegar</strong>, Disqus</li>
+						<li><strong>Chris Wilson</strong>, Google</li>
+						<li><strong>Cyndy Lobb</strong>, Google</li>
+						<li><strong>Edd Sowden</strong>, UK Government Digital Service</li>
+						<li><strong>Guy Podjarny</strong>, Akamai</li>
+						<li><strong>Jonathan Klein</strong>, Etsy</li>
+						<li><strong>Lori Michaels</strong>, The Economist</li>
+						<li><strong>Manu Sporny</strong>, Digital Bazaar</li>
 					</ul>
 					<ul class="small-12 large-6 columns">
-						<li><a href="#">Paul Irish</a>, Google</li>
-						<li><a href="#">Paul Lewis</a>, Google</li>
-						<li><a href="#">Rob Grimshaw</a>, Financial Times</li>
-						<li><a href="#">Shwetank Dixit</a>, Opera</li>
-						<li><a href="#">Steve Thair</a>, Seriti</li>
-						<li><a href="#">Stoyan Stefanov</a>, Facebook</li>
-						<li><a href="#">Tomomi Imura</a>, Nokia</li>
+						<li><strong>Marcos Caceres</strong>, Mozilla</li>
+						<li><strong>Paul Irish</strong>, Google</li>
+						<li><strong>Paul Lewis</strong>, Google</li>
+						<li><strong>Ricardo Varela</strong>, Telefonica</li>
+						<li><strong>Ricardo Varela</strong>, Telefonica</li>
+						<li><strong>Rob Grimshaw</strong>, Financial Times</li>
+						<li><strong>Shwetank Dixit</strong>, Opera</li>
+						<li><strong>Steve Thair</strong>, Seriti</li>
+						<li><strong>Stoyan Stefanov</strong>, Facebook</li>
+						<li><strong>Tomomi Imura</strong>, Nokia</li>
 					</ul>
 				</div>
-				<a href="#" class="button">More about our panelists</a>
 			</div>
 		</div>
 	</section>
@@ -151,11 +182,11 @@
 						<a href="#" class="button" data-reveal-id="registration-form">Sign Up</a>
 					</div>
 					<div class="small-12 columns large-6 columns">
-						<p>Presented by <a href="#">FT Labs</a> and <a href="#">Google</a></p>
+						<p>Presented by <a href="http://labs.ft.com">FT Labs</a> and <a href="http://developers.google.com/chrome">Google</a></p>
 						<ul class="social-icons">
-							<li><a href="#" class="hide-text facebook">Facebook</a></li>
-							<li><a href="#" class="hide-text twitter">Twitter</a></li>
-							<li><a href="#" class="hide-text google-plus">Google Plus</a></li>
+								<li><a href="https://www.facebook.com/edgeconf" class="hide-text facebook">Facebook</a></li>
+								<li><a href="https://www.twitter.com/edgeconf" class="hide-text twitter">Twitter</a></li>
+								<li><a href="https://plus.google.com/108628202147718146531/" class="hide-text google-plus">Google Plus</a></li>
 						</ul>
 					</div>
 				</div>

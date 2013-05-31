@@ -11,6 +11,10 @@
   <link rel="stylesheet" href="stylesheets/normalize.css" />
   <link rel="stylesheet" href="stylesheets/app.css" />
   <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,900' rel='stylesheet' type='text/css'>
+  <style>
+  .panelist dd.headshot img { opacity: 0.7; }
+  .panelist dt { margin-bottom: 0; line-height: 1; }
+  </style>
 
 
   <script src="javascripts/vendor/custom.modernizr.js"></script>
@@ -21,9 +25,9 @@
 	<header>
 		<nav class="row">
 			<ul class="small-10 columns small-centered">
-				<li><a href="index.html">Overview</a></li>
-				<li><a href="schedule.html" class="active">Schedule</a></li>
-				<li><a href="faq.html">FAQs</a></li>
+				<li><a href="/">Overview</a></li>
+				<li><a href="/schedule.html" class="active">Schedule</a></li>
+				<li><a href="/faq.html">FAQs</a></li>
 			</ul>
 			<i class="icon-reorder"></i>
 		</nav>
@@ -67,7 +71,7 @@
 			</div>
 		</div>
 	</section>
-	
+
 	<section class="layer">
 		<div class="row">
 			<div class="small-12 columns">
@@ -78,11 +82,21 @@
 					<h3>Responsive images</h3>
 					<p class='session-summary'>There’s little doubt that images are one of the biggest performance bottlenecks and design headaches in responsive web design, but precious little agreement on what to do about it.  We have two official proposals, along with numerous workarounds and polyfill libraries.  With real solutions about to become reality, it’s time to make sure we have the best practices right.</p>
 					<div class="row">
-						<dl class="small-12 large-6 columns panelist moderator">
-							<dt><a href="#">Marcos Caceres</a></dt>
-							<dd class="headshot"><img src="/images/panelists/profile_male.png" alt="Rowan Beentje" /><em>Moderator</em></dd>
+						<dl class="small-12 large-6 columns panelist">
+							<dt>Marcos Caceres</dt>
+							<dd class="headshot"><img src="/images/panelists/marcos-caceres.jpg" alt="Marcos Caceres" /></dd>
 							<dd>Mozilla</dd>
-							<dd>W3C spec writer, JS fanboy. Platform Engineer at Mozilla.</dd>
+							<dd>Spec editor for the W3C's <a href='http://ricg.org'>Responsive Images Community Group</a>. Works as a Platform Architect at Mozilla.</dd>
+						</dl>
+						<dl class="small-12 large-6 columns panelist">
+							<dt>Panelist to be announced</dt>
+							<dd class="headshot"><img src="/images/panelists/profile_male.png" alt="" /></dd>
+						</dl>
+					</div>
+					<div class="row">
+						<dl class="small-12 large-6 columns panelist">
+							<dt>Panelist to be announced</dt>
+							<dd class="headshot"><img src="/images/panelists/profile_female.png" alt="" /></dd>
 						</dl>
 						<dl class="small-12 large-6 columns panelist">
 							<dt>Panelist to be announced</dt>
@@ -93,7 +107,7 @@
 			</div>
 		</div>
 	</section>
-	
+
 	<section class="layer">
 		<div class="row">
 			<div class="small-12 columns">
@@ -104,44 +118,38 @@
 					<h3>Rendering performance</h3>
 					<p class='session-summary'>‘As slick as native’ is a common boast for HTML5 developers. Web developers are not used to dealing in frame rates and memory consumption, but increasingly they need to.  If UX is king, the web can only win when rendering is easier.  We need great tools, skilled developers that know how to use them, and improvements in the platform to make the task easier in the first place.</p>
 					<div class="row">
-						<dl class="small-12 large-6 columns panelist moderator">
-							<dt>Panelist to be announced</dt>
-							<dd class="headshot"><img src="/images/panelists/profile_male.png" alt="" /><em>Moderator</em></dd>
-						</dl>
 						<dl class="small-12 large-6 columns panelist">
-							<dt><a href="#">Paul Lewis</a></dt>
-							<dd class="headshot"><img src="/images/panelists/profile_male.png" alt="Rowan Beentje" /></dd>
+							<dt>Paul Lewis</dt>
+							<dd class="headshot"><img src="/images/panelists/paul-lewis.jpg" alt="Paul Lewis" /></dd>
 							<dd>Google</dd>
-							<dd>Host of <a href='http://thewebglpodcast.com/'>The WebGL Podcast</a>. Generally to be found noodling with HTML and WebGL, a lover of creative coding and physics simulations.</dd>
+							<dd>Chrome engineer and advocate, helps developers fix rendering bottlenecks. Runs <a href='http://thewebglpodcast.com/'>The WebGL Podcast</a>, writes for and curates <a href='http://html5rocks.com'>HTML5 Rocks</a>.</dd>
 						</dl>
-					</div>
-					<div class="row">
 						<dl class="small-12 large-6 columns panelist">
-							<dt><a href="#">Ariya Hidayat</a></dt>
-							<dd class="headshot"><img src="/images/panelists/profile_male.png" alt="" /></dd>
+							<dt>Ariya Hidayat</dt>
+							<dd class="headshot"><img src="/images/panelists/ariya-hidayat.jpg" alt="Ariya Hidayat" /></dd>
 							<dd>Sencha</dd>
-							<dd>Software Provocateur. Author of <a href='http://phantomjs.org/'>PhantomJS</a> and <a href='http://esprima.org/'>Esprima</a>.</dd>
-						</dl>
-						<dl class="small-12 large-6 columns panelist">
-							<dt><a href="#">Andre Behrens</a></dt>
-							<dd class="headshot"><img src="/images/panelists/profile_male.png" alt="Rowan Beentje" /></dd>
-							<dd>The New York Times</dd>
-							<dd>Author of <a href='http://www.nytimes.com/skimmer/'>Times Skimmer</a> and the NYT Chrome app, fanatic about transition performance.</dd>
+							<dd>Loves to study browser rendering. <a href='https://www.webkit.org/blog/370/ariya-hidayat-is-a-webkit-reviewer/'>Contributor</a> to WebKit, currently <a href='http://ariya.ofilabs.com/highlights#web'>promoting better understanding of browser internals</a> to front-end developers.</dd>
 						</dl>
 					</div>
 					<div class="row">
 						<dl class="small-12 large-6 columns panelist">
-							<dt><a href="#">Jonathan Klein</a></dt>
-							<dd class="headshot"><img src="/images/panelists/profile_male.png" alt="" /></dd>
+							<dt>Andre Behrens</dt>
+							<dd class="headshot"><img src="/images/panelists/andre-behrens.jpg" alt='Andre Behrens' /></dd>
+							<dd>The New York Times</dd>
+							<dd>Created the <a href="http://nytimes.com/skimmer/">Times Skimmer</a> and <a href="https://chrome.google.com/webstore/detail/nytimes/ecmphppfkcfflgglcokcbdkofpfegoel">NYT Chrome App</a>. Instrumental in the use of web fonts, internal APIs and socket based delivery pipeline at the Times.</dd>
+						</dl>
+						<dl class="small-12 large-6 columns panelist">
+							<dt>Jonathan Klein</dt>
+							<dd class="headshot"><img src="/images/panelists/jonathan-klein.jpg" alt="Jonathan Klein" /></dd>
 							<dd>Etsy</dd>
-							<dd>Software Engineer at Etsy, Boston Web Performance Meetup organizer..</dd>
+							<dd>Performance Engineer at Etsy, <a href='http://www.meetup.com/Web-Performance-Boston/'>Boston Web Performance</a> Meetup organizer.  Contributor to <a href='http://csslint.net/'>CSS lint</a> and <a href='http://www.jshint.com/'>JShint</a></dd>
 						</dl>
 					</div>
 				</div>
 			</div>
 		</div>
 	</section>
-	
+
 	<section class="layer">
 		<div class="row">
 			<div class="small-12 columns">
@@ -155,7 +163,7 @@
 			</div>
 		</div>
 	</section>
-	
+
 	<section class="layer">
 		<div class="row">
 			<div class="small-12 columns">
@@ -166,36 +174,30 @@
 					<h3>Offline</h3>
 					<p class='session-summary'>Web applications that work offline are still clearly in demand, but the standards lack support for even fairly basic use cases, and encourage developers to break fundamental navigation models of the web.  There are two competing (or perhaps complementary), proposals to improve the situation, but it’ll be a long slog.  In the meantime, workarounds remain some of the most hackish in the web world.</p>
 					<div class="row">
-						<dl class="small-12 large-6 columns panelist moderator">
-							<dt>Panelist to be announced</dt>
-							<dd class="headshot"><img src="/images/panelists/profile_male.png" alt="" /><em>Moderator</em></dd>
-						</dl>
-						<dl class="small-12 large-6 columns panelist">
-							<dt>Panelist to be announced</dt>
-							<dd class="headshot"><img src="/images/panelists/profile_male.png" alt="" /></dd>
-						</dl>
-					</div>
-					<div class="row">
 						<dl class="small-12 large-6 columns panelist">
 							<dt>Panelist to be announced</dt>
 							<dd class="headshot"><img src="/images/panelists/profile_male.png" alt="" /></dd>
 						</dl>
 						<dl class="small-12 large-6 columns panelist">
 							<dt>Panelist to be announced</dt>
-							<dd class="headshot"><img src="/images/panelists/profile_male.png" alt="" /></dd>
+							<dd class="headshot"><img src="/images/panelists/profile_female.png" alt="" /></dd>
 						</dl>
 					</div>
 					<div class="row">
 						<dl class="small-12 large-6 columns panelist">
 							<dt>Panelist to be announced</dt>
 							<dd class="headshot"><img src="/images/panelists/profile_male.png" alt="" /></dd>
+						</dl>
+						<dl class="small-12 large-6 columns panelist">
+							<dt>Panelist to be announced</dt>
+							<dd class="headshot"><img src="/images/panelists/profile_female.png" alt="" /></dd>
 						</dl>
 					</div>
 				</div>
 			</div>
 		</div>
 	</section>
-	
+
 	<section class="layer">
 		<div class="row">
 			<div class="small-12 columns">
@@ -208,7 +210,7 @@
 			</div>
 		</div>
 	</section>
-	
+
 	<section class="layer">
 		<div class="row">
 			<div class="small-12 columns">
@@ -219,9 +221,9 @@
 					<h3>Real time data</h3>
 					<p class='session-summary'>Websockets have now been with us for several years and enjoy near universal support.  WebRTC is just starting out.  Chat, live blogging, telemetry/dashboards, remote assist and video conferencing are all proven and popular use cases for real time data.  Developers are becoming increasingly comfortable integrating real time elements into new projects, but problems remain with the complexity of scaling a real-time backend, as well as implementing APIs that are practical and useful.</p>
 					<div class="row">
-						<dl class="small-12 large-6 columns panelist moderator">
+						<dl class="small-12 large-6 columns panelist">
 							<dt>Panelist to be announced</dt>
-							<dd class="headshot"><img src="/images/panelists/profile_male.png" alt="" /><em>Moderator</em></dd>
+							<dd class="headshot"><img src="/images/panelists/profile_female.png" alt="" /></dd>
 						</dl>
 						<dl class="small-12 large-6 columns panelist">
 							<dt>Panelist to be announced</dt>
@@ -235,20 +237,14 @@
 						</dl>
 						<dl class="small-12 large-6 columns panelist">
 							<dt>Panelist to be announced</dt>
-							<dd class="headshot"><img src="/images/panelists/profile_male.png" alt="" /></dd>
-						</dl>
-					</div>
-					<div class="row">
-						<dl class="small-12 large-6 columns panelist">
-							<dt>Panelist to be announced</dt>
-							<dd class="headshot"><img src="/images/panelists/profile_male.png" alt="" /></dd>
+							<dd class="headshot"><img src="/images/panelists/profile_female.png" alt="" /></dd>
 						</dl>
 					</div>
 				</div>
 			</div>
 		</div>
 	</section>
-	
+
 	<section class="layer">
 		<div class="row">
 			<div class="small-12 columns">
@@ -260,37 +256,37 @@
 					<p class='session-summary'>“Copy this piece of JavaScript” is all too common a refrain among services designed to make developers’ lives easier. Sites that load resources from 30 different hosts are not uncommon.  Third party scripts can make it easy to implement good quality solutions for common use cases, but often at the expense of page load performance and security.</p>
 					<div class="row">
 						<dl class="small-12 large-6 columns panelist moderator">
-							<dt><a href="#">Steve Thair</a></dt>
-							<dd class="headshot"><img src="/images/panelists/profile_male.png" alt="" /><em>Moderator</em></dd>
+							<dt>Steve Thair</dt>
+							<dd class="headshot"><img src="/images/panelists/steve-thair.jpg" alt="Steve Thair" /><em>Moderator</em></dd>
 							<dd>Seriti</dd>
-							<dd>Web operations manager and performance consultant.</dd>
+							<dd>Web ops manager and performance consultant.  Organises <a href="http://www.meetup.com/London-Web-Performance-Group/">London Web Performance</a> and <a href="http://webperfdays.org/">WebPerfDays</a>.</dd>
 						</dl>
 						<dl class="small-12 large-6 columns panelist">
-							<dt><a href="#">Ben Vinegar</a></dt>
-							<dd class="headshot"><img src="/images/panelists/profile_male.png" alt="" /></dd>
+							<dt>Ben Vinegar</dt>
+							<dd class="headshot"><img src="/images/panelists/ben-vinegar.jpg" alt="Ben Vinegar" /></dd>
 							<dd>Disqus</dd>
-							<dd>Author of <a href='http://thirdpartyjs.com'>Third party JavaScript</a>, interest in seamless iframes.</dd>
+							<dd>Co-author of <a href='http://thirdpartyjs.com'>Third party JavaScript</a> and lead front end dev at Disqus. IFRAME connoisseur.</dd>
 						</dl>
 					</div>
 					<div class="row">
 						<dl class="small-12 large-6 columns panelist">
-							<dt><a href="#">Guy Podjarny</a></dt>
+							<dt>Guy Podjarny</dt>
 							<dd class="headshot"><img src="/images/panelists/profile_male.png" alt="" /></dd>
 							<dd>Akamai</dd>
-							<dd>CTO, Akamai Web BU, Web Performance and Security geek, specializing in Mobile Web Performance.</dd>
+							<dd>CTO, Akamai Web, web performance and security geek, specializing in mobile web.</dd>
 						</dl>
 						<dl class="small-12 large-6 columns panelist">
-							<dt><a href="#">Stoyan Stefanov</a></dt>
+							<dt>Stoyan Stefanov</dt>
 							<dd class="headshot"><img src="/images/panelists/profile_male.png" alt="" /></dd>
 							<dd>Facebook</dd>
-							<dd>Maintainer of FB Like button, author of <a href='http://shop.oreilly.com/product/0636920023982.do'>JavaScript for PHP developers.</a>
+							<dd>Maintainer of FB Like button, author of <a href='http://shop.oreilly.com/product/0636920023982.do'>JavaScript for PHP developers</a>.</dd>
 						</dl>
 					</div>
 				</div>
 			</div>
 		</div>
 	</section>
-	
+
 	<section class="layer">
 		<div class="row">
 			<div class="small-12 columns">
@@ -303,7 +299,7 @@
 			</div>
 		</div>
 	</section>
-	
+
 	<section class="layer">
 		<div class="row">
 			<div class="small-12 columns">
@@ -314,35 +310,38 @@
 					<h3>Legacy clients</h3>
 					<p class='session-summary'>“This site is best viewed in...” is a thing of the past, but we’re now largely replacing it with requirements for recent versions of modern browsers, and a fast, always on, unmetered internet connection.  Developers may feel that they can’t justify the time required to provide a useable experience for IE6 and its ilk, given the vanishingly small user population, but as the bar will inevitably keep moving higher, let’s work out a best practice for this today.</p>
 					<div class="row">
-						<dl class="small-12 large-6 columns panelist moderator">
-							<dt>Panelist to be announced</dt>
-							<dd class="headshot"><img src="/images/panelists/profile_male.png" alt="" /><em>Moderator</em></dd>
+						<dl class="small-12 large-6 columns panelist">
+							<dt>Edd Sowden</dt>
+							<dd class="headshot"><img src="/images/panelists/edd-sowden.jpg" alt="Edd Sowden" /></dd>
+							<dd>UK Government Digital Service</dd>
+							<dd>Developer on <a href='http://gov.uk'>gov.uk</a>.</dd>
 						</dl>
 						<dl class="small-12 large-6 columns panelist">
-							<dt><a href="#">Paul Irish</a></dt>
-							<dd class="headshot"><img src="/images/panelists/profile_male.png" alt="" /></dd>
+							<dt>Paul Irish</dt>
+							<dd class="headshot"><img src="/images/panelists/paul-irish.jpg" alt="Paul Irish" /></dd>
 							<dd>Google</dd>
-							<dd>Prolific developer and supporter of progressive enhancement, maintainer of <a href="http://www.modernizr.com">Modernizr</a> along with many other things.</dd>
+							<dd>Prolific developer and supporter of progressive enhancement, maintainer of <a href="http://www.modernizr.com">Modernizr</a> amoungst many other things.</dd>
 						</dl>
 					</div>
 					<div class="row">
 						<dl class="small-12 large-6 columns panelist">
-							<dt><a href="#">Tomomi Imura</a></dt>
-							<dd class="headshot"><img src="/images/panelists/profile_male.png" alt="" /></dd>
+							<dt>Tomomi Imura</dt>
+							<dd class="headshot"><img src="/images/panelists/profile_female.png" alt="Tomomi Imura" /></dd>
 							<dd>Nokia</dd>
-							<dd>Loved for the HTTP Status cats, formerly a Palm engineer on WebOS, now Nokia OpenWebPlatform.</a>
+							<dd>Famous for the <a href='http://www.flickr.com/photos/girliemac/sets/72157628409467125'>HTTP Status cats</a>, formerly a Palm WebOS engineer, now Nokia OpenWebPlatform.</a>
 						</dl>
 						<dl class="small-12 large-6 columns panelist">
-							<dt><a href="#">Shwetank Dixit</a></dt>
-							<dd class="headshot"><img src="/images/panelists/profile_male.png" alt="" /></dd>
+							<dt>Shwetank Dixit</dt>
+							<dd class="headshot"><img src="/images/panelists/shwetank-dixit.jpg" alt="Shwetank Dixit" /></dd>
 							<dd>Opera</dd>
+							<dd>Web evangelist promoting open web standards and the mobile web for social development. Member of <a href='http://www.w3.org/2008/MW4D/'>W3C MW4D IG</a>.</dd>
 						</dl>
 					</div>
 				</div>
 			</div>
 		</div>
 	</section>
-	
+
 	<section class="layer">
 		<div class="row">
 			<div class="small-12 columns">
@@ -353,47 +352,45 @@
 					<h3>Payments</h3>
 					<p class='session-summary'>Bitcoin, payswarm, Paymill &amp; stripe, Gocardless, operator billing - there are no shortage of attempts to make payments on the web easier, simpler and cheaper.  But payments remain dominated by cumbersome credit card systems and proprietary walled garden systems like App Store billing.  Meanwhile, content producers worldwide are struggling to ‘monetise content’.</p>
 					<div class="row">
-						<dl class="small-12 large-6 columns panelist moderator">
-							<dt>Panelist to be announced</dt>
-							<dd class="headshot"><img src="/images/panelists/profile_male.png" alt="" /><em>Moderator</em></dd>
+						<dl class="small-12 large-6 columns panelist">
+							<dt>Cyndy Lobb</dt>
+							<dd class="headshot"><img src="/images/panelists/profile_female.png" alt="Cyndy Lobb" /></dd>
+							<dd>Google</dd>
+							<dd>Engineer working on <a href='http://www.google.co.uk/wallet/'>Google Wallet</a> and recent integration with <a href='http://www.chromium.org/developers/using-requestautocomplete'>requestAutocomplete</a> in Chrome.</dd>
 						</dl>
 						<dl class="small-12 large-6 columns panelist">
-							<dt><a href="#">Manu Sporny</a></dt>
+							<dt>Manu Sporny</dt>
 							<dd class="headshot"><img src="/images/panelists/profile_male.png" alt="" /></dd>
 							<dd>Digital Bazaar</dd>
-							<dd>Leader of the <a href='https://payswarm.com/'>Payswarm</a> project and chair of W3C Web Payments community group.</dd>
+							<dd>Leader of the <a href='https://payswarm.com/'>Payswarm</a> project and chair of W3C <a href='http://www.w3.org/community/webpayments/'>Web Payments community group</a>.</dd>
 						</dl>
 					</div>
 					<div class="row">
 						<dl class="small-12 large-6 columns panelist">
-							<dt><a href="#">Rob Grimshaw</a></dt>
-							<dd class="headshot"><img src="/images/panelists/profile_male.png" alt="" /></dd>
+							<dt>Ricardo Varela</dt>
+							<dd class="headshot"><img src="/images/panelists/ricardo-varela.jpg" alt="Ricardo Varela" /></dd>
+							<dd>Telefónica</dd>
+							<dd>Customer development for BlueVia <a href='http://blog.digital.telefonica.com/2012/08/03/direct-to-bill-the-hidden-gem-in-the-mobile-payments-story/'>Direct to Bill</a>, previously product director for WAC Network APIs at Vodafone.</dd>
+						</dl>
+						<dl class="small-12 large-6 columns panelist">
+							<dt>Rob Grimshaw</dt>
+							<dd class="headshot"><img src="/images/panelists/rob-grimshaw.jpg" alt="Rob Grimshaw" /></dd>
 							<dd>Financial Times</dd>
-							<dd>Managing Director of FT.com.</a>
-						</dl>
-						<dl class="small-12 large-6 columns panelist">
-							<dt>Panelist to be announced</dt>
-							<dd class="headshot"><img src="/images/panelists/profile_male.png" alt="" /></dd>
+							<dd>MD of <a href='http://www.ft.com'>FT.com</a>, responsible for the digital business of the FT. Known for FT's pioneering <a href='http://www.ukaop.org.uk/digitalshowcase/ftinnovationaccessmodelcasestudy.html'>payment model</a> and decision to develop the <a href='http://app.ft.com'>FT web app</a>.</dd>
 						</dl>
 					</div>
 					<div class="row">
 						<dl class="small-12 large-6 columns panelist">
-							<dt>Panelist to be announced</dt>
-							<dd class="headshot"><img src="/images/panelists/profile_male.png" alt="" /></dd>
-						</dl>
-						<dl class="small-12 large-6 columns panelist">
-							<dt><a href="#">Lori Michaels</a></dt>
-							<dd class="headshot"><img src="/images/panelists/profile_female.png" alt="" /></dd>
+							<dt>Lori Michaels</dt>
+							<dd class="headshot"><img src="/images/panelists/profile_female.png" alt="Lori Michaels" /></dd>
 							<dd>The Economist</dd>
-							<dd>CTO of The Economist Group.</a>
 						</dl>
-					<ul class='panellists'>
-					</ul>
+					</div>
 				</div>
 			</div>
 		</div>
 	</section>
-	
+
 	<section class="layer">
 		<div class="row">
 			<div class="small-12 columns">
@@ -406,7 +403,7 @@
 			</div>
 		</div>
 	</section>
-	
+
 	<section class="layer final-session">
 		<div class="row">
 			<div class="small-12 columns">
@@ -415,7 +412,7 @@
 						<time datetime='2013-09-23T18:45:00-05:00'>18:45</time>
 					</div>
 					<h3>After party</h3>
-					<p class='session-summary'>Drinks, food and networking for all participants.  Venue to be announced.
+					<p class='session-summary'>Drinks, food, networking and making merry all round.  Synergies will be leveraged.  Venue to be announced.
 				</div>
 			</div>
 		</div>
