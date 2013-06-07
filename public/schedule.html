@@ -102,7 +102,7 @@
 						<time datetime='2013-09-23T11:00:00-05:00'>11:00</time>
 					</div>
 					<h3>Rendering performance</h3>
-					<p class='session-summary'>‘As slick as native’ is a common boast for HTML5 developers. Web developers are not used to dealing in frame rates and memory consumption, but increasingly they need to.  If UX is king, the web can only win when rendering is easier.  We need great tools, skilled developers that know how to use them, and improvements in the platform to make the task easier in the first place.</p>
+					<p class='session-summary'>‘As slick as native’ is a common boast for HTML5 developers. Web developers are not used to dealing in frame rates and memory consumption, but increasingly they need to.  If UX is king, the web can only win when rendering is easier.  We need great tools, skilled developers that know how to use them, and improvements in the platform to make the task easier in the first place.  This session will address the challenges of rendering interfaces in a performant way in the browser.</p>
 					<div class="row">
 						<dl class="small-12 large-6 columns panelist">
 							<dt>Paul Lewis</dt>
@@ -158,7 +158,15 @@
 						<time datetime='2013-09-23T12:15:00-05:00'>12:15</time>
 					</div>
 					<h3>Offline</h3>
-					<p class='session-summary'>Web applications that work offline are still clearly in demand, but the standards lack support for even fairly basic use cases, and encourage developers to break fundamental navigation models of the web.  There are two competing (or perhaps complementary), proposals to improve the situation, but it’ll be a long slog.  In the meantime, workarounds remain some of the most hackish in the web world.</p>
+					<p class='session-summary'>Web applications that work offline are still clearly in demand, but the standards lack support for even fairly basic use cases, and encourage developers to break fundamental navigation models of the web.  There are two competing (or perhaps complementary), proposals to improve the situation, but it’ll be a long slog.  In the meantime, workarounds remain some of the most hackish in the web world.  Are there any workable solutions to 'adding' offline to an existing site?  What patterns allow offline to be used today while remaining open to replacement solutions in the future?</p>
+					<div class="row">
+						<dl class="small-12 large-6 columns panelist">
+							<dt>Jake Archibald</dt>
+							<dd class="headshot"><img src="/images/panelists/jake-archibald.jpg" alt="Jake Archibald" /></dd>
+							<dd>Google</dd>
+							<dd>Works with the Chrome team on dev tools, standards and <a href='https://github.com/slightlyoff/NavigationController/'>NavigationController</a>, a possible appcache replacement.</p></dd>
+						</dl>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -207,7 +215,7 @@
 						<time datetime='2013-09-23T14:15:00-05:00'>15:15</time>
 					</div>
 					<h3>Third party scripts</h3>
-					<p class='session-summary'>“Copy this piece of JavaScript” is all too common a refrain among services designed to make developers’ lives easier. Sites that load resources from 30 different hosts are not uncommon.  Third party scripts can make it easy to implement good quality solutions for common use cases, but often at the expense of page load performance and security.</p>
+					<p class='session-summary'>“Copy this piece of JavaScript” is all too common a refrain among services designed to make developers’ lives easier. Sites that load resources from 30 different hosts are not uncommon.  Third party scripts can make it easy to implement good quality solutions for common use cases, but often at the expense of page load performance and security.  How should technologies like seamless IFRAMEs, Web components and Content security policy shape the way we deal with third party components?</p>
 					<div class="row">
 						<dl class="small-12 large-6 columns panelist moderator">
 							<dt>Steve Thair</dt>
@@ -280,9 +288,9 @@
 					<div class="row">
 						<dl class="small-12 large-6 columns panelist">
 							<dt>Tomomi Imura</dt>
-							<dd class="headshot"><img src="/images/panelists/profile_female.png" alt="Tomomi Imura" /></dd>
+							<dd class="headshot"><img src="/images/panelists/tomomi-imura.jpg" alt="Tomomi Imura" /></dd>
 							<dd>Nokia</dd>
-							<dd>Famous for the <a href='http://www.flickr.com/photos/girliemac/sets/72157628409467125'>HTTP Status cats</a>, formerly a Palm WebOS engineer, now Nokia OpenWebPlatform.</a>
+							<dd>Open Web evangelist at <a href='http://developer.nokia.com/'>Nokia</a>. Peviously <a href='http://openwebosproject.org/'>Palm webOS, <a href='http://m.yahoo.com/'>Yahoo! Mobile</a> etc. Loves mobile.</a>
 						</dl>
 						<dl class="small-12 large-6 columns panelist">
 							<dt>Shwetank Dixit</dt>
@@ -304,7 +312,7 @@
 						<time datetime='2013-09-23T17:30:00-05:00'>17:30</time>
 					</div>
 					<h3>Payments</h3>
-					<p class='session-summary'>Bitcoin, payswarm, Paymill &amp; stripe, Gocardless, operator billing - there are no shortage of attempts to make payments on the web easier, simpler and cheaper.  But payments remain dominated by cumbersome credit card systems and proprietary walled garden systems like App Store billing.  Meanwhile, content producers worldwide are struggling to ‘monetise content’.</p>
+					<p class='session-summary'>Bitcoin, Payswarm, Paymill &amp; Stripe, Gocardless, operator billing - there are no shortage of attempts to make payments on the web easier, simpler and cheaper.  But payments remain dominated by cumbersome credit card systems and proprietary walled garden systems like App Store billing.  Meanwhile, content producers worldwide are struggling to ‘monetise content’.  How will we pay for content online in 5 years time, and how should we prepare the technology today to support that?</p>
 					<div class="row">
 						<dl class="small-12 large-6 columns panelist">
 							<dt>Cyndy Lobb</dt>
@@ -448,6 +456,19 @@
     $(document).foundation();
   </script>
 
+  <script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-36962287-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
 
 </body>
 </html>
