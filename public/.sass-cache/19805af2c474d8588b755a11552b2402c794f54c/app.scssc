@@ -1,8 +1,8 @@
 3.2.1 (Media Mark)
-492b57ba626fc5b36a1b4d1382debdb3beeda0a4
+1e64d94c2ba005ae8d4a5faf8d5788b3eec82f2f
 o:Sass::Tree::RootNode
 :
-@linei:@template"5'// Global Foundation Settings
+@linei:@template"2'// Global Foundation Settings
 @import "settings";
 
 // Comment out this import if you are customizing you imports below
@@ -122,7 +122,7 @@ header {
 		li {	
 			display: inline-block;
 			text-align: center;
-			width: 23.65%;
+			width: 33%;
 			a:link, a:visited {
 				color: #fff;
 				font-size: em(12px);
@@ -690,7 +690,7 @@ o;;["display;i|;	@;i ;
 [ ;;;o;!;;";	@;"inline-blocko;;["text-align;i};	@;i ;
 [ ;;;o;!;;";	@;"centero;;["
 width;i~;	@;i ;
-[ ;;;o;!;;";	@;"23.65%o;-;.o;/;0" ;i;1[o;2;1[o;3
+[ ;;;o;!;;";	@;"33%o;-;.o;/;0" ;i;1[o;2;1[o;3
 ;0@i;i;4o;5;6{ ;70;1[o;8	;0@i;["a;i;90o;;
 ;0@i;["	link;;<;i;=0o;2;1[o;3
 ;0@i;i;4o;5;6{ ;70;1[o;8	;0@i;["a;i;90o;;

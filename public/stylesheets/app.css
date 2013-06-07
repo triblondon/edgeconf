@@ -7515,7 +7515,7 @@ header nav ul {
 header nav li {
   display: inline-block;
   text-align: center;
-  width: 23.65%;
+  width: 33%;
 }
 /* line 122, ../sass/app.scss */
 header nav li a:link, header nav li a:visited {
