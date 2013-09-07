@@ -1,26 +1,27 @@
 
 You're invited.
 
-Thank you for registering for Edge.  An invitation has been generated for you, and we're looking forward to seeing you on February 9th.  To claim a ticket, visit our Eventbrite ticket page and enter the unique promo code we generated for {email}:
+Thanks for registering, we're looking forward to seeing you on September 23rd.  To claim a ticket, visit our Eventbrite ticket page and enter the unique promo code we generated for {email}:
 
-Ticket page:  http://edge-london-2013.eventbrite.co.uk/?access={code}
+Ticket page:  http://edge-nyc-2013.eventbrite.co.uk/?access={code}
 Your code:    {code}
 
-The interest in Edge has been fantastic, and we're unable to fit everyone in.  We will continue to issue invitations until all tickets are sold, and tickets are available on a FIRST COME FIRST SERVED BASIS to anyone with an invitation.  This invitation therefore DOES NOT GUARANTEE THAT YOU WILL GET A TICKET, and we encourage you to use it to buy a ticket as soon as possible.
+We will continue to issue invitations until all tickets are sold, and tickets are available on a FIRST COME FIRST SERVED BASIS to anyone with an invitation.  This invitation therefore DOES NOT GUARANTEE THAT YOU WILL GET A TICKET, and we encourage you to use it to buy a ticket as soon as possible.
 
 ------
 
 Here's a reminder of where and when Edge will be held:
 
-Saturday, February 9, 2013
-Facebook London
-42 Earlham St
-WC2H 9LA London
-United Kingdom
+Monday September 23, 2013
+Google New York City
+4th Floor
+76 9th Ave
+New York, NY
+10011
 
 ------
 
-Edge is a new kind of one-day conference on advanced web technologies for developers and browser vendors. Presented by FT Labs, Google, and Facebook.  Tickets cost £50, which will pay speakers travel expenses and help us ensure that the venue is full without having to oversell.  Any money we have left will be donated to an open source project selected by conference delegates during the event.
+Edge is a new kind of one-day conference on advanced web technologies for developers and browser vendors, presented by FT Labs and Google.  Tickets cost $100, which will pay panelists' travel expenses and help us ensure that the venue is full without having to oversell.  Any money we have left will be donated to a local charity.  For more information visit edgeconf.com.
 
 You're receiving this invitation because you registered your interest on http://edgeconf.com by filling in our registration form.
 

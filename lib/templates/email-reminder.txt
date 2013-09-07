@@ -1,26 +1,25 @@
 
 Time's running out.
 
-You registered for Edge and we sent you an invite, but you haven't used it.  If you still want to, you need to buy your ticket soon, as we're now issuing more invitations to people on our waitlist.  If you received a reserved ticket invitation, remember your exclusivity period has expired - so although you can still buy a ticket, your invitation <strong>no longer guarantees you a place</strong>.
+You registered for Edge and we sent you an invite, but you haven't used it.  If you still want to, you need to buy your ticket soon, as we're now issuing more invitations to people on our waitlist.
 
-And there are a lot of people on the waitlist.  As of right now, it's {waitlist}.
-
-Ticket page:  http://edge-london-2013.eventbrite.co.uk/?access={code}
+Ticket page:  http://edge-nyc-2013.eventbrite.co.uk/?access={code}
 Your code:    {code}
 
 ------
 
 Here's a reminder of where and when Edge will be held:
 
-Saturday, February 9, 2013
-Facebook London
-42 Earlham St
-WC2H 9LA London
-United Kingdom
+Monday, February 23, 2013
+Google New York City
+4th Floor
+76 9th Ave
+New York, NY
+10011
 
 ------
 
-Edge is a new kind of one-day conference on advanced web technologies for developers and browser vendors. Presented by FT Labs, Google, and Facebook.  Tickets cost £50, which will pay speakers travel expenses and help us ensure that the venue is full without having to oversell.  Any money we have left will be donated to an open source project selected by conference delegates during the event.
+Edge is a new kind of one-day conference on advanced web technologies for developers and browser vendors, presented by FT Labs and Google.  Tickets cost $100, which will pay panelists' travel expenses and help us ensure that the venue is full without having to oversell.  Any money we have left will be donated to a local charity.  For more information visit http://edgeconf.com.
 
 You're receiving this invitation because you registered your interest on http://edgeconf.com by filling in our registration form.
 
