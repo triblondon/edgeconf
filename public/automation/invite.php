@@ -6,11 +6,9 @@ th, td { border: 1px solid #aaa; padding: 3px 5px; text-align: left; font-size:1
 </style>
 <?php
 
-require_once '../app/libraries/http/HTTPRequest';
-require_once '../app/libraries/mysql/connection';
-require_once '../app/libraries/coseva/coseva.php';
-require_once '../app/libraries/eventbrite/eventbrite.php';
-require_once '../app/libraries/mailchimp/MCAPI.class.php';
+
+require_once '../../app/global';
+
 
 
 /* Configurable stuff */
@@ -32,18 +30,14 @@ $domailchimp = (empty($_GET['domailchimp'])) ? false : true;
 
 
 
-$db = new MySQLConnection('localhost', 'web', 'kick88elastic', 'edge2');
-$eb_client = new Eventbrite(array('app_key'=>'N43KISGOIHOYSEYUDN', 'user_key'=>'133354408930710386593'));
+$db = new MySQLConnection('localhost', MYSQL_USER, MYSQL_PASS, 'edge2');
+$db->setQueryLogging(true);
+$eb_client = new Eventbrite(array('app_key'=>EVENTBRITE_APPKEY, 'user_key'=>EVENTBRITE_USERKEY));
 
-$gdocsurl_reg = 'https://docs.google.com/spreadsheet/pub?key=0AqIP_kC-Q_iIdEJtUjA3UDR3MnQtbWdwdWM3Vm85Rnc&single=true&gid=3&output=csv';
-$gdocsurl_vip = 'https://docs.google.com/spreadsheet/pub?key=0AqIP_kC-Q_iIdEJtUjA3UDR3MnQtbWdwdWM3Vm85Rnc&single=true&gid=9&output=csv';
-$eventbriteid = 7239047185;
-$mailchimpkey = '5f9f89aa3f1363597fddc8bce8717cc1-us1';
-$mailchimplist = '0c9bd2c13d';
-$emailbody_html = file_get_contents('../lib/templates/email-invite.html');
-$emailbody_text = file_get_contents('../lib/templates/email-invite.txt');
-$reminderbody_html = file_get_contents('../lib/templates/email-reminder.html');
-$reminderbody_text = file_get_contents('../lib/templates/email-reminder.txt');
+$emailbody_html = file_get_contents('../../lib/templates/email-invite.html');
+$emailbody_text = file_get_contents('../../lib/templates/email-invite.txt');
+$reminderbody_html = file_get_contents('../../lib/templates/email-reminder.html');
+$reminderbody_text = file_get_contents('../../lib/templates/email-reminder.txt');
 $sevendays = 60*60*24*7;
 $tzutc = new DateTimeZone('UTC');
 
@@ -64,7 +58,7 @@ foreach ($res as $row) $people[$row['email']] = $row;
 
 echo "<p>Downloading data from Google Drive</p>";
 flush();
-$http = new HTTPRequest($gdocsurl_reg);
+$http = new HTTPRequest(GSHEET_REG);
 $resp = $http->send();
 
 echo "<p>Decoding CSV</p>";
@@ -100,7 +94,7 @@ foreach ($csv as $row) {
 
 echo "<p>Downloading data from Eventbrite</p>";
 flush();
-$list = $eb_client->event_list_attendees(array('id'=>$eventbriteid));
+$list = $eb_client->event_list_attendees(array('id'=>EVENTBRITE_EID));
 foreach ($list->attendees as $rec) {
 	$data = array(
 		'ebt_name' => ucwords(trim($rec->attendee->first_name).' '.trim($rec->attendee->last_name)),
@@ -130,7 +124,7 @@ foreach ($list->attendees as $rec) {
 
 echo "<p>Downloading VIP participation data from Google Drive</p>";
 flush();
-$http = new HTTPRequest($gdocsurl_vip);
+$http = new HTTPRequest(GSHEET_VIP);
 $resp = $http->send();
 
 echo "<p>Decoding CSV</p>";
@@ -198,7 +192,7 @@ foreach ($people as $email => &$person) {
 		unset($person['ebt_name']);
 	}
 	if (isset($person['email'])) {
-		$sql = 'SELECT email, dateinvited, datereminded, participation, code FROM invites WHERE {email}';
+		$sql = 'SELECT 1 FROM invites WHERE {email}';
 		if (!empty($person['gdocs_ref'])) $sql .= ' OR {gdocs_ref}';
 		if (!empty($person['code'])) $sql .= ' OR {code}';
 		$res = $db->query($sql, $person);
@@ -219,7 +213,7 @@ if ($errors) {
 
 if ($domailchimp) {
 	echo "<p>Updating Mailchimp</p>";
-	$api = new MCAPI($mailchimpkey);
+	$api = new MCAPI(MC_KEY);
 	foreach ($people as $person) {
 		if (!empty($person['participation'])) {
 			$merge_vars = array(
@@ -227,14 +221,36 @@ if ($domailchimp) {
 					array('name'=>'Edgeconf 2 participation', 'groups'=>$person['participation']),
 				)
 			);
-			$retval = $api->listSubscribe($mailchimplist, $person['email'], $merge_vars, 'html', false, true, true, false);
+			$retval = $api->listSubscribe(MC_LIST, $person['email'], $merge_vars, 'html', false, true, true, false);
 		}
 	}
 }
 
+
+/* Expire invitations more than 14 days old (for people < 5*). */
+
+// Create lookup table of discount code to Eventbrite discount ID
+echo "<p>Expiring old codes: ";
+flush();
+$list = $eb_client->event_list_access_codes(array('id'=>EVENTBRITE_EID));
+$promocodes = array();
+foreach ($list->access_codes as $accesscode) {
+	$promocodes[$accesscode->access_code->code] = $accesscode->access_code->access_code_id;
+}
+$oldinvites = $db->query('SELECT * FROM invites WHERE dateinvited < (NOW() - INTERVAL 14 DAY) AND ebt_datepurchased IS NULL AND dateexpired IS NULL AND gdocs_rating < 5');
+$count = 0;
+foreach ($oldinvites as $invite) {
+	$eb_client->access_code_update(array('id'=>$promocodes[$invite['code']], 'end_date'=>date('Y-m-d H:i:s', time()+10)));
+	$people[$invite['email']]['dateexpired'] = time();
+	$count++;
+}
+echo $count. " invitations expired.</p>\n";
+flush();
+
+
 /* Send invites and reminders as appropriate */
 
-$stats = array('attending'=>0, 'invited'=>0, 'waitlist'=>0);
+$stats = array('attending'=>0, 'invited'=>0, 'waitlist'=>0, 'expired'=>0);
 echo "<table><tr><th>Email</th><th>Name</th><th>Org</th><th>Gdoc ref</th><th>Rating</th><th>Participation</th><th>Status</th><th>Action</th></tr>";
 foreach ($people as $email => &$person) {
 	echo '<tr><td>'.$person['email'].'</td><td>'.$person['name'].'</td><td>'.$person['org'].'</td>';
@@ -245,6 +261,10 @@ foreach ($people as $email => &$person) {
 	if (!empty($person['ebt_datepurchased'])) {
 		echo '<td>Attending</td><td>-</td>';
 		$stats['attending']++;
+
+	} elseif (!empty($person['dateexpired'])) {
+		echo '<td>Expired</td><td>-</td>';
+		$stats['expired']++;
 
 	} elseif (!empty($person['code']) and !empty($person['dateinvited'])) {
 		echo '<td>Invited ('.$person['code'].')</td>';
@@ -310,32 +330,6 @@ var_dump($stats);
 
 
 
-
-/* Expire invitations more than 7 days old (for people < 5*). */
-/*
-// Create lookup table of discount code to Eventbrite discount ID
-echo "Fetching discount codes\n";
-flush();
-$list = $eb_client->event_list_discounts(array('id'=>4730469963));
-$promocodes = array();
-foreach ($list->discounts as $discount) {
-	$promocodes[$discount->discount->code] = $discount->discount->discount_id;
-}
-
-echo "Expiring old codes\n";
-flush();
-$oldinvites = $db->query('SELECT * FROM invites WHERE dateinvited < (NOW() - INTERVAL 7 DAY) AND datepurchased IS NULL AND dateexpired IS NULL AND rating < 5');
-$count = 0;
-foreach ($oldinvites as $invite) {
-	$eb_client->discount_update(array('id'=>$promocodes[$invite['code']], 'amount_off'=>1, 'end_date'=>date('Y-m-d H:i:s', time()+10)));
-	$db->query('UPDATE invites SET dateexpired=NOW() WHERE registrantref=%d', $invite['registrantref']);
-	echo 'EXPIRED: '.$invite['registrantref']." (".$invite['email'].")\n";
-	flush();
-	$count++;
-}
-echo $count. " invitations expired.\n";
-flush();
-*/
 
 
 function sendEmail($to, $subj, $text, $html) {

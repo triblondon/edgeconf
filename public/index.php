@@ -1,3 +1,3 @@
 <?php
 
-header('Location: /2013-london');
+header('Location: /2013-nyc');

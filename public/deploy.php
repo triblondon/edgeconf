@@ -1,5 +1,5 @@
 <?php
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-	shell_exec('sudo ../deploy.sh');
+	echo shell_exec('sudo ../deploy.sh 2>&1');
 }
