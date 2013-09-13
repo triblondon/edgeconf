@@ -50,7 +50,7 @@ echo '<!--'.str_repeat('#', 1024).'-->';
 /* Get existing data from DB */
 
 $people = array();
-$res = $db->query('SELECT * FROM invites');
+$res = $db->query('SELECT email, name, org, code, dateinvited, datereminded, dateexpired, gdocs_ref, gdocs_rating FROM invites');
 foreach ($res as $row) $people[$row['email']] = $row;
 
 
@@ -63,8 +63,7 @@ $resp = $http->send();
 
 echo "<p>Decoding CSV</p>";
 flush();
-$data = $resp->getBody();
-file_put_contents('/tmp/edgecsv', $data);
+file_put_contents('/tmp/edgecsv', $resp->getBody());
 $csv = new Coseva\CSV('/tmp/edgecsv');
 $csv->parse();
 foreach ($csv as $row) {
@@ -161,7 +160,7 @@ foreach ($people as $email => &$person) {
 		$person['email'] = $person['ebt_email'];
 		unset($person['ebt_email']);
 	} else {
-		$errors[] = 'Email address '.$email.' is not in Google doc or eventbrite (probably a VIP you need to issue a comp ticket to)';
+		$errors[] = 'Email address '.$email.' is not in Google doc or eventbrite (probably a VIP you need to issue a comp ticket to or a cancelled VIP you need to remove from the database)';
 	}
 	if (isset($person['gdocs_org']) and isset($person['ebt_org'])) {
 		if ($person['gdocs_org'] == $person['ebt_org']) {
