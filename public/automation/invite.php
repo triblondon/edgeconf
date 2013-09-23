@@ -226,7 +226,7 @@ if ($domailchimp) {
 }
 
 
-/* Expire invitations more than 14 days old (for people < 5*). */
+/* Expire invitations more than 7 days old (for anyone from a non-whitelisted org). */
 
 // Create lookup table of discount code to Eventbrite discount ID
 echo "<p>Expiring old codes: ";
@@ -236,12 +236,14 @@ $promocodes = array();
 foreach ($list->access_codes as $accesscode) {
 	$promocodes[$accesscode->access_code->code] = $accesscode->access_code->access_code_id;
 }
-$oldinvites = $db->query('SELECT * FROM invites WHERE dateinvited < (NOW() - INTERVAL 14 DAY) AND ebt_datepurchased IS NULL AND dateexpired IS NULL AND gdocs_rating < 5');
+$oldinvites = $db->query('SELECT * FROM invites WHERE dateinvited < (NOW() - INTERVAL 7 DAY) AND ebt_datepurchased IS NULL AND dateexpired IS NULL');
 $count = 0;
 foreach ($oldinvites as $invite) {
-	$eb_client->access_code_update(array('id'=>$promocodes[$invite['code']], 'end_date'=>date('Y-m-d H:i:s', time()+10)));
-	$people[$invite['email']]['dateexpired'] = time();
-	$count++;
+	if (!preg_match('/(facebook|twitter|github|hubspot|microsoft)/i', $invite['org'])) {
+		$eb_client->access_code_update(array('id'=>$promocodes[$invite['code']], 'end_date'=>date('Y-m-d H:i:s', time()+10)));
+		$people[$invite['email']]['dateexpired'] = time();
+		$count++;
+	}
 }
 echo $count. " invitations expired.</p>\n";
 flush();
