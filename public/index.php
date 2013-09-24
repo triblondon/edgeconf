@@ -1,3 +1,3 @@
 <?php
 
-header('Location: /2013-nyc/live.html');
+header('Location: /2013-nyc/');
