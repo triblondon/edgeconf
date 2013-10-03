@@ -118,7 +118,7 @@ header {
 		li {
 			display: inline-block;
 			text-align: center;
-			width: 33%;
+			width: 24%;
 			a:link, a:visited {
 				color: #fff;
 				font-size: em(12px);
@@ -202,6 +202,13 @@ header {
 		font-size: em(26px);
 		margin-top: 55px;
 	}
+	a.button { 
+		background: #f9f900; 
+		color: #333; 
+	}
+    a.button:hover { 
+    	box-shadow: 0 0 25px 3px white; 
+    }
 	@include breakpoint(mobile) {
 		min-height: 0;
 		padding: 40px 0 20px 0;
@@ -377,6 +384,8 @@ header {
 	margin: 20px 0;
 	dt {
 		font-size: em(18px);
+		line-height: 1; 
+		margin-bottom: 0;
 		text-transform: uppercase;
 	}
 	dt, dd {
@@ -401,7 +410,7 @@ header {
 		margin-top: 2px;
 		width: 20%;
 		img {
-			opacity: .1;
+			opacity: 0.7;
 			-webkit-transition: opacity 0.2s ease;
 			-moz-transition: opacity 0.2s ease;
 			-ms-transition: opacity 0.2s ease;
@@ -425,6 +434,33 @@ header {
 		transition: opacity 0.2s ease;
 	}
 }
+.side { 
+	max-width: 100%; 
+	display: block; 
+	margin: 10px 0; 
+	@media screen and (min-width:600px) {
+		max-width: 30%; 
+		float: right; 
+		margin: 0 10px;
+	}
+}
+.watch { 
+	display: block; 
+	margin: 1em 0; 
+	a { 
+		display: inline; 
+		margin-right: 35px; 
+		i {
+			padding-right: 5px;
+		}
+	}
+}
+.session-list li { 
+	font-size: 22px; 
+	list-style-type:disc; 
+	padding: 0 0 0 10px; 
+	margin-left: 70px;
+}
 .moderator {
 	background: #fafafa;
 	border: 1px solid #f2f2f2;
@@ -439,6 +475,29 @@ header {
 }
 .layer.final-session {
 	border: none;
+}
+.iframe-wrapper {
+    position: relative;
+    padding-bottom: 56.25%;
+    padding-top: 25px;
+    height: 0;
+    margin-bottom: 10px;
+}
+.iframe-wrapper iframe {
+    position: absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+}
+h3 .conf-name {
+	font-weight: 900;
+}
+h3 #sessionLabel {
+	font-weight: 300;
+}
+h3 #liveLabel {
+	color: red;
 }
 .social-icons {
 	li {
