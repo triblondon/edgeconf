@@ -200,13 +200,16 @@ header {
 	.tagline {
 		color: #fff;
 		font-size: em(26px);
-		margin-top: 55px;
+		margin-top: 40px;
 	}
 	@include breakpoint(mobile) {
 		min-height: 0;
 		padding: 40px 0 20px 0;
 		h1 {
-			min-height: 140px;
+			margin: 20px auto 0 auto;
+			max-width: 260px;
+			min-height: 190px; 
+			min-width: 160px;
 		}
 	}
 }
@@ -220,6 +223,18 @@ header {
 		font-size: em(36px);
 		font-weight: 900;
 		margin-top: 40px;
+	}
+	@include breakpoint(mobile) {
+		h1 { 
+			max-width: 180px;
+			min-height: 135px; 
+			min-width: 130px;
+		}
+		h2 {
+			font-size: em(30px);
+			margin-top: 20px;
+			text-align: center;
+		}
 	}
 }
 .layer {
