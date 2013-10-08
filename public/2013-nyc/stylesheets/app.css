@@ -7611,7 +7611,7 @@ header nav i {
 #billboard .tagline {
   color: #fff;
   font-size: 1.625em;
-  margin-top: 55px;
+  margin-top: 40px;
 }
 @media only screen and (max-width: 768px) {
   /* line 189, ../sass/app.scss */
@@ -7621,7 +7621,10 @@ header nav i {
   }
   /* line 208, ../sass/app.scss */
   #billboard h1 {
-    min-height: 140px;
+    margin: 20px auto 0 auto;
+    max-width: 260px;
+    min-height: 190px; 
+    min-width: 160px;
   }
 }
 
@@ -7639,6 +7642,19 @@ header nav i {
   font-size: 2.25em;
   font-weight: 900;
   margin-top: 40px;
+}
+@media only screen and (max-width: 768px) {
+  #billboard.inner h1 { 
+    max-width: 180px;
+    min-height: 135px; 
+    min-width: 130px;
+  }
+  #billboard.inner h2 {
+    font-size: 1.875em;
+    margin-top: 20px;
+    text-align: center;
+  }
+
 }
 
 /* line 225, ../sass/app.scss */
