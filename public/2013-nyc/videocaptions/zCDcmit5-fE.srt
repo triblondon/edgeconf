@@ -1,0 +1,5814 @@
+1
+00:00:00,000 --> 00:00:06,400
+
+2
+00:00:06,400 --> 00:00:07,650
+MARCUS: This is Yav
+[? Weiss. ?]
+
+3
+00:00:07,650 --> 00:00:10,500
+
+4
+00:00:10,500 --> 00:00:12,670
+I'll try to keep everything
+very brief.
+
+5
+00:00:12,670 --> 00:00:13,960
+As we get established.
+
+6
+00:00:13,960 --> 00:00:16,610
+So Yov's been doing quite a lot
+of work with responsive
+
+7
+00:00:16,610 --> 00:00:18,090
+images of late.
+
+8
+00:00:18,090 --> 00:00:19,440
+He's heavily involved
+in the responsive
+
+9
+00:00:19,440 --> 00:00:21,690
+images community group.
+
+10
+00:00:21,690 --> 00:00:24,620
+Then we have Peter Miller.
+
+11
+00:00:24,620 --> 00:00:28,852
+So Peter Miller is a developer
+who works on a lot of concept
+
+12
+00:00:28,852 --> 00:00:30,680
+heavy websites, image
+heavy websites.
+
+13
+00:00:30,680 --> 00:00:31,780
+Great experience.
+
+14
+00:00:31,780 --> 00:00:36,685
+Anne Robinson also works for--
+
+15
+00:00:36,685 --> 00:00:38,240
+ANNE ROBINSON: Yammer.
+
+16
+00:00:38,240 --> 00:00:38,380
+MARCUS: Yammer.
+
+17
+00:00:38,380 --> 00:00:39,350
+Sorry, I forgot.
+
+18
+00:00:39,350 --> 00:00:41,410
+Has written fantastic stuff
+about web performance, has
+
+19
+00:00:41,410 --> 00:00:44,530
+some great ideas about how we
+can address on the responsive
+
+20
+00:00:44,530 --> 00:00:47,730
+images problems using
+progressive jpgs.
+
+21
+00:00:47,730 --> 00:00:48,260
+[INAUDIBLE]
+
+22
+00:00:48,260 --> 00:00:51,840
+well, has anyone heard
+of the clown car
+
+23
+00:00:51,840 --> 00:00:54,340
+technique, the creator.
+
+24
+00:00:54,340 --> 00:00:58,210
+So we're going to hopefully talk
+a little bit about that.
+
+25
+00:00:58,210 --> 00:01:01,540
+And John Mellor works
+at Google.
+
+26
+00:01:01,540 --> 00:01:04,259
+And John Mellor is probably the
+only person on earth who
+
+27
+00:01:04,259 --> 00:01:08,440
+can tell the difference between
+a device pixel, a real
+
+28
+00:01:08,440 --> 00:01:13,915
+pixel, a CSS pixel, and all
+sorts of other pixels.
+
+29
+00:01:13,915 --> 00:01:15,450
+And he can do it all
+in his head.
+
+30
+00:01:15,450 --> 00:01:17,630
+It's pretty crazy.
+
+31
+00:01:17,630 --> 00:01:23,360
+So first up, we have Yav, who
+is going to give a 10 minute
+
+32
+00:01:23,360 --> 00:01:27,950
+talk basically outlining what
+the current solutions are that
+
+33
+00:01:27,950 --> 00:01:31,390
+we've been basically discussing
+for the last two
+
+34
+00:01:31,390 --> 00:01:33,370
+years trying to come
+up with a solution
+
+35
+00:01:33,370 --> 00:01:34,845
+for responsive images.
+
+36
+00:01:34,845 --> 00:01:37,120
+Take it away.
+
+37
+00:01:37,120 --> 00:01:38,370
+YAV: So we'll swap seats.
+
+38
+00:01:38,370 --> 00:02:05,520
+
+39
+00:02:05,520 --> 00:02:07,970
+So hi.
+
+40
+00:02:07,970 --> 00:02:09,699
+As Marcus said, I'm
+Yav [? Weiss. ?]
+
+41
+00:02:09,699 --> 00:02:13,540
+I'm here to talk about
+responsive images I'll try to
+
+42
+00:02:13,540 --> 00:02:17,210
+sum up two years of discussions
+into 10 minutes
+
+43
+00:02:17,210 --> 00:02:20,930
+talk, so bear with me.
+
+44
+00:02:20,930 --> 00:02:23,890
+So first, in the mid-2000s,
+all we had
+
+45
+00:02:23,890 --> 00:02:26,200
+was mobile only sites.
+
+46
+00:02:26,200 --> 00:02:33,030
+They were kind of lame, with
+very slim content, highly
+
+47
+00:02:33,030 --> 00:02:35,220
+optimized images.
+
+48
+00:02:35,220 --> 00:02:37,160
+It got a little better
+with the iPhone, but
+
+49
+00:02:37,160 --> 00:02:41,160
+it wasn't that hot.
+
+50
+00:02:41,160 --> 00:02:44,630
+Then responsive web design
+became a thing,
+
+51
+00:02:44,630 --> 00:02:46,120
+which was very cool.
+
+52
+00:02:46,120 --> 00:02:48,160
+One code base to
+rule them all.
+
+53
+00:02:48,160 --> 00:02:51,850
+You can all the devices
+through a single site.
+
+54
+00:02:51,850 --> 00:02:59,190
+But the problem is it
+was kind of slow.
+
+55
+00:02:59,190 --> 00:03:01,840
+It became a synonym
+to slow mobile
+
+56
+00:03:01,840 --> 00:03:07,130
+websites, which is a problem.
+
+57
+00:03:07,130 --> 00:03:13,260
+So the reason is that most serve
+the same resources to
+
+58
+00:03:13,260 --> 00:03:15,380
+both mobile and desktop.
+
+59
+00:03:15,380 --> 00:03:18,720
+
+60
+00:03:18,720 --> 00:03:22,330
+And most of that
+data is images.
+
+61
+00:03:22,330 --> 00:03:26,810
+So there are a lot of
+savings to be made.
+
+62
+00:03:26,810 --> 00:03:29,760
+
+63
+00:03:29,760 --> 00:03:34,455
+I wrote a utility, which can Tim
+Cadillac run, Tim Cadillac
+
+64
+00:03:34,455 --> 00:03:36,120
+is a developer-- sorry
+for namedropping.
+
+65
+00:03:36,120 --> 00:03:39,210
+
+66
+00:03:39,210 --> 00:03:43,720
+But basically, we saw that up
+to 72% of the image of data
+
+67
+00:03:43,720 --> 00:03:46,290
+can be saved for some
+of the viewports
+
+68
+00:03:46,290 --> 00:03:47,550
+in some of the cases.
+
+69
+00:03:47,550 --> 00:03:50,090
+So there's a lot of savings
+to be made.
+
+70
+00:03:50,090 --> 00:03:55,130
+And retina only makes things
+worse because the gap between
+
+71
+00:03:55,130 --> 00:04:00,170
+the smallest images you want
+to send and the highest
+
+72
+00:04:00,170 --> 00:04:04,640
+resolution images you want to
+send is getting bigger.
+
+73
+00:04:04,640 --> 00:04:14,100
+And with most devs owning retina
+devices, most devs are
+
+74
+00:04:14,100 --> 00:04:17,700
+high resolution images
+to all devices.
+
+75
+00:04:17,700 --> 00:04:23,010
+So this is the responsive images
+problem, which we like
+
+76
+00:04:23,010 --> 00:04:25,690
+to divide into two
+major use cases.
+
+77
+00:04:25,690 --> 00:04:29,900
+The first one is resolution
+switching, serving different
+
+78
+00:04:29,900 --> 00:04:33,760
+images to different devices--
+
+79
+00:04:33,760 --> 00:04:37,450
+different dimension images,
+different devices.
+
+80
+00:04:37,450 --> 00:04:41,980
+The images are the same images,
+the same proportions,
+
+81
+00:04:41,980 --> 00:04:43,740
+they're not cropped.
+
+82
+00:04:43,740 --> 00:04:48,500
+But basically, the quality
+is different.
+
+83
+00:04:48,500 --> 00:04:51,060
+This is one example of that.
+
+84
+00:04:51,060 --> 00:04:55,910
+And it can be further divided
+into DPR switching, serving
+
+85
+00:04:55,910 --> 00:05:01,650
+retina images only to retina
+devices, and viewport
+
+86
+00:05:01,650 --> 00:05:09,870
+switching, which is adapting
+image dimensions to the actual
+
+87
+00:05:09,870 --> 00:05:16,840
+display to the sites that in
+which they will be displayed.
+
+88
+00:05:16,840 --> 00:05:20,390
+Then the other major use
+case is art direction.
+
+89
+00:05:20,390 --> 00:05:23,770
+Basically, it's content
+optimization without wasting
+
+90
+00:05:23,770 --> 00:05:24,820
+too many bytes.
+
+91
+00:05:24,820 --> 00:05:29,150
+Its matching the images
+to the layout in a
+
+92
+00:05:29,150 --> 00:05:30,350
+way that makes sense.
+
+93
+00:05:30,350 --> 00:05:34,480
+So either a crop, or different
+proportions, or something that
+
+94
+00:05:34,480 --> 00:05:41,110
+works according to the actual
+responsive break points from a
+
+95
+00:05:41,110 --> 00:05:44,170
+survey we ran a lot
+of developer.
+
+96
+00:05:44,170 --> 00:05:47,180
+A lot of developers are already
+doing that using hacks
+
+97
+00:05:47,180 --> 00:05:53,162
+so this is a major
+use case here.
+
+98
+00:05:53,162 --> 00:05:55,190
+And so we've talked
+about the problem.
+
+99
+00:05:55,190 --> 00:05:59,000
+Let's talk about the solutions
+there are several proposed
+
+100
+00:05:59,000 --> 00:06:01,350
+standard solutions.
+
+101
+00:06:01,350 --> 00:06:06,230
+There's the srcset attribute,
+picture elements, client-hints
+
+102
+00:06:06,230 --> 00:06:11,160
+header, and I put a question
+mark in because it's not
+
+103
+00:06:11,160 --> 00:06:12,570
+really a standard solution.
+
+104
+00:06:12,570 --> 00:06:15,340
+This is just a proposal at the
+moment, but the responsive
+
+105
+00:06:15,340 --> 00:06:16,070
+image container.
+
+106
+00:06:16,070 --> 00:06:18,520
+I'll talk about each
+one in detail.
+
+107
+00:06:18,520 --> 00:06:23,600
+So srcset, basically, it's the
+same old image tag, now with
+
+108
+00:06:23,600 --> 00:06:27,600
+new attributes that can include
+multiple resources
+
+109
+00:06:27,600 --> 00:06:30,470
+according to the DPR
+and the viewport.
+
+110
+00:06:30,470 --> 00:06:35,840
+It's a slightly controversial
+statement, but it addresses
+
+111
+00:06:35,840 --> 00:06:39,460
+mainly the resolution switching
+case and, much less,
+
+112
+00:06:39,460 --> 00:06:40,960
+the art direction case.
+
+113
+00:06:40,960 --> 00:06:42,230
+Some people would
+disagree, but--
+
+114
+00:06:42,230 --> 00:06:46,950
+
+115
+00:06:46,950 --> 00:06:49,190
+Srcset it is currently
+implemented in
+
+116
+00:06:49,190 --> 00:06:51,810
+WebKit and in Blink.
+
+117
+00:06:51,810 --> 00:06:54,070
+It's behind the flag In
+blink, and it's not
+
+118
+00:06:54,070 --> 00:06:55,300
+just shipped in WebKit.
+
+119
+00:06:55,300 --> 00:06:57,430
+But it's there and
+the code base.
+
+120
+00:06:57,430 --> 00:07:00,240
+Firefox will soon follow.
+
+121
+00:07:00,240 --> 00:07:04,280
+And basically, it looks
+something like this.
+
+122
+00:07:04,280 --> 00:07:06,940
+
+123
+00:07:06,940 --> 00:07:12,710
+You specified the 1x, or 2x, or
+1.5x, or 3x, qualifiers for
+
+124
+00:07:12,710 --> 00:07:20,740
+each image resource you
+add to the page.
+
+125
+00:07:20,740 --> 00:07:25,250
+The entire spec also includes
+viewport switching, which
+
+126
+00:07:25,250 --> 00:07:26,700
+looks something like this.
+
+127
+00:07:26,700 --> 00:07:31,490
+
+128
+00:07:31,490 --> 00:07:36,310
+For each resource, you specify
+the max viewport for which it
+
+129
+00:07:36,310 --> 00:07:42,540
+can be applied to and the x
+factor that's adapted to it.
+
+130
+00:07:42,540 --> 00:07:44,570
+The problem with that--
+
+131
+00:07:44,570 --> 00:07:47,920
+it gives you a lot of expressive
+power, but you also
+
+132
+00:07:47,920 --> 00:07:51,370
+have to, in some cases, like you
+can see in the example I
+
+133
+00:07:51,370 --> 00:07:55,770
+put up, you have to define a
+single URL several times
+
+134
+00:07:55,770 --> 00:08:02,340
+because it fits several DPR
+and viewport combinations.
+
+135
+00:08:02,340 --> 00:08:04,570
+Then we have picture,
+which is mainly
+
+136
+00:08:04,570 --> 00:08:06,310
+targeted at art direction.
+
+137
+00:08:06,310 --> 00:08:09,440
+
+138
+00:08:09,440 --> 00:08:14,300
+It's an element with multiple
+source children.
+
+139
+00:08:14,300 --> 00:08:18,380
+Each one of them is specifying
+an image resource based on
+
+140
+00:08:18,380 --> 00:08:22,440
+media queries and,
+possibly, type.
+
+141
+00:08:22,440 --> 00:08:24,530
+And the first matching
+resource is
+
+142
+00:08:24,530 --> 00:08:28,020
+downloaded and displayed.
+
+143
+00:08:28,020 --> 00:08:30,130
+It looks something like this.
+
+144
+00:08:30,130 --> 00:08:33,080
+And as you can see,
+it can mix srcset
+
+145
+00:08:33,080 --> 00:08:36,440
+into the source elements.
+
+146
+00:08:36,440 --> 00:08:41,070
+So you can define an
+art-directed image with
+
+147
+00:08:41,070 --> 00:08:45,400
+multiple DPR versions of it.
+
+148
+00:08:45,400 --> 00:08:53,020
+And the media attributes you use
+here are most probably the
+
+149
+00:08:53,020 --> 00:08:58,510
+same media values if you use for
+your layout break points,
+
+150
+00:08:58,510 --> 00:09:02,380
+unlike viewport resolution
+switching, which can be
+
+151
+00:09:02,380 --> 00:09:06,310
+independent of the
+layout viewport.
+
+152
+00:09:06,310 --> 00:09:11,690
+Then we have, as a third
+contender, or third proposal,
+
+153
+00:09:11,690 --> 00:09:14,810
+we have client hints that is,
+unlike the two others, it's
+
+154
+00:09:14,810 --> 00:09:16,620
+not a markup-based solution.
+
+155
+00:09:16,620 --> 00:09:19,150
+It's an HTTP-based solution.
+
+156
+00:09:19,150 --> 00:09:25,120
+And basically, the client sends
+out its capabilities.
+
+157
+00:09:25,120 --> 00:09:30,440
+It sends out hints to the
+server, saying this is my DPR,
+
+158
+00:09:30,440 --> 00:09:32,840
+this is my viewport
+width or height.
+
+159
+00:09:32,840 --> 00:09:37,370
+The actual values are still
+debated, but this is the
+
+160
+00:09:37,370 --> 00:09:38,710
+general spirit.
+
+161
+00:09:38,710 --> 00:09:41,760
+And everything is done
+on the server side.
+
+162
+00:09:41,760 --> 00:09:46,820
+It's server logic that serves
+one resource or the other.
+
+163
+00:09:46,820 --> 00:09:53,410
+And one recent change
+to this proposal is
+
+164
+00:09:53,410 --> 00:09:55,090
+that it's opt-in only.
+
+165
+00:09:55,090 --> 00:09:58,650
+The hints are not sent on
+the first HTML request.
+
+166
+00:09:58,650 --> 00:10:06,320
+On the other hand, it saves us
+from adding data to requests
+
+167
+00:10:06,320 --> 00:10:08,860
+where the server is not going
+to do anything about it.
+
+168
+00:10:08,860 --> 00:10:15,340
+So that's recent compromise that
+may be able to push the
+
+169
+00:10:15,340 --> 00:10:18,140
+spec forward.
+
+170
+00:10:18,140 --> 00:10:25,120
+Then I have something I'm
+proposing as more of a long
+
+171
+00:10:25,120 --> 00:10:26,110
+term solution.
+
+172
+00:10:26,110 --> 00:10:30,600
+This is not something that's on
+anyone's immediate radar.
+
+173
+00:10:30,600 --> 00:10:33,740
+But it's a long term solution
+I'm proposing.
+
+174
+00:10:33,740 --> 00:10:36,850
+That's a file format
+based approach.
+
+175
+00:10:36,850 --> 00:10:40,880
+We're basically, each targets
+resolution that we want to
+
+176
+00:10:40,880 --> 00:10:43,670
+serve is represented
+in a layer in
+
+177
+00:10:43,670 --> 00:10:45,620
+some sort of a container.
+
+178
+00:10:45,620 --> 00:10:51,050
+And these layers are building up
+one on top of the other so
+
+179
+00:10:51,050 --> 00:10:55,780
+that the browser can download a
+certain number of layers and
+
+180
+00:10:55,780 --> 00:10:58,560
+then add more layers on
+that enhancing the
+
+181
+00:10:58,560 --> 00:11:00,720
+quality of the image.
+
+182
+00:11:00,720 --> 00:11:04,400
+It can address both resolution
+switching and art direction.
+
+183
+00:11:04,400 --> 00:11:07,700
+And I'll just to show you
+a bunch of examples.
+
+184
+00:11:07,700 --> 00:11:12,700
+So basically, for resolution
+switching, we have this photo
+
+185
+00:11:12,700 --> 00:11:17,140
+that, if we look into the layers
+that compose it, it's a
+
+186
+00:11:17,140 --> 00:11:21,110
+thumbnail, then and enhancement
+layer, which is
+
+187
+00:11:21,110 --> 00:11:24,160
+basically the thumbnail upscaled
+with [INAUDIBLE]
+
+188
+00:11:24,160 --> 00:11:31,090
+from the original image
+downscaled, and an enhancement
+
+189
+00:11:31,090 --> 00:11:35,230
+layer, and then another one
+that's basically used to
+
+190
+00:11:35,230 --> 00:11:40,825
+recreate the original image
+without adding many bytes to
+
+191
+00:11:40,825 --> 00:11:42,550
+the process.
+
+192
+00:11:42,550 --> 00:11:45,200
+The overhead is very small.
+
+193
+00:11:45,200 --> 00:11:48,870
+And for art direction, the
+same can be applied.
+
+194
+00:11:48,870 --> 00:11:52,070
+So this bigger image that's
+used everywhere for art
+
+195
+00:11:52,070 --> 00:11:58,040
+direction can be split into a
+crop, then an enhancement
+
+196
+00:11:58,040 --> 00:12:01,560
+layer, and another one.
+
+197
+00:12:01,560 --> 00:12:06,810
+The advantages are that
+markup is not touched.
+
+198
+00:12:06,810 --> 00:12:08,590
+You have a single file
+per image, so
+
+199
+00:12:08,590 --> 00:12:09,910
+it's easy to maintain.
+
+200
+00:12:09,910 --> 00:12:13,290
+And the best one for me is
+that the browser can just
+
+201
+00:12:13,290 --> 00:12:14,960
+download [? difs ?].
+
+202
+00:12:14,960 --> 00:12:18,760
+If they had downloaded one
+image, and then do something
+
+203
+00:12:18,760 --> 00:12:21,400
+in the browser's environment
+have changed, you can download
+
+204
+00:12:21,400 --> 00:12:23,480
+the [? dif ?].
+
+205
+00:12:23,480 --> 00:12:28,410
+The disadvantages are that it's
+complicated to implement
+
+206
+00:12:28,410 --> 00:12:32,180
+and basically decoding
+performance and network
+
+207
+00:12:32,180 --> 00:12:36,780
+performance without HTTP2
+is currently a mystery.
+
+208
+00:12:36,780 --> 00:12:41,610
+We need to further investigate
+that in order to know if it's
+
+209
+00:12:41,610 --> 00:12:45,010
+feasible or not without a HTTP2
+and in terms of the
+
+210
+00:12:45,010 --> 00:12:46,940
+coding performance.
+
+211
+00:12:46,940 --> 00:12:51,910
+And last minute slides added by
+John Mellor here maybe you
+
+212
+00:12:51,910 --> 00:12:54,175
+want to talk about that.
+
+213
+00:12:54,175 --> 00:13:02,070
+
+214
+00:13:02,070 --> 00:13:04,320
+JOHN MELLOR: So a possible way
+of making this responsive
+
+215
+00:13:04,320 --> 00:13:09,110
+format container load more
+efficiently when you are
+
+216
+00:13:09,110 --> 00:13:12,790
+making several [INAUDIBLE]
+request, and you don't leave
+
+217
+00:13:12,790 --> 00:13:16,765
+gaps in between and wait for a
+round trip each time, it loads
+
+218
+00:13:16,765 --> 00:13:22,290
+all of the images on the page
+in parallel, progressively.
+
+219
+00:13:22,290 --> 00:13:24,780
+So I've taken [INAUDIBLE].
+
+220
+00:13:24,780 --> 00:13:27,700
+I've stolen this, sorry.
+
+221
+00:13:27,700 --> 00:13:29,700
+On the left, you see the images
+being loaded one by
+
+222
+00:13:29,700 --> 00:13:31,250
+one, sequentially.
+
+223
+00:13:31,250 --> 00:13:34,870
+On the right, you see images
+being loaded all in parallel.
+
+224
+00:13:34,870 --> 00:13:37,450
+It's the same progressive
+jpgs on both sides.
+
+225
+00:13:37,450 --> 00:13:41,280
+Just on the left, I'm truncating
+the stream of
+
+226
+00:13:41,280 --> 00:13:43,645
+images so that you get the
+first image, and then I
+
+227
+00:13:43,645 --> 00:13:45,090
+truncate out some point there.
+
+228
+00:13:45,090 --> 00:13:47,120
+On the right, I truncate all
+the images at the same
+
+229
+00:13:47,120 --> 00:13:48,590
+percentage.
+
+230
+00:13:48,590 --> 00:13:51,140
+So this is 5% of the
+image bytes.
+
+231
+00:13:51,140 --> 00:13:52,790
+And you can see that, on
+both sides, the page
+
+232
+00:13:52,790 --> 00:13:54,460
+doesn't look great.
+
+233
+00:13:54,460 --> 00:13:58,050
+But by the time you've got to
+10% of the image bytes,
+
+234
+00:13:58,050 --> 00:14:01,150
+already on the right, you can
+kind of see what the page
+
+235
+00:14:01,150 --> 00:14:02,015
+looks like.
+
+236
+00:14:02,015 --> 00:14:04,675
+All the images are really
+blurry, and so on, but they at
+
+237
+00:14:04,675 --> 00:14:06,960
+least will fill their
+space well.
+
+238
+00:14:06,960 --> 00:14:11,470
+Whereas on the left, you can see
+the start of the top left
+
+239
+00:14:11,470 --> 00:14:14,240
+image, but all the other images
+haven't even started
+
+240
+00:14:14,240 --> 00:14:15,490
+loading yet.
+
+241
+00:14:15,490 --> 00:14:17,130
+
+242
+00:14:17,130 --> 00:14:19,935
+As you gradually load more,
+say you're on--
+
+243
+00:14:19,935 --> 00:14:23,950
+
+244
+00:14:23,950 --> 00:14:25,830
+YAV: Incremements of 10.
+
+245
+00:14:25,830 --> 00:14:28,370
+JOHN MELLOR: Say you get
+to 25%, for example.
+
+246
+00:14:28,370 --> 00:14:31,460
+Now the page on the right, we've
+only loaded a quarter of
+
+247
+00:14:31,460 --> 00:14:35,690
+the image bytes, but it already
+starts to look OK.
+
+248
+00:14:35,690 --> 00:14:37,920
+The images aren't crisp, but
+they're still perfectly
+
+249
+00:14:37,920 --> 00:14:41,170
+usable, whereas, on the left,
+we had this, super crisp,
+
+250
+00:14:41,170 --> 00:14:44,820
+lovely image on the top left,
+but the other images haven't
+
+251
+00:14:44,820 --> 00:14:46,070
+started loading.
+
+252
+00:14:46,070 --> 00:14:47,910
+
+253
+00:14:47,910 --> 00:14:52,640
+By the time you get to 50%,
+the page on the right now
+
+254
+00:14:52,640 --> 00:14:53,430
+looks perfect.
+
+255
+00:14:53,430 --> 00:14:56,880
+You can almost not tell
+that it hasn't
+
+256
+00:14:56,880 --> 00:14:58,355
+finished loading the images.
+
+257
+00:14:58,355 --> 00:15:00,000
+Whereas on the left,
+again, we've only
+
+258
+00:15:00,000 --> 00:15:01,250
+got half the images.
+
+259
+00:15:01,250 --> 00:15:03,070
+
+260
+00:15:03,070 --> 00:15:05,390
+And then, as you load more
+bytes, the page on the right
+
+261
+00:15:05,390 --> 00:15:08,210
+gradually becomes like a super
+crisp retina beautiful page.
+
+262
+00:15:08,210 --> 00:15:11,046
+But it's a very subtle
+difference between that and
+
+263
+00:15:11,046 --> 00:15:12,830
+the 1x image.
+
+264
+00:15:12,830 --> 00:15:18,462
+Whereas on the left, only now,
+at 100%, do we actually have
+
+265
+00:15:18,462 --> 00:15:22,140
+all the images at all visible.
+
+266
+00:15:22,140 --> 00:15:23,520
+YAV: Yeah, great.
+
+267
+00:15:23,520 --> 00:15:25,030
+ANNE ROBINSON: This is great.
+
+268
+00:15:25,030 --> 00:15:28,000
+I love that you're giving
+something to the users while
+
+269
+00:15:28,000 --> 00:15:28,840
+they are waiting.
+
+270
+00:15:28,840 --> 00:15:30,860
+That's brilliant.
+
+271
+00:15:30,860 --> 00:15:33,100
+That's what I love about
+progressive jpgs, is that it
+
+272
+00:15:33,100 --> 00:15:36,510
+will download the first scan
+as soon as possible.
+
+273
+00:15:36,510 --> 00:15:39,000
+MARCUS: So I think that that's
+kind of a good lead in to the
+
+274
+00:15:39,000 --> 00:15:43,820
+first question that we have,
+which is from Jake's
+
+275
+00:15:43,820 --> 00:15:44,410
+[INAUDIBLE].
+
+276
+00:15:44,410 --> 00:15:47,590
+I hope I pronounced
+that right.
+
+277
+00:15:47,590 --> 00:15:49,724
+Jake, do you have your
+question with you?
+
+278
+00:15:49,724 --> 00:15:51,190
+AUDIENCE: [INAUDIBLE].
+
+279
+00:15:51,190 --> 00:15:52,440
+MARCUS: Mike Runner, please.
+
+280
+00:15:52,440 --> 00:15:55,220
+
+281
+00:15:55,220 --> 00:15:57,720
+There goes Pete.
+
+282
+00:15:57,720 --> 00:16:01,280
+He's going to be really slim
+by the end of the day.
+
+283
+00:16:01,280 --> 00:16:05,100
+AUDIENCE: OK, so I currently
+send, like, a two times, or
+
+284
+00:16:05,100 --> 00:16:08,650
+2.5 times image, and just
+compress the hell out of it.
+
+285
+00:16:08,650 --> 00:16:11,900
+And the file size is,
+kind of roughly the
+
+286
+00:16:11,900 --> 00:16:14,110
+same as a 1x image.
+
+287
+00:16:14,110 --> 00:16:15,890
+And that seems to do the job.
+
+288
+00:16:15,890 --> 00:16:18,470
+Why do we need all these
+extra markup examples?
+
+289
+00:16:18,470 --> 00:16:21,280
+And if, in the future, John's
+solution could come and stop
+
+290
+00:16:21,280 --> 00:16:23,290
+the download at some point,
+I mean, surely
+
+291
+00:16:23,290 --> 00:16:25,760
+that's all we need?
+
+292
+00:16:25,760 --> 00:16:28,375
+MARCUS: [INAUDIBLE].
+
+293
+00:16:28,375 --> 00:16:29,152
+JOHN MELLOR: So should we start
+with the difference
+
+294
+00:16:29,152 --> 00:16:32,650
+between fixed width and
+flexible width images?
+
+295
+00:16:32,650 --> 00:16:34,255
+So this ties into what Yav
+was saying earlier about
+
+296
+00:16:34,255 --> 00:16:34,880
+resolution switching.
+
+297
+00:16:34,880 --> 00:16:35,720
+There's two kinds.
+
+298
+00:16:35,720 --> 00:16:38,630
+There's DPR switching, where
+your images are fixed size,
+
+299
+00:16:38,630 --> 00:16:40,920
+like a logo or an icon.
+
+300
+00:16:40,920 --> 00:16:42,480
+It's going to be the
+same width, say 32
+
+301
+00:16:42,480 --> 00:16:44,670
+pixels on all devices.
+
+302
+00:16:44,670 --> 00:16:47,640
+And all you need to do is switch
+it out based on the
+
+303
+00:16:47,640 --> 00:16:50,030
+device's pick screen density.
+
+304
+00:16:50,030 --> 00:16:53,360
+So you might need 2x image on a
+retina screen, a 3x image on
+
+305
+00:16:53,360 --> 00:16:55,270
+like the Samsung Galaxy S4,
+that kind of thing.
+
+306
+00:16:55,270 --> 00:16:57,760
+But all you're doing is changing
+it based on the
+
+307
+00:16:57,760 --> 00:16:59,040
+device pixel ratio.
+
+308
+00:16:59,040 --> 00:17:03,810
+With a flexible width image,
+say you've got width 100%.
+
+309
+00:17:03,810 --> 00:17:05,440
+Then suddenly, the width
+for the viewport
+
+310
+00:17:05,440 --> 00:17:06,930
+of the device matters.
+
+311
+00:17:06,930 --> 00:17:10,162
+And so your phones, your
+tablets, your laptops, they
+
+312
+00:17:10,162 --> 00:17:10,859
+all have different widths.
+
+313
+00:17:10,859 --> 00:17:13,400
+They all need different
+images.
+
+314
+00:17:13,400 --> 00:17:16,890
+And here, a simple technique
+which gets you up to double
+
+315
+00:17:16,890 --> 00:17:20,220
+the resolution of an image by
+compressing it more heavily
+
+316
+00:17:20,220 --> 00:17:24,655
+isn't going to scale to an
+eight times bigger image.
+
+317
+00:17:24,655 --> 00:17:25,905
+YAV: Cool, [INAUDIBLE]
+
+318
+00:17:25,905 --> 00:17:29,570
+
+319
+00:17:29,570 --> 00:17:33,970
+One more thing, regarding the
+compressive images hack.
+
+320
+00:17:33,970 --> 00:17:36,250
+MARCUS: Explain what the hell
+compressive images.
+
+321
+00:17:36,250 --> 00:17:39,900
+YAV: What Jake was talking
+about, basically taking the
+
+322
+00:17:39,900 --> 00:17:48,740
+high-res images and extremely
+compressing them so that they
+
+323
+00:17:48,740 --> 00:17:55,220
+will, be when downsized to a
+1x display dimensions, they
+
+324
+00:17:55,220 --> 00:17:56,630
+will still look good.
+
+325
+00:17:56,630 --> 00:18:02,140
+And also for retina, they look
+quite fine because the
+
+326
+00:18:02,140 --> 00:18:04,980
+actually display dimensions
+are--
+
+327
+00:18:04,980 --> 00:18:08,400
+MARCUS: Hang on, I'm seeing a
+few people looking at you--
+
+328
+00:18:08,400 --> 00:18:10,870
+so let's say if we can explain
+that a little better.
+
+329
+00:18:10,870 --> 00:18:13,220
+Does anyone want to have a go at
+explaining a little better.
+
+330
+00:18:13,220 --> 00:18:13,830
+ANNE ROBINSON: I mean,
+I can try.
+
+331
+00:18:13,830 --> 00:18:15,070
+So hello.
+
+332
+00:18:15,070 --> 00:18:19,200
+So somebody discovered that if
+they keep the resolution
+
+333
+00:18:19,200 --> 00:18:22,020
+really high on an image, but
+they put the compression down
+
+334
+00:18:22,020 --> 00:18:23,800
+to, I think, zero,
+is that correct?
+
+335
+00:18:23,800 --> 00:18:24,670
+MARCUS: That's correct.
+
+336
+00:18:24,670 --> 00:18:27,120
+ANNE ROBINSON: So they'll
+actually get a smaller file
+
+337
+00:18:27,120 --> 00:18:29,030
+size that is higher
+resolution.
+
+338
+00:18:29,030 --> 00:18:32,550
+And it looks good on
+retina images.
+
+339
+00:18:32,550 --> 00:18:36,100
+And you have a smaller file
+size for the speed.
+
+340
+00:18:36,100 --> 00:18:37,860
+So it's actually best
+of both worlds.
+
+341
+00:18:37,860 --> 00:18:40,460
+And it's kind of like an
+amazing discovery.
+
+342
+00:18:40,460 --> 00:18:44,890
+MARCUS: So I'm sure if we go
+back to 1996, we might find
+
+343
+00:18:44,890 --> 00:18:45,790
+the same thing.
+
+344
+00:18:45,790 --> 00:18:46,570
+But who knows.
+
+345
+00:18:46,570 --> 00:18:47,690
+Because we were, like,
+doing it for
+
+346
+00:18:47,690 --> 00:18:49,090
+modems and stuff anyway.
+
+347
+00:18:49,090 --> 00:18:53,290
+So I guess what I'm wondering
+is, what might be some of the
+
+348
+00:18:53,290 --> 00:18:53,900
+side effects.
+
+349
+00:18:53,900 --> 00:18:58,410
+Because we're sending like four
+times the data, right?
+
+350
+00:18:58,410 --> 00:19:00,500
+Basically sending an image
+that's two times, or even
+
+351
+00:19:00,500 --> 00:19:01,680
+more, bigger.
+
+352
+00:19:01,680 --> 00:19:03,790
+The size maybe like
+three times.
+
+353
+00:19:03,790 --> 00:19:08,180
+So can the browser really
+handle that?
+
+354
+00:19:08,180 --> 00:19:11,820
+Do we know if there's side
+effects within the browser?
+
+355
+00:19:11,820 --> 00:19:13,850
+ANNE ROBINSON: Yeah,
+good question.
+
+356
+00:19:13,850 --> 00:19:15,820
+MARCUS: Maybe John is in a good
+position because he's
+
+357
+00:19:15,820 --> 00:19:18,370
+closer to Chrome.
+
+358
+00:19:18,370 --> 00:19:20,340
+JOHN MELLOR: We don't have
+the research yet.
+
+359
+00:19:20,340 --> 00:19:23,390
+So yeah, it's going to take
+four times the memory.
+
+360
+00:19:23,390 --> 00:19:26,000
+On an image heavy page, that
+might blow your memory budget.
+
+361
+00:19:26,000 --> 00:19:28,175
+And suddenly things like
+painting and scrolling might
+
+362
+00:19:28,175 --> 00:19:29,040
+get slower.
+
+363
+00:19:29,040 --> 00:19:30,725
+It is hard to know.
+
+364
+00:19:30,725 --> 00:19:32,470
+We need more research,
+basically.
+
+365
+00:19:32,470 --> 00:19:34,110
+ANNE ROBINSON: Right, yeah, we
+need to experiment with that.
+
+366
+00:19:34,110 --> 00:19:36,040
+But it's a super interesting
+idea.
+
+367
+00:19:36,040 --> 00:19:40,510
+YAV: Yeah, basically, it's on
+the agenda to get some real
+
+368
+00:19:40,510 --> 00:19:43,710
+hard data on the implications
+of that.
+
+369
+00:19:43,710 --> 00:19:46,990
+MARCUS: On the agenda of who.
+
+370
+00:19:46,990 --> 00:19:51,410
+YAV: On the responsive images
+community group's agenda to
+
+371
+00:19:51,410 --> 00:19:55,880
+get some hard data on that for
+the day DPR switching case.
+
+372
+00:19:55,880 --> 00:20:00,510
+But exactly as John said, it
+doesn't cover all the cases.
+
+373
+00:20:00,510 --> 00:20:05,620
+And it can cause decoding
+performance and memory issues.
+
+374
+00:20:05,620 --> 00:20:11,500
+So if you're using that, you
+need to test it well to make
+
+375
+00:20:11,500 --> 00:20:13,060
+sure there are no problems.
+
+376
+00:20:13,060 --> 00:20:14,922
+Because we don't have
+general data.
+
+377
+00:20:14,922 --> 00:20:17,210
+MARCUS: So I'm going to bounce
+a question to Peter Miller,
+
+378
+00:20:17,210 --> 00:20:19,040
+because he's kind of like--
+
+379
+00:20:19,040 --> 00:20:20,480
+he's working on a lot
+of, like you work on
+
+380
+00:20:20,480 --> 00:20:21,790
+some fashion websites.
+
+381
+00:20:21,790 --> 00:20:24,020
+And you've done--
+
+382
+00:20:24,020 --> 00:20:28,780
+anyway, whichever ones,
+obviously you'd have access to
+
+383
+00:20:28,780 --> 00:20:31,450
+the very high resolution
+pictures that are coming
+
+384
+00:20:31,450 --> 00:20:34,310
+straight from photographers.
+
+385
+00:20:34,310 --> 00:20:36,460
+What would this mean for,
+maybe, you guys?
+
+386
+00:20:36,460 --> 00:20:37,710
+Would it mean anything?
+
+387
+00:20:37,710 --> 00:20:40,150
+
+388
+00:20:40,150 --> 00:20:41,940
+PETER MILLER: Well, first of
+all, I think I've looked at
+
+389
+00:20:41,940 --> 00:20:42,760
+the solution.
+
+390
+00:20:42,760 --> 00:20:44,540
+And I've got a retina MacBook.
+
+391
+00:20:44,540 --> 00:20:49,850
+And I think it's still a matter
+of subjective opinion,
+
+392
+00:20:49,850 --> 00:20:54,040
+maybe, about whether this does
+look as good as real retina
+
+393
+00:20:54,040 --> 00:20:56,680
+images, or 2x images.
+
+394
+00:20:56,680 --> 00:20:59,680
+But I think, possibly, thinking
+about it even today
+
+395
+00:20:59,680 --> 00:21:04,500
+is the bigger problem that,
+OK, well we can send these
+
+396
+00:21:04,500 --> 00:21:09,090
+kind of pseudo 2x images down
+to be shrunk down at 50%.
+
+397
+00:21:09,090 --> 00:21:13,870
+But what happens when we maybe
+want to expand those images,
+
+398
+00:21:13,870 --> 00:21:16,160
+or have them be more of
+a percentage width.
+
+399
+00:21:16,160 --> 00:21:19,120
+And then, suddenly, we're
+actually showing those highly
+
+400
+00:21:19,120 --> 00:21:23,070
+compressed 2x images
+at the 1x size, or
+
+401
+00:21:23,070 --> 00:21:24,240
+their physical 1x size.
+
+402
+00:21:24,240 --> 00:21:27,200
+And then maybe they
+look even worse.
+
+403
+00:21:27,200 --> 00:21:28,860
+FEMALE SPEAKER 1: I think
+whenever we have this debate,
+
+404
+00:21:28,860 --> 00:21:31,500
+we also still have to
+remember people who
+
+405
+00:21:31,500 --> 00:21:33,210
+have metered bandwidth.
+
+406
+00:21:33,210 --> 00:21:36,690
+Because, yeah, on your MacBook
+Pro, on your Wi-Fi, it's going
+
+407
+00:21:36,690 --> 00:21:37,290
+to be great.
+
+408
+00:21:37,290 --> 00:21:40,295
+But someone doesn't want to
+download that when they are
+
+409
+00:21:40,295 --> 00:21:42,050
+paying $19 for a meg.
+
+410
+00:21:42,050 --> 00:21:43,640
+MARCUS: So yeah absolutely.
+
+411
+00:21:43,640 --> 00:21:46,290
+But let's hold on that one
+because that one takes us off
+
+412
+00:21:46,290 --> 00:21:48,430
+to the following question.
+
+413
+00:21:48,430 --> 00:21:52,120
+So I want to not go into those
+exact concerns because what
+
+414
+00:21:52,120 --> 00:21:55,550
+Anne originally said was, like,
+you can make a larger
+
+415
+00:21:55,550 --> 00:21:59,210
+image that's actually smaller
+in kilobytes than--
+
+416
+00:21:59,210 --> 00:22:01,760
+so in a sense, it doesn't
+really apply.
+
+417
+00:22:01,760 --> 00:22:02,310
+But it does.
+
+418
+00:22:02,310 --> 00:22:04,505
+But we're getting to exactly
+to the point [INAUDIBLE].
+
+419
+00:22:04,505 --> 00:22:06,370
+FEMALE SPEAKER 1: We also have
+to think about Android 2.4,
+
+420
+00:22:06,370 --> 00:22:10,070
+and older Androids, which are
+still being sold today because
+
+421
+00:22:10,070 --> 00:22:11,050
+they don't have the
+memory capacity.
+
+422
+00:22:11,050 --> 00:22:13,230
+MARCUS: Right, even Firefox
+OS is like 250
+
+423
+00:22:13,230 --> 00:22:14,830
+megabytes of RAM on that.
+
+424
+00:22:14,830 --> 00:22:17,200
+And it's like, it struggles.
+
+425
+00:22:17,200 --> 00:22:18,520
+You know?
+
+426
+00:22:18,520 --> 00:22:20,880
+So absolutely.
+
+427
+00:22:20,880 --> 00:22:22,850
+So anyone want to--
+
+428
+00:22:22,850 --> 00:22:27,340
+I think we should probably move
+on to the next topic.
+
+429
+00:22:27,340 --> 00:22:35,260
+So the second question, is
+there a George Crawford?
+
+430
+00:22:35,260 --> 00:22:41,662
+
+431
+00:22:41,662 --> 00:22:43,920
+AUDIENCE: Hi, this is one of the
+anonymous questions from
+
+432
+00:22:43,920 --> 00:22:44,860
+Google Moderator.
+
+433
+00:22:44,860 --> 00:22:48,010
+Is DPI negotiation
+only a stopgap.
+
+434
+00:22:48,010 --> 00:22:49,950
+Bandwidth keeps growing
+exponentially.
+
+435
+00:22:49,950 --> 00:22:51,440
+LCD prices are dropping.
+
+436
+00:22:51,440 --> 00:22:53,760
+GPUs benefit from Moore's law.
+
+437
+00:22:53,760 --> 00:22:56,110
+In several years, will it make
+sense to just send high
+
+438
+00:22:56,110 --> 00:22:59,120
+resolution images
+to all users.
+
+439
+00:22:59,120 --> 00:23:05,520
+MARCUS: So the implications are,
+and this goes back, if we
+
+440
+00:23:05,520 --> 00:23:07,557
+look at all of computing
+history, you
+
+441
+00:23:07,557 --> 00:23:10,925
+know, will 64K be enough?
+
+442
+00:23:10,925 --> 00:23:14,200
+And Moore's law, computers just
+get faster, and yet we
+
+443
+00:23:14,200 --> 00:23:17,410
+kind of seem to find ourselves
+in the same situation over and
+
+444
+00:23:17,410 --> 00:23:17,790
+over again.
+
+445
+00:23:17,790 --> 00:23:20,480
+Like back in 1996, like I was
+saying before, it's like we
+
+446
+00:23:20,480 --> 00:23:21,320
+had modems.
+
+447
+00:23:21,320 --> 00:23:23,760
+And we had to compress the crap
+out of images then as
+
+448
+00:23:23,760 --> 00:23:26,780
+well to cater to users that were
+just getting cable and
+
+449
+00:23:26,780 --> 00:23:28,500
+who didn't have cable,
+and still were on the
+
+450
+00:23:28,500 --> 00:23:32,640
+54 baud rate modems.
+
+451
+00:23:32,640 --> 00:23:33,850
+Blah blah.
+
+452
+00:23:33,850 --> 00:23:36,260
+So thoughts?
+
+453
+00:23:36,260 --> 00:23:38,080
+Should we really worry
+that much?
+
+454
+00:23:38,080 --> 00:23:40,650
+Should we stop caring?
+
+455
+00:23:40,650 --> 00:23:44,110
+I know everybody's
+probably excited.
+
+456
+00:23:44,110 --> 00:23:48,510
+Let's do a round, and bounce
+back if we can, but
+
+457
+00:23:48,510 --> 00:23:49,390
+let's keep it short.
+
+458
+00:23:49,390 --> 00:23:51,770
+ANNE ROBINSON: OK, I mean I
+think it would be nice if we
+
+459
+00:23:51,770 --> 00:23:54,850
+could just send super
+large images.
+
+460
+00:23:54,850 --> 00:23:56,920
+But I don't think we can
+do that quite yet.
+
+461
+00:23:56,920 --> 00:24:00,800
+But I think that the responsive
+images is such a
+
+462
+00:24:00,800 --> 00:24:03,680
+topic because we're getting
+smaller and slower, and we're
+
+463
+00:24:03,680 --> 00:24:06,340
+getting bigger and faster
+at the same time.
+
+464
+00:24:06,340 --> 00:24:07,810
+So this is spreading out.
+
+465
+00:24:07,810 --> 00:24:10,915
+So yeah, I have, obviously,
+my opinions.
+
+466
+00:24:10,915 --> 00:24:14,210
+But I think that we need
+responsive images.
+
+467
+00:24:14,210 --> 00:24:18,560
+Container could be possibly a
+progressive jpg that has,
+
+468
+00:24:18,560 --> 00:24:22,990
+like, really small scans and
+really large scans and
+
+469
+00:24:22,990 --> 00:24:25,600
+possibly the browser only
+downloads what it needs.
+
+470
+00:24:25,600 --> 00:24:28,080
+MARCUS: So we have a delegate
+in the queue.
+
+471
+00:24:28,080 --> 00:24:29,970
+I'll just get Mike [INAUDIBLE]
+
+472
+00:24:29,970 --> 00:24:31,220
+ready.
+
+473
+00:24:31,220 --> 00:24:32,980
+
+474
+00:24:32,980 --> 00:24:37,790
+If you can jump to a mic, Mike,
+and so Pete, do you want
+
+475
+00:24:37,790 --> 00:24:39,240
+to quickly jump in on this?
+
+476
+00:24:39,240 --> 00:24:41,870
+PETER MILLER: Well, I think
+staying in a hotel room in New
+
+477
+00:24:41,870 --> 00:24:44,690
+York City, it actually feels
+like we're quite a few years
+
+478
+00:24:44,690 --> 00:24:48,390
+away from being a very
+[? fastly ?]
+
+479
+00:24:48,390 --> 00:24:49,965
+connected across everywhere.
+
+480
+00:24:49,965 --> 00:24:53,260
+But also, you've got to think,
+data plans, roaming, you want
+
+481
+00:24:53,260 --> 00:24:55,060
+to give the users maybe an
+option to have a low
+
+482
+00:24:55,060 --> 00:24:55,830
+resolution mode.
+
+483
+00:24:55,830 --> 00:24:58,230
+But if we're just always sending
+the high resolution--
+
+484
+00:24:58,230 --> 00:25:01,990
+but also allowing for the art
+direction case, I don't think
+
+485
+00:25:01,990 --> 00:25:05,870
+this caters for that.
+
+486
+00:25:05,870 --> 00:25:09,900
+YAV: I think that as Anne
+started to say, I think that
+
+487
+00:25:09,900 --> 00:25:15,800
+Moore's law is not giving us
+the expanded bandwidth.
+
+488
+00:25:15,800 --> 00:25:19,560
+I mean, we get a larger
+range of devices.
+
+489
+00:25:19,560 --> 00:25:23,880
+We have capable smaller
+devices.
+
+490
+00:25:23,880 --> 00:25:28,920
+And the bandwidth coverage
+is not ubiquitous.
+
+491
+00:25:28,920 --> 00:25:32,030
+So basically, it's a question
+that asks us whether we can
+
+492
+00:25:32,030 --> 00:25:34,100
+look into the future.
+
+493
+00:25:34,100 --> 00:25:36,260
+And unfortunately, we can't.
+
+494
+00:25:36,260 --> 00:25:38,220
+But I don't think--
+
+495
+00:25:38,220 --> 00:25:42,410
+in 20 years, in may
+be relevant.
+
+496
+00:25:42,410 --> 00:25:43,930
+MARCUS: I mean, we can't look
+into the future, but we can
+
+497
+00:25:43,930 --> 00:25:45,480
+see what the trends
+are, right?
+
+498
+00:25:45,480 --> 00:25:50,410
+We know, like, that we have
+now Google Glass, and
+
+499
+00:25:50,410 --> 00:25:52,900
+Samsung's watch, and
+things like that.
+
+500
+00:25:52,900 --> 00:25:53,110
+So--
+
+501
+00:25:53,110 --> 00:25:53,640
+YAV: Exactly.
+
+502
+00:25:53,640 --> 00:25:56,520
+MARCUS: In a sense, we know
+a little bit where
+
+503
+00:25:56,520 --> 00:25:57,600
+machines are going.
+
+504
+00:25:57,600 --> 00:25:59,850
+And again, we're going to
+see the same cycle.
+
+505
+00:25:59,850 --> 00:26:00,385
+So--
+
+506
+00:26:00,385 --> 00:26:01,740
+YAV: Yeah and,
+
+507
+00:26:01,740 --> 00:26:03,850
+ANNE ROBINSON: So basically, the
+problem is getting worse.
+
+508
+00:26:03,850 --> 00:26:05,410
+MARCUS: So we found Mike.
+
+509
+00:26:05,410 --> 00:26:06,460
+[INAUDIBLE].
+
+510
+00:26:06,460 --> 00:26:08,170
+Do you want to jump in?
+
+511
+00:26:08,170 --> 00:26:11,460
+AUDIENCE: Yeah, just quick
+question about.
+
+512
+00:26:11,460 --> 00:26:16,060
+So I one of you mentioned what
+if you have a small image, I
+
+513
+00:26:16,060 --> 00:26:19,560
+mean, using high compression
+at a large size that was
+
+514
+00:26:19,560 --> 00:26:22,540
+initially seen small
+but then expanded.
+
+515
+00:26:22,540 --> 00:26:26,250
+It seems to be consequence
+of actual jpg format.
+
+516
+00:26:26,250 --> 00:26:29,850
+What about new formats
+such as WebP, and
+
+517
+00:26:29,850 --> 00:26:31,660
+using things like that?
+
+518
+00:26:31,660 --> 00:26:36,540
+MARCUS: So maybe I'll get John
+to respond to that one.
+
+519
+00:26:36,540 --> 00:26:40,360
+JOHN MELLOR: So I'm not an
+expert on WebP, but yeah, it
+
+520
+00:26:40,360 --> 00:26:42,700
+tends to give--
+
+521
+00:26:42,700 --> 00:26:43,280
+it seems [INAUDIBLE]
+
+522
+00:26:43,280 --> 00:26:45,760
+things that are nice.
+
+523
+00:26:45,760 --> 00:26:48,590
+It gives slightly better
+compression performance,
+
+524
+00:26:48,590 --> 00:26:51,660
+ranging from 25 to 60,
+or depends what you
+
+525
+00:26:51,660 --> 00:26:52,880
+are doing with it.
+
+526
+00:26:52,880 --> 00:26:58,170
+But it also, when very highly
+compressed, you get less of
+
+527
+00:26:58,170 --> 00:26:59,960
+the sort of blocking artifact
+you get with jpgs.
+
+528
+00:26:59,960 --> 00:27:03,230
+So you can actually afford a
+greater compression ratio than
+
+529
+00:27:03,230 --> 00:27:06,480
+you would use with jpg.
+
+530
+00:27:06,480 --> 00:27:08,020
+So that can help.
+
+531
+00:27:08,020 --> 00:27:09,650
+But the ratio [INAUDIBLE]
+
+532
+00:27:09,650 --> 00:27:10,280
+of course.
+
+533
+00:27:10,280 --> 00:27:13,040
+ANNE ROBINSON: Also, with WebP,
+perceived performance is
+
+534
+00:27:13,040 --> 00:27:15,080
+slower than progressive
+jpg, right?
+
+535
+00:27:15,080 --> 00:27:18,740
+Because you're actually
+getting a scan
+
+536
+00:27:18,740 --> 00:27:20,530
+earlier than a WebP.
+
+537
+00:27:20,530 --> 00:27:23,680
+Even if a WebP is a smaller file
+size, progressive jpg is
+
+538
+00:27:23,680 --> 00:27:26,190
+going beat it every time.
+
+539
+00:27:26,190 --> 00:27:28,440
+MARCUS: Am my right too, someone
+can correct me here,
+
+540
+00:27:28,440 --> 00:27:30,230
+but it doesn't support
+progressive
+
+541
+00:27:30,230 --> 00:27:31,970
+loading, or does it?
+
+542
+00:27:31,970 --> 00:27:33,210
+ANNE ROBINSON: You know,
+that's a good question.
+
+543
+00:27:33,210 --> 00:27:34,600
+JOHN MELLOR: No, there's
+not current support for
+
+544
+00:27:34,600 --> 00:27:35,560
+progressive loading.
+
+545
+00:27:35,560 --> 00:27:37,720
+MARCUS: So I think that's
+like, at least from
+
+546
+00:27:37,720 --> 00:27:40,430
+[INAUDIBLE] perspective,
+following the blog about
+
+547
+00:27:40,430 --> 00:27:42,640
+that's a real showstopper
+for us.
+
+548
+00:27:42,640 --> 00:27:45,587
+ANNE ROBINSON: Correct.
+
+549
+00:27:45,587 --> 00:27:53,930
+YAV: So just I'm not sure a
+future progressive WebP can
+
+550
+00:27:53,930 --> 00:27:58,700
+answer that, or progressive
+jpg, but basically I think
+
+551
+00:27:58,700 --> 00:28:01,260
+that it's not a question of
+image format because we have
+
+552
+00:28:01,260 --> 00:28:06,110
+progressive image formats, or
+we can easily come up with,
+
+553
+00:28:06,110 --> 00:28:08,120
+like, the responsive image
+container stuff.
+
+554
+00:28:08,120 --> 00:28:09,330
+We can easily--
+
+555
+00:28:09,330 --> 00:28:16,050
+it's a prototype, but it's not
+complicated to get this done.
+
+556
+00:28:16,050 --> 00:28:18,450
+The problem is that currently
+there are no fetching
+
+557
+00:28:18,450 --> 00:28:22,840
+mechanisms in place that can
+download only the start of the
+
+558
+00:28:22,840 --> 00:28:27,830
+image for low resolution devices
+and download the
+
+559
+00:28:27,830 --> 00:28:31,630
+entire image for high resolution
+devices that have
+
+560
+00:28:31,630 --> 00:28:34,840
+the bandwidth and have the
+capability to decode it.
+
+561
+00:28:34,840 --> 00:28:40,290
+And I think that getting the
+fetching mechanism in place
+
+562
+00:28:40,290 --> 00:28:46,880
+would be an enabler for such
+optimization, for such formats
+
+563
+00:28:46,880 --> 00:28:48,370
+to be useful.
+
+564
+00:28:48,370 --> 00:28:50,440
+MARCUS: So I want to quickly
+get [INAUDIBLE]
+
+565
+00:28:50,440 --> 00:28:52,330
+thoughts on all this.
+
+566
+00:28:52,330 --> 00:28:53,890
+FEMALE SPEAKER 1: So I was going
+back to the original
+
+567
+00:28:53,890 --> 00:28:58,070
+question, I think we're never
+going to be able to just have
+
+568
+00:28:58,070 --> 00:29:03,280
+one image solution, because you
+don't have the same image
+
+569
+00:29:03,280 --> 00:29:05,570
+if your device is this
+big versus if your
+
+570
+00:29:05,570 --> 00:29:07,520
+image is this big.
+
+571
+00:29:07,520 --> 00:29:10,560
+For those listening audio, you
+don't want to have the same
+
+572
+00:29:10,560 --> 00:29:14,470
+image if you have
+a 20 inch image
+
+573
+00:29:14,470 --> 00:29:15,790
+versus a half inch image.
+
+574
+00:29:15,790 --> 00:29:17,610
+ANNE ROBINSON: But we actually
+could do that, right?
+
+575
+00:29:17,610 --> 00:29:20,720
+Because with a progressive jpg,
+you can have a variable
+
+576
+00:29:20,720 --> 00:29:21,660
+number of scans.
+
+577
+00:29:21,660 --> 00:29:23,210
+And the scans are of
+increasing quality.
+
+578
+00:29:23,210 --> 00:29:25,910
+So you could have, say, 40.
+
+579
+00:29:25,910 --> 00:29:27,580
+Let's expand our minds
+about this.
+
+580
+00:29:27,580 --> 00:29:29,020
+Is that correct?
+
+581
+00:29:29,020 --> 00:29:30,330
+We could--
+
+582
+00:29:30,330 --> 00:29:35,360
+MARCUS: If you're getting into
+40 times bigger zone, you will
+
+583
+00:29:35,360 --> 00:29:37,080
+get color distortion.
+
+584
+00:29:37,080 --> 00:29:37,640
+FEMALE SPEAKER 1:
+I'm not talking
+
+585
+00:29:37,640 --> 00:29:38,580
+about the art direction.
+
+586
+00:29:38,580 --> 00:29:39,440
+If you're going to--
+
+587
+00:29:39,440 --> 00:29:43,470
+ANNE ROBINSON: So putting the
+art direction topic aside for
+
+588
+00:29:43,470 --> 00:29:47,210
+a second, you actually can have
+a progressive jpg that
+
+589
+00:29:47,210 --> 00:29:51,450
+has a very small scan and then
+a very high resolution.
+
+590
+00:29:51,450 --> 00:29:54,810
+So you can have a tiny image
+that downloads very quickly.
+
+591
+00:29:54,810 --> 00:29:58,970
+And you can have a super
+large HD image for--
+
+592
+00:29:58,970 --> 00:30:00,880
+FEMALE SPEAKER 1: Yeah, but I
+think we can't put the art
+
+593
+00:30:00,880 --> 00:30:02,710
+direction aside because
+we are serving so
+
+594
+00:30:02,710 --> 00:30:03,740
+many different devices.
+
+595
+00:30:03,740 --> 00:30:08,840
+So I think the answer to the
+question is I don't think
+
+596
+00:30:08,840 --> 00:30:11,740
+serving one image will be the
+solution in the end because we
+
+597
+00:30:11,740 --> 00:30:14,730
+are reaching such a
+plethora of sizes.
+
+598
+00:30:14,730 --> 00:30:18,200
+MARCUS: I mean, we're going
+to come to continue--
+
+599
+00:30:18,200 --> 00:30:20,450
+the next question is very
+much related to this.
+
+600
+00:30:20,450 --> 00:30:22,506
+So I'm going to--
+
+601
+00:30:22,506 --> 00:30:25,530
+before I do that, I'm going
+to queue up Kyle.
+
+602
+00:30:25,530 --> 00:30:27,030
+Kyle, do you have
+a mic already?
+
+603
+00:30:27,030 --> 00:30:28,280
+Where is Kyle?
+
+604
+00:30:28,280 --> 00:30:30,330
+
+605
+00:30:30,330 --> 00:30:32,310
+Oh sorry, Kyle Simpson.
+
+606
+00:30:32,310 --> 00:30:34,410
+FEMALE SPEAKER 1:
+He's over there.
+
+607
+00:30:34,410 --> 00:30:36,430
+MARCUS: So I'm going
+to queue of Kyle.
+
+608
+00:30:36,430 --> 00:30:37,855
+He's right there.
+
+609
+00:30:37,855 --> 00:30:41,730
+So Kyle, just a quick
+question or comment.
+
+610
+00:30:41,730 --> 00:30:44,310
+AUDIENCE: So a lot of these
+solutions seem to be some sort
+
+611
+00:30:44,310 --> 00:30:47,990
+of art direction centric, like
+I want the best possible
+
+612
+00:30:47,990 --> 00:30:49,240
+images that can be there.
+
+613
+00:30:49,240 --> 00:30:52,390
+But responsive seems to respond
+to, maybe the screen
+
+614
+00:30:52,390 --> 00:30:54,930
+size, maybe to the bandwidth,
+but it doesn't seem to react
+
+615
+00:30:54,930 --> 00:30:55,700
+to the environment.
+
+616
+00:30:55,700 --> 00:30:59,410
+So if I start out loading a
+Flickr page that the battery
+
+617
+00:30:59,410 --> 00:31:02,580
+power is at 50%, I've got plenty
+of processing power.
+
+618
+00:31:02,580 --> 00:31:06,030
+But if I'm now at 2%, maybe
+the device should start
+
+619
+00:31:06,030 --> 00:31:07,730
+choosing not to render
+these higher things.
+
+620
+00:31:07,730 --> 00:31:11,470
+So can't we have solutions that
+allow apps to respond to
+
+621
+00:31:11,470 --> 00:31:16,610
+more complex situations than
+just the screen size?
+
+622
+00:31:16,610 --> 00:31:19,880
+MARCUS: So we're going to
+cover that as well.
+
+623
+00:31:19,880 --> 00:31:23,475
+But somebody wants to make
+a quick comment?
+
+624
+00:31:23,475 --> 00:31:26,060
+YAV: Just a quick comment.
+
+625
+00:31:26,060 --> 00:31:30,620
+That's something that certainly
+should be possible
+
+626
+00:31:30,620 --> 00:31:32,520
+when we're talking about
+resolution switching, when
+
+627
+00:31:32,520 --> 00:31:35,600
+we're not talking about things
+that won't break the layout,
+
+628
+00:31:35,600 --> 00:31:42,110
+but just would give the user a
+lower quality image when it
+
+629
+00:31:42,110 --> 00:31:45,040
+can't download the high
+res quality image.
+
+630
+00:31:45,040 --> 00:31:48,720
+And this is something that
+should be heuristically
+
+631
+00:31:48,720 --> 00:31:50,110
+possible with srcset.
+
+632
+00:31:50,110 --> 00:31:56,560
+So the browser in srcset,
+basically, the spec contains
+
+633
+00:31:56,560 --> 00:32:00,400
+an asterisk saying eventually
+the browser can do whatever
+
+634
+00:32:00,400 --> 00:32:01,650
+the hell you want.
+
+635
+00:32:01,650 --> 00:32:03,730
+
+636
+00:32:03,730 --> 00:32:06,870
+So the browser can decide based
+on user preference,
+
+637
+00:32:06,870 --> 00:32:10,990
+based on environment, based on
+memory, to not download the
+
+638
+00:32:10,990 --> 00:32:13,500
+high res images but the
+lower res ones.
+
+639
+00:32:13,500 --> 00:32:15,390
+MARCUS: So it's kind of a good
+thing and a bad thing.
+
+640
+00:32:15,390 --> 00:32:18,630
+But it's a declarative model.
+
+641
+00:32:18,630 --> 00:32:19,490
+You're handing over control.
+
+642
+00:32:19,490 --> 00:32:21,520
+You're saying to the browser,
+this is what I
+
+643
+00:32:21,520 --> 00:32:23,290
+got, deal with it.
+
+644
+00:32:23,290 --> 00:32:25,680
+Do it best for the user.
+
+645
+00:32:25,680 --> 00:32:29,030
+YAV: Yeah, I don't think this
+should be something decided to
+
+646
+00:32:29,030 --> 00:32:34,820
+by the web developer because I
+don't think they have this
+
+647
+00:32:34,820 --> 00:32:36,910
+kind of information.
+
+648
+00:32:36,910 --> 00:32:39,700
+We cannot have this kind of
+information available to the
+
+649
+00:32:39,700 --> 00:32:40,790
+web developer.
+
+650
+00:32:40,790 --> 00:32:43,450
+This is something that should
+be done by the browser with
+
+651
+00:32:43,450 --> 00:32:45,100
+the user preference.
+
+652
+00:32:45,100 --> 00:32:48,130
+MARCUS: So I'm going to be
+moderator here and jump over
+
+653
+00:32:48,130 --> 00:32:48,740
+to the next question.
+
+654
+00:32:48,740 --> 00:32:49,950
+Because they are all
+related anyway.
+
+655
+00:32:49,950 --> 00:32:51,200
+[INAUDIBLE]
+
+656
+00:32:51,200 --> 00:32:53,280
+
+657
+00:32:53,280 --> 00:32:54,530
+Calvin [? Spillman ?].
+
+658
+00:32:54,530 --> 00:32:57,540
+
+659
+00:32:57,540 --> 00:32:59,485
+Your question.
+
+660
+00:32:59,485 --> 00:33:00,735
+So [INAUDIBLE]
+
+661
+00:33:00,735 --> 00:33:08,170
+
+662
+00:33:08,170 --> 00:33:10,790
+AUDIENCE: Yeah, I was basically
+wondering about if
+
+663
+00:33:10,790 --> 00:33:13,100
+we are fighting a losing
+battle by continually
+
+664
+00:33:13,100 --> 00:33:15,010
+generating all these different
+image sizes and different
+
+665
+00:33:15,010 --> 00:33:17,540
+resolutions up front, when
+there's constantly new
+
+666
+00:33:17,540 --> 00:33:22,306
+devices, constantly different
+sizes, we're always going to
+
+667
+00:33:22,306 --> 00:33:24,532
+be constantly trying to catch
+up and generating more and
+
+668
+00:33:24,532 --> 00:33:27,450
+more images, as opposed to
+having some server side
+
+669
+00:33:27,450 --> 00:33:30,440
+solution that does it
+dynamically and optimizes the
+
+670
+00:33:30,440 --> 00:33:31,850
+set of images we have.
+
+671
+00:33:31,850 --> 00:33:34,090
+MARCUS: So I think this ties in
+kind of beautifully to the
+
+672
+00:33:34,090 --> 00:33:37,720
+stuff that John was presenting
+before, and also to the
+
+673
+00:33:37,720 --> 00:33:42,530
+progressive jpg, to having
+those multiple scans.
+
+674
+00:33:42,530 --> 00:33:46,990
+So John, with the kind of work
+that you've been doing, what
+
+675
+00:33:46,990 --> 00:33:48,930
+are you using, what
+are the numbers
+
+676
+00:33:48,930 --> 00:33:50,180
+basically telling you there?
+
+677
+00:33:50,180 --> 00:33:52,850
+
+678
+00:33:52,850 --> 00:33:54,100
+JOHN MELLOR: So I guess
+there's two
+
+679
+00:33:54,100 --> 00:33:55,470
+aspects to this question.
+
+680
+00:33:55,470 --> 00:34:00,460
+On the server side, sure, you
+don't want the artist to be
+
+681
+00:34:00,460 --> 00:34:02,590
+manually saving out
+like 20 different
+
+682
+00:34:02,590 --> 00:34:03,850
+versions of every image.
+
+683
+00:34:03,850 --> 00:34:05,950
+It's not scalable.
+
+684
+00:34:05,950 --> 00:34:09,590
+So I guess on the server side,
+you kind of have to be, at the
+
+685
+00:34:09,590 --> 00:34:12,414
+moment, dynamically creating
+these images by automatically
+
+686
+00:34:12,414 --> 00:34:15,230
+resizing them.
+
+687
+00:34:15,230 --> 00:34:16,909
+But then, I guess [INAUDIBLE]
+
+688
+00:34:16,909 --> 00:34:19,149
+as well, it would be nice if
+there was only one image you
+
+689
+00:34:19,149 --> 00:34:23,150
+have to save, like you just
+tell your Photoshop or
+
+690
+00:34:23,150 --> 00:34:26,440
+whatever, save out one
+ultra-high resolution image,
+
+691
+00:34:26,440 --> 00:34:30,179
+and the [? bells ?] downloads
+just to beginning of it, like
+
+692
+00:34:30,179 --> 00:34:30,945
+however much it needs.
+
+693
+00:34:30,945 --> 00:34:31,949
+ANNE ROBINSON: Yeah,
+that's perfect.
+
+694
+00:34:31,949 --> 00:34:33,920
+I think that's the most
+elegant solution.
+
+695
+00:34:33,920 --> 00:34:37,080
+I think that the second most
+elegant solution is, like with
+
+696
+00:34:37,080 --> 00:34:40,440
+client hints and having the
+server serve up different
+
+697
+00:34:40,440 --> 00:34:42,600
+resolutions, different versions
+of the image.
+
+698
+00:34:42,600 --> 00:34:44,460
+But it has to be automatic.
+
+699
+00:34:44,460 --> 00:34:52,850
+We should not be creating x
+number of images to serve to
+
+700
+00:34:52,850 --> 00:34:54,150
+different devices.
+
+701
+00:34:54,150 --> 00:34:58,340
+And we are fighting a losing
+battle in that case.
+
+702
+00:34:58,340 --> 00:34:59,470
+YAV: I think the--
+
+703
+00:34:59,470 --> 00:35:01,270
+MARCUS: Quick audience, did
+you have a question?
+
+704
+00:35:01,270 --> 00:35:04,030
+
+705
+00:35:04,030 --> 00:35:05,710
+AUDIENCE: But if you have that
+situation, aren't you going to
+
+706
+00:35:05,710 --> 00:35:07,800
+end up in the thing that
+all the developers were
+
+707
+00:35:07,800 --> 00:35:10,640
+complaining about when they
+operators started to compress
+
+708
+00:35:10,640 --> 00:35:13,660
+your image on the mobile
+networks, and they said, just
+
+709
+00:35:13,660 --> 00:35:14,440
+get out of my way.
+
+710
+00:35:14,440 --> 00:35:15,850
+I don't want you to
+touch my stuff.
+
+711
+00:35:15,850 --> 00:35:19,630
+If you've got some automated
+system that sits between the
+
+712
+00:35:19,630 --> 00:35:22,090
+thing, you're creating that's
+the same problem that, three
+
+713
+00:35:22,090 --> 00:35:24,520
+years ago, you were all
+whingeing about.
+
+714
+00:35:24,520 --> 00:35:26,930
+FEMALE SPEAKER 1: My thought
+was that this would be, I
+
+715
+00:35:26,930 --> 00:35:31,150
+think it should be server side
+so that the developer is
+
+716
+00:35:31,150 --> 00:35:33,355
+actually deciding what
+you're sending over.
+
+717
+00:35:33,355 --> 00:35:36,850
+
+718
+00:35:36,850 --> 00:35:39,050
+The browser should
+not be altering
+
+719
+00:35:39,050 --> 00:35:40,700
+images, is my thought.
+
+720
+00:35:40,700 --> 00:35:42,790
+JOHN MELLOR: But the developer
+doesn't know the bandwidth of
+
+721
+00:35:42,790 --> 00:35:44,020
+the client.
+
+722
+00:35:44,020 --> 00:35:47,280
+FEMALE SPEAKER 1: No, I mean,
+when we're all said and done,
+
+723
+00:35:47,280 --> 00:35:49,590
+when we have client hints, and
+everything else, it should be
+
+724
+00:35:49,590 --> 00:35:52,040
+the server that's making the
+20 images and serving the
+
+725
+00:35:52,040 --> 00:35:56,530
+correct image based on client
+hints, or the source set, not
+
+726
+00:35:56,530 --> 00:35:59,560
+the browser that's taking the
+image and deciding that the
+
+727
+00:35:59,560 --> 00:36:01,330
+upper left hand corner should
+be shown instead of
+
+728
+00:36:01,330 --> 00:36:03,050
+the middle of it.
+
+729
+00:36:03,050 --> 00:36:04,970
+JOHN MELLOR: It seems a lot
+easier for the browser to take
+
+730
+00:36:04,970 --> 00:36:06,830
+user's preference into
+account, though.
+
+731
+00:36:06,830 --> 00:36:09,120
+If the user decides that--
+
+732
+00:36:09,120 --> 00:36:11,220
+they are roaming, or something,
+and they only want
+
+733
+00:36:11,220 --> 00:36:14,565
+the resolution image, then do
+you want, like, an extra
+
+734
+00:36:14,565 --> 00:36:16,530
+client hint, saying I'm roaming,
+extra client hint
+
+735
+00:36:16,530 --> 00:36:19,280
+saying these kinds of things?
+
+736
+00:36:19,280 --> 00:36:23,560
+FEMALE SPEAKER 1: No, the
+browser can say--
+
+737
+00:36:23,560 --> 00:36:26,210
+you can change, when you
+have client hints--
+
+738
+00:36:26,210 --> 00:36:28,610
+Should we ask the question about
+client hints that we're
+
+739
+00:36:28,610 --> 00:36:30,327
+going to ask later?
+
+740
+00:36:30,327 --> 00:36:34,730
+MARCUS: No, because I think we
+are talking about, I don't
+
+741
+00:36:34,730 --> 00:36:37,990
+think we need to move to that
+question yet because we are
+
+742
+00:36:37,990 --> 00:36:40,350
+kind of dealing with, or
+discussing a very serious
+
+743
+00:36:40,350 --> 00:36:44,740
+problem, which is, A, how can
+computers really decide this?
+
+744
+00:36:44,740 --> 00:36:47,340
+How do we set the break points,
+or not even the break
+
+745
+00:36:47,340 --> 00:36:49,690
+points, but the, this looks
+good here, so send
+
+746
+00:36:49,690 --> 00:36:50,970
+this, and so on.
+
+747
+00:36:50,970 --> 00:36:54,540
+So having that level of control,
+which was as Steve
+
+748
+00:36:54,540 --> 00:36:57,300
+was saying before, that was
+pissing people off,
+
+749
+00:36:57,300 --> 00:36:59,320
+developers, because it
+didn't look good.
+
+750
+00:36:59,320 --> 00:37:02,200
+And to some degree, well
+that's what we really
+
+751
+00:37:02,200 --> 00:37:02,820
+need to look at.
+
+752
+00:37:02,820 --> 00:37:04,420
+Can we computationally
+do that?
+
+753
+00:37:04,420 --> 00:37:07,950
+And John's research seems to
+suggest that it can because
+
+754
+00:37:07,950 --> 00:37:12,430
+you do get a, at least the user
+gets the initial layout
+
+755
+00:37:12,430 --> 00:37:16,010
+with the nice images, or
+beginnings of a nice image,
+
+756
+00:37:16,010 --> 00:37:17,420
+and then, from there, you start
+
+757
+00:37:17,420 --> 00:37:19,170
+progressively improving it.
+
+758
+00:37:19,170 --> 00:37:20,780
+So how much do you
+need to push it?
+
+759
+00:37:20,780 --> 00:37:21,960
+And what does that mean
+on the server?
+
+760
+00:37:21,960 --> 00:37:24,810
+It's kind of hard to know.
+
+761
+00:37:24,810 --> 00:37:28,130
+YAV: My opinion on this is that
+basically you need all
+
+762
+00:37:28,130 --> 00:37:32,730
+solutions to be automizeable.
+
+763
+00:37:32,730 --> 00:37:38,160
+So you can do either dynamic, or
+a build step, or something
+
+764
+00:37:38,160 --> 00:37:42,020
+on the server side that does all
+the grunt work for you as
+
+765
+00:37:42,020 --> 00:37:43,230
+a developer.
+
+766
+00:37:43,230 --> 00:37:48,410
+But I don't think, at least,
+we must have some solutions
+
+767
+00:37:48,410 --> 00:37:50,720
+that don't require it.
+
+768
+00:37:50,720 --> 00:37:51,740
+So--
+
+769
+00:37:51,740 --> 00:37:53,900
+MARCUS: So I've got two
+questions from the floor.
+
+770
+00:37:53,900 --> 00:37:55,400
+I've got one from--
+
+771
+00:37:55,400 --> 00:37:59,240
+your name, sorry, OK.
+
+772
+00:37:59,240 --> 00:38:02,010
+Sorry, I thought you were
+going to ask a question.
+
+773
+00:38:02,010 --> 00:38:02,590
+No problem.
+
+774
+00:38:02,590 --> 00:38:03,240
+Go ahead.
+
+775
+00:38:03,240 --> 00:38:06,440
+AUDIENCE: So if we start
+generating 20, 30 different
+
+776
+00:38:06,440 --> 00:38:10,590
+versions of files on the server
+side and start doing
+
+777
+00:38:10,590 --> 00:38:13,150
+[? varied ?] client hint headers
+or whatever, are we
+
+778
+00:38:13,150 --> 00:38:15,780
+going to have problems where
+the edge caches just can't
+
+779
+00:38:15,780 --> 00:38:17,610
+keep all of these?
+
+780
+00:38:17,610 --> 00:38:20,300
+I mean, we're going to be
+blowing out 20 different times
+
+781
+00:38:20,300 --> 00:38:22,610
+the number of files on
+all the edge caches.
+
+782
+00:38:22,610 --> 00:38:25,590
+Are CDNs going to be useful
+anymore that point?
+
+783
+00:38:25,590 --> 00:38:28,130
+How is it going to scale?
+
+784
+00:38:28,130 --> 00:38:33,290
+YAV: I think that since the
+varied would work, since the
+
+785
+00:38:33,290 --> 00:38:37,020
+client hints is my one
+hint per header.
+
+786
+00:38:37,020 --> 00:38:38,980
+So varied would work.
+
+787
+00:38:38,980 --> 00:38:44,150
+But I think the edge caches will
+have to adapt to the new
+
+788
+00:38:44,150 --> 00:38:47,320
+reality of much more
+images than before.
+
+789
+00:38:47,320 --> 00:38:51,300
+But since I don't think
+this will be--
+
+790
+00:38:51,300 --> 00:38:54,560
+it may be exponential, but there
+will be time to adapt, I
+
+791
+00:38:54,560 --> 00:38:58,470
+mean, as far as the
+edge caches go.
+
+792
+00:38:58,470 --> 00:38:59,940
+That's my opinion.
+
+793
+00:38:59,940 --> 00:39:03,970
+MARCUS: Hang on, don't speak
+without the mic.
+
+794
+00:39:03,970 --> 00:39:06,620
+So I was going to jump to--
+
+795
+00:39:06,620 --> 00:39:08,470
+I'll go to Matt.
+
+796
+00:39:08,470 --> 00:39:09,330
+I think you had a question.
+
+797
+00:39:09,330 --> 00:39:10,300
+No, you're good?
+
+798
+00:39:10,300 --> 00:39:11,410
+OK, cool.
+
+799
+00:39:11,410 --> 00:39:14,150
+So Peter, you're looking like
+you want to say something.
+
+800
+00:39:14,150 --> 00:39:17,160
+PETER MILLER: Well, I mean, when
+the original question was
+
+801
+00:39:17,160 --> 00:39:21,450
+first asked, the case that comes
+to my mind is still the
+
+802
+00:39:21,450 --> 00:39:22,250
+art direction case.
+
+803
+00:39:22,250 --> 00:39:24,160
+Because it is very
+important for
+
+804
+00:39:24,160 --> 00:39:26,010
+publications that I work on.
+
+805
+00:39:26,010 --> 00:39:28,260
+And the crop has to be right.
+
+806
+00:39:28,260 --> 00:39:31,800
+And that's why we do do
+upfront generation.
+
+807
+00:39:31,800 --> 00:39:32,760
+We have picture editors.
+
+808
+00:39:32,760 --> 00:39:35,300
+And they are in charge of
+saying, when this image is
+
+809
+00:39:35,300 --> 00:39:38,980
+displayed at this size, then
+here's the crop I want.
+
+810
+00:39:38,980 --> 00:39:41,200
+But I've worked with content
+management systems in the past
+
+811
+00:39:41,200 --> 00:39:43,585
+that would find that
+given coordinates.
+
+812
+00:39:43,585 --> 00:39:47,150
+So yes, we can automatically
+resize images dynamically.
+
+813
+00:39:47,150 --> 00:39:50,370
+But maybe we could allow picture
+editors to dynamically
+
+814
+00:39:50,370 --> 00:39:52,770
+come in and draw some
+coordinates for different use
+
+815
+00:39:52,770 --> 00:39:54,290
+cases and different contexts.
+
+816
+00:39:54,290 --> 00:39:57,340
+And about the question about
+whether it's the browser that
+
+817
+00:39:57,340 --> 00:39:59,260
+decides it or it's the developer
+that decides it,
+
+818
+00:39:59,260 --> 00:40:00,915
+absolutely, I think it
+has to be the browser
+
+819
+00:40:00,915 --> 00:40:01,920
+that decides it.
+
+820
+00:40:01,920 --> 00:40:04,610
+It's not just the resolution
+of the screen.
+
+821
+00:40:04,610 --> 00:40:05,890
+It's not just the size
+of the screen.
+
+822
+00:40:05,890 --> 00:40:07,060
+It's not just the
+battery power.
+
+823
+00:40:07,060 --> 00:40:10,420
+It's actually everything else
+to do with what's rendering
+
+824
+00:40:10,420 --> 00:40:11,690
+that image element.
+
+825
+00:40:11,690 --> 00:40:13,050
+And it's not just the HTML.
+
+826
+00:40:13,050 --> 00:40:14,335
+It's the style sheet as well.
+
+827
+00:40:14,335 --> 00:40:17,160
+MARCUS: So this leads
+beautifully the next question,
+
+828
+00:40:17,160 --> 00:40:20,430
+which is by Jeffrey
+[? Sellman ?].
+
+829
+00:40:20,430 --> 00:40:22,390
+Is he here?
+
+830
+00:40:22,390 --> 00:40:23,640
+There he is.
+
+831
+00:40:23,640 --> 00:40:29,410
+
+832
+00:40:29,410 --> 00:40:32,220
+AUDIENCE: Thank you.
+
+833
+00:40:32,220 --> 00:40:36,860
+So this is an annoying
+theoretical purity question
+
+834
+00:40:36,860 --> 00:40:38,920
+supplied by the moderator.
+
+835
+00:40:38,920 --> 00:40:41,210
+And I have a complicated
+relationship to it because,
+
+836
+00:40:41,210 --> 00:40:44,350
+since 1998, I've been beating
+the drum for separation of
+
+837
+00:40:44,350 --> 00:40:46,330
+presentation and structure.
+
+838
+00:40:46,330 --> 00:40:49,775
+But I'm also a big supporter
+of Matt, Marcus, and
+
+839
+00:40:49,775 --> 00:40:51,450
+[? Picture. ?]
+
+840
+00:40:51,450 --> 00:40:54,220
+Hey buddy.
+
+841
+00:40:54,220 --> 00:40:57,070
+Is it problematic that we
+describe the presentation of
+
+842
+00:40:57,070 --> 00:40:59,960
+images in markup against our
+typical mantra to separate
+
+843
+00:40:59,960 --> 00:41:01,230
+presentation from content.
+
+844
+00:41:01,230 --> 00:41:04,570
+And if so, does the
+specification of a myriad of
+
+845
+00:41:04,570 --> 00:41:07,150
+sizes make this worse?
+
+846
+00:41:07,150 --> 00:41:10,340
+MARCUS: So we saw this.
+
+847
+00:41:10,340 --> 00:41:13,070
+Hopefully you had the same kind
+of gut reaction when you
+
+848
+00:41:13,070 --> 00:41:17,490
+saw both srcset and picture,
+when you saw the code up on
+
+849
+00:41:17,490 --> 00:41:20,620
+the screen, and you
+kind of went--
+
+850
+00:41:20,620 --> 00:41:21,120
+really?
+
+851
+00:41:21,120 --> 00:41:24,400
+We have to type all those times
+1, and times 2, and you
+
+852
+00:41:24,400 --> 00:41:27,000
+saw picture bloats all
+over the place.
+
+853
+00:41:27,000 --> 00:41:29,390
+And it has media queries
+in it as well.
+
+854
+00:41:29,390 --> 00:41:31,630
+So this goes straight to--
+
+855
+00:41:31,630 --> 00:41:34,080
+I know Jeffrey didn't ask the
+question specifically.
+
+856
+00:41:34,080 --> 00:41:37,590
+But like you said, it's like
+it's bad because we are
+
+857
+00:41:37,590 --> 00:41:41,400
+putting media queries
+into our markup.
+
+858
+00:41:41,400 --> 00:41:43,410
+What can we do there?
+
+859
+00:41:43,410 --> 00:41:45,910
+Is there possible solutions?
+
+860
+00:41:45,910 --> 00:41:47,070
+FEMALE SPEAKER 1: So the
+reason that there's a
+
+861
+00:41:47,070 --> 00:41:49,550
+difference between images and
+background images is because
+
+862
+00:41:49,550 --> 00:41:52,540
+the image tag, img, is
+a foreground image.
+
+863
+00:41:52,540 --> 00:41:53,440
+It's content--
+
+864
+00:41:53,440 --> 00:41:56,620
+versus all the design that
+we have on the web page.
+
+865
+00:41:56,620 --> 00:41:58,970
+So yes, we do have
+to keep it--
+
+866
+00:41:58,970 --> 00:42:01,340
+the image is actually content.
+
+867
+00:42:01,340 --> 00:42:04,020
+MARCUS: Right, but what about
+the media query component?
+
+868
+00:42:04,020 --> 00:42:05,950
+FEMALE SPEAKER 1: The media
+query should be--
+
+869
+00:42:05,950 --> 00:42:07,760
+I mean, that's why we're trying
+to come up with all
+
+870
+00:42:07,760 --> 00:42:10,570
+these different solutions and
+why the picture element, and
+
+871
+00:42:10,570 --> 00:42:12,020
+the srcset, looks so ugly.
+
+872
+00:42:12,020 --> 00:42:15,040
+And actually, why I like the
+clown car technique because it
+
+873
+00:42:15,040 --> 00:42:18,370
+actually separates
+out the content.
+
+874
+00:42:18,370 --> 00:42:20,810
+MARCUS: So just for people who
+don't know the clown car
+
+875
+00:42:20,810 --> 00:42:23,830
+technique, just like a super,
+super Twitter size?
+
+876
+00:42:23,830 --> 00:42:26,940
+FEMALE SPEAKER 1: OK,
+three tweets.
+
+877
+00:42:26,940 --> 00:42:31,340
+It's basically, instead of
+pulling in an image,
+
+878
+00:42:31,340 --> 00:42:32,460
+it pulls in an SVG.
+
+879
+00:42:32,460 --> 00:42:34,890
+And inside the SVG, that's
+where all the
+
+880
+00:42:34,890 --> 00:42:35,820
+media queries are.
+
+881
+00:42:35,820 --> 00:42:39,200
+So it pulls in the correct image
+based on the container
+
+882
+00:42:39,200 --> 00:42:41,350
+of the SVG.
+
+883
+00:42:41,350 --> 00:42:43,020
+And it works fairly well.
+
+884
+00:42:43,020 --> 00:42:45,290
+It's basically a stopgap
+solution while we're trying to
+
+885
+00:42:45,290 --> 00:42:47,140
+figure out the correct
+solution.
+
+886
+00:42:47,140 --> 00:42:50,650
+But the reason that I liked
+the clown car technique is
+
+887
+00:42:50,650 --> 00:42:53,130
+because it actually separated
+out content, from
+
+888
+00:42:53,130 --> 00:42:57,130
+presentation, from behavior,
+from images.
+
+889
+00:42:57,130 --> 00:42:59,200
+PETER MILLER: I think it
+absolutely is a problem that
+
+890
+00:42:59,200 --> 00:43:02,030
+we're defining the media
+queries in the HTML.
+
+891
+00:43:02,030 --> 00:43:03,730
+I don't think it's a
+problem of bloat.
+
+892
+00:43:03,730 --> 00:43:04,500
+That's fine.
+
+893
+00:43:04,500 --> 00:43:07,730
+I think we can give the HTML,
+[? all ?] the sources of the
+
+894
+00:43:07,730 --> 00:43:09,400
+images, as I was
+saying before.
+
+895
+00:43:09,400 --> 00:43:13,520
+But I think the problem is
+illustrated in the case where,
+
+896
+00:43:13,520 --> 00:43:18,600
+let's say, on a 500 pixel wide
+screen, virtual pixels, you
+
+897
+00:43:18,600 --> 00:43:20,990
+have an image at 100% width.
+
+898
+00:43:20,990 --> 00:43:23,850
+On a 700 pixel screen, you might
+actually have that image
+
+899
+00:43:23,850 --> 00:43:26,940
+at 50% width because you've got
+a second column come in.
+
+900
+00:43:26,940 --> 00:43:29,820
+And OK fine, when I'm writing
+the HTML, maybe I'll
+
+901
+00:43:29,820 --> 00:43:30,980
+take that into mind.
+
+902
+00:43:30,980 --> 00:43:33,020
+But what if it's not an HTML
+generation problem?
+
+903
+00:43:33,020 --> 00:43:37,660
+What if it's a render problem
+where when the user's logged
+
+904
+00:43:37,660 --> 00:43:39,240
+in, then you have a sidebar.
+
+905
+00:43:39,240 --> 00:43:40,470
+But when they're
+not, you don't.
+
+906
+00:43:40,470 --> 00:43:45,040
+In the CSS, I can have the
+column at 50%, or 100% if it's
+
+907
+00:43:45,040 --> 00:43:48,470
+got a sibling with the
+logged in sidebar.
+
+908
+00:43:48,470 --> 00:43:50,210
+But I'm going to want a
+different image source to
+
+909
+00:43:50,210 --> 00:43:51,370
+apply to that element.
+
+910
+00:43:51,370 --> 00:43:53,170
+And that's why a technique that
+takes into account the
+
+911
+00:43:53,170 --> 00:43:55,650
+actual width of the image
+element, rather than the width
+
+912
+00:43:55,650 --> 00:43:57,750
+of the screen, I think is
+absolutely essential.
+
+913
+00:43:57,750 --> 00:44:00,460
+And that's why I do you still
+have a problem with the
+
+914
+00:44:00,460 --> 00:44:02,036
+picture element.
+
+915
+00:44:02,036 --> 00:44:03,870
+MARCUS: So I think
+Yav will come in.
+
+916
+00:44:03,870 --> 00:44:06,170
+YAV: Yeah.
+
+917
+00:44:06,170 --> 00:44:08,950
+MARCUS: So this is alluding
+leading to, some people might
+
+918
+00:44:08,950 --> 00:44:14,690
+have heard about element
+queries, which are kind of
+
+919
+00:44:14,690 --> 00:44:17,730
+like CSS applied to a particular
+container element.
+
+920
+00:44:17,730 --> 00:44:20,240
+And it's pretty cool.
+
+921
+00:44:20,240 --> 00:44:21,720
+PETER MILLER: It has
+its problems.
+
+922
+00:44:21,720 --> 00:44:23,700
+MARCUS: It has its problems.
+
+923
+00:44:23,700 --> 00:44:27,570
+YAV: So actually there are
+several questions here.
+
+924
+00:44:27,570 --> 00:44:31,670
+First, for the separation
+of the content and the
+
+925
+00:44:31,670 --> 00:44:32,700
+presentation.
+
+926
+00:44:32,700 --> 00:44:34,850
+I think it's a problem.
+
+927
+00:44:34,850 --> 00:44:40,170
+I think that this is something
+that can be resolved by drying
+
+928
+00:44:40,170 --> 00:44:43,900
+out the media queries out of
+HTML and into some sort of a
+
+929
+00:44:43,900 --> 00:44:45,550
+media query variable.
+
+930
+00:44:45,550 --> 00:44:47,980
+MARCUS: So drying
+out out being?
+
+931
+00:44:47,980 --> 00:44:51,160
+YAV: Don't repeat yourself.
+
+932
+00:44:51,160 --> 00:44:57,870
+Just basically creating
+variables that say mobile, or
+
+933
+00:44:57,870 --> 00:45:02,900
+whatever that means, or
+basically create named media
+
+934
+00:45:02,900 --> 00:45:06,310
+queries and use them instead
+of the actual media queries
+
+935
+00:45:06,310 --> 00:45:09,590
+wherever you have media queries
+in your markup, be it
+
+936
+00:45:09,590 --> 00:45:15,780
+picture, or external style
+sheets, or in the CSS as well.
+
+937
+00:45:15,780 --> 00:45:19,010
+There is work in the CSS working
+group regarding that.
+
+938
+00:45:19,010 --> 00:45:22,540
+I have been no idea when
+it will go in.
+
+939
+00:45:22,540 --> 00:45:25,380
+But people are working on it.
+
+940
+00:45:25,380 --> 00:45:29,930
+And so regarding that, I think
+that will resolve most of the
+
+941
+00:45:29,930 --> 00:45:36,520
+issues from this separation
+of concerns point of view.
+
+942
+00:45:36,520 --> 00:45:37,270
+Regarding--
+
+943
+00:45:37,270 --> 00:45:37,640
+MARCUS: So hang on.
+
+944
+00:45:37,640 --> 00:45:42,860
+So a question I have is like,
+OK, so picture is probably the
+
+945
+00:45:42,860 --> 00:45:45,830
+main offender here.
+
+946
+00:45:45,830 --> 00:45:49,930
+Should we even bother continuing
+to work on it, in
+
+947
+00:45:49,930 --> 00:45:50,180
+that sense?
+
+948
+00:45:50,180 --> 00:45:54,040
+YAV: I don't think picture is
+the most visible offender.
+
+949
+00:45:54,040 --> 00:45:58,270
+But again, there are
+style sheets.
+
+950
+00:45:58,270 --> 00:46:03,350
+If I'll have my way, media
+attributes will be everywhere,
+
+951
+00:46:03,350 --> 00:46:07,310
+which I probably won't have my
+way, but I think that there
+
+952
+00:46:07,310 --> 00:46:09,460
+are a lot of resources
+that can be
+
+953
+00:46:09,460 --> 00:46:12,350
+downloaded based on media.
+
+954
+00:46:12,350 --> 00:46:19,960
+And I think we need to have
+some shortcut for media
+
+955
+00:46:19,960 --> 00:46:22,520
+queries that we don't have to
+repeat them everywhere,
+
+956
+00:46:22,520 --> 00:46:25,990
+including in CSS because in CSS
+we repeat them as well.
+
+957
+00:46:25,990 --> 00:46:26,840
+MARCUS: That's true.
+
+958
+00:46:26,840 --> 00:46:30,590
+YAV: And regarding the element
+queries stuff, first of all,
+
+959
+00:46:30,590 --> 00:46:33,120
+I'd like to say that the main
+advantage of the clown car
+
+960
+00:46:33,120 --> 00:46:38,260
+technique versus basically
+anything else is that it
+
+961
+00:46:38,260 --> 00:46:40,800
+basically emulates
+element queries.
+
+962
+00:46:40,800 --> 00:46:46,020
+The media queries there refer
+to the viewport of the SVG,
+
+963
+00:46:46,020 --> 00:46:48,280
+not the viewport of
+the document.
+
+964
+00:46:48,280 --> 00:46:55,760
+So while it creates some delay
+in download, it's sometimes
+
+965
+00:46:55,760 --> 00:46:59,770
+necessary to, I mean, there are
+cases where it's useful,
+
+966
+00:46:59,770 --> 00:47:02,310
+extremely useful.
+
+967
+00:47:02,310 --> 00:47:06,190
+But the problem with element
+queries is that you cannot
+
+968
+00:47:06,190 --> 00:47:09,990
+start downloading the resource
+before you have layout, which
+
+969
+00:47:09,990 --> 00:47:14,680
+means you add a significant
+delay to the
+
+970
+00:47:14,680 --> 00:47:16,250
+the entire page load.
+
+971
+00:47:16,250 --> 00:47:17,630
+MARCUS: So Anne, do you have
+any comments about that?
+
+972
+00:47:17,630 --> 00:47:21,860
+
+973
+00:47:21,860 --> 00:47:23,490
+ANNE ROBINSON: I mean,
+yeah, I'm still a fan
+
+974
+00:47:23,490 --> 00:47:24,450
+of progressive jpgs.
+
+975
+00:47:24,450 --> 00:47:25,426
+And I think that--
+
+976
+00:47:25,426 --> 00:47:30,130
+[LAUGHTER]
+
+977
+00:47:30,130 --> 00:47:33,140
+ANNE ROBINSON: No I think that
+there's definitely--
+
+978
+00:47:33,140 --> 00:47:34,570
+the art direction
+case, it doesn't
+
+979
+00:47:34,570 --> 00:47:37,130
+really handle, obviously.
+
+980
+00:47:37,130 --> 00:47:38,900
+But I don't think that we should
+forget about it as a
+
+981
+00:47:38,900 --> 00:47:42,040
+file format that we
+might explore.
+
+982
+00:47:42,040 --> 00:47:43,820
+And we often do forget about
+progressive jpgs.
+
+983
+00:47:43,820 --> 00:47:45,305
+I think we forgot about
+progressive jpgs
+
+984
+00:47:45,305 --> 00:47:46,060
+for, like, 10 years.
+
+985
+00:47:46,060 --> 00:47:47,010
+We just--
+
+986
+00:47:47,010 --> 00:47:51,800
+MARCUS: So what is the reason
+we forgot about them?
+
+987
+00:47:51,800 --> 00:47:56,468
+What browser doesn't really
+support them well?
+
+988
+00:47:56,468 --> 00:47:59,180
+ANNE ROBINSON: Oh.
+
+989
+00:47:59,180 --> 00:48:01,470
+I mean, I think that in general,
+there's pretty good
+
+990
+00:48:01,470 --> 00:48:02,070
+browser support.
+
+991
+00:48:02,070 --> 00:48:04,950
+I think that the reason browsers
+don't support them is
+
+992
+00:48:04,950 --> 00:48:06,650
+because we stopped using them.
+
+993
+00:48:06,650 --> 00:48:10,540
+And I think we stopped using
+them because things changed.
+
+994
+00:48:10,540 --> 00:48:13,000
+We had faster connections.
+
+995
+00:48:13,000 --> 00:48:15,680
+But then things kind of reverted
+with mobile, and we
+
+996
+00:48:15,680 --> 00:48:18,630
+went back to where we were,
+where speed turned out to be
+
+997
+00:48:18,630 --> 00:48:20,360
+an issue again.
+
+998
+00:48:20,360 --> 00:48:23,783
+So yeah.
+
+999
+00:48:23,783 --> 00:48:24,705
+MARCUS: Cool.
+
+1000
+00:48:24,705 --> 00:48:26,090
+ANNE ROBINSON: That's it.
+
+1001
+00:48:26,090 --> 00:48:29,890
+MARCUS: So there's one question
+from the audience.
+
+1002
+00:48:29,890 --> 00:48:30,520
+Go ahead.
+
+1003
+00:48:30,520 --> 00:48:31,560
+AUDIENCE: It sounds like the
+best solutions for a
+
+1004
+00:48:31,560 --> 00:48:34,100
+[? pictured ?] element is,
+basically, to move
+
+1005
+00:48:34,100 --> 00:48:35,345
+the rules to CSS.
+
+1006
+00:48:35,345 --> 00:48:38,300
+You can go back to regular img
+and have something that says,
+
+1007
+00:48:38,300 --> 00:48:42,030
+in CSS, for all images which
+have a path that looks like
+
+1008
+00:48:42,030 --> 00:48:45,580
+this, then apply these rules
+to add that 2x to the path.
+
+1009
+00:48:45,580 --> 00:48:48,390
+That's largely to move the more
+presentational parts of
+
+1010
+00:48:48,390 --> 00:48:51,230
+it to the CSS while keeping
+the content, namely, the
+
+1011
+00:48:51,230 --> 00:48:53,760
+fallback image, in the HTML.
+
+1012
+00:48:53,760 --> 00:48:57,210
+And it can do something like a
+regex to not have to write
+
+1013
+00:48:57,210 --> 00:49:00,112
+this 2x, that 2x, something else
+2x, for 2x versions of
+
+1014
+00:49:00,112 --> 00:49:01,980
+every single image you have.
+
+1015
+00:49:01,980 --> 00:49:02,820
+MARCUS: So--
+
+1016
+00:49:02,820 --> 00:49:05,220
+AUDIENCE: And you could sort
+of do this right now using
+
+1017
+00:49:05,220 --> 00:49:07,080
+attribute selectors
+and the img tag.
+
+1018
+00:49:07,080 --> 00:49:08,280
+MARCUS: Using what selectors?
+
+1019
+00:49:08,280 --> 00:49:09,240
+AUDIENCE: You can sort
+of do this now
+
+1020
+00:49:09,240 --> 00:49:10,190
+using attribute selectors.
+
+1021
+00:49:10,190 --> 00:49:11,160
+MARCUS: Attribute selectors.
+
+1022
+00:49:11,160 --> 00:49:12,300
+AUDIENCE: Yeah, but once
+per [? src ?],
+
+1023
+00:49:12,300 --> 00:49:14,350
+which would be annoying.
+
+1024
+00:49:14,350 --> 00:49:16,320
+MARCUS: Right, so yeah,
+so it's kind of
+
+1025
+00:49:16,320 --> 00:49:17,820
+like a mix of things.
+
+1026
+00:49:17,820 --> 00:49:21,280
+So I'm sure one of these other
+guys will be able to talk
+
+1027
+00:49:21,280 --> 00:49:22,530
+about the concerns there.
+
+1028
+00:49:22,530 --> 00:49:24,020
+I can give a little bit.
+
+1029
+00:49:24,020 --> 00:49:26,990
+It's like, some of the main
+problem that we're trying to
+
+1030
+00:49:26,990 --> 00:49:31,290
+solve with responsive images
+as a whole is integrating
+
+1031
+00:49:31,290 --> 00:49:34,980
+nicely into how browsers load
+images performance wise.
+
+1032
+00:49:34,980 --> 00:49:42,010
+So to block and wait for a style
+sheet to download that
+
+1033
+00:49:42,010 --> 00:49:45,660
+will give you the instructions
+to then be able to fetch the
+
+1034
+00:49:45,660 --> 00:49:50,760
+files that you need will
+probably cause issues.
+
+1035
+00:49:50,760 --> 00:49:53,160
+Part of the stuff that Yav was
+talking about before about
+
+1036
+00:49:53,160 --> 00:49:59,800
+these CSS-based variables that
+you can put in is that you
+
+1037
+00:49:59,800 --> 00:50:02,350
+would need to insert them at the
+top of the document inline
+
+1038
+00:50:02,350 --> 00:50:05,150
+so then they would actually
+parse before anything else.
+
+1039
+00:50:05,150 --> 00:50:07,990
+So there's like big performance
+
+1040
+00:50:07,990 --> 00:50:09,780
+issues with all this.
+
+1041
+00:50:09,780 --> 00:50:12,130
+So it's a cool solution.
+
+1042
+00:50:12,130 --> 00:50:14,690
+And I'm not saying that it
+wouldn't work, but it's like
+
+1043
+00:50:14,690 --> 00:50:16,990
+working out how all the dynamics
+work there, within
+
+1044
+00:50:16,990 --> 00:50:19,350
+the browser, is pretty crazy.
+
+1045
+00:50:19,350 --> 00:50:21,580
+Does anyone want to add?
+
+1046
+00:50:21,580 --> 00:50:22,830
+Yav probably [INAUDIBLE].
+
+1047
+00:50:22,830 --> 00:50:27,470
+YAV: I just want to add to it
+it's basically violating the
+
+1048
+00:50:27,470 --> 00:50:29,450
+separation of concerns from the
+
+1049
+00:50:29,450 --> 00:50:30,700
+other side of the spectrum.
+
+1050
+00:50:30,700 --> 00:50:33,430
+
+1051
+00:50:33,430 --> 00:50:39,660
+Basically, your content is now
+part of your presentation, in
+
+1052
+00:50:39,660 --> 00:50:46,390
+a way, because the content
+URLs rely on the CSS.
+
+1053
+00:50:46,390 --> 00:50:48,400
+So you would have to either--
+
+1054
+00:50:48,400 --> 00:50:51,820
+I mean, for CSS caching,
+content images
+
+1055
+00:50:51,820 --> 00:50:54,880
+tend to change often.
+
+1056
+00:50:54,880 --> 00:51:00,300
+Everything that's in CSS usually
+changes, I mean, less
+
+1057
+00:51:00,300 --> 00:51:00,970
+often than that.
+
+1058
+00:51:00,970 --> 00:51:05,140
+So it can be cached
+for a long while.
+
+1059
+00:51:05,140 --> 00:51:10,860
+So it violates the layers,
+as far as I'm
+
+1060
+00:51:10,860 --> 00:51:11,940
+concerned, in a way.
+
+1061
+00:51:11,940 --> 00:51:14,330
+MARCUS: So let's take that
+one [INAUDIBLE].
+
+1062
+00:51:14,330 --> 00:51:16,700
+So I've got another question
+from the audience.
+
+1063
+00:51:16,700 --> 00:51:19,360
+Another one from-- oh, so
+I've got a couple here.
+
+1064
+00:51:19,360 --> 00:51:20,600
+I'm going to go there first.
+
+1065
+00:51:20,600 --> 00:51:23,280
+And then we'll bounce to, sorry,
+you already have the
+
+1066
+00:51:23,280 --> 00:51:24,200
+mic, so go ahead.
+
+1067
+00:51:24,200 --> 00:51:24,600
+And then I'll bounce to.
+
+1068
+00:51:24,600 --> 00:51:25,440
+AUDIENCE: This is real quick.
+
+1069
+00:51:25,440 --> 00:51:28,520
+Just to counteract that.
+
+1070
+00:51:28,520 --> 00:51:30,745
+[? You ?] say if you need to
+download the CSS first in
+
+1071
+00:51:30,745 --> 00:51:33,740
+order to display the image, but
+[? if ?] the CSS modifies
+
+1072
+00:51:33,740 --> 00:51:36,670
+the size of the image, which
+could modify the art direction
+
+1073
+00:51:36,670 --> 00:51:38,090
+and the actual one
+that you want to
+
+1074
+00:51:38,090 --> 00:51:41,810
+use, isn't that important?
+
+1075
+00:51:41,810 --> 00:51:42,700
+MARCUS: It is.
+
+1076
+00:51:42,700 --> 00:51:47,070
+But like I said, it's all like
+a trades and balances kind of
+
+1077
+00:51:47,070 --> 00:51:48,453
+things because you really--
+
+1078
+00:51:48,453 --> 00:51:51,760
+
+1079
+00:51:51,760 --> 00:51:54,350
+we are trying to keep the
+performance high.
+
+1080
+00:51:54,350 --> 00:51:56,120
+So there is going to be a
+penalty for everything.
+
+1081
+00:51:56,120 --> 00:51:59,070
+So where you defer, like Yav was
+saying, the separations a
+
+1082
+00:51:59,070 --> 00:52:03,080
+concern, it's going to have
+issues with how the images are
+
+1083
+00:52:03,080 --> 00:52:04,040
+loaded and when.
+
+1084
+00:52:04,040 --> 00:52:06,160
+So if the things have
+to be deferred, then
+
+1085
+00:52:06,160 --> 00:52:07,170
+you might defer layout.
+
+1086
+00:52:07,170 --> 00:52:10,360
+And that's going to impact the
+user perception of whatever
+
+1087
+00:52:10,360 --> 00:52:11,960
+application you're
+trying to run.
+
+1088
+00:52:11,960 --> 00:52:15,470
+So again, we need to test
+a lot of this stuff.
+
+1089
+00:52:15,470 --> 00:52:16,720
+We don't know.
+
+1090
+00:52:16,720 --> 00:52:18,590
+It's still like, even though
+we've been talking about it,
+
+1091
+00:52:18,590 --> 00:52:20,110
+now it's like really time
+to start testing.
+
+1092
+00:52:20,110 --> 00:52:22,050
+[? So ?].
+
+1093
+00:52:22,050 --> 00:52:24,090
+AUDIENCE: I guess I just
+had more of a direct
+
+1094
+00:52:24,090 --> 00:52:24,850
+question for Peter.
+
+1095
+00:52:24,850 --> 00:52:25,880
+Sorry to put you on the spot.
+
+1096
+00:52:25,880 --> 00:52:29,984
+But given the kind of art
+direction perspective, I was
+
+1097
+00:52:29,984 --> 00:52:32,390
+wondering if you could talk a
+little bit about, from your
+
+1098
+00:52:32,390 --> 00:52:36,120
+standpoint, what is best
+practice right now, given that
+
+1099
+00:52:36,120 --> 00:52:39,150
+it's not all just programmers
+trying to do stuff in an
+
+1100
+00:52:39,150 --> 00:52:39,970
+automated fashion.
+
+1101
+00:52:39,970 --> 00:52:42,220
+Because every time I've tried
+to do that, I fail.
+
+1102
+00:52:42,220 --> 00:52:45,040
+And the art director looks at me
+and is like, no, we need to
+
+1103
+00:52:45,040 --> 00:52:46,870
+crop it this way instead.
+
+1104
+00:52:46,870 --> 00:52:49,390
+MARCUS: So I want
+to answer that.
+
+1105
+00:52:49,390 --> 00:52:52,200
+But I think this is a great
+question because it's really
+
+1106
+00:52:52,200 --> 00:52:55,460
+about what should developers
+be doing today?
+
+1107
+00:52:55,460 --> 00:52:57,910
+And I think, like, John
+has some ideas.
+
+1108
+00:52:57,910 --> 00:53:01,150
+Anne's already talked about,
+let's try out these
+
+1109
+00:53:01,150 --> 00:53:02,840
+progressive jpgs.
+
+1110
+00:53:02,840 --> 00:53:04,890
+And Yav and I have kind of been
+working on the standards
+
+1111
+00:53:04,890 --> 00:53:07,290
+trying to look forward.
+
+1112
+00:53:07,290 --> 00:53:07,650
+[INAUDIBLE]
+
+1113
+00:53:07,650 --> 00:53:09,580
+been kind of experimenting with
+the clown car technique.
+
+1114
+00:53:09,580 --> 00:53:11,160
+So by all means--
+
+1115
+00:53:11,160 --> 00:53:12,070
+so we have five minutes.
+
+1116
+00:53:12,070 --> 00:53:15,480
+So like one minute each, what
+can developers do today,
+
+1117
+00:53:15,480 --> 00:53:16,790
+starting with Peter?
+
+1118
+00:53:16,790 --> 00:53:19,070
+PETER MILLER: OK, well here's
+what we're doing we're sending
+
+1119
+00:53:19,070 --> 00:53:24,090
+and lots of the jpg sources
+into the HTML as JSON and
+
+1120
+00:53:24,090 --> 00:53:26,960
+storing it on a data
+attribute.
+
+1121
+00:53:26,960 --> 00:53:31,700
+We've got JavaScript running
+that will, after the CSS has
+
+1122
+00:53:31,700 --> 00:53:34,950
+evaluated the layout, will
+pick the right source and
+
+1123
+00:53:34,950 --> 00:53:36,315
+apply a non-resized change.
+
+1124
+00:53:36,315 --> 00:53:39,080
+Yeah, the performance isn't
+great for that.
+
+1125
+00:53:39,080 --> 00:53:43,560
+But to answer a little of what
+Yav was saying, that I think
+
+1126
+00:53:43,560 --> 00:53:47,750
+that having a default source
+there, low-res, your best
+
+1127
+00:53:47,750 --> 00:53:51,293
+guess, is, I think, an OK way
+to go for we have now.
+
+1128
+00:53:51,293 --> 00:53:52,080
+MARCUS: OK.
+
+1129
+00:53:52,080 --> 00:53:55,480
+Anne, what do you recommend
+for developers?
+
+1130
+00:53:55,480 --> 00:53:58,520
+ANNE ROBINSON: I mean, I think
+that, yeah, what we have now
+
+1131
+00:53:58,520 --> 00:54:02,930
+is a bunch of hacks, right?
+
+1132
+00:54:02,930 --> 00:54:04,640
+That's what we have.
+
+1133
+00:54:04,640 --> 00:54:06,360
+I think that we should
+try and focus.
+
+1134
+00:54:06,360 --> 00:54:07,640
+I love that we're doing this.
+
+1135
+00:54:07,640 --> 00:54:09,970
+And we're, actually, I think
+what we're talking about are
+
+1136
+00:54:09,970 --> 00:54:12,310
+big wins and solutions for
+responsive images.
+
+1137
+00:54:12,310 --> 00:54:16,280
+And I think we should really
+be forward thinking and not
+
+1138
+00:54:16,280 --> 00:54:18,790
+forget all of the different
+options, and all of our
+
+1139
+00:54:18,790 --> 00:54:22,310
+different paths, and
+explore then all.
+
+1140
+00:54:22,310 --> 00:54:23,560
+MARCUS: It's great.
+
+1141
+00:54:23,560 --> 00:54:25,990
+
+1142
+00:54:25,990 --> 00:54:30,440
+YAV: I think that current all
+current hacks have performance
+
+1143
+00:54:30,440 --> 00:54:31,510
+trade offs.
+
+1144
+00:54:31,510 --> 00:54:35,570
+All current hacks, basically,
+you're deferring the loading
+
+1145
+00:54:35,570 --> 00:54:39,850
+of the image to a later time
+in order to download the
+
+1146
+00:54:39,850 --> 00:54:41,710
+appropriate one.
+
+1147
+00:54:41,710 --> 00:54:47,110
+I think that the things
+will look up soon.
+
+1148
+00:54:47,110 --> 00:54:50,500
+That things will get better soon
+with-- there's currently
+
+1149
+00:54:50,500 --> 00:54:53,360
+work in the responsive images
+community group on an x
+
+1150
+00:54:53,360 --> 00:54:55,170
+picture [INAUDIBLE]
+
+1151
+00:54:55,170 --> 00:54:56,080
+that's will use--
+
+1152
+00:54:56,080 --> 00:54:57,280
+MARCUS: [? components ?].
+
+1153
+00:54:57,280 --> 00:55:02,660
+YAV: That uses web components
+in order to emulate picture.
+
+1154
+00:55:02,660 --> 00:55:09,970
+It won't work with a preloader,
+but assuming if you
+
+1155
+00:55:09,970 --> 00:55:15,040
+don't have any blocking scripts
+at the page's top, it
+
+1156
+00:55:15,040 --> 00:55:17,280
+should have similar performance
+
+1157
+00:55:17,280 --> 00:55:19,410
+characteristics as image.
+
+1158
+00:55:19,410 --> 00:55:23,520
+So current hacks all
+have problems.
+
+1159
+00:55:23,520 --> 00:55:25,690
+Future hacks will get better.
+
+1160
+00:55:25,690 --> 00:55:28,800
+And hopefully, then
+there is a srcset,
+
+1161
+00:55:28,800 --> 00:55:30,220
+hopefully it will ship--
+
+1162
+00:55:30,220 --> 00:55:30,790
+MARCUS: Soon enough.
+
+1163
+00:55:30,790 --> 00:55:37,690
+YAV: In a release build
+soon enough.
+
+1164
+00:55:37,690 --> 00:55:39,100
+FEMALE SPEAKER 1: So I guess
+the question is, what
+
+1165
+00:55:39,100 --> 00:55:41,070
+developer should be doing now,
+and what developer should be
+
+1166
+00:55:41,070 --> 00:55:44,260
+do now is being concerned about
+what they're sending
+
+1167
+00:55:44,260 --> 00:55:46,840
+over the wires and making sure
+they're not sending huge
+
+1168
+00:55:46,840 --> 00:55:50,140
+assets to limited bandwidth
+devices.
+
+1169
+00:55:50,140 --> 00:55:55,110
+And in terms of what we should
+be doing, or the spec authors
+
+1170
+00:55:55,110 --> 00:55:58,000
+should be doing is, we should
+also, I think, what I haven't
+
+1171
+00:55:58,000 --> 00:56:00,240
+heard, and I just thought of
+while I was on stage, so I
+
+1172
+00:56:00,240 --> 00:56:04,090
+don't know, maybe it has been,
+there's some CSS, there's the
+
+1173
+00:56:04,090 --> 00:56:08,040
+image element you can clip
+and certain areas.
+
+1174
+00:56:08,040 --> 00:56:12,390
+So maybe figuring out a way to
+do that on the back end, or
+
+1175
+00:56:12,390 --> 00:56:13,990
+through client hints, so that
+you're actually just
+
+1176
+00:56:13,990 --> 00:56:16,290
+downloading based on that
+instead of downloading the
+
+1177
+00:56:16,290 --> 00:56:16,840
+whole image.
+
+1178
+00:56:16,840 --> 00:56:18,220
+MARCUS: Right, so just expanding
+on that one, so it's
+
+1179
+00:56:18,220 --> 00:56:20,620
+basically just taking, you
+have your normal image.
+
+1180
+00:56:20,620 --> 00:56:23,090
+And then you select the area
+that you want to crop out.
+
+1181
+00:56:23,090 --> 00:56:25,820
+And basically, you just
+crop it out with CSS.
+
+1182
+00:56:25,820 --> 00:56:27,210
+It's a good way of doing
+art direction.
+
+1183
+00:56:27,210 --> 00:56:30,460
+And it fits quite well with
+compressive images as well.
+
+1184
+00:56:30,460 --> 00:56:32,940
+JOHN MELLOR: So I'll give
+several answers.
+
+1185
+00:56:32,940 --> 00:56:34,732
+For CSS, you can just use media
+queries to switch out
+
+1186
+00:56:34,732 --> 00:56:36,060
+the right image.
+
+1187
+00:56:36,060 --> 00:56:37,940
+It's in a better state
+these days.
+
+1188
+00:56:37,940 --> 00:56:40,020
+For HTML, there's three
+different things.
+
+1189
+00:56:40,020 --> 00:56:42,810
+For fixed-size images, we're
+just switching basically the
+
+1190
+00:56:42,810 --> 00:56:44,700
+device-pixel ratio.
+
+1191
+00:56:44,700 --> 00:56:47,420
+Compressive images, like serving
+a double sized, but
+
+1192
+00:56:47,420 --> 00:56:49,866
+highly compressed image,
+is reasonable.
+
+1193
+00:56:49,866 --> 00:56:54,220
+Srcset would be nice, but only
+once browsers support it.
+
+1194
+00:56:54,220 --> 00:56:56,480
+For viewport-based switching,
+where you need to take into
+
+1195
+00:56:56,480 --> 00:57:00,580
+account flexible images, I think
+the best solution these
+
+1196
+00:57:00,580 --> 00:57:05,570
+days is to load a very low
+quality placeholder which is
+
+1197
+00:57:05,570 --> 00:57:07,660
+directly reference
+in your HTML.
+
+1198
+00:57:07,660 --> 00:57:10,760
+And then, later on, using
+JavaScript, you swap it out
+
+1199
+00:57:10,760 --> 00:57:14,000
+with am appropriate resolution
+image based on the actual
+
+1200
+00:57:14,000 --> 00:57:15,430
+image size, or.
+
+1201
+00:57:15,430 --> 00:57:16,820
+MARCUS: Or would you
+use the classic--
+
+1202
+00:57:16,820 --> 00:57:17,380
+[INAUDIBLE].
+
+1203
+00:57:17,380 --> 00:57:20,820
+But there about like there
+low source, low src
+
+1204
+00:57:20,820 --> 00:57:22,110
+attribute on HTML?
+
+1205
+00:57:22,110 --> 00:57:23,640
+JOHN MELLOR: I'd just use src.
+
+1206
+00:57:23,640 --> 00:57:26,450
+So put the low quality one on
+src, and use JavaScript to
+
+1207
+00:57:26,450 --> 00:57:29,020
+replace that with a better
+quality one once you've loaded
+
+1208
+00:57:29,020 --> 00:57:30,830
+that in the background.
+
+1209
+00:57:30,830 --> 00:57:32,710
+So you get kind of like this
+progressive thing where the
+
+1210
+00:57:32,710 --> 00:57:34,890
+page loads in low quality
+quickly and gradually becomes
+
+1211
+00:57:34,890 --> 00:57:36,650
+higher quality.
+
+1212
+00:57:36,650 --> 00:57:39,390
+So I actually released a library
+for this yesterday.
+
+1213
+00:57:39,390 --> 00:57:39,727
+It's on [?
+
+1214
+00:57:39,727 --> 00:57:40,977
+Github.com/JohnM
+allor/respswap.js ?].
+
+1215
+00:57:40,977 --> 00:57:44,640
+
+1216
+00:57:44,640 --> 00:57:47,340
+Very early stages.
+
+1217
+00:57:47,340 --> 00:57:49,770
+Finally, for art direction,
+where you actually need a
+
+1218
+00:57:49,770 --> 00:57:51,965
+different image, rather than
+just a different resolution of
+
+1219
+00:57:51,965 --> 00:57:55,470
+the same image, you can't load
+a low quality place holder
+
+1220
+00:57:55,470 --> 00:57:58,020
+because you don't know what
+image it's going to be.
+
+1221
+00:57:58,020 --> 00:58:00,270
+And so for that, you've can
+use something like picture
+
+1222
+00:58:00,270 --> 00:58:02,530
+fill, or whatever.
+
+1223
+00:58:02,530 --> 00:58:06,060
+But don't use picture fill
+for viewport switching.
+
+1224
+00:58:06,060 --> 00:58:08,160
+MARCUS: So picture fill, just
+for people who don't know what
+
+1225
+00:58:08,160 --> 00:58:11,700
+that is. picture fill is, you
+can Google it, you'll find it
+
+1226
+00:58:11,700 --> 00:58:12,130
+pretty quick.
+
+1227
+00:58:12,130 --> 00:58:16,590
+And it's basically the similar
+syntax to the picture element
+
+1228
+00:58:16,590 --> 00:58:20,870
+but done with divs and
+spans or something.
+
+1229
+00:58:20,870 --> 00:58:22,610
+But it basically works.
+
+1230
+00:58:22,610 --> 00:58:25,040
+JOHN MELLOR: But the downside is
+that the images don't load
+
+1231
+00:58:25,040 --> 00:58:27,930
+until the page is fully finished
+loading, and you've
+
+1232
+00:58:27,930 --> 00:58:29,910
+reached DOM content loaded.
+
+1233
+00:58:29,910 --> 00:58:33,280
+And so your images will start
+loading much later then if
+
+1234
+00:58:33,280 --> 00:58:35,660
+you've got a placeholder
+or something.
+
+1235
+00:58:35,660 --> 00:58:41,170
+YAV: And just to emphasize on
+that, [? picture fill ?]
+
+1236
+00:58:41,170 --> 00:58:46,110
+should be used for art
+direction and not for
+
+1237
+00:58:46,110 --> 00:58:47,240
+resolution switching.
+
+1238
+00:58:47,240 --> 00:58:48,360
+FEMALE SPEAKER 1: I'd like
+to add one comment.
+
+1239
+00:58:48,360 --> 00:58:50,780
+Because the picture fill, the
+reason that it's an issue is
+
+1240
+00:58:50,780 --> 00:58:53,830
+because it's on DOM
+content loaded.
+
+1241
+00:58:53,830 --> 00:58:57,440
+We should make on DOM content
+loaded much faster.
+
+1242
+00:58:57,440 --> 00:59:01,000
+It shouldn't be taking 10
+seconds to download your page.
+
+1243
+00:59:01,000 --> 00:59:02,250
+And that's one thing we should
+definitely work on.
+
+1244
+00:59:02,250 --> 00:59:04,000
+MARCUS: So I think that one,
+I think, will hopefully be
+
+1245
+00:59:04,000 --> 00:59:06,540
+covered in one of the other
+sessions because it's part of
+
+1246
+00:59:06,540 --> 00:59:07,180
+the performance thing.
+
+1247
+00:59:07,180 --> 00:59:10,070
+So there is work around that
+that we would basically say.
+
+1248
+00:59:10,070 --> 00:59:11,700
+And I'm just wrapping up
+here for the session.
+
+1249
+00:59:11,700 --> 00:59:14,800
+But it basically would just
+say, my page is ready now.
+
+1250
+00:59:14,800 --> 00:59:18,480
+So, as an author, you say,
+forget DOM content loaded.
+
+1251
+00:59:18,480 --> 00:59:20,450
+But page is done.
+
+1252
+00:59:20,450 --> 00:59:24,370
+And you sent, like, a fake DOM
+content loaded event that
+
+1253
+00:59:24,370 --> 00:59:28,350
+indicates to the browser, now
+I'm ready to do other stuff.
+
+1254
+00:59:28,350 --> 00:59:32,930
+So please to join me in thanking
+the panel here.
+
+1255
+00:59:32,930 --> 00:59:51,848
+[APPLAUSE]
