@@ -14,6 +14,22 @@
 
   <script src="javascripts/vendor/custom.modernizr.js"></script>
 
+  <style>
+    /* Video search */
+    #videos { margin-top: 40px; }
+    #videos .videoframe { width: 100%; height: 0; padding-top: 56.25%; position: relative; margin-bottom: 10px; }
+    #videos .videoframe > *:first-child { position: absolute; display: block; top:0; left:0; right:0; bottom:0; width: 100%; height: 100%; }
+
+    #videos #numResults { color: darkRed; margin: 0 0 1em 0; }
+
+    #videos #results { max-height: 300px; overflow-y: auto; list-style-type:none; }
+    #videos .cue {cursor: pointer; font-size: 10pt; margin: 0 0 0.5em 0; line-height: 1.3em; padding: 0; }
+    #videos .cue:hover { background-color:#eee; }
+    #videos .cue em { background-color: #FFFB96; font-style: normal }
+    #videos .cue .cueStartTime { font-size:90%; color: #555; }
+
+</style>
+
 </head>
 <body>
 
@@ -44,6 +60,7 @@
 					<div class="row">
 						<div class="small-12 columns large-6 columns">
 							<p><strong>New York City, September 23, 2013</strong></p>
+							<p><a href='#videos'>Watch the videos</a></p>
 						</div>
 						<div class="small-12 columns large-6 columns">
 							<p>Presented by <a href="http://labs.ft.com">FT Labs</a> and <a href="http://developers.google.com/chrome">Google</a></p>
@@ -58,6 +75,25 @@
 			</div>
 		</div>
 	</div>
+
+	<section class="layer" id='videos'>
+		<div class="row">
+			<div class="small-12 columns">
+				<h2 style='margin-bottom:25px'>Videos from the conference</h2>
+			</div>
+			<div class="small-12 large-8 columns">
+				<div class='videoframe'>
+					<iframe id='youTubePlayer' src='http://www.youtube.com/embed/zCDcmit5-fE?list=SPNYkxOF6rcIAhg58YwoKFHDsVBCUtNFMj' frameborder='0'></iframe>
+				</div>
+			</div>
+			<div class="small-12 large-4 columns">
+				<label for='query'>Search video transcripts:</label><input id="query" type="text" class='input-block-level' />
+				<span class='help-block'>Enter text to search transcripts, then click on a result to view video.</span>
+				<div id="numResults"></div>
+				<ul id="results"></ul>
+			</div>
+		</div>
+	</section>
 
 	<section class="layer">
 		<div class="row">
@@ -310,6 +346,9 @@
   })();
 
 </script>
+
+  <script src="javascripts/videosearch.js"></script>
+  <script src="javascripts/callPlayer.js"></script>
 
 </body>
 </html>
