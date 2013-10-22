@@ -8043,6 +8043,19 @@ header nav i {
   overflow: hidden;
 }
 
+/* Video search */
+#videos { margin-top: 10px; }
+#videos .videoframe { width: 100%; height: 0; padding-top: 56.25%; position: relative; margin-bottom: 10px; }
+#videos .videoframe > *:first-child { position: absolute; display: block; top:0; left:0; right:0; bottom:0; width: 100%; height: 100%; }
+
+#videos #numResults { color: darkRed; margin: 0 0 1em 0; }
+
+#videos #results { max-height: 300px; overflow-y: auto; list-style-type:none; }
+#videos .cue {cursor: pointer; font-size: 10pt; margin: 0 0 0.5em 0; line-height: 1.3em; padding: 0; }
+#videos .cue:hover { background-color:#eee; }
+#videos .cue em { background-color: #FFFB96; font-style: normal }
+#videos .cue .cueStartTime { font-size:90%; color: #555; }
+
 /* line 504, ../sass/app.scss */
 footer {
   background: #333;
