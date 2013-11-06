@@ -1,0 +1,305 @@
+
+<!DOCTYPE html>
+<!--[if IE 8]> 				 <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+
+<head>
+	<meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width" />
+  <title>Edge Conference</title>
+
+  <link rel="stylesheet" href="stylesheets/normalize.css" />
+  <link rel="stylesheet" href="stylesheets/app.css" />
+  <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,900' rel='stylesheet' type='text/css'>
+  <style>
+    body {
+      margin-top: 42px;
+    }
+    .session-list li { font-size: 22px; list-style-type:disc; padding: 0 0 0 10px; margin-left: 70px;}
+  </style>
+
+  <script src="javascripts/vendor/custom.modernizr.js"></script>
+
+</head>
+<body>
+
+	<header>
+		<nav class="row">
+			<ul class="small-10 columns small-centered">
+				<li><a href="live.html" class="active">Live</a></li>
+        <li><a class="moderatorLink" href="http://goo.gl/xWsgc0">Moderator</a></li>
+				<li><a href="schedule.html">Schedule</a></li>
+				<li><a href="index.html">Details</a></li>
+			</ul>
+			<i class="icon-reorder"></i>
+		</nav>
+	</header>
+
+	<section class="layer">
+    <div class="row">
+      <div class="small-12 columns">
+        <h3>
+          <span class="conf-name">Edge<span hidden id="liveLabel"> Live</span>:</span>
+          <span id="sessionLabel">A new kind of web conference.</span>
+        </h3>
+      </div>
+    </div>
+    <div class="row">
+			<div class="small-12 columns iframe-wrapper">
+				<div id="player">   
+        </div>
+        <div id="itsOver" hidden>
+            <p>The livestream is over, thanks for tuning in.</p>
+            <p>Missed the sessions live? You can watch them any time on <a href="http://goo.gl/4YE9Z0">YouTube</a></p>
+          </div>
+			</div>
+		</div>
+    <div class="row">
+      <div class="small-12 columns up-next" hidden>
+        <p>Up next: <span></span></p>
+      </div>
+    </div>
+	</section>
+
+  <section class="layer" id="secMod">
+    <div class="row">
+      <div class="small-12 columns iframe-wrapper">
+        <iframe id="moderatorIFrame" frameborder="0"></iframe>
+      </div>
+    </div>
+  </section>
+
+	<footer>
+		<div class="row">
+			<div class="small-12 columns">
+				<p>©2013 Edge contributors. Site constructed by <a href="http://www.thepixelbots.com">Pixelbots</a> and licensed under a <a href="http://creativecommons.org/licenses/by-sa/3.0/deed.en_GB">Creative Commons License</a>.</p>
+			</div>
+		</div>
+	</footer>
+
+  <script>
+  document.write('<script src=' +
+  ('__proto__' in {} ? 'javascripts/vendor/zepto' : 'javascripts/vendor/jquery') +
+  '.js><\/script>')
+  </script>
+
+  <script type="text/javascript">
+
+    var playlist = [
+      {
+        "title": "A new kind of web conference.",
+        "moderator": "http://goo.gl/xWsgc0",
+        "ends_at": Date.parse("2013-09-23T10:00:00-04:00"),
+        "video_id": 0
+      },
+      {
+        "title": "Responsive Images",
+        "moderator": "http://goo.gl/hFqwYT",
+        "ends_at": Date.parse("2013-09-23T11:00:00-04:00"),
+        "video_id": 0
+      },
+      {
+        "title": "Rendering Performance",
+        "moderator": "http://goo.gl/vFCl7F",
+        "ends_at": Date.parse("2013-09-23T12:00:00-04:00"),
+        "video_id": 0
+      },
+      {
+        "title": "Third Party Scripts",
+        "moderator": "http://goo.gl/wZxoyX",
+        "ends_at": Date.parse("2013-09-23T13:15:00-04:00"),
+        "video_id": 0
+      },
+      {
+        "title": "Real Time Data",
+        "moderator": "http://goo.gl/DzGimQ",
+        "ends_at": Date.parse("2013-09-23T15:15:00-04:00"),
+        "video_id": 1
+      },
+      {
+        "title": "Offline",
+        "moderator": "http://goo.gl/zL1rnz",
+        "ends_at": Date.parse("2013-09-23T16:15:00-04:00"),
+        "video_id": 1
+      },
+      {
+        "title": "Legacy Clients",
+        "moderator": "http://goo.gl/wff6D4",
+        "ends_at": Date.parse("2013-09-23T17:30:00-04:00"),
+        "video_id": 1
+      },
+      {
+        "title": "Payments",
+        "moderator": "http://goo.gl/2szNXP",
+        "ends_at": Date.parse("2013-09-23T18:30:00-04:00"),
+        "video_id": 1
+      },
+      {
+        "title": "Closing Statements",
+        "moderator": "http://goo.gl/xWsgc0",
+        "ends_at": Date.parse("2013-09-23T18:45:00-04:00"),
+        "video_id": 1
+      }
+    ];
+    var player;
+    var currentVideoIndex;
+
+    function getCurrentVideoIndex() {
+      var curTime = Date.now();
+      for (var i = 0; i < playlist.length; i++) {
+        var video = playlist[i];
+        if (curTime < video.ends_at) {
+          return i;
+          break;
+        }
+      }
+      return -1;
+    }
+
+    function init() {
+      currentVideoIndex = getCurrentVideoIndex();
+      if (currentVideoIndex >= 0) {
+        updateMetadata();
+        
+        // Setup video player
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+      } else {
+        showOver();
+      }
+    }
+
+    function onYouTubeIframeAPIReady() {
+      console.log("onYouTubeIframeAPIReady");
+      player = new YT.Player('player', {
+        height: '315',
+        width: '560',
+        playerVars: {
+          listType: 'playlist',
+          list: 'PLNYkxOF6rcICJ_TvIcxTg729tc-jqZ8uc',
+          index: playlist[currentVideoIndex].video_id,
+          autoplay: 0
+        },
+        events: {
+          'onStateChange': onPlayerStateChange,
+          'onReady': onPlayerReady
+        }
+      });
+    }
+
+    function onPlayerReady(evt) {
+      console.log("onPlayerReady", evt);
+      player.playVideo();
+      setInterval(function() {
+        var newIndex = getCurrentVideoIndex();
+        if (newIndex != currentVideoIndex) {
+          currentVideoIndex = newIndex;
+          updateMetadata();
+        }
+      }, 5000);
+    }
+
+    function onPlayerStateChange(evt) {
+      console.log("onPlayerStateChange", evt);
+    }
+
+    function updateMetadata() {
+      console.log("updateMetadata", currentVideoIndex);
+      if (currentVideoIndex >= 0) {
+        var currentVideo = playlist[currentVideoIndex];
+        // set Title
+        $("#sessionLabel").text(currentVideo.title);
+
+        // set Live Label
+        if (Date.now() > Date.parse("2013-09-23T09:45:00-04:00")) {
+          $("#liveLabel").removeAttr("hidden");
+        }
+
+        // set next title
+        var upNext = $(".up-next");
+        if (currentVideoIndex + 1 < playlist.length) {
+          upNext.attr("hidden", null);
+          upNext.find("span").text(playlist[currentVideoIndex + 1].title);
+        } else {
+          upNext.attr("hidden", true);
+        }
+
+        // set Moderator link
+        $("a.moderatorLink").attr("href", currentVideo.moderator);
+        $("#moderatorIFrame").attr("src", currentVideo.moderator);
+      } else {
+        showOver();
+      }
+    }
+
+    function showOver() {
+      $("#liveLabel").attr("hidden", true);
+      $("#itsOver").removeAttr("hidden");
+      $("#secMod").attr("hidden", true);
+    }
+
+    
+
+    init();
+  </script>
+
+
+  <script src="javascripts/foundation/foundation.js"></script>
+
+	<script src="javascripts/foundation/foundation.alerts.js"></script>
+
+	<script src="javascripts/foundation/foundation.clearing.js"></script>
+
+	<script src="javascripts/foundation/foundation.cookie.js"></script>
+
+	<script src="javascripts/foundation/foundation.dropdown.js"></script>
+
+	<script src="javascripts/foundation/foundation.forms.js"></script>
+
+	<script src="javascripts/foundation/foundation.joyride.js"></script>
+
+	<script src="javascripts/foundation/foundation.magellan.js"></script>
+
+	<script src="javascripts/foundation/foundation.orbit.js"></script>
+
+	<script src="javascripts/foundation/foundation.placeholder.js"></script>
+
+	<script src="javascripts/foundation/foundation.reveal.js"></script>
+
+	<script src="javascripts/foundation/foundation.section.js"></script>
+
+	<script src="javascripts/foundation/foundation.tooltips.js"></script>
+
+	<script src="javascripts/foundation/foundation.topbar.js"></script>
+
+	<script>
+		$(document).ready(function() {
+			// Reveal mobile nav
+			$('header nav i.icon-reorder').click(function() {
+				$('header nav ul').fadeToggle(100);
+			});
+		});
+	</script>
+
+  <script>
+    $(document).foundation();
+  </script>
+
+  <script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-36962287-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+</body>
+</html>

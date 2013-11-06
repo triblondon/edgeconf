@@ -1,0 +1,6046 @@
+1
+00:00:00,000 --> 00:00:06,510
+
+2
+00:00:06,510 --> 00:00:07,350
+STEVE THAIR: Thank you.
+
+3
+00:00:07,350 --> 00:00:07,680
+Thank you.
+
+4
+00:00:07,680 --> 00:00:09,368
+[APPLAUSE]
+
+5
+00:00:09,368 --> 00:00:11,180
+STEVE THAIR: Hi, my name's
+Steve Thair.
+
+6
+00:00:11,180 --> 00:00:14,970
+I run the London Web Performance
+User Group, and I
+
+7
+00:00:14,970 --> 00:00:16,870
+run WebPerfDays in London.
+
+8
+00:00:16,870 --> 00:00:20,670
+So performance of third-party
+scripts is a really big area
+
+9
+00:00:20,670 --> 00:00:23,270
+for us, and we debate
+it endlessly.
+
+10
+00:00:23,270 --> 00:00:27,000
+I'll quickly introduce you to
+the people on our panel.
+
+11
+00:00:27,000 --> 00:00:30,990
+On my right, I've got the--
+
+12
+00:00:30,990 --> 00:00:33,310
+well, if we're going to do a
+drug dealer analogy, these are
+
+13
+00:00:33,310 --> 00:00:36,080
+the guys who are actually
+producing the stuff.
+
+14
+00:00:36,080 --> 00:00:40,740
+We've got Ben Vinegar from
+Disqus, whose discussions and
+
+15
+00:00:40,740 --> 00:00:42,950
+comments you'll have seen
+on our many websites.
+
+16
+00:00:42,950 --> 00:00:47,770
+We've got Stoyan Stefanov from
+Facebook, whose Like buttons
+
+17
+00:00:47,770 --> 00:00:49,700
+and all those kind of Facebook
+widgets that you like to put
+
+18
+00:00:49,700 --> 00:00:50,960
+on your page.
+
+19
+00:00:50,960 --> 00:00:54,550
+And over here, we've got Guy
+Podjarny from Akamai, who's
+
+20
+00:00:54,550 --> 00:00:57,630
+sort of like the middle man, the
+distribution network for
+
+21
+00:00:57,630 --> 00:00:59,990
+the stuff that they're
+dealing.
+
+22
+00:00:59,990 --> 00:01:01,150
+And then we've got--
+
+23
+00:01:01,150 --> 00:01:02,380
+well, I was going to say
+addict, but that's
+
+24
+00:01:02,380 --> 00:01:03,200
+probably not right.
+
+25
+00:01:03,200 --> 00:01:07,110
+We've got Barbara Bermes from
+the Canadian Broadcasting
+
+26
+00:01:07,110 --> 00:01:07,970
+Corporation.
+
+27
+00:01:07,970 --> 00:01:11,100
+She's the kind of end user, this
+poor person that's having
+
+28
+00:01:11,100 --> 00:01:13,000
+all of these scripts.
+
+29
+00:01:13,000 --> 00:01:16,790
+She has to deal with her
+customers, the people in the
+
+30
+00:01:16,790 --> 00:01:18,790
+marketing team who never
+met a third-party
+
+31
+00:01:18,790 --> 00:01:21,000
+script they didn't like.
+
+32
+00:01:21,000 --> 00:01:22,900
+And they just want to stick all
+this stuff on the page.
+
+33
+00:01:22,900 --> 00:01:24,720
+And she's got to deal with
+all of those issues.
+
+34
+00:01:24,720 --> 00:01:28,130
+So we're going to kick off
+with a presentation from
+
+35
+00:01:28,130 --> 00:01:30,790
+Stoyan just to set
+the scene on what
+
+36
+00:01:30,790 --> 00:01:32,750
+third-party stuff means.
+
+37
+00:01:32,750 --> 00:01:35,840
+Just remember, obviously we've
+got the [? on-slide ?]
+
+38
+00:01:35,840 --> 00:01:36,130
+stuff.
+
+39
+00:01:36,130 --> 00:01:39,610
+So try and use that as
+much as you can.
+
+40
+00:01:39,610 --> 00:01:42,850
+Come in, give positive and
+negative feedback.
+
+41
+00:01:42,850 --> 00:01:46,360
+And obviously, put your hand
+up via [? on-slide ?]
+
+42
+00:01:46,360 --> 00:01:47,490
+if you want to talk.
+
+43
+00:01:47,490 --> 00:01:48,960
+Thank you.
+
+44
+00:01:48,960 --> 00:01:50,460
+Over to Stoyan.
+
+45
+00:01:50,460 --> 00:01:52,460
+STOYAN STEFANOV: Thank
+you, Stephen.
+
+46
+00:01:52,460 --> 00:01:59,730
+All right, so welcome to the
+third-party party, where we
+
+47
+00:01:59,730 --> 00:02:05,610
+party like it's 1995 because in
+many ways, it is 1995 when
+
+48
+00:02:05,610 --> 00:02:07,430
+it comes to third-party
+widgets.
+
+49
+00:02:07,430 --> 00:02:10,800
+So I'm hoping we can have a nice
+discussion how to bring
+
+50
+00:02:10,800 --> 00:02:15,220
+this party to today
+and tomorrow.
+
+51
+00:02:15,220 --> 00:02:16,470
+Slide, please.
+
+52
+00:02:16,470 --> 00:02:19,360
+
+53
+00:02:19,360 --> 00:02:23,480
+So Stephen now did the same
+thing that I was planning to,
+
+54
+00:02:23,480 --> 00:02:27,660
+so he stole my thunder of
+presenting the widget makers
+
+55
+00:02:27,660 --> 00:02:29,350
+versus the consumers.
+
+56
+00:02:29,350 --> 00:02:31,680
+I can only add that Stephen
+is also on the ops side.
+
+57
+00:02:31,680 --> 00:02:37,500
+He's also on Barbara's
+side, protecting--
+
+58
+00:02:37,500 --> 00:02:40,320
+STEVE THAIR: Impartial
+moderator.
+
+59
+00:02:40,320 --> 00:02:42,410
+STOYAN STEFANOV: Protecting all
+the publishers from all
+
+60
+00:02:42,410 --> 00:02:44,730
+the extravagance we
+put out there.
+
+61
+00:02:44,730 --> 00:02:48,834
+
+62
+00:02:48,834 --> 00:02:52,340
+All right, so just
+a quick overview.
+
+63
+00:02:52,340 --> 00:02:55,445
+Third-party content comes mostly
+in form of script that
+
+64
+00:02:55,445 --> 00:02:57,250
+you include on the page.
+
+65
+00:02:57,250 --> 00:02:59,870
+It may not do anything visible,
+like it may be
+
+66
+00:02:59,870 --> 00:03:02,310
+something like Google
+Analytics.
+
+67
+00:03:02,310 --> 00:03:06,130
+Or you put an iframe
+on the page coming
+
+68
+00:03:06,130 --> 00:03:07,420
+from a third party.
+
+69
+00:03:07,420 --> 00:03:10,510
+Or the state of the art seems
+to be that you do both.
+
+70
+00:03:10,510 --> 00:03:14,970
+You include a script that writes
+an iframe for you.
+
+71
+00:03:14,970 --> 00:03:19,220
+So that's what we want to talk
+more about how we deal with
+
+72
+00:03:19,220 --> 00:03:22,110
+scripts and iframes.
+
+73
+00:03:22,110 --> 00:03:28,690
+And you're including JavaScript
+on the page coming
+
+74
+00:03:28,690 --> 00:03:29,320
+from somewhere.
+
+75
+00:03:29,320 --> 00:03:32,090
+You don't know, you have no
+control over coming in over
+
+76
+00:03:32,090 --> 00:03:32,710
+the network.
+
+77
+00:03:32,710 --> 00:03:36,440
+So what could possibly
+go wrong with that?
+
+78
+00:03:36,440 --> 00:03:38,430
+Well, obviously, there's
+a security issue.
+
+79
+00:03:38,430 --> 00:03:45,410
+And Ben wanted to bring up a
+recent attack on Outbrain,
+
+80
+00:03:45,410 --> 00:03:49,560
+which is a producer
+of third-party
+
+81
+00:03:49,560 --> 00:03:51,890
+recommendation engine.
+
+82
+00:03:51,890 --> 00:04:00,880
+So it was attacked by Syrian
+army folks who were able to
+
+83
+00:04:00,880 --> 00:04:04,670
+mess with our JavaScript and,
+in this way, affect all the
+
+84
+00:04:04,670 --> 00:04:07,340
+pages that use their service.
+
+85
+00:04:07,340 --> 00:04:11,230
+So let's say, for example, they
+could redirect all the
+
+86
+00:04:11,230 --> 00:04:15,140
+visitors to Washington Post
+to some other page.
+
+87
+00:04:15,140 --> 00:04:17,089
+So I think if you're an
+attacker, if you're a
+
+88
+00:04:17,089 --> 00:04:20,380
+malicious person, why would
+you try to break into all
+
+89
+00:04:20,380 --> 00:04:23,380
+these websites where you can do
+your one-stop shopping and
+
+90
+00:04:23,380 --> 00:04:25,580
+break into a third-party widget
+provider and have
+
+91
+00:04:25,580 --> 00:04:27,870
+control over so many websites?
+
+92
+00:04:27,870 --> 00:04:30,340
+So security's obviously
+a big one.
+
+93
+00:04:30,340 --> 00:04:37,270
+And then you have the single
+point of failure where if a
+
+94
+00:04:37,270 --> 00:04:40,780
+page includes a script
+synchronously, they add single
+
+95
+00:04:40,780 --> 00:04:41,900
+point of failure.
+
+96
+00:04:41,900 --> 00:04:45,315
+And despite the fact that we
+have now good tools from Pat
+
+97
+00:04:45,315 --> 00:04:49,240
+Meenan's SPOF-O-Matic extension
+for Chrome, and also
+
+98
+00:04:49,240 --> 00:04:55,230
+you're able to find SPOF using
+WebPagetest, but it seems like
+
+99
+00:04:55,230 --> 00:04:59,230
+that still tends to be an issue,
+which is pretty silly.
+
+100
+00:04:59,230 --> 00:05:02,180
+Because if the third-party
+provider is blocked in a
+
+101
+00:05:02,180 --> 00:05:06,230
+country or an enterprise, that
+means your site is effectively
+
+102
+00:05:06,230 --> 00:05:08,710
+blocked as well,
+or black holed.
+
+103
+00:05:08,710 --> 00:05:11,600
+And then there's all the
+performance issues.
+
+104
+00:05:11,600 --> 00:05:16,250
+Anything you add on the page
+will add to the rendering time
+
+105
+00:05:16,250 --> 00:05:20,780
+and loading time and all that.
+
+106
+00:05:20,780 --> 00:05:22,040
+All right, so what does
+the state of the
+
+107
+00:05:22,040 --> 00:05:23,980
+art of script include?
+
+108
+00:05:23,980 --> 00:05:27,240
+So despite all the evangelism
+for using asynchronous
+
+109
+00:05:27,240 --> 00:05:30,935
+scripts, people are still
+using script tags.
+
+110
+00:05:30,935 --> 00:05:34,850
+And sometimes the widget
+providers on the marketing
+
+111
+00:05:34,850 --> 00:05:36,660
+side will prefer that
+because it's easier.
+
+112
+00:05:36,660 --> 00:05:39,420
+You just have one script
+tag instead of a
+
+113
+00:05:39,420 --> 00:05:41,360
+little bit of code.
+
+114
+00:05:41,360 --> 00:05:43,710
+So that's pretty bad.
+
+115
+00:05:43,710 --> 00:05:47,270
+There is currently some things
+on the crazier side, like
+
+116
+00:05:47,270 --> 00:05:51,200
+using frame in frame,
+loading JavaScript
+
+117
+00:05:51,200 --> 00:05:52,550
+inside of an iframe.
+
+118
+00:05:52,550 --> 00:05:55,870
+Or when you write an iframe,
+write it inside of another
+
+119
+00:05:55,870 --> 00:05:59,900
+iframe, so the first iframe
+container is blank so it's not
+
+120
+00:05:59,900 --> 00:06:02,550
+in the way of the window
+unload event.
+
+121
+00:06:02,550 --> 00:06:06,320
+So this is for people who still
+care about window.unload
+
+122
+00:06:06,320 --> 00:06:08,370
+and whenever it happens.
+
+123
+00:06:08,370 --> 00:06:15,240
+Not as easy or friendly to copy
+and paste, but it exists.
+
+124
+00:06:15,240 --> 00:06:16,990
+Something else.
+
+125
+00:06:16,990 --> 00:06:19,560
+So the thing about third-party
+JavaScript is they're
+
+126
+00:06:19,560 --> 00:06:24,330
+notoriously being very
+short-lived, 10, 15 minutes,
+
+127
+00:06:24,330 --> 00:06:25,290
+half an hour.
+
+128
+00:06:25,290 --> 00:06:29,150
+And the reason is so that the
+third-party provider can push
+
+129
+00:06:29,150 --> 00:06:33,990
+fixes in security updates
+very quickly.
+
+130
+00:06:33,990 --> 00:06:38,420
+But that's bad for performance
+because we cannot use far
+
+131
+00:06:38,420 --> 00:06:40,275
+future Expires header.
+
+132
+00:06:40,275 --> 00:06:44,790
+So there's this technique of,
+again, using an iframe and
+
+133
+00:06:44,790 --> 00:06:48,130
+reloading that iframe that
+causes the script to be
+
+134
+00:06:48,130 --> 00:06:50,540
+refreshed, so you can have a
+third-party JavaScript with a
+
+135
+00:06:50,540 --> 00:06:53,090
+far future Expires header.
+
+136
+00:06:53,090 --> 00:06:57,186
+I don't know if anyone's
+doing it currently.
+
+137
+00:06:57,186 --> 00:06:58,150
+AUDIENCE: [INAUDIBLE].
+
+138
+00:06:58,150 --> 00:06:58,730
+STOYAN STEFANOV: [INAUDIBLE].
+
+139
+00:06:58,730 --> 00:07:01,130
+All right.
+
+140
+00:07:01,130 --> 00:07:05,060
+And then there's stuff that's
+coming up from the web-perf
+
+141
+00:07:05,060 --> 00:07:09,970
+W3C group, which I was hoping
+someone can enlighten us
+
+142
+00:07:09,970 --> 00:07:13,570
+what's going on there
+with the progress.
+
+143
+00:07:13,570 --> 00:07:15,460
+All right.
+
+144
+00:07:15,460 --> 00:07:16,710
+Next.
+
+145
+00:07:16,710 --> 00:07:18,760
+
+146
+00:07:18,760 --> 00:07:23,270
+Oh yeah, there's this idea about
+what I call C3PO, or
+
+147
+00:07:23,270 --> 00:07:24,520
+Common 3rd-Party Objects.
+
+148
+00:07:24,520 --> 00:07:28,580
+
+149
+00:07:28,580 --> 00:07:32,150
+So this is something I put up
+some time ago, and then Ben
+
+150
+00:07:32,150 --> 00:07:34,250
+said that he's been thinking
+about the same thing.
+
+151
+00:07:34,250 --> 00:07:36,400
+But we never really got to talk,
+so I think that's as
+
+152
+00:07:36,400 --> 00:07:38,370
+good time as any.
+
+153
+00:07:38,370 --> 00:07:42,320
+So it is that those scripts that
+are included from third
+
+154
+00:07:42,320 --> 00:07:44,230
+parties usually do
+the same thing.
+
+155
+00:07:44,230 --> 00:07:47,270
+They hunt the page for
+any hints where the
+
+156
+00:07:47,270 --> 00:07:48,790
+iframe should go.
+
+157
+00:07:48,790 --> 00:07:51,950
+So they look at the DOM, and
+then write an iframe, and then
+
+158
+00:07:51,950 --> 00:07:54,260
+resize the iframe because
+the content doesn't fit.
+
+159
+00:07:54,260 --> 00:07:57,490
+Let's say you have a Like button
+in German, which is
+
+160
+00:07:57,490 --> 00:07:58,435
+longer word.
+
+161
+00:07:58,435 --> 00:08:01,050
+So you have to resize the iframe
+not to take more space
+
+162
+00:08:01,050 --> 00:08:02,960
+than needed.
+
+163
+00:08:02,960 --> 00:08:07,040
+And a lot of widget providers
+are doing the same thing.
+
+164
+00:08:07,040 --> 00:08:12,430
+So what if we can have one
+script that is open source
+
+165
+00:08:12,430 --> 00:08:18,310
+that handles this for
+most of the widgets?
+
+166
+00:08:18,310 --> 00:08:21,590
+So this means that the publisher
+can include the
+
+167
+00:08:21,590 --> 00:08:25,380
+script and package it however
+they want with their scripts
+
+168
+00:08:25,380 --> 00:08:29,030
+and handle all the widgets.
+
+169
+00:08:29,030 --> 00:08:34,280
+Or we download five, six
+scripts, 100k, 200k instead of
+
+170
+00:08:34,280 --> 00:08:36,840
+having just zero requests.
+
+171
+00:08:36,840 --> 00:08:38,090
+So that is the idea.
+
+172
+00:08:38,090 --> 00:08:41,380
+
+173
+00:08:41,380 --> 00:08:45,090
+Meanwhile, what we have in
+nearer future coming up.
+
+174
+00:08:45,090 --> 00:08:47,380
+So we have now web components.
+
+175
+00:08:47,380 --> 00:08:50,630
+I don't know if anyone's
+using web components.
+
+176
+00:08:50,630 --> 00:08:52,300
+If not, why not?
+
+177
+00:08:52,300 --> 00:08:54,760
+It seems like the widgets are
+the best use case for web
+
+178
+00:08:54,760 --> 00:08:56,480
+components.
+
+179
+00:08:56,480 --> 00:08:59,770
+Then I'm thinking, is it any
+easier on the publisher's side
+
+180
+00:08:59,770 --> 00:09:04,730
+to include a web component
+instead of the current state
+
+181
+00:09:04,730 --> 00:09:06,750
+where you include a diff class,
+
+182
+00:09:06,750 --> 00:09:09,500
+something, and the script?
+
+183
+00:09:09,500 --> 00:09:12,590
+There's the iframe sandbox.
+
+184
+00:09:12,590 --> 00:09:13,870
+It's really cool.
+
+185
+00:09:13,870 --> 00:09:17,180
+Should we encourage people
+to use it or not?
+
+186
+00:09:17,180 --> 00:09:21,090
+What would this allow in
+a third-party widget?
+
+187
+00:09:21,090 --> 00:09:24,200
+So there was the idea
+of seamless iframes.
+
+188
+00:09:24,200 --> 00:09:28,800
+It seems like it's not going
+anywhere, going away.
+
+189
+00:09:28,800 --> 00:09:32,380
+The same with the
+frame srcdoc.
+
+190
+00:09:32,380 --> 00:09:33,220
+What's the state of that?
+
+191
+00:09:33,220 --> 00:09:34,400
+Is it dying as well?
+
+192
+00:09:34,400 --> 00:09:36,000
+We can talk about it.
+
+193
+00:09:36,000 --> 00:09:38,159
+STEVE THAIR: It just got
+a negative vote.
+
+194
+00:09:38,159 --> 00:09:40,155
+[LAUGHTER]
+
+195
+00:09:40,155 --> 00:09:41,405
+AUDIENCE: It's dying.
+
+196
+00:09:41,405 --> 00:09:47,150
+
+197
+00:09:47,150 --> 00:09:49,200
+STOYAN STEFANOV: Content
+security policy.
+
+198
+00:09:49,200 --> 00:09:49,720
+It exists.
+
+199
+00:09:49,720 --> 00:09:51,480
+It's out there.
+
+200
+00:09:51,480 --> 00:09:52,530
+What should we do about it?
+
+201
+00:09:52,530 --> 00:09:55,970
+Should we encourage people to
+use it, providers as well as
+
+202
+00:09:55,970 --> 00:09:57,590
+publishers?
+
+203
+00:09:57,590 --> 00:09:58,840
+Curious to hear your thoughts.
+
+204
+00:09:58,840 --> 00:10:02,350
+
+205
+00:10:02,350 --> 00:10:05,980
+But meanwhile, what happens
+now-- and Barbara can talk
+
+206
+00:10:05,980 --> 00:10:10,000
+about this from the publisher's
+perspective.
+
+207
+00:10:10,000 --> 00:10:13,270
+So she said that sites are
+now bombarded by scripts.
+
+208
+00:10:13,270 --> 00:10:15,850
+There's too much
+stuff going on.
+
+209
+00:10:15,850 --> 00:10:19,040
+And she was also, like Stephen
+said, challenging anyone to
+
+210
+00:10:19,040 --> 00:10:23,180
+stand between the marketing
+people and their widgets.
+
+211
+00:10:23,180 --> 00:10:26,720
+So how do we monitor third-party
+widgets?
+
+212
+00:10:26,720 --> 00:10:28,965
+Do people set up budgets
+and say, OK, you have
+
+213
+00:10:28,965 --> 00:10:30,215
+this amount of time?
+
+214
+00:10:30,215 --> 00:10:33,280
+
+215
+00:10:33,280 --> 00:10:37,260
+How do we keep the third
+parties in track?
+
+216
+00:10:37,260 --> 00:10:40,620
+Also, how do we deal with some--
+because not all the
+
+217
+00:10:40,620 --> 00:10:42,870
+third- party code is
+very well written.
+
+218
+00:10:42,870 --> 00:10:45,490
+So how do people deal with the
+scripts that have to do
+
+219
+00:10:45,490 --> 00:10:46,740
+document write and so on?
+
+220
+00:10:46,740 --> 00:10:49,410
+
+221
+00:10:49,410 --> 00:10:54,220
+Guy brought a good
+question about--
+
+222
+00:10:54,220 --> 00:10:57,100
+according to the HTTP Archive,
+the number of domains every
+
+223
+00:10:57,100 --> 00:11:01,000
+website is using is going
+up, is increasing.
+
+224
+00:11:01,000 --> 00:11:05,130
+And it can be largely attributed
+to third parties.
+
+225
+00:11:05,130 --> 00:11:09,770
+So what can we do to fix this?
+
+226
+00:11:09,770 --> 00:11:14,020
+And he has some ideas, some
+borderline crazy, like copying
+
+227
+00:11:14,020 --> 00:11:16,070
+cookies from one domain
+to the other.
+
+228
+00:11:16,070 --> 00:11:20,270
+Some may be more manageable,
+like what if we used the same
+
+229
+00:11:20,270 --> 00:11:24,520
+domain name for all the static
+resources, scripts and styles
+
+230
+00:11:24,520 --> 00:11:28,720
+and sprites, and shared between
+all the third parties?
+
+231
+00:11:28,720 --> 00:11:31,980
+So instead of loading something
+from Facebook,
+
+232
+00:11:31,980 --> 00:11:34,470
+something akamai.net, whatever,
+why don't we use
+
+233
+00:11:34,470 --> 00:11:37,165
+something else, like
+common domain name?
+
+234
+00:11:37,165 --> 00:11:41,280
+C3PO comes to mind.
+
+235
+00:11:41,280 --> 00:11:42,530
+STEVE THAIR: I think it
+would c3po.akamai.com.
+
+236
+00:11:42,530 --> 00:11:45,460
+
+237
+00:11:45,460 --> 00:11:46,310
+STOYAN STEFANOV: Oh, mobile.
+
+238
+00:11:46,310 --> 00:11:48,910
+It's finally here.
+
+239
+00:11:48,910 --> 00:11:51,740
+What does it mean for widgets?
+
+240
+00:11:51,740 --> 00:11:54,060
+Is it only just making
+performance
+
+241
+00:11:54,060 --> 00:11:55,755
+issues even more visible?
+
+242
+00:11:55,755 --> 00:11:57,440
+Should we do something
+about it?
+
+243
+00:11:57,440 --> 00:12:02,130
+Are people using that many
+widgets on mobile websites?
+
+244
+00:12:02,130 --> 00:12:03,380
+I'm curious to know.
+
+245
+00:12:03,380 --> 00:12:06,040
+
+246
+00:12:06,040 --> 00:12:08,000
+Yeah, I think that's
+all I had.
+
+247
+00:12:08,000 --> 00:12:10,440
+And let's talk about
+all this stuff.
+
+248
+00:12:10,440 --> 00:12:15,170
+[APPLAUSE]
+
+249
+00:12:15,170 --> 00:12:16,710
+STEVE THAIR: Well, thanks
+very much, Stoyan.
+
+250
+00:12:16,710 --> 00:12:18,770
+I'm just going to do a quick
+poll of the panel.
+
+251
+00:12:18,770 --> 00:12:21,780
+Guy, any quick comments from
+Stoyan's opening talk?
+
+252
+00:12:21,780 --> 00:12:22,010
+GUY PODJARNY: Sure.
+
+253
+00:12:22,010 --> 00:12:23,250
+Maybe I'll add a couple.
+
+254
+00:12:23,250 --> 00:12:25,270
+One is in general, third
+party is a little bit
+
+255
+00:12:25,270 --> 00:12:26,000
+broader than that.
+
+256
+00:12:26,000 --> 00:12:27,910
+I think there's some bias
+to think about--
+
+257
+00:12:27,910 --> 00:12:30,720
+every person has a bias, but
+there's also tracking beacons,
+
+258
+00:12:30,720 --> 00:12:33,350
+which for some websites are
+plentiful and actually coming
+
+259
+00:12:33,350 --> 00:12:35,280
+off in the form of an image.
+
+260
+00:12:35,280 --> 00:12:36,970
+And there are also, actually,
+third-party components that
+
+261
+00:12:36,970 --> 00:12:38,210
+are more in line to your page.
+
+262
+00:12:38,210 --> 00:12:41,330
+Also, some shopping cart
+personalization components and
+
+263
+00:12:41,330 --> 00:12:44,460
+such that I guess kind of
+start to tread the line
+
+264
+00:12:44,460 --> 00:12:47,400
+because while they're third
+party, they're not extraneous
+
+265
+00:12:47,400 --> 00:12:50,450
+to the core flow or requirement
+of the product.
+
+266
+00:12:50,450 --> 00:12:52,190
+But they're still a concern in
+all sorts of things, like
+
+267
+00:12:52,190 --> 00:12:53,930
+number of domains and
+reliability concerns.
+
+268
+00:12:53,930 --> 00:12:57,460
+Security concerns is still
+very much valid for them.
+
+269
+00:12:57,460 --> 00:12:58,100
+So that's one point.
+
+270
+00:12:58,100 --> 00:13:00,610
+And then the second one is just
+to highlight the aspect
+
+271
+00:13:00,610 --> 00:13:01,790
+of the number of domains.
+
+272
+00:13:01,790 --> 00:13:03,750
+There's basically the problems
+with third parties that have
+
+273
+00:13:03,750 --> 00:13:08,380
+to do with best practices around
+how to use them, how to
+
+274
+00:13:08,380 --> 00:13:08,850
+write them.
+
+275
+00:13:08,850 --> 00:13:11,440
+If you're an author of them, to
+try and get them out of the
+
+276
+00:13:11,440 --> 00:13:13,670
+way as much as possible
+while still keeping
+
+277
+00:13:13,670 --> 00:13:15,930
+them reasonably fast.
+
+278
+00:13:15,930 --> 00:13:18,260
+And there's also things that
+are just trends, like the
+
+279
+00:13:18,260 --> 00:13:21,680
+number of domains or the
+existence of unoptimized
+
+280
+00:13:21,680 --> 00:13:24,050
+third-party scripts that use
+document.write, whether you
+
+281
+00:13:24,050 --> 00:13:25,860
+like it or not.
+
+282
+00:13:25,860 --> 00:13:28,570
+And those are just paths that,
+to me, are more interesting
+
+283
+00:13:28,570 --> 00:13:31,610
+because there's no clear--
+
+284
+00:13:31,610 --> 00:13:35,740
+as far as I know, there's no
+good set to advance us in the
+
+285
+00:13:35,740 --> 00:13:38,370
+right direction, to fix those.
+
+286
+00:13:38,370 --> 00:13:39,296
+STEVE THAIR: Barbara?
+
+287
+00:13:39,296 --> 00:13:41,556
+BARBARA BERMES: So for me, I'm
+basically really in the middle
+
+288
+00:13:41,556 --> 00:13:44,000
+of both, so I want to make
+sure that the developers
+
+289
+00:13:44,000 --> 00:13:46,760
+understand what third-party
+scripts really
+
+290
+00:13:46,760 --> 00:13:47,620
+could do to your page.
+
+291
+00:13:47,620 --> 00:13:52,110
+And also, yeah, the business
+side, to tell them what to
+
+292
+00:13:52,110 --> 00:13:54,980
+look out for when asking
+third-party providers to
+
+293
+00:13:54,980 --> 00:13:56,150
+provide their code.
+
+294
+00:13:56,150 --> 00:13:58,150
+STEVE THAIR: So you're saying
+it's not really possible to
+
+295
+00:13:58,150 --> 00:14:00,360
+tell the marketing department
+they can't have that piece of
+
+296
+00:14:00,360 --> 00:14:02,360
+code because it has a
+document.write in it, because
+
+297
+00:14:02,360 --> 00:14:03,030
+they just won't understand?
+
+298
+00:14:03,030 --> 00:14:03,780
+BARBARA BERMES: Exactly.
+
+299
+00:14:03,780 --> 00:14:06,590
+You've got to explain to them
+what the impact actually is,
+
+300
+00:14:06,590 --> 00:14:09,470
+and they don't always
+understand that.
+
+301
+00:14:09,470 --> 00:14:14,150
+STEVE THAIR: Ben, as a provider,
+what would you say
+
+302
+00:14:14,150 --> 00:14:16,320
+about Stoyan's opening marks?
+
+303
+00:14:16,320 --> 00:14:17,570
+BEN VINEGAR: I mean, they're
+really good comments.
+
+304
+00:14:17,570 --> 00:14:20,430
+
+305
+00:14:20,430 --> 00:14:22,410
+Basically, it's been set up that
+this whole panel is sort
+
+306
+00:14:22,410 --> 00:14:25,530
+of like, if you're a website
+publisher, then third-party
+
+307
+00:14:25,530 --> 00:14:28,190
+scripts are mean, and
+we're villains.
+
+308
+00:14:28,190 --> 00:14:30,560
+Also, Stoyan.
+
+309
+00:14:30,560 --> 00:14:34,150
+But I want to flip this around,
+like maybe people
+
+310
+00:14:34,150 --> 00:14:38,120
+aren't thinking that as a
+third-party developer, that
+
+311
+00:14:38,120 --> 00:14:39,970
+has a pretty complex application
+that I'm serving
+
+312
+00:14:39,970 --> 00:14:41,130
+to publisher pages.
+
+313
+00:14:41,130 --> 00:14:44,480
+There are publishers that are
+doing really bad things to me.
+
+314
+00:14:44,480 --> 00:14:46,410
+And I would love to talk about
+some of those and--
+
+315
+00:14:46,410 --> 00:14:48,554
+[LAUGHTER]
+
+316
+00:14:48,554 --> 00:14:49,804
+STEVE THAIR: Yes.
+
+317
+00:14:49,804 --> 00:14:52,010
+
+318
+00:14:52,010 --> 00:14:54,550
+BEN VINEGAR: And I mean that
+partially as a joke, but there
+
+319
+00:14:54,550 --> 00:14:55,800
+is definitely--
+
+320
+00:14:55,800 --> 00:14:57,870
+
+321
+00:14:57,870 --> 00:15:00,710
+it can be subjects like people
+immediately attribute
+
+322
+00:15:00,710 --> 00:15:02,350
+performance issues to a
+third-party script.
+
+323
+00:15:02,350 --> 00:15:05,180
+That's the first place that they
+go, where I'm debugging
+
+324
+00:15:05,180 --> 00:15:07,750
+publishers websites, and then
+I attribute basically the
+
+325
+00:15:07,750 --> 00:15:10,120
+performance problems
+back to them.
+
+326
+00:15:10,120 --> 00:15:12,050
+So I'm sort of in a
+hard spot as well.
+
+327
+00:15:12,050 --> 00:15:14,740
+And I think that's possibly
+worth discussing.
+
+328
+00:15:14,740 --> 00:15:15,040
+STEVE THAIR: Cool.
+
+329
+00:15:15,040 --> 00:15:17,370
+I think we've actually got a
+couple of questions about how
+
+330
+00:15:17,370 --> 00:15:20,120
+we can find and identify those
+sort of performance
+
+331
+00:15:20,120 --> 00:15:20,610
+bottlenecks.
+
+332
+00:15:20,610 --> 00:15:22,940
+But first question we've got
+from the floor is actually
+
+333
+00:15:22,940 --> 00:15:24,840
+from Yoav Weiss.
+
+334
+00:15:24,840 --> 00:15:26,090
+Oh, you're down there.
+
+335
+00:15:26,090 --> 00:15:31,900
+
+336
+00:15:31,900 --> 00:15:33,810
+AUDIENCE: Hi.
+
+337
+00:15:33,810 --> 00:15:36,830
+What are the mechanisms for
+enabling script loading based
+
+338
+00:15:36,830 --> 00:15:40,020
+on media queries, and is
+there a valid proposal?
+
+339
+00:15:40,020 --> 00:15:42,860
+And how can we get
+this pushed?
+
+340
+00:15:42,860 --> 00:15:46,530
+STEVE THAIR: So this is the idea
+of if I've got a script
+
+341
+00:15:46,530 --> 00:15:48,850
+that's just not relevant for
+the device that I'm running
+
+342
+00:15:48,850 --> 00:15:51,180
+on, why am I downloading
+it in the first place?
+
+343
+00:15:51,180 --> 00:15:51,950
+AUDIENCE: Exactly.
+
+344
+00:15:51,950 --> 00:15:54,240
+It relates to the
+mobile thing.
+
+345
+00:15:54,240 --> 00:15:58,790
+I mean, if I don't show a Like
+button on mobile, why am I
+
+346
+00:15:58,790 --> 00:16:01,734
+downloading the script?
+
+347
+00:16:01,734 --> 00:16:04,084
+STEVE THAIR: Do you want to
+start taking that one?
+
+348
+00:16:04,084 --> 00:16:05,980
+STOYAN STEFANOV: I'm not aware
+of any development.
+
+349
+00:16:05,980 --> 00:16:07,310
+Are you?
+
+350
+00:16:07,310 --> 00:16:11,230
+Is there a proposal going on?
+
+351
+00:16:11,230 --> 00:16:14,530
+AUDIENCE: I started playing
+around with the idea.
+
+352
+00:16:14,530 --> 00:16:19,000
+It's kind of hard to define what
+happens when the media
+
+353
+00:16:19,000 --> 00:16:20,560
+query changes.
+
+354
+00:16:20,560 --> 00:16:23,010
+That's where things
+get complicated.
+
+355
+00:16:23,010 --> 00:16:25,030
+Do I want to run the
+script or not?
+
+356
+00:16:25,030 --> 00:16:29,820
+But in general, do you guys
+think it's a good idea, or is
+
+357
+00:16:29,820 --> 00:16:33,980
+it something that should
+be pursued?
+
+358
+00:16:33,980 --> 00:16:37,610
+STOYAN STEFANOV: It definitely
+sounds interesting.
+
+359
+00:16:37,610 --> 00:16:39,250
+GUY PODJARNY: I'm kind
+of fond of it.
+
+360
+00:16:39,250 --> 00:16:40,870
+So I think the notion of
+conditional loading,
+
+361
+00:16:40,870 --> 00:16:42,430
+especially in responsive design
+
+362
+00:16:42,430 --> 00:16:44,250
+website, is a real issue.
+
+363
+00:16:44,250 --> 00:16:45,950
+And in responsive design,
+we focus on images,
+
+364
+00:16:45,950 --> 00:16:47,940
+like we spoke earlier.
+
+365
+00:16:47,940 --> 00:16:52,630
+But maybe the next looming
+problem, if not already here,
+
+366
+00:16:52,630 --> 00:16:53,490
+is the notion of scripts.
+
+367
+00:16:53,490 --> 00:16:56,520
+And I regularly see responsive
+websites download, execute
+
+368
+00:16:56,520 --> 00:16:59,360
+scripts, and then hide them
+because the layout doesn't
+
+369
+00:16:59,360 --> 00:17:00,140
+quite make sense with them.
+
+370
+00:17:00,140 --> 00:17:03,680
+So institutionalizing or
+standardizing conditional
+
+371
+00:17:03,680 --> 00:17:04,910
+loading makes perfect
+sense to me.
+
+372
+00:17:04,910 --> 00:17:10,170
+And using media queries seems
+like one way to do it.
+
+373
+00:17:10,170 --> 00:17:11,970
+I'm not sure if there's any
+active conversation about it,
+
+374
+00:17:11,970 --> 00:17:14,430
+so I guess we'll probably need
+to figure out all the
+
+375
+00:17:14,430 --> 00:17:15,569
+different options of it.
+
+376
+00:17:15,569 --> 00:17:18,720
+But I do think that's a good
+path that we need to go down.
+
+377
+00:17:18,720 --> 00:17:21,000
+BARBARA BERMES: I think also,
+the idea is interesting, but
+
+378
+00:17:21,000 --> 00:17:23,569
+I'm also wondering, what
+are the use cases?
+
+379
+00:17:23,569 --> 00:17:27,400
+So you would not load, for
+example, a Facebook button for
+
+380
+00:17:27,400 --> 00:17:31,480
+mobile versus desktop,
+or whatever?
+
+381
+00:17:31,480 --> 00:17:35,320
+AUDIENCE: The use cases I can
+think of are Facebook button
+
+382
+00:17:35,320 --> 00:17:39,620
+or social buttons in general,
+maps that may or may not be
+
+383
+00:17:39,620 --> 00:17:46,940
+displayed because you want to
+go to the native map, and UI
+
+384
+00:17:46,940 --> 00:17:50,650
+frameworks where you want to
+load jQuery mobile here and
+
+385
+00:17:50,650 --> 00:17:53,280
+jQuery UI there.
+
+386
+00:17:53,280 --> 00:17:55,150
+These are the use cases
+I have in mind.
+
+387
+00:17:55,150 --> 00:17:57,810
+GUY PODJARNY: And Twitter
+streams are a common one in
+
+388
+00:17:57,810 --> 00:17:58,890
+responsive design.
+
+389
+00:17:58,890 --> 00:18:01,410
+BARBARA BERMES: Or even we're
+doing different ad surverying
+
+390
+00:18:01,410 --> 00:18:03,685
+for desktop versus mobile,
+for example.
+
+391
+00:18:03,685 --> 00:18:04,690
+STEVE THAIR: We've
+got a couple of
+
+392
+00:18:04,690 --> 00:18:05,730
+comments from the floor.
+
+393
+00:18:05,730 --> 00:18:09,040
+Kyle Simpson from Getify, did
+you have something to say on
+
+394
+00:18:09,040 --> 00:18:10,580
+this topic?
+
+395
+00:18:10,580 --> 00:18:12,890
+AUDIENCE: I didn't actually
+intend to click that, but I'll
+
+396
+00:18:12,890 --> 00:18:15,810
+just say something as I do have
+a question, since they
+
+397
+00:18:15,810 --> 00:18:16,420
+gave me the mic.
+
+398
+00:18:16,420 --> 00:18:16,730
+STEVE THAIR: OK.
+
+399
+00:18:16,730 --> 00:18:17,780
+BARBARA BERMES: It's
+your time.
+
+400
+00:18:17,780 --> 00:18:20,490
+AUDIENCE: But on that topic
+though, so there's definitely
+
+401
+00:18:20,490 --> 00:18:24,550
+a strong push to create
+declarative solutions, like
+
+402
+00:18:24,550 --> 00:18:25,590
+markup-only stuff.
+
+403
+00:18:25,590 --> 00:18:27,670
+I need to be able to
+express all of my
+
+404
+00:18:27,670 --> 00:18:29,320
+intent through markup.
+
+405
+00:18:29,320 --> 00:18:32,210
+I do just want to point out that
+there's a vast array of
+
+406
+00:18:32,210 --> 00:18:34,630
+complex situations that you
+make these decisions on.
+
+407
+00:18:34,630 --> 00:18:37,420
+For instance, I've got a simple
+version of a calendar
+
+408
+00:18:37,420 --> 00:18:39,870
+widget and a complex version
+of a calendar widget.
+
+409
+00:18:39,870 --> 00:18:42,460
+And I make decisions based on
+bandwidth and screen size and
+
+410
+00:18:42,460 --> 00:18:43,630
+all those other things.
+
+411
+00:18:43,630 --> 00:18:47,220
+So I think it's troublesome
+to say this is a
+
+412
+00:18:47,220 --> 00:18:51,560
+one-size-fits-all solution to
+try to encode into my markup
+
+413
+00:18:51,560 --> 00:18:53,910
+when a script should
+be loaded.
+
+414
+00:18:53,910 --> 00:18:56,090
+I'm a little biased, but I feel
+that's the JavaScript
+
+415
+00:18:56,090 --> 00:18:57,500
+loaders rather than markup.
+
+416
+00:18:57,500 --> 00:19:00,030
+
+417
+00:19:00,030 --> 00:19:04,000
+GUY PODJARNY: I think that's a
+valid statement, but there's
+
+418
+00:19:04,000 --> 00:19:06,590
+also the statement to say that,
+especially in responsive
+
+419
+00:19:06,590 --> 00:19:09,110
+design world, there are a lot
+of decisions that are made
+
+420
+00:19:09,110 --> 00:19:10,850
+based on things that could have
+been determined through
+
+421
+00:19:10,850 --> 00:19:12,430
+screen properties.
+
+422
+00:19:12,430 --> 00:19:14,010
+So maybe it's not 100%.
+
+423
+00:19:14,010 --> 00:19:17,390
+You don't take away the
+capability or the value of
+
+424
+00:19:17,390 --> 00:19:20,030
+loading things through
+a more elaborate
+
+425
+00:19:20,030 --> 00:19:23,430
+script-based loading condition.
+
+426
+00:19:23,430 --> 00:19:25,950
+But if it's a common enough use
+case, and you can make it
+
+427
+00:19:25,950 --> 00:19:28,720
+faster and easier, then I still
+think it's a worthy
+
+428
+00:19:28,720 --> 00:19:30,940
+proposition.
+
+429
+00:19:30,940 --> 00:19:33,520
+STEVE THAIR: We got David
+[? Stigman ?] from Akamai
+
+430
+00:19:33,520 --> 00:19:35,150
+wants to make a comment.
+
+431
+00:19:35,150 --> 00:19:39,420
+Feel free to disagree with
+Guy from Akamai.
+
+432
+00:19:39,420 --> 00:19:40,670
+GUY PODJARNY: [INAUDIBLE]
+briefly.
+
+433
+00:19:40,670 --> 00:19:43,204
+
+434
+00:19:43,204 --> 00:19:43,690
+AUDIENCE: Hi.
+
+435
+00:19:43,690 --> 00:19:47,010
+One of the most common use cases
+we see is actually tons
+
+436
+00:19:47,010 --> 00:19:49,880
+of new domain and people tend to
+do domain sharing, thinking
+
+437
+00:19:49,880 --> 00:19:52,750
+that it's going to improve the
+performance of the website.
+
+438
+00:19:52,750 --> 00:19:55,650
+But obviously, with third party
+we have 40, 50 different
+
+439
+00:19:55,650 --> 00:19:57,510
+domain that are called
+by the browser.
+
+440
+00:19:57,510 --> 00:20:00,650
+Is there any way we can give
+a hint of what kind of DNS
+
+441
+00:20:00,650 --> 00:20:03,500
+resolution should be done for
+third-party content before
+
+442
+00:20:03,500 --> 00:20:05,570
+actually loading the
+third party itself?
+
+443
+00:20:05,570 --> 00:20:07,830
+Because there is a lot of
+bottleneck with just DNS
+
+444
+00:20:07,830 --> 00:20:09,080
+resolution itself.
+
+445
+00:20:09,080 --> 00:20:13,440
+
+446
+00:20:13,440 --> 00:20:14,330
+STEVE THAIR: Anyone?
+
+447
+00:20:14,330 --> 00:20:15,423
+GUY PODJARNY: I can take that.
+
+448
+00:20:15,423 --> 00:20:16,210
+STEVE THAIR: Yeah.
+
+449
+00:20:16,210 --> 00:20:18,340
+GUY PODJARNY: So I think the
+number of domains, as kind of
+
+450
+00:20:18,340 --> 00:20:19,390
+pointed out before--
+
+451
+00:20:19,390 --> 00:20:24,260
+this has not been coordinated,
+just to kind of make sure--
+
+452
+00:20:24,260 --> 00:20:24,910
+is a real problem.
+
+453
+00:20:24,910 --> 00:20:25,890
+It comes into play in DNS.
+
+454
+00:20:25,890 --> 00:20:28,230
+It comes into play with the fact
+that SPDY and HTTP2 and
+
+455
+00:20:28,230 --> 00:20:31,090
+all sorts of pending solutions
+don't touch on it.
+
+456
+00:20:31,090 --> 00:20:33,460
+They don't try to optimize
+across domains.
+
+457
+00:20:33,460 --> 00:20:36,130
+So I think it's a
+real problem.
+
+458
+00:20:36,130 --> 00:20:39,390
+There is no deprioritization,
+as far as I know, of
+
+459
+00:20:39,390 --> 00:20:40,310
+third-party content.
+
+460
+00:20:40,310 --> 00:20:42,625
+You can't kind of mark things
+beyond the async or the kind
+
+461
+00:20:42,625 --> 00:20:44,410
+of processing aspects
+in the browser.
+
+462
+00:20:44,410 --> 00:20:49,640
+You can't mark something
+as slower or faster.
+
+463
+00:20:49,640 --> 00:20:51,300
+I think they contend for
+resources today.
+
+464
+00:20:51,300 --> 00:20:52,770
+A part of it is about
+how do we optimize
+
+465
+00:20:52,770 --> 00:20:53,630
+the number of domains?
+
+466
+00:20:53,630 --> 00:20:57,900
+And yeah, today the only tools
+you have for deprioritizing
+
+467
+00:20:57,900 --> 00:21:01,000
+them is the things like
+async and such.
+
+468
+00:21:01,000 --> 00:21:03,000
+STEVE THAIR: We're going to come
+on to a later question
+
+469
+00:21:03,000 --> 00:21:04,590
+where we're going to talk more
+about dependencies and
+
+470
+00:21:04,590 --> 00:21:05,340
+execution time.
+
+471
+00:21:05,340 --> 00:21:08,960
+But just to sort of stick what
+the original intent of this
+
+472
+00:21:08,960 --> 00:21:12,670
+question was, in the earlier
+session we talked a lot about
+
+473
+00:21:12,670 --> 00:21:15,270
+how you were going to do media
+queries to decide what image
+
+474
+00:21:15,270 --> 00:21:17,750
+you want to download.
+
+475
+00:21:17,750 --> 00:21:21,010
+Do we need a similar mechanism
+for scripts or not?
+
+476
+00:21:21,010 --> 00:21:23,080
+I mean, if you were to put it
+to the audience on a vote,
+
+477
+00:21:23,080 --> 00:21:25,780
+you'd say, yes, we need this
+mechanism or we don't need a
+
+478
+00:21:25,780 --> 00:21:27,850
+mechanism for this, and
+we can just move on.
+
+479
+00:21:27,850 --> 00:21:31,560
+Is this a problem that you think
+I'm sending way too many
+
+480
+00:21:31,560 --> 00:21:34,520
+third-party JavaScripts
+to my--
+
+481
+00:21:34,520 --> 00:21:37,610
+so we got two votes, three
+votes, four votes, five votes.
+
+482
+00:21:37,610 --> 00:21:39,570
+So people do think this
+is a problem.
+
+483
+00:21:39,570 --> 00:21:43,215
+And that's not just Yoav hitting
+the button five times.
+
+484
+00:21:43,215 --> 00:21:45,640
+AUDIENCE: I have several
+accounts.
+
+485
+00:21:45,640 --> 00:21:47,095
+BARBARA BERMES: And friends.
+
+486
+00:21:47,095 --> 00:21:47,580
+STEVE THAIR: OK.
+
+487
+00:21:47,580 --> 00:21:49,900
+BEN VINEGAR: I would just say
+that we experience that people
+
+488
+00:21:49,900 --> 00:21:53,770
+are conditionally loading our
+application, usually doing
+
+489
+00:21:53,770 --> 00:21:56,700
+templates or JavaScript
+or whatever, already.
+
+490
+00:21:56,700 --> 00:21:59,990
+So if that can just be a really
+nice declarative way of
+
+491
+00:21:59,990 --> 00:22:03,230
+doing that as opposed to setting
+up JavaScript code, I
+
+492
+00:22:03,230 --> 00:22:04,220
+don't see the problem
+with that.
+
+493
+00:22:04,220 --> 00:22:05,512
+People are doing already,
+I guess, is what
+
+494
+00:22:05,512 --> 00:22:06,430
+I'm trying to say.
+
+495
+00:22:06,430 --> 00:22:08,580
+BARBARA BERMES: Whatever the
+developer wants to do, if it's
+
+496
+00:22:08,580 --> 00:22:09,240
+easier for them.
+
+497
+00:22:09,240 --> 00:22:13,240
+And if media queries enhance
+the performance as well in
+
+498
+00:22:13,240 --> 00:22:16,020
+loading things, I think, yeah.
+
+499
+00:22:16,020 --> 00:22:18,490
+If you make it easy for them
+to use that as a publisher
+
+500
+00:22:18,490 --> 00:22:20,782
+again, then that's cool.
+
+501
+00:22:20,782 --> 00:22:22,500
+GUY PODJARNY: I will say it's
+not just third party, though.
+
+502
+00:22:22,500 --> 00:22:24,300
+So conditional loading of
+JavaScript on a responsive
+
+503
+00:22:24,300 --> 00:22:25,820
+website is broader.
+
+504
+00:22:25,820 --> 00:22:27,745
+Third parties are a specific
+case of it.
+
+505
+00:22:27,745 --> 00:22:28,930
+STEVE THAIR: OK.
+
+506
+00:22:28,930 --> 00:22:31,000
+So let's go on to the
+second question.
+
+507
+00:22:31,000 --> 00:22:32,250
+We've got Tom [? Buchok. ?]
+
+508
+00:22:32,250 --> 00:22:43,180
+
+509
+00:22:43,180 --> 00:22:45,510
+AUDIENCE: So this one came in
+an anonymously, as well.
+
+510
+00:22:45,510 --> 00:22:48,800
+The WHATWG has proposed a
+solution for managing script
+
+511
+00:22:48,800 --> 00:22:51,090
+dependencies and
+execution time.
+
+512
+00:22:51,090 --> 00:22:53,000
+Will this solve the
+performance and
+
+513
+00:22:53,000 --> 00:22:53,960
+blocking use cases?
+
+514
+00:22:53,960 --> 00:22:57,020
+And Kyle, I believe, actually
+is part of that proposal.
+
+515
+00:22:57,020 --> 00:23:01,140
+So maybe he'll have some
+helpful input as well.
+
+516
+00:23:01,140 --> 00:23:02,500
+STEVE THAIR: As I understand,
+it's related.
+
+517
+00:23:02,500 --> 00:23:05,210
+There are a lot of hacky ways
+people download scripts as
+
+518
+00:23:05,210 --> 00:23:09,430
+comments and then add them
+dynamically to the page when
+
+519
+00:23:09,430 --> 00:23:09,820
+they need them.
+
+520
+00:23:09,820 --> 00:23:11,820
+There's a lot of hacks out there
+that people are doing to
+
+521
+00:23:11,820 --> 00:23:15,220
+get around the async
+and the blocking
+
+522
+00:23:15,220 --> 00:23:16,840
+nature of the scripts.
+
+523
+00:23:16,840 --> 00:23:20,120
+So what's happening with the
+working groups, and what's the
+
+524
+00:23:20,120 --> 00:23:21,370
+best solution for this?
+
+525
+00:23:21,370 --> 00:23:24,760
+
+526
+00:23:24,760 --> 00:23:26,340
+BEN VINEGAR: I am not familiar
+with this topic.
+
+527
+00:23:26,340 --> 00:23:30,990
+
+528
+00:23:30,990 --> 00:23:32,390
+STOYAN STEFANOV: Anyone
+from the audience who
+
+529
+00:23:32,390 --> 00:23:33,350
+wants to take it?
+
+530
+00:23:33,350 --> 00:23:34,170
+Kyle or--
+
+531
+00:23:34,170 --> 00:23:35,620
+GUY PODJARNY: I can give a
+starting, and then maybe we'll
+
+532
+00:23:35,620 --> 00:23:38,970
+switch to Kyle.
+
+533
+00:23:38,970 --> 00:23:40,140
+So I think there's a
+few things there.
+
+534
+00:23:40,140 --> 00:23:42,950
+There's one kind of called
+resource priorities that has
+
+535
+00:23:42,950 --> 00:23:45,500
+to do with enabling lazy
+load and defer
+
+536
+00:23:45,500 --> 00:23:47,010
+attributes and more objects.
+
+537
+00:23:47,010 --> 00:23:49,650
+Those are actually probably
+further along on scripts than
+
+538
+00:23:49,650 --> 00:23:52,320
+they are on some other
+components.
+
+539
+00:23:52,320 --> 00:23:55,570
+But there is some
+promise there.
+
+540
+00:23:55,570 --> 00:23:58,530
+I think there's still a lot of
+debates-- and I heard some
+
+541
+00:23:58,530 --> 00:24:01,990
+comments in a previous
+conversation today--
+
+542
+00:24:01,990 --> 00:24:03,220
+on possible paths.
+
+543
+00:24:03,220 --> 00:24:05,320
+But I think there's still a hole
+around, how do you manage
+
+544
+00:24:05,320 --> 00:24:08,620
+groups of dependencies so that
+you want to say this script
+
+545
+00:24:08,620 --> 00:24:10,880
+needs to run after the other
+but both of them combined
+
+546
+00:24:10,880 --> 00:24:13,130
+should be asynchronous?
+
+547
+00:24:13,130 --> 00:24:16,210
+There's things around
+association of unload,
+
+548
+00:24:16,210 --> 00:24:18,960
+triggering the unload event.
+
+549
+00:24:18,960 --> 00:24:22,650
+And an async script because an
+async script today will still
+
+550
+00:24:22,650 --> 00:24:23,780
+delay the unload.
+
+551
+00:24:23,780 --> 00:24:27,890
+So I think on the loading
+process, there
+
+552
+00:24:27,890 --> 00:24:29,130
+are some good actions.
+
+553
+00:24:29,130 --> 00:24:31,450
+On the grouping and
+such, I would
+
+554
+00:24:31,450 --> 00:24:32,540
+find them very promising.
+
+555
+00:24:32,540 --> 00:24:33,790
+But I don't know if they're
+very far along.
+
+556
+00:24:33,790 --> 00:24:36,580
+
+557
+00:24:36,580 --> 00:24:40,030
+AUDIENCE: So since my name was
+brought up, I will speak up.
+
+558
+00:24:40,030 --> 00:24:43,980
+Yeah, so two or three years ago,
+there was some proposals.
+
+559
+00:24:43,980 --> 00:24:48,210
+Nicholas Zakas and I kind of
+joined together and made some
+
+560
+00:24:48,210 --> 00:24:49,380
+proposals on [INAUDIBLE]
+
+561
+00:24:49,380 --> 00:24:53,150
+about what we call script
+preloading.
+
+562
+00:24:53,150 --> 00:24:55,600
+So the idea of loading
+a script but it not
+
+563
+00:24:55,600 --> 00:24:58,510
+automatically executing the
+way normal scripts do, and
+
+564
+00:24:58,510 --> 00:25:00,560
+then being able to
+programmatically control when
+
+565
+00:25:00,560 --> 00:25:02,650
+that script might load.
+
+566
+00:25:02,650 --> 00:25:06,160
+And that has gone through a
+whole bunch of starts and
+
+567
+00:25:06,160 --> 00:25:08,700
+stops and restarts over
+the last three years.
+
+568
+00:25:08,700 --> 00:25:11,550
+Most recently, about a month
+ago, it started back up.
+
+569
+00:25:11,550 --> 00:25:13,700
+It turns out there's several
+different things.
+
+570
+00:25:13,700 --> 00:25:17,230
+And maybe Jake Archibald
+can also chime in.
+
+571
+00:25:17,230 --> 00:25:20,610
+So there's some stuff with
+navigation controller, and
+
+572
+00:25:20,610 --> 00:25:23,250
+then there's discussions about
+other use cases that that
+
+573
+00:25:23,250 --> 00:25:24,840
+might not handle.
+
+574
+00:25:24,840 --> 00:25:28,060
+I don't think I would classify
+us as far along in terms of
+
+575
+00:25:28,060 --> 00:25:30,710
+implementation, but there has
+been an enormous amount of
+
+576
+00:25:30,710 --> 00:25:31,570
+discussion about it.
+
+577
+00:25:31,570 --> 00:25:35,220
+And developers do want, I think,
+more control over it.
+
+578
+00:25:35,220 --> 00:25:38,480
+There's one side which is I want
+control in the markup.
+
+579
+00:25:38,480 --> 00:25:40,630
+Again, back to this
+declarative versus
+
+580
+00:25:40,630 --> 00:25:41,760
+programmatic control.
+
+581
+00:25:41,760 --> 00:25:44,990
+And I think that's really
+one of the big
+
+582
+00:25:44,990 --> 00:25:47,980
+sticking points so far.
+
+583
+00:25:47,980 --> 00:25:49,312
+STEVE THAIR: OK.
+
+584
+00:25:49,312 --> 00:25:52,225
+Jake, did you want to
+say anything, since
+
+585
+00:25:52,225 --> 00:25:53,475
+you got called out?
+
+586
+00:25:53,475 --> 00:25:59,530
+
+587
+00:25:59,530 --> 00:26:01,020
+AUDIENCE: Yeah, I think the
+worst thing we've got with
+
+588
+00:26:01,020 --> 00:26:04,020
+script loading at the moment
+is if you want to load a
+
+589
+00:26:04,020 --> 00:26:08,040
+series of scripts without
+blocking rendering or blocking
+
+590
+00:26:08,040 --> 00:26:12,650
+any other computing but
+maintain the order of
+
+591
+00:26:12,650 --> 00:26:16,250
+execution, we don't have that
+unless you use JavaScript.
+
+592
+00:26:16,250 --> 00:26:18,320
+And we don't want to use
+JavaScript for script loading
+
+593
+00:26:18,320 --> 00:26:20,310
+because then you lose
+the preloader.
+
+594
+00:26:20,310 --> 00:26:21,540
+And the preloader--
+
+595
+00:26:21,540 --> 00:26:25,020
+you can boost getting to DOM
+content loaded by 20%.
+
+596
+00:26:25,020 --> 00:26:30,010
+So we want something in the
+markup that can dictate which
+
+597
+00:26:30,010 --> 00:26:33,700
+order that scripts will be
+executed and then load them
+
+598
+00:26:33,700 --> 00:26:35,850
+asynchronously.
+
+599
+00:26:35,850 --> 00:26:37,320
+GUY PODJARNY: Just specifically
+related to third
+
+600
+00:26:37,320 --> 00:26:39,490
+party, I do think there is
+another barrier, which is
+
+601
+00:26:39,490 --> 00:26:40,390
+document.write.
+
+602
+00:26:40,390 --> 00:26:44,360
+So when you're using a third
+party, when you're a publisher
+
+603
+00:26:44,360 --> 00:26:47,220
+and you're using a third party,
+you need to sort of be
+
+604
+00:26:47,220 --> 00:26:51,530
+absolutely confident 100% that
+that script would never ever
+
+605
+00:26:51,530 --> 00:26:54,270
+use document.write if you're
+including them as an
+
+606
+00:26:54,270 --> 00:26:55,260
+asynchronous component.
+
+607
+00:26:55,260 --> 00:26:57,790
+Otherwise, that can muck
+up your entire page.
+
+608
+00:26:57,790 --> 00:27:00,660
+And as far as I know, there is
+no work going on right now,
+
+609
+00:27:00,660 --> 00:27:02,450
+but there definitely
+should be, on doing
+
+610
+00:27:02,450 --> 00:27:03,760
+something like that.
+
+611
+00:27:03,760 --> 00:27:08,160
+Heck, even something like just
+ignoring the document.write in
+
+612
+00:27:08,160 --> 00:27:12,220
+many cases would be better than
+blanking out the page and
+
+613
+00:27:12,220 --> 00:27:15,380
+writing only that piece instead
+of the entire page.
+
+614
+00:27:15,380 --> 00:27:16,750
+But ideally, there is something
+a little bit more
+
+615
+00:27:16,750 --> 00:27:20,430
+elaborate than that can, after
+the fact, write content in
+
+616
+00:27:20,430 --> 00:27:21,680
+those sections.
+
+617
+00:27:21,680 --> 00:27:24,540
+
+618
+00:27:24,540 --> 00:27:24,780
+STEVE THAIR: OK.
+
+619
+00:27:24,780 --> 00:27:33,290
+So Wilson Page from FT Labs has
+got his hand up to comment
+
+620
+00:27:33,290 --> 00:27:36,520
+on this topic, hopefully.
+
+621
+00:27:36,520 --> 00:27:38,030
+AUDIENCE: Hello.
+
+622
+00:27:38,030 --> 00:27:39,700
+As a web app developer,
+I like to have
+
+623
+00:27:39,700 --> 00:27:41,180
+control over my resources.
+
+624
+00:27:41,180 --> 00:27:44,610
+So will it be possible that
+third parties like Disqus
+
+625
+00:27:44,610 --> 00:27:47,630
+might let me bundle
+those resources--
+
+626
+00:27:47,630 --> 00:27:51,030
+their third-party scripts
+into my JS bundle or
+
+627
+00:27:51,030 --> 00:27:52,335
+other assets like CSS?
+
+628
+00:27:52,335 --> 00:27:55,340
+
+629
+00:27:55,340 --> 00:27:57,252
+I mean, I can see why you
+wouldn't want that because
+
+630
+00:27:57,252 --> 00:27:59,420
+you'd want control.
+
+631
+00:27:59,420 --> 00:28:01,920
+I mean, you want the control to
+be able to update when you
+
+632
+00:28:01,920 --> 00:28:02,610
+want to update it.
+
+633
+00:28:02,610 --> 00:28:06,170
+But I also don't want a hundred
+HTTP requests going
+
+634
+00:28:06,170 --> 00:28:07,330
+off on my page.
+
+635
+00:28:07,330 --> 00:28:07,765
+BEN VINEGAR: Yeah.
+
+636
+00:28:07,765 --> 00:28:10,130
+Oh man, all eyes on me here.
+
+637
+00:28:10,130 --> 00:28:14,610
+
+638
+00:28:14,610 --> 00:28:16,740
+I'm a web developer, too.
+
+639
+00:28:16,740 --> 00:28:17,570
+I hope so.
+
+640
+00:28:17,570 --> 00:28:20,040
+And I totally--
+
+641
+00:28:20,040 --> 00:28:20,770
+I would like to do that.
+
+642
+00:28:20,770 --> 00:28:21,750
+It sort of makes sense.
+
+643
+00:28:21,750 --> 00:28:25,830
+But you basically just hit be
+the other end of it, which is
+
+644
+00:28:25,830 --> 00:28:28,900
+we're just changing things at
+such a rapid pace that for
+
+645
+00:28:28,900 --> 00:28:30,970
+somebody to bundle it and
+serve it from their own
+
+646
+00:28:30,970 --> 00:28:32,720
+servers, or whatever,
+is just like--
+
+647
+00:28:32,720 --> 00:28:33,780
+we can't do it.
+
+648
+00:28:33,780 --> 00:28:36,210
+And this actually touches
+a little bit on
+
+649
+00:28:36,210 --> 00:28:39,210
+some of the C3PO stuff.
+
+650
+00:28:39,210 --> 00:28:41,060
+The idea is that if we had like
+a common library that ran
+
+651
+00:28:41,060 --> 00:28:44,070
+on your host page, and then you
+could bundle that part.
+
+652
+00:28:44,070 --> 00:28:45,890
+And then the stuff inside of
+the frames could then do
+
+653
+00:28:45,890 --> 00:28:47,040
+whatever they wanted,
+and you at least got
+
+654
+00:28:47,040 --> 00:28:48,770
+that much out of it.
+
+655
+00:28:48,770 --> 00:28:52,060
+Even on that point,
+I could just--
+
+656
+00:28:52,060 --> 00:28:53,710
+inevitably, I might want to
+do something different.
+
+657
+00:28:53,710 --> 00:28:57,420
+And now I have to go around to
+thousands of websites and say,
+
+658
+00:28:57,420 --> 00:29:00,440
+please update this library in
+order for you to have the next
+
+659
+00:29:00,440 --> 00:29:01,740
+version of Disqus.
+
+660
+00:29:01,740 --> 00:29:04,400
+And it's just such a ridiculous
+
+661
+00:29:04,400 --> 00:29:06,820
+pain point to go to--
+
+662
+00:29:06,820 --> 00:29:08,670
+the way that that scales is
+there's one of me and there's
+
+663
+00:29:08,670 --> 00:29:09,250
+thousands--
+
+664
+00:29:09,250 --> 00:29:10,980
+or I think there's basically
+millions of
+
+665
+00:29:10,980 --> 00:29:11,695
+websites with Disqus.
+
+666
+00:29:11,695 --> 00:29:15,180
+And to go and get all them to
+upgrade all of their bundles
+
+667
+00:29:15,180 --> 00:29:16,670
+or whatever would be brutal.
+
+668
+00:29:16,670 --> 00:29:19,295
+So that's just why
+we don't explore.
+
+669
+00:29:19,295 --> 00:29:20,820
+STEVE THAIR: So no.
+
+670
+00:29:20,820 --> 00:29:23,385
+BARBARA BERMES: As a publisher,
+what we do we, we
+
+671
+00:29:23,385 --> 00:29:26,350
+have our libraries, like jQuery
+and all that stuff, we
+
+672
+00:29:26,350 --> 00:29:27,930
+know will not change
+that often.
+
+673
+00:29:27,930 --> 00:29:31,610
+So we compile them or bundle
+them up in one request.
+
+674
+00:29:31,610 --> 00:29:33,760
+But then of course, the widgets
+that change, that
+
+675
+00:29:33,760 --> 00:29:36,920
+could change any minute,
+you got to find a
+
+676
+00:29:36,920 --> 00:29:39,800
+solution for that.
+
+677
+00:29:39,800 --> 00:29:42,010
+GUY PODJARNY: We do some
+proxying of third-party
+
+678
+00:29:42,010 --> 00:29:43,220
+content, sometimes.
+
+679
+00:29:43,220 --> 00:29:44,550
+There's a different
+flavor of it.
+
+680
+00:29:44,550 --> 00:29:47,180
+So on the good side, if you
+proxy third-party content
+
+681
+00:29:47,180 --> 00:29:52,130
+through your servers, your CDN,
+then you regain control
+
+682
+00:29:52,130 --> 00:29:54,190
+over some availability
+tests, over the
+
+683
+00:29:54,190 --> 00:29:55,310
+performance delivery of it.
+
+684
+00:29:55,310 --> 00:29:58,900
+They may not be delivering it
+as kind of high quality, or
+
+685
+00:29:58,900 --> 00:30:02,740
+we're not willing to spend as
+much on the delivery controls
+
+686
+00:30:02,740 --> 00:30:03,750
+as you might be.
+
+687
+00:30:03,750 --> 00:30:05,910
+Where that really runs
+into an obstacle is
+
+688
+00:30:05,910 --> 00:30:06,900
+with things like tracking.
+
+689
+00:30:06,900 --> 00:30:09,330
+So on Facebook, you could
+probably pull that off with a
+
+690
+00:30:09,330 --> 00:30:12,870
+Facebook SDK, which is generic
+and cacheable.
+
+691
+00:30:12,870 --> 00:30:16,080
+But you wouldn't be able to
+do it with the iframe that
+
+692
+00:30:16,080 --> 00:30:18,410
+figures out which of your
+friends recommended this,
+
+693
+00:30:18,410 --> 00:30:21,680
+because that requires some
+special cookies.
+
+694
+00:30:21,680 --> 00:30:24,410
+And once you moved it off to
+a different domain, those
+
+695
+00:30:24,410 --> 00:30:26,260
+cookies no longer get sent.
+
+696
+00:30:26,260 --> 00:30:30,180
+So to me, if we are to do
+something like a C3PO or some
+
+697
+00:30:30,180 --> 00:30:31,660
+equivalent of it, we
+should tackle that.
+
+698
+00:30:31,660 --> 00:30:35,470
+Because our assessment, we've
+done some sort of kind of mass
+
+699
+00:30:35,470 --> 00:30:39,530
+testing on it, was that that
+really qualifies a lot.
+
+700
+00:30:39,530 --> 00:30:41,230
+In order to move something to
+a different domain, you need
+
+701
+00:30:41,230 --> 00:30:45,020
+to be absolutely sure there
+would be no cookies associated
+
+702
+00:30:45,020 --> 00:30:45,870
+with that request.
+
+703
+00:30:45,870 --> 00:30:49,020
+Or even if you're doing cookie
+syncing, there would be no
+
+704
+00:30:49,020 --> 00:30:52,590
+cookies other than a session
+ID cookie on that domain.
+
+705
+00:30:52,590 --> 00:30:54,330
+And that's just a very
+tough restriction.
+
+706
+00:30:54,330 --> 00:30:56,880
+So we would need to standardize
+how that is being
+
+707
+00:30:56,880 --> 00:31:00,210
+handled if we wanted to
+go down that path.
+
+708
+00:31:00,210 --> 00:31:03,700
+STEVE THAIR: I think we'll
+come back to that 3PO and
+
+709
+00:31:03,700 --> 00:31:07,470
+shared cookie things in a later
+question, but I think
+
+710
+00:31:07,470 --> 00:31:08,730
+there's an interesting
+question there
+
+711
+00:31:08,730 --> 00:31:09,930
+for the browser vendors.
+
+712
+00:31:09,930 --> 00:31:12,200
+Have we actually made this
+problem for ourselves?
+
+713
+00:31:12,200 --> 00:31:14,830
+Because we can't share cookies
+and domains for security
+
+714
+00:31:14,830 --> 00:31:17,480
+reasons, we've actually created
+this problem, and
+
+715
+00:31:17,480 --> 00:31:19,570
+there needs to be some
+way to address it.
+
+716
+00:31:19,570 --> 00:31:22,700
+Because effectively, there's
+an ecosystem of people that
+
+717
+00:31:22,700 --> 00:31:24,160
+want to share this data.
+
+718
+00:31:24,160 --> 00:31:26,560
+There is no effective mechanism,
+that I'm aware of
+
+719
+00:31:26,560 --> 00:31:28,395
+anyway, that can do that.
+
+720
+00:31:28,395 --> 00:31:33,230
+But next question we've
+got is from Wes.
+
+721
+00:31:33,230 --> 00:31:34,690
+Oh, Calvin.
+
+722
+00:31:34,690 --> 00:31:35,510
+Sorry, Calvin.
+
+723
+00:31:35,510 --> 00:31:37,990
+AUDIENCE: The problem with
+document write was mentioned
+
+724
+00:31:37,990 --> 00:31:41,850
+earlier, and the need to make
+sure your async-loaded scripts
+
+725
+00:31:41,850 --> 00:31:43,630
+don't have document.write
+tags.
+
+726
+00:31:43,630 --> 00:31:46,270
+I work with an environment
+where I have hundreds of
+
+727
+00:31:46,270 --> 00:31:48,440
+unknown vendors, including
+third-party
+
+728
+00:31:48,440 --> 00:31:49,500
+scripts, at any time.
+
+729
+00:31:49,500 --> 00:31:51,990
+And I have no way to ever vet
+them all because they come
+
+730
+00:31:51,990 --> 00:31:54,230
+from 150 different properties.
+
+731
+00:31:54,230 --> 00:31:58,790
+And we currently use a tool
+called Write Capture to
+
+732
+00:31:58,790 --> 00:32:02,330
+override what document.write
+does and force asynchronous
+
+733
+00:32:02,330 --> 00:32:03,620
+loading of everything.
+
+734
+00:32:03,620 --> 00:32:05,870
+And it's awful, and when it
+breaks, it gives me headaches
+
+735
+00:32:05,870 --> 00:32:07,630
+for months at a time.
+
+736
+00:32:07,630 --> 00:32:09,940
+We can never get rid of that.
+
+737
+00:32:09,940 --> 00:32:12,660
+Or actually, my question is,
+can we get rid of that?
+
+738
+00:32:12,660 --> 00:32:15,460
+Is there anything we can do so
+that we can stop having to vet
+
+739
+00:32:15,460 --> 00:32:17,840
+these and know that they're not
+going to do document.write
+
+740
+00:32:17,840 --> 00:32:22,900
+because the surprise is awful
+if it ever happens?
+
+741
+00:32:22,900 --> 00:32:26,640
+STEVE THAIR: So you want, like,
+a flag on the browser or
+
+742
+00:32:26,640 --> 00:32:29,490
+something to say this page
+doesn't support document.write
+
+743
+00:32:29,490 --> 00:32:30,280
+or something?
+
+744
+00:32:30,280 --> 00:32:31,850
+AUDIENCE: We add APIs
+all the time.
+
+745
+00:32:31,850 --> 00:32:33,470
+Can we do the opposite
+just once?
+
+746
+00:32:33,470 --> 00:32:35,800
+[LAUGHTER]
+
+747
+00:32:35,800 --> 00:32:38,130
+STEVE THAIR: OK.
+
+748
+00:32:38,130 --> 00:32:39,450
+So you're going to start
+to sound like
+
+749
+00:32:39,450 --> 00:32:41,740
+that kill IE6 campaign.
+
+750
+00:32:41,740 --> 00:32:44,550
+You're just going to start a
+website, kill document.write?
+
+751
+00:32:44,550 --> 00:32:46,460
+AUDIENCE: I would be very
+happy with that.
+
+752
+00:32:46,460 --> 00:32:47,740
+STEVE THAIR: Sorry?
+
+753
+00:32:47,740 --> 00:32:50,454
+Who here would vote
+for that one?
+
+754
+00:32:50,454 --> 00:32:53,070
+BEN VINEGAR: What
+am I voting on?
+
+755
+00:32:53,070 --> 00:32:53,720
+STEVE THAIR: Kill
+document.write.
+
+756
+00:32:53,720 --> 00:32:54,140
+Just get rid of it?
+
+757
+00:32:54,140 --> 00:32:54,530
+BEN VINEGAR: Sure, yeah.
+
+758
+00:32:54,530 --> 00:32:57,220
+We could start a trade
+association, too, in which we
+
+759
+00:32:57,220 --> 00:32:58,460
+vet scripts.
+
+760
+00:32:58,460 --> 00:32:59,416
+I don't know.
+
+761
+00:32:59,416 --> 00:33:01,080
+I'm not being serious.
+
+762
+00:33:01,080 --> 00:33:03,510
+This is a terrible joke.
+
+763
+00:33:03,510 --> 00:33:05,650
+GUY PODJARNY: So we do the
+same thing on the Write
+
+764
+00:33:05,650 --> 00:33:09,290
+Capture as part of the kind of
+optimizations we do in Akamai,
+
+765
+00:33:09,290 --> 00:33:12,380
+and I kind of share your pain.
+
+766
+00:33:12,380 --> 00:33:16,470
+And I'd like to believe that
+browser vendors should be able
+
+767
+00:33:16,470 --> 00:33:18,470
+to tackle that-- and if any
+browser vendor in the crowd
+
+768
+00:33:18,470 --> 00:33:20,180
+wants to chime in--
+
+769
+00:33:20,180 --> 00:33:25,300
+by doing some 90% accurate
+version of the document.write.
+
+770
+00:33:25,300 --> 00:33:27,510
+Just kind of write that out in
+the spot where that script
+
+771
+00:33:27,510 --> 00:33:29,770
+would have been after
+the fact.
+
+772
+00:33:29,770 --> 00:33:31,700
+Because oftentimes, just killing
+document.write or
+
+773
+00:33:31,700 --> 00:33:35,130
+trying to muck it up in
+JavaScript, it's the best we
+
+774
+00:33:35,130 --> 00:33:36,920
+have, so we use that
+where needed.
+
+775
+00:33:36,920 --> 00:33:40,360
+But it's extremely
+far from ideal.
+
+776
+00:33:40,360 --> 00:33:42,000
+STEVE THAIR: We've got to move
+on to the next question.
+
+777
+00:33:42,000 --> 00:33:44,840
+So next question is
+actually from Wes.
+
+778
+00:33:44,840 --> 00:33:49,880
+
+779
+00:33:49,880 --> 00:33:50,210
+AUDIENCE: OK.
+
+780
+00:33:50,210 --> 00:33:53,290
+So Facebook has recently taken
+steps to optimize the scripts
+
+781
+00:33:53,290 --> 00:33:58,110
+for its embeddable Like button,
+which I think you guys
+
+782
+00:33:58,110 --> 00:33:58,590
+can speak to.
+
+783
+00:33:58,590 --> 00:34:01,280
+But how do we measure
+the impact of
+
+784
+00:34:01,280 --> 00:34:02,390
+embedding these scripts?
+
+785
+00:34:02,390 --> 00:34:06,240
+And then a second part of this
+question is, is the Web Intent
+
+786
+00:34:06,240 --> 00:34:11,889
+specification our only hope to
+kind of conquer app linking
+
+787
+00:34:11,889 --> 00:34:14,260
+and embedding these scripts?
+
+788
+00:34:14,260 --> 00:34:20,600
+Is Web Intents kind of our
+hope for not having these
+
+789
+00:34:20,600 --> 00:34:22,800
+types of share buttons
+and scripts that are
+
+790
+00:34:22,800 --> 00:34:24,580
+included with those?
+
+791
+00:34:24,580 --> 00:34:25,920
+STEVE THAIR: Well, I might
+throw this question to
+
+792
+00:34:25,920 --> 00:34:28,020
+Barbara, actually,
+as a consumer.
+
+793
+00:34:28,020 --> 00:34:31,340
+I mean, do you do performance
+testing?
+
+794
+00:34:31,340 --> 00:34:34,402
+If somebody comes to you and
+says, I want to add this new
+
+795
+00:34:34,402 --> 00:34:36,540
+third-party script, what
+do you do to measure
+
+796
+00:34:36,540 --> 00:34:39,010
+the impact of that?
+
+797
+00:34:39,010 --> 00:34:40,060
+BARBARA BERMES: I'm big
+on performance.
+
+798
+00:34:40,060 --> 00:34:45,480
+And obviously, I have issues
+when 50% of our CBC desktop
+
+799
+00:34:45,480 --> 00:34:49,100
+side is serving third-party
+scripts, and the rest we are
+
+800
+00:34:49,100 --> 00:34:52,159
+serving to the customers
+is just all on content.
+
+801
+00:34:52,159 --> 00:34:54,469
+So I do try to do that.
+
+802
+00:34:54,469 --> 00:34:58,000
+It is very difficult for us to
+make sure that all the content
+
+803
+00:34:58,000 --> 00:35:03,350
+areas at CBC know about it
+and how to include it.
+
+804
+00:35:03,350 --> 00:35:06,760
+So in terms of performance,
+I do performance tests,
+
+805
+00:35:06,760 --> 00:35:08,200
+especially the AP--
+
+806
+00:35:08,200 --> 00:35:10,800
+what happens before putting the
+script in versus after.
+
+807
+00:35:10,800 --> 00:35:14,550
+And we've seen some really bad
+incidents where ads or scripts
+
+808
+00:35:14,550 --> 00:35:16,760
+like that slowed
+down our site.
+
+809
+00:35:16,760 --> 00:35:21,040
+So to track those kind of things
+and give them to a
+
+810
+00:35:21,040 --> 00:35:25,350
+business and say, see, this is
+what could happen, yeah.
+
+811
+00:35:25,350 --> 00:35:28,610
+STEVE THAIR: What about from
+your side, Stoyan?
+
+812
+00:35:28,610 --> 00:35:30,810
+What do you do to make sure
+yours is not so slow?
+
+813
+00:35:30,810 --> 00:35:33,500
+STOYAN STEFANOV: Well, when
+optimizing the Like button,
+
+814
+00:35:33,500 --> 00:35:36,470
+then the only thing you can do
+is write a block post and
+
+815
+00:35:36,470 --> 00:35:38,990
+see-- oh, see how the waterfall
+is so nice now.
+
+816
+00:35:38,990 --> 00:35:39,640
+BARBARA BERMES: But it was.
+
+817
+00:35:39,640 --> 00:35:39,930
+It is.
+
+818
+00:35:39,930 --> 00:35:41,790
+That was good.
+
+819
+00:35:41,790 --> 00:35:43,710
+STOYAN STEFANOV: Yeah.
+
+820
+00:35:43,710 --> 00:35:47,990
+I don't think we're doing
+anything to prove, OK, this is
+
+821
+00:35:47,990 --> 00:35:51,530
+how much it reduces the average
+website and so on.
+
+822
+00:35:51,530 --> 00:35:55,100
+Just trying to do the best thing
+and let other people
+
+823
+00:35:55,100 --> 00:35:58,315
+measure and see how it affects
+their websites.
+
+824
+00:35:58,315 --> 00:36:02,480
+
+825
+00:36:02,480 --> 00:36:04,980
+STEVE THAIR: Ben, you said
+earlier that you do a lot of
+
+826
+00:36:04,980 --> 00:36:07,710
+debugging of the customers'
+websites because they always
+
+827
+00:36:07,710 --> 00:36:09,250
+blame you for the performance
+issue.
+
+828
+00:36:09,250 --> 00:36:10,900
+So are there tools?
+
+829
+00:36:10,900 --> 00:36:11,510
+Are there techniques?
+
+830
+00:36:11,510 --> 00:36:12,010
+Are there tips?
+
+831
+00:36:12,010 --> 00:36:15,360
+Is there a methodology that you
+follow to prove that it's
+
+832
+00:36:15,360 --> 00:36:20,220
+the sucky customer website and
+not your awesome script?
+
+833
+00:36:20,220 --> 00:36:23,370
+BEN VINEGAR: That is exactly
+how I phrase it.
+
+834
+00:36:23,370 --> 00:36:24,620
+It goes over really well.
+
+835
+00:36:24,620 --> 00:36:27,150
+
+836
+00:36:27,150 --> 00:36:29,610
+I mean, there's a ton of
+techniques that are pretty
+
+837
+00:36:29,610 --> 00:36:33,720
+well published out there that
+I'm probably using.
+
+838
+00:36:33,720 --> 00:36:37,290
+I don't even know why I'm
+saying "we" there.
+
+839
+00:36:37,290 --> 00:36:39,970
+I don't know, in my mind
+a lot of these seem--
+
+840
+00:36:39,970 --> 00:36:43,220
+they're very tried and true
+performance things, like not
+
+841
+00:36:43,220 --> 00:36:44,506
+binding to--
+
+842
+00:36:44,506 --> 00:36:46,430
+debouncing throttling
+scroll handlers.
+
+843
+00:36:46,430 --> 00:36:49,030
+
+844
+00:36:49,030 --> 00:36:52,210
+Something we do is we render
+in chunks now.
+
+845
+00:36:52,210 --> 00:36:54,000
+So we release to the browser.
+
+846
+00:36:54,000 --> 00:36:55,920
+We'll render five comments,
+release to the browser.
+
+847
+00:36:55,920 --> 00:36:58,060
+Render five comments, release
+to the browser.
+
+848
+00:36:58,060 --> 00:37:05,450
+We're very cognizant of just
+never tying up the UI thread.
+
+849
+00:37:05,450 --> 00:37:08,170
+I don't think that's something
+that I can-- it's just like an
+
+850
+00:37:08,170 --> 00:37:10,440
+individual widget developer
+or third-party application
+
+851
+00:37:10,440 --> 00:37:12,700
+developer, they all sort
+of have to do that.
+
+852
+00:37:12,700 --> 00:37:15,870
+And I think the big issue is
+that they don't, or it's just
+
+853
+00:37:15,870 --> 00:37:18,960
+all over the place as
+to whether they do.
+
+854
+00:37:18,960 --> 00:37:20,490
+I might be rambling here.
+
+855
+00:37:20,490 --> 00:37:21,260
+You ca bring me back.
+
+856
+00:37:21,260 --> 00:37:24,320
+STEVE THAIR: Well, I guess
+the question--
+
+857
+00:37:24,320 --> 00:37:27,450
+so if we take an example of
+where you said that you've
+
+858
+00:37:27,450 --> 00:37:30,560
+proved that it wasn't
+your script that was
+
+859
+00:37:30,560 --> 00:37:32,310
+blocking the site.
+
+860
+00:37:32,310 --> 00:37:35,750
+Was it something that the
+customer was doing that was
+
+861
+00:37:35,750 --> 00:37:40,850
+impacting your script in a
+negative way, and how did you
+
+862
+00:37:40,850 --> 00:37:42,090
+prove that?
+
+863
+00:37:42,090 --> 00:37:43,875
+BEN VINEGAR: Well, actually,
+the last time I
+
+864
+00:37:43,875 --> 00:37:44,600
+was debugging a site--
+
+865
+00:37:44,600 --> 00:37:46,510
+I think this was just
+me, myself.
+
+866
+00:37:46,510 --> 00:37:49,030
+I brought this on myself in the
+sense that I was observing
+
+867
+00:37:49,030 --> 00:37:51,010
+that Disqus was slow
+when scrolling
+
+868
+00:37:51,010 --> 00:37:53,320
+through it on a blog.
+
+869
+00:37:53,320 --> 00:37:55,390
+And actually, I think today
+that's actually a lot of CSS
+
+870
+00:37:55,390 --> 00:37:57,850
+performance, which is another
+topic that I will address.
+
+871
+00:37:57,850 --> 00:38:01,810
+So I was debugging our scroll
+handlers and figuring out that
+
+872
+00:38:01,810 --> 00:38:06,520
+in this case, the parent website
+was not throttling a
+
+873
+00:38:06,520 --> 00:38:07,210
+scroll handler.
+
+874
+00:38:07,210 --> 00:38:09,820
+And they were activating it
+as you went over Disqus.
+
+875
+00:38:09,820 --> 00:38:12,290
+So you would scroll down, and it
+would actually sort of chug
+
+876
+00:38:12,290 --> 00:38:13,430
+a little bit.
+
+877
+00:38:13,430 --> 00:38:16,560
+I don't remember the
+purpose of it.
+
+878
+00:38:16,560 --> 00:38:19,720
+This is just a random anecdote
+of something.
+
+879
+00:38:19,720 --> 00:38:21,620
+BARBARA BERMES: It might be
+also nice to automate that
+
+880
+00:38:21,620 --> 00:38:24,400
+somewhere on your side, or on
+your end that you can say, OK,
+
+881
+00:38:24,400 --> 00:38:26,600
+publisher A is not using
+it properly.
+
+882
+00:38:26,600 --> 00:38:31,926
+Or, don't blame us if
+the site is slow.
+
+883
+00:38:31,926 --> 00:38:33,450
+STEVE THAIR: We've got
+Matt May from Adobe.
+
+884
+00:38:33,450 --> 00:38:36,640
+Do you have a comment on how
+you measure the impact of
+
+885
+00:38:36,640 --> 00:38:37,890
+these scripts?
+
+886
+00:38:37,890 --> 00:38:41,413
+
+887
+00:38:41,413 --> 00:38:43,810
+AUDIENCE: Actually, my
+question's a different thing.
+
+888
+00:38:43,810 --> 00:38:45,550
+STEVE THAIR: Oh, well, we'll
+hold that question.
+
+889
+00:38:45,550 --> 00:38:48,350
+We'll try and stick
+with the topic.
+
+890
+00:38:48,350 --> 00:38:51,010
+GUY PODJARNY: I've got one
+comment on it, maybe to throw
+
+891
+00:38:51,010 --> 00:38:56,460
+in, which is that resource
+timing is kind of, hopefully,
+
+892
+00:38:56,460 --> 00:38:59,620
+going to help us identify
+in real users
+
+893
+00:38:59,620 --> 00:39:00,490
+where to lay the blame.
+
+894
+00:39:00,490 --> 00:39:02,820
+There are some security aspects
+to resource timing.
+
+895
+00:39:02,820 --> 00:39:05,770
+But from my perspective, when
+somebody comes to Akamai and
+
+896
+00:39:05,770 --> 00:39:09,920
+says, you're not making my site
+faster, sometimes the
+
+897
+00:39:09,920 --> 00:39:11,800
+purpose is to sort of show that
+it's actually the third
+
+898
+00:39:11,800 --> 00:39:15,360
+party that's on your page
+that's the cause.
+
+899
+00:39:15,360 --> 00:39:18,090
+
+900
+00:39:18,090 --> 00:39:22,240
+At least we kind of put a lot of
+hope on that front to give
+
+901
+00:39:22,240 --> 00:39:25,510
+us clarity about who
+is sort of truly to
+
+902
+00:39:25,510 --> 00:39:26,800
+blame for the problem.
+
+903
+00:39:26,800 --> 00:39:29,450
+And therefore, where should
+the solution lie?
+
+904
+00:39:29,450 --> 00:39:30,700
+STEVE THAIR: Sergei, did you
+want to make a comment.
+
+905
+00:39:30,700 --> 00:39:34,254
+
+906
+00:39:34,254 --> 00:39:36,870
+AUDIENCE: I've actually been
+working for a while with
+
+907
+00:39:36,870 --> 00:39:41,760
+vendors that work with us on
+enforcing the contract between
+
+908
+00:39:41,760 --> 00:39:43,750
+the groups.
+
+909
+00:39:43,750 --> 00:39:48,240
+And one of the lines was that
+we use document.write.
+
+910
+00:39:48,240 --> 00:39:54,000
+And the question is, can we
+create or promote kind of this
+
+911
+00:39:54,000 --> 00:39:58,300
+contract between widget
+providers of different kinds,
+
+912
+00:39:58,300 --> 00:40:00,660
+surely, and publishers?
+
+913
+00:40:00,660 --> 00:40:04,980
+And kind of help emerging
+providers, which I have to
+
+914
+00:40:04,980 --> 00:40:08,080
+deal with a lot, to follow
+that at the same time,
+
+915
+00:40:08,080 --> 00:40:14,620
+probably protect some widget
+providers' needs as well?
+
+916
+00:40:14,620 --> 00:40:16,040
+BARBARA BERMES: I
+would love that.
+
+917
+00:40:16,040 --> 00:40:18,320
+We talked about that, some
+sort of a policy.
+
+918
+00:40:18,320 --> 00:40:22,430
+And I would love to create a
+policy that we could give to
+
+919
+00:40:22,430 --> 00:40:24,480
+the widget creators and say,
+OK, if you followed those
+
+920
+00:40:24,480 --> 00:40:26,780
+steps, we would consider
+you using.
+
+921
+00:40:26,780 --> 00:40:31,330
+And I think it is important
+to make that point.
+
+922
+00:40:31,330 --> 00:40:32,620
+GUY PODJARNY: Maybe be able to
+copy some of the security
+
+923
+00:40:32,620 --> 00:40:33,360
+policies we're doing.
+
+924
+00:40:33,360 --> 00:40:35,290
+We're talking about sandboxing
+from that perspective.
+
+925
+00:40:35,290 --> 00:40:36,960
+Sort of say, well, I'm only
+giving you a constrained
+
+926
+00:40:36,960 --> 00:40:38,260
+access to certain APIs.
+
+927
+00:40:38,260 --> 00:40:40,110
+You're not allowed to
+use document.write.
+
+928
+00:40:40,110 --> 00:40:42,400
+It's just going to break.
+
+929
+00:40:42,400 --> 00:40:44,355
+STOYAN STEFANOV: There's this
+organization called--
+
+930
+00:40:44,355 --> 00:40:46,340
+I forgot what the name was.
+
+931
+00:40:46,340 --> 00:40:48,780
+Interactive Advertising Bureau,
+something like this.
+
+932
+00:40:48,780 --> 00:40:50,160
+STEVE THAIR: The IAB.
+
+933
+00:40:50,160 --> 00:40:50,590
+STOYAN STEFANOV: IAB.
+
+934
+00:40:50,590 --> 00:40:54,500
+They've released a document
+related to ads saying these
+
+935
+00:40:54,500 --> 00:40:57,220
+are the best practices for
+ads, that kind of stuff.
+
+936
+00:40:57,220 --> 00:40:58,780
+So do we need something
+similar for--
+
+937
+00:40:58,780 --> 00:41:00,160
+GUY PODJARNY: What is
+the enforcement
+
+938
+00:41:00,160 --> 00:41:02,850
+of it in the browser?
+
+939
+00:41:02,850 --> 00:41:05,390
+STOYAN STEFANOV: But I don't
+think there is any, OK, this
+
+940
+00:41:05,390 --> 00:41:06,850
+is the checklist that
+you have follow.
+
+941
+00:41:06,850 --> 00:41:11,800
+Otherwise, you're
+not given an A.
+
+942
+00:41:11,800 --> 00:41:11,890
+STEVE THAIR: OK.
+
+943
+00:41:11,890 --> 00:41:14,500
+So we'll switch onto
+the next topic.
+
+944
+00:41:14,500 --> 00:41:15,750
+Matt [? Marquis? ?]
+
+945
+00:41:15,750 --> 00:41:20,350
+
+946
+00:41:20,350 --> 00:41:21,600
+Stand up.
+
+947
+00:41:21,600 --> 00:41:30,770
+
+948
+00:41:30,770 --> 00:41:33,660
+AUDIENCE: So this is an
+anonymous question.
+
+949
+00:41:33,660 --> 00:41:36,650
+The growing use of third-party
+services means web pages today
+
+950
+00:41:36,650 --> 00:41:39,550
+consume content from over 16
+domains on average, creating
+
+951
+00:41:39,550 --> 00:41:42,110
+performance and reliability
+problems.
+
+952
+00:41:42,110 --> 00:41:46,660
+SPDY and HTTP2 work per
+domain and don't help.
+
+953
+00:41:46,660 --> 00:41:52,030
+Can we share connections or
+delivery across third parties?
+
+954
+00:41:52,030 --> 00:41:54,310
+STEVE THAIR: So I guess
+this is the point to
+
+955
+00:41:54,310 --> 00:41:56,600
+discuss the 3PO idea.
+
+956
+00:41:56,600 --> 00:42:01,950
+
+957
+00:42:01,950 --> 00:42:03,980
+Particularly one of the areas
+I deal with a lot is like
+
+958
+00:42:03,980 --> 00:42:07,980
+affiliate tracking, and you're
+trying to attribute the
+
+959
+00:42:07,980 --> 00:42:09,750
+affiliate referral
+fee to somebody.
+
+960
+00:42:09,750 --> 00:42:12,510
+And so all of these affiliates
+are coming from different
+
+961
+00:42:12,510 --> 00:42:15,580
+domains and different affiliate
+tracking networks.
+
+962
+00:42:15,580 --> 00:42:18,400
+And I've got to have that
+script on my page.
+
+963
+00:42:18,400 --> 00:42:20,506
+It's part of the business model
+of the customer I'm
+
+964
+00:42:20,506 --> 00:42:21,420
+working in.
+
+965
+00:42:21,420 --> 00:42:24,770
+But if all of these things were
+put into one centralized
+
+966
+00:42:24,770 --> 00:42:27,430
+domain, or there was an
+effective mechanism for
+
+967
+00:42:27,430 --> 00:42:30,320
+sharing and synchronizing the
+cookies across the domains,
+
+968
+00:42:30,320 --> 00:42:32,660
+that would help me a lot.
+
+969
+00:42:32,660 --> 00:42:37,080
+Is that something that we can
+do, or do you think that's
+
+970
+00:42:37,080 --> 00:42:39,680
+never going to happen?
+
+971
+00:42:39,680 --> 00:42:41,910
+STOYAN STEFANOV: I really
+like the idea.
+
+972
+00:42:41,910 --> 00:42:43,740
+So there's many things
+that we can optimize.
+
+973
+00:42:43,740 --> 00:42:47,190
+First is the script that writes
+whatever the widget is
+
+974
+00:42:47,190 --> 00:42:48,910
+doing, the iframe and so on.
+
+975
+00:42:48,910 --> 00:42:53,930
+So having this as packaged
+together with the publisher's
+
+976
+00:42:53,930 --> 00:42:55,250
+script sounds great.
+
+977
+00:42:55,250 --> 00:42:58,110
+We have to make sure that it's
+absolutely future proof
+
+978
+00:42:58,110 --> 00:43:01,990
+because people might not upgrade
+it once they get it
+
+979
+00:43:01,990 --> 00:43:04,310
+off of GitHub.
+
+980
+00:43:04,310 --> 00:43:08,690
+And then, the other thing about
+the common domain, after
+
+981
+00:43:08,690 --> 00:43:11,410
+you have already written the
+iframe, all the static
+
+982
+00:43:11,410 --> 00:43:14,020
+resources on that iframe,
+could they be
+
+983
+00:43:14,020 --> 00:43:16,370
+sharing the same domain?
+
+984
+00:43:16,370 --> 00:43:18,610
+That would be cool.
+
+985
+00:43:18,610 --> 00:43:21,070
+So you still have to make a
+request to the third-party
+
+986
+00:43:21,070 --> 00:43:24,010
+provider to get the HTML,
+any log-ins, and
+
+987
+00:43:24,010 --> 00:43:24,680
+that kind of stuff.
+
+988
+00:43:24,680 --> 00:43:29,423
+But when it comes to static
+resources, why not?
+
+989
+00:43:29,423 --> 00:43:31,350
+STEVE THAIR: Ben?
+
+990
+00:43:31,350 --> 00:43:32,160
+BEN VINEGAR: So would
+the idea--
+
+991
+00:43:32,160 --> 00:43:35,760
+maybe we have, like,
+[? 3pjscdn.com, ?]
+
+992
+00:43:35,760 --> 00:43:37,280
+and everybody has--
+like, we have
+
+993
+00:43:37,280 --> 00:43:38,530
+[? 3pjs/facebook/disqus ?]
+
+994
+00:43:38,530 --> 00:43:39,985
+
+995
+00:43:39,985 --> 00:43:41,590
+and that's where we put
+our static stuff.
+
+996
+00:43:41,590 --> 00:43:43,720
+And then we benefit from
+having a single domain.
+
+997
+00:43:43,720 --> 00:43:45,846
+Is that basically the idea?
+
+998
+00:43:45,846 --> 00:43:48,410
+Try and help me understand
+here.
+
+999
+00:43:48,410 --> 00:43:49,790
+GUY PODJARNY: I think there's
+two aspects of it.
+
+1000
+00:43:49,790 --> 00:43:52,080
+There's the standardizing of how
+something gets included on
+
+1001
+00:43:52,080 --> 00:43:54,890
+the page, which would help
+alleviate some of the concern
+
+1002
+00:43:54,890 --> 00:43:58,690
+with nascent third parties or
+third parties that don't put
+
+1003
+00:43:58,690 --> 00:44:00,190
+as much effort into it.
+
+1004
+00:44:00,190 --> 00:44:04,480
+And then there's the delivery
+aspect, which was around
+
+1005
+00:44:04,480 --> 00:44:05,730
+having some shared--
+
+1006
+00:44:05,730 --> 00:44:09,230
+
+1007
+00:44:09,230 --> 00:44:11,580
+the ideal would be maybe
+a single domain.
+
+1008
+00:44:11,580 --> 00:44:13,620
+There are all sorts of security
+aspects to putting
+
+1009
+00:44:13,620 --> 00:44:15,700
+content from multiple providers
+on the same domain.
+
+1010
+00:44:15,700 --> 00:44:16,890
+So that might not
+be an option.
+
+1011
+00:44:16,890 --> 00:44:21,780
+So maybe at the very least, it
+is shared connections for
+
+1012
+00:44:21,780 --> 00:44:26,360
+those components to deliver them
+where possible through
+
+1013
+00:44:26,360 --> 00:44:27,610
+the same entity.
+
+1014
+00:44:27,610 --> 00:44:29,730
+
+1015
+00:44:29,730 --> 00:44:31,910
+STEVE THAIR: So much of this
+has to be done client-side
+
+1016
+00:44:31,910 --> 00:44:35,910
+because it inherently wants to
+read a cookie to find what
+
+1017
+00:44:35,910 --> 00:44:38,500
+other website that you went to
+so I can do my affiliate
+
+1018
+00:44:38,500 --> 00:44:41,140
+tracking and things like that.
+
+1019
+00:44:41,140 --> 00:44:44,260
+If we had some kind of shared
+mechanism, could we move a lot
+
+1020
+00:44:44,260 --> 00:44:45,200
+of this server-side?
+
+1021
+00:44:45,200 --> 00:44:48,540
+Are there any effective
+server-side solutions so I can
+
+1022
+00:44:48,540 --> 00:44:51,000
+just take all of the scripts
+off my page?
+
+1023
+00:44:51,000 --> 00:44:52,050
+Is that feasible?
+
+1024
+00:44:52,050 --> 00:44:54,370
+What would we need to be able
+to move some of this stuff
+
+1025
+00:44:54,370 --> 00:44:55,620
+server-side?
+
+1026
+00:44:55,620 --> 00:45:00,140
+
+1027
+00:45:00,140 --> 00:45:02,640
+GUY PODJARNY: For the server to
+be able to pull in content
+
+1028
+00:45:02,640 --> 00:45:05,690
+from multiple domains, for
+starters, you would probably
+
+1029
+00:45:05,690 --> 00:45:08,280
+need for many of these
+third-parties services, you
+
+1030
+00:45:08,280 --> 00:45:10,420
+would need some cookie syncing
+capability because they track
+
+1031
+00:45:10,420 --> 00:45:11,200
+different IDs.
+
+1032
+00:45:11,200 --> 00:45:13,380
+The cookie syncing is a
+solved problem in ads,
+
+1033
+00:45:13,380 --> 00:45:15,230
+so that can be done.
+
+1034
+00:45:15,230 --> 00:45:18,380
+But then the second problem
+is non-ID cookies.
+
+1035
+00:45:18,380 --> 00:45:19,870
+And that's not at all
+a solved problem.
+
+1036
+00:45:19,870 --> 00:45:22,300
+So we would need, basically
+a commitment from anybody
+
+1037
+00:45:22,300 --> 00:45:25,990
+participating in this, from the
+Facebooks the Disqus of
+
+1038
+00:45:25,990 --> 00:45:29,970
+the world, to say, I will keep
+everything server-side.
+
+1039
+00:45:29,970 --> 00:45:33,120
+Maybe even provide some
+supporting mechanisms for that
+
+1040
+00:45:33,120 --> 00:45:35,840
+and work fully on
+a session ID.
+
+1041
+00:45:35,840 --> 00:45:37,690
+And then of course, then the
+politics kick in about who
+
+1042
+00:45:37,690 --> 00:45:42,930
+owns that ID, but we'll leave
+that part for later.
+
+1043
+00:45:42,930 --> 00:45:45,500
+And on top of all of those, you
+would need the browser to
+
+1044
+00:45:45,500 --> 00:45:47,400
+share connections if you didn't
+literally land on the
+
+1045
+00:45:47,400 --> 00:45:48,670
+same domain.
+
+1046
+00:45:48,670 --> 00:45:50,990
+So you'd need to somehow
+have the browsers play
+
+1047
+00:45:50,990 --> 00:45:52,850
+ball on that front.
+
+1048
+00:45:52,850 --> 00:45:54,440
+BARBARA BERMES: And of course
+for a publisher, it would be
+
+1049
+00:45:54,440 --> 00:45:56,740
+great to just include something
+or run a script
+
+1050
+00:45:56,740 --> 00:45:58,960
+somewhere and include all the
+things that you need.
+
+1051
+00:45:58,960 --> 00:46:02,220
+So that would help for sure.
+
+1052
+00:46:02,220 --> 00:46:04,620
+GUY PODJARNY: I would say there
+is a lower bar, around
+
+1053
+00:46:04,620 --> 00:46:06,350
+sharing at least, sort of
+delivering them from a
+
+1054
+00:46:06,350 --> 00:46:07,795
+standard component
+for providers.
+
+1055
+00:46:07,795 --> 00:46:12,880
+So if providers had an easy way
+to know which resources of
+
+1056
+00:46:12,880 --> 00:46:15,390
+their third parties are things
+that they could pull in to
+
+1057
+00:46:15,390 --> 00:46:17,800
+their content, then
+I think that would
+
+1058
+00:46:17,800 --> 00:46:18,610
+be a big step forward.
+
+1059
+00:46:18,610 --> 00:46:20,920
+We had to do conversations with
+Facebook, with Google,
+
+1060
+00:46:20,920 --> 00:46:22,840
+with various others
+to learn that--
+
+1061
+00:46:22,840 --> 00:46:24,710
+I believe the Google Analytics
+JavaScript library, the
+
+1062
+00:46:24,710 --> 00:46:26,970
+Facebook SDK, those components
+are static.
+
+1063
+00:46:26,970 --> 00:46:29,860
+But you basically don't know
+those without very explicit
+
+1064
+00:46:29,860 --> 00:46:35,570
+statement from the third-party
+vendors.
+
+1065
+00:46:35,570 --> 00:46:39,590
+
+1066
+00:46:39,590 --> 00:46:40,820
+STEVE THAIR: No questions
+from the--
+
+1067
+00:46:40,820 --> 00:46:41,460
+no comments?
+
+1068
+00:46:41,460 --> 00:46:44,641
+OK, we'll move straight
+on to the next one.
+
+1069
+00:46:44,641 --> 00:46:45,891
+Andre Behrens?
+
+1070
+00:46:45,891 --> 00:46:50,150
+
+1071
+00:46:50,150 --> 00:46:52,065
+AUDIENCE: Hi, and this is
+an anonymous question.
+
+1072
+00:46:52,065 --> 00:46:55,310
+If a blocking script is loaded
+from a domain that goes down,
+
+1073
+00:46:55,310 --> 00:46:57,740
+then this will cause my
+page to fail to load.
+
+1074
+00:46:57,740 --> 00:46:59,640
+How can we test and/or
+address the single
+
+1075
+00:46:59,640 --> 00:47:00,890
+point of failure issue?
+
+1076
+00:47:00,890 --> 00:47:03,560
+
+1077
+00:47:03,560 --> 00:47:05,650
+STEVE THAIR: I guess
+I'll go to Barbara.
+
+1078
+00:47:05,650 --> 00:47:08,360
+Single points of failure, is
+this a real problem that
+
+1079
+00:47:08,360 --> 00:47:09,370
+affects your website?
+
+1080
+00:47:09,370 --> 00:47:10,750
+BARBARA BERMES: Yeah,
+I would say.
+
+1081
+00:47:10,750 --> 00:47:14,080
+And I see, sometimes, even
+script being not properly
+
+1082
+00:47:14,080 --> 00:47:17,460
+included on the CBC domain.
+
+1083
+00:47:17,460 --> 00:47:21,770
+Literally, ad hoc you could
+use Pat's SPOF-O-Matic to
+
+1084
+00:47:21,770 --> 00:47:23,280
+check how your site is behaving
+
+1085
+00:47:23,280 --> 00:47:24,380
+with third-party scripts.
+
+1086
+00:47:24,380 --> 00:47:28,900
+I also like SPOFCheck by, I
+think, the eBay team did that
+
+1087
+00:47:28,900 --> 00:47:31,740
+so you can pull that into your
+continuous integration.
+
+1088
+00:47:31,740 --> 00:47:35,740
+So right away, when somebody
+develops something, we could
+
+1089
+00:47:35,740 --> 00:47:37,800
+right away figure out that
+they're including scripts not
+
+1090
+00:47:37,800 --> 00:47:41,170
+properly, and then avoid that,
+that potential failure.
+
+1091
+00:47:41,170 --> 00:47:44,230
+And we've had that happening
+as well, even I think last
+
+1092
+00:47:44,230 --> 00:47:49,360
+week with ads, where something
+was not properly included, and
+
+1093
+00:47:49,360 --> 00:47:51,110
+we got some bad hits for that.
+
+1094
+00:47:51,110 --> 00:47:54,290
+
+1095
+00:47:54,290 --> 00:47:56,840
+STOYAN STEFANOV: So you were
+able to check during the build
+
+1096
+00:47:56,840 --> 00:47:59,710
+process that somebody
+somewhere included a
+
+1097
+00:47:59,710 --> 00:48:00,000
+[INAUDIBLE]?
+
+1098
+00:48:00,000 --> 00:48:00,560
+BARBARA BERMES: Yeah, exactly.
+
+1099
+00:48:00,560 --> 00:48:02,370
+So it literally checks
+for script.
+
+1100
+00:48:02,370 --> 00:48:04,530
+And if you just put it
+wherever it is, it's
+
+1101
+00:48:04,530 --> 00:48:05,810
+a really cool tool.
+
+1102
+00:48:05,810 --> 00:48:08,330
+And there's even, I think,
+a Grunt plug-in as well
+
+1103
+00:48:08,330 --> 00:48:10,070
+that you can use.
+
+1104
+00:48:10,070 --> 00:48:12,300
+I would love to have those kind
+of things more integrated
+
+1105
+00:48:12,300 --> 00:48:15,930
+in our deployment so that
+basically, as a developer, you
+
+1106
+00:48:15,930 --> 00:48:16,970
+can almost be done.
+
+1107
+00:48:16,970 --> 00:48:19,250
+You just don't have
+to think about it.
+
+1108
+00:48:19,250 --> 00:48:23,690
+And we catch that, and we're
+not able to deploy stuff.
+
+1109
+00:48:23,690 --> 00:48:26,260
+GUY PODJARNY: It's important
+to clarify that the SPOF is
+
+1110
+00:48:26,260 --> 00:48:27,960
+the extreme scenario.
+
+1111
+00:48:27,960 --> 00:48:29,750
+This website is down,
+and maybe a
+
+1112
+00:48:29,750 --> 00:48:30,890
+slightly more rare one.
+
+1113
+00:48:30,890 --> 00:48:32,560
+But a mini version of
+it happens every
+
+1114
+00:48:32,560 --> 00:48:33,460
+time the page is loaded.
+
+1115
+00:48:33,460 --> 00:48:35,980
+Like any one of these blockers
+is also some sort of delay,
+
+1116
+00:48:35,980 --> 00:48:37,820
+some sort of resource contention
+for each one of
+
+1117
+00:48:37,820 --> 00:48:39,000
+those resources.
+
+1118
+00:48:39,000 --> 00:48:42,106
+So sometimes the conversation
+goes into, no, Facebook's not
+
+1119
+00:48:42,106 --> 00:48:45,100
+going to go down, which is
+a different conversation.
+
+1120
+00:48:45,100 --> 00:48:49,050
+But there is always a little bit
+of a penalty, even for the
+
+1121
+00:48:49,050 --> 00:48:51,340
+kind of most cutting-edge
+third parties.
+
+1122
+00:48:51,340 --> 00:48:53,872
+So getting them out of
+the line of fire is
+
+1123
+00:48:53,872 --> 00:48:55,480
+always a good idea.
+
+1124
+00:48:55,480 --> 00:48:58,430
+STOYAN STEFANOV: And what I was
+saying is it may not be
+
+1125
+00:48:58,430 --> 00:49:01,040
+down, but may be blocked
+and in the company.
+
+1126
+00:49:01,040 --> 00:49:03,800
+And you don't want people on
+Facebook during working
+
+1127
+00:49:03,800 --> 00:49:04,790
+hours and so on.
+
+1128
+00:49:04,790 --> 00:49:09,890
+So you effectively destroy the
+website because Facebook is
+
+1129
+00:49:09,890 --> 00:49:11,670
+blocked for some reason.
+
+1130
+00:49:11,670 --> 00:49:13,110
+STEVE THAIR: Kyle [INAUDIBLE],
+you had a--
+
+1131
+00:49:13,110 --> 00:49:13,660
+AUDIENCE: It's been answered.
+
+1132
+00:49:13,660 --> 00:49:13,920
+STEVE THAIR: It's
+been answered?
+
+1133
+00:49:13,920 --> 00:49:16,080
+OK.
+
+1134
+00:49:16,080 --> 00:49:18,740
+BEN VINEGAR: I was just going
+to add really quickly that
+
+1135
+00:49:18,740 --> 00:49:21,240
+other than the case where
+somebody just puts in a
+
+1136
+00:49:21,240 --> 00:49:23,650
+blocking script tag, there's
+that problem.
+
+1137
+00:49:23,650 --> 00:49:26,180
+I do think that third-party
+applications and third-party
+
+1138
+00:49:26,180 --> 00:49:30,090
+scripts, we absolutely have to
+be good citizens, and we have
+
+1139
+00:49:30,090 --> 00:49:33,940
+to work in situations where
+stuff is down, or wherever.
+
+1140
+00:49:33,940 --> 00:49:36,650
+I know that a big push that
+we're making in our company is
+
+1141
+00:49:36,650 --> 00:49:39,960
+that if Disqus goes down, we
+at least want you to see
+
+1142
+00:49:39,960 --> 00:49:44,130
+static comments that are
+basically not dynamic.
+
+1143
+00:49:44,130 --> 00:49:45,740
+The server's not going to listen
+to you because maybe
+
+1144
+00:49:45,740 --> 00:49:47,720
+it's blowing up, but at least
+you can read comments.
+
+1145
+00:49:47,720 --> 00:49:50,380
+And for all intents and
+purposes, that's just static.
+
+1146
+00:49:50,380 --> 00:49:54,520
+It's from a CDN, and
+things look OK.
+
+1147
+00:49:54,520 --> 00:49:59,330
+But it's like this is just stuff
+that we have to do, and
+
+1148
+00:49:59,330 --> 00:50:00,290
+I don't know--
+
+1149
+00:50:00,290 --> 00:50:02,270
+if there's just like a hammer
+that everybody can
+
+1150
+00:50:02,270 --> 00:50:03,170
+just use for that.
+
+1151
+00:50:03,170 --> 00:50:05,040
+GUY PODJARNY: If everybody did
+that, we would be definitely
+
+1152
+00:50:05,040 --> 00:50:06,020
+better off.
+
+1153
+00:50:06,020 --> 00:50:06,200
+BARBARA BERMES: Yeah.
+
+1154
+00:50:06,200 --> 00:50:09,580
+And I mean, of course, I
+appreciate those things that
+
+1155
+00:50:09,580 --> 00:50:11,330
+providers do.
+
+1156
+00:50:11,330 --> 00:50:15,160
+One of the other challenges we
+have is when editors, like
+
+1157
+00:50:15,160 --> 00:50:17,030
+editors [? writing news ?]
+
+1158
+00:50:17,030 --> 00:50:18,480
+be able to include widgets.
+
+1159
+00:50:18,480 --> 00:50:21,980
+And they literally take them
+from a website not thinking
+
+1160
+00:50:21,980 --> 00:50:23,770
+how to properly include it.
+
+1161
+00:50:23,770 --> 00:50:27,020
+So those are the challenges for
+us also to sandbox that.
+
+1162
+00:50:27,020 --> 00:50:29,890
+
+1163
+00:50:29,890 --> 00:50:30,470
+STOYAN STEFANOV: Something
+I wanted to
+
+1164
+00:50:30,470 --> 00:50:33,210
+add from your comment.
+
+1165
+00:50:33,210 --> 00:50:37,360
+I would really love to ask
+people to write blog posts and
+
+1166
+00:50:37,360 --> 00:50:39,310
+do research and put
+us to shame.
+
+1167
+00:50:39,310 --> 00:50:41,950
+
+1168
+00:50:41,950 --> 00:50:44,100
+And just to keep the third-party
+providers in check
+
+1169
+00:50:44,100 --> 00:50:47,080
+and say, oh, this is horrible.
+
+1170
+00:50:47,080 --> 00:50:50,930
+So if you see some third-party
+provider that doesn't provide
+
+1171
+00:50:50,930 --> 00:50:55,050
+asynchronous [INAUDIBLE], yeah,
+make noise about it.
+
+1172
+00:50:55,050 --> 00:50:56,120
+STEVE THAIR: I think that's
+probably an important thing to
+
+1173
+00:50:56,120 --> 00:50:57,930
+mention, is that you're
+not necessarily
+
+1174
+00:50:57,930 --> 00:50:59,620
+always criticizing them.
+
+1175
+00:50:59,620 --> 00:51:01,880
+What you're actually doing is
+giving them the opportunity to
+
+1176
+00:51:01,880 --> 00:51:03,830
+go to their boss and saying,
+look, all these people are
+
+1177
+00:51:03,830 --> 00:51:04,960
+complaining about it.
+
+1178
+00:51:04,960 --> 00:51:07,810
+That's a really effective
+mechanism for them to get the
+
+1179
+00:51:07,810 --> 00:51:09,720
+resources they need.
+
+1180
+00:51:09,720 --> 00:51:11,170
+A lot of these guys
+are providers.
+
+1181
+00:51:11,170 --> 00:51:13,170
+They want to fix the problem,
+but they've got competing
+
+1182
+00:51:13,170 --> 00:51:13,930
+business priorities.
+
+1183
+00:51:13,930 --> 00:51:16,020
+If you're out there making a
+lot of noise about it, it
+
+1184
+00:51:16,020 --> 00:51:18,220
+suddenly becomes a business
+priority and you really help
+
+1185
+00:51:18,220 --> 00:51:19,790
+them to address.
+
+1186
+00:51:19,790 --> 00:51:21,490
+We're only got about
+four minutes left.
+
+1187
+00:51:21,490 --> 00:51:23,910
+I'm actually going to skip one
+question, which we'll come
+
+1188
+00:51:23,910 --> 00:51:27,020
+back to because I really want
+to get question number seven
+
+1189
+00:51:27,020 --> 00:51:30,090
+answered, which from
+[? Rahul ?]
+
+1190
+00:51:30,090 --> 00:51:31,340
+[? Chowdary. ?]
+
+1191
+00:51:31,340 --> 00:51:40,010
+
+1192
+00:51:40,010 --> 00:51:42,940
+AUDIENCE: So this is another
+anonymous question.
+
+1193
+00:51:42,940 --> 00:51:45,320
+What could the browser vendors
+provide to eliminate
+
+1194
+00:51:45,320 --> 00:51:49,440
+third-party scripts and the
+problems associated with them?
+
+1195
+00:51:49,440 --> 00:51:51,080
+I don't really agree
+with this question.
+
+1196
+00:51:51,080 --> 00:51:55,080
+[LAUGHTER]
+
+1197
+00:51:55,080 --> 00:51:56,140
+STEVE THAIR: So I guess
+the question--
+
+1198
+00:51:56,140 --> 00:51:58,160
+we've got people from
+the Chrome team.
+
+1199
+00:51:58,160 --> 00:52:00,755
+We've got people from Mozilla.
+
+1200
+00:52:00,755 --> 00:52:03,140
+I'd be very interested
+to hear from those.
+
+1201
+00:52:03,140 --> 00:52:06,700
+But if you could have one thing
+from a browser vendor,
+
+1202
+00:52:06,700 --> 00:52:11,170
+Guy, to help address this
+problem, what would it be?
+
+1203
+00:52:11,170 --> 00:52:13,120
+GUY PODJARNY: My number one
+would probably be the script
+
+1204
+00:52:13,120 --> 00:52:16,930
+dependencies, document.write a
+close second with the ability
+
+1205
+00:52:16,930 --> 00:52:19,020
+to group to async.
+
+1206
+00:52:19,020 --> 00:52:19,790
+STEVE THAIR: Barbara?
+
+1207
+00:52:19,790 --> 00:52:20,710
+BARBARA BERMES: Actually,
+same.
+
+1208
+00:52:20,710 --> 00:52:22,322
+The document write, actually.
+
+1209
+00:52:22,322 --> 00:52:25,208
+
+1210
+00:52:25,208 --> 00:52:26,616
+STOYAN STEFANOV: I like
+the browsers.
+
+1211
+00:52:26,616 --> 00:52:28,560
+They're my favorite.
+
+1212
+00:52:28,560 --> 00:52:29,950
+BEN VINEGAR: I could
+probably go off on
+
+1213
+00:52:29,950 --> 00:52:32,030
+this for a long time.
+
+1214
+00:52:32,030 --> 00:52:33,000
+STEVE THAIR: Please do.
+
+1215
+00:52:33,000 --> 00:52:34,780
+BEN VINEGAR: So Stoyan set up
+that basically the way that
+
+1216
+00:52:34,780 --> 00:52:37,350
+most complex widgets work today
+is there's a script that
+
+1217
+00:52:37,350 --> 00:52:38,970
+runs on the host page, and it
+usually opens up an iframe
+
+1218
+00:52:38,970 --> 00:52:40,620
+that communicate with
+each other.
+
+1219
+00:52:40,620 --> 00:52:43,730
+And in a perfect world,
+I would love if
+
+1220
+00:52:43,730 --> 00:52:45,610
+Disqus was just an iframe.
+
+1221
+00:52:45,610 --> 00:52:48,720
+And there was that separation,
+everyone could feel confident
+
+1222
+00:52:48,720 --> 00:52:49,880
+about it, and that would
+be the contract.
+
+1223
+00:52:49,880 --> 00:52:50,530
+You know it's in the iframe.
+
+1224
+00:52:50,530 --> 00:52:52,760
+You know it's not going
+to escape the iframe.
+
+1225
+00:52:52,760 --> 00:52:57,410
+But the problem is that the
+tools for making that happen
+
+1226
+00:52:57,410 --> 00:52:59,900
+are just nonexistent.
+
+1227
+00:52:59,900 --> 00:53:00,970
+There are tons of--
+
+1228
+00:53:00,970 --> 00:53:01,910
+I don't want to say tons.
+
+1229
+00:53:01,910 --> 00:53:04,660
+But there are things that are
+being developed right now for
+
+1230
+00:53:04,660 --> 00:53:06,670
+further isolating iframes.
+
+1231
+00:53:06,670 --> 00:53:08,645
+There is the sandbox
+attribute.
+
+1232
+00:53:08,645 --> 00:53:12,030
+Let's really break
+down this iframe.
+
+1233
+00:53:12,030 --> 00:53:13,960
+There are no tools that are
+being developed from the other
+
+1234
+00:53:13,960 --> 00:53:17,280
+perspective, which are let me
+get access to some of the
+
+1235
+00:53:17,280 --> 00:53:19,100
+stuff that's happening
+on the parent page.
+
+1236
+00:53:19,100 --> 00:53:21,460
+Let me know that somebody's
+scrolling the page.
+
+1237
+00:53:21,460 --> 00:53:24,230
+Let we know that somebody's
+clicking so that I can close a
+
+1238
+00:53:24,230 --> 00:53:26,830
+menu that I happened to
+open in my iframe.
+
+1239
+00:53:26,830 --> 00:53:28,140
+There's none of those
+tools right now.
+
+1240
+00:53:28,140 --> 00:53:31,650
+And because of that, or even
+very simply, I cannot resize
+
+1241
+00:53:31,650 --> 00:53:33,860
+the iframe today.
+
+1242
+00:53:33,860 --> 00:53:35,530
+Because there are none of those
+tools, we have to have
+
+1243
+00:53:35,530 --> 00:53:38,010
+this sort of dual system
+where we have to put
+
+1244
+00:53:38,010 --> 00:53:38,840
+JavaScript on your page.
+
+1245
+00:53:38,840 --> 00:53:40,310
+And that's unfortunate.
+
+1246
+00:53:40,310 --> 00:53:44,680
+It would be terrific if we
+started looking at things from
+
+1247
+00:53:44,680 --> 00:53:46,640
+the other side, and then maybe
+things could get better.
+
+1248
+00:53:46,640 --> 00:53:50,042
+I think a lot better just by
+providing those tools.
+
+1249
+00:53:50,042 --> 00:53:51,260
+STOYAN STEFANOV: Would
+the web components be
+
+1250
+00:53:51,260 --> 00:53:52,547
+an answer to that?
+
+1251
+00:53:52,547 --> 00:53:56,370
+
+1252
+00:53:56,370 --> 00:54:00,020
+BEN VINEGAR: I've only looked
+a little bit, perhaps this
+
+1253
+00:54:00,020 --> 00:54:02,850
+morning, to research a little
+bit more about web components.
+
+1254
+00:54:02,850 --> 00:54:05,890
+I look like a complete fool.
+
+1255
+00:54:05,890 --> 00:54:07,880
+But from what I've seen is that
+they're accessible by the
+
+1256
+00:54:07,880 --> 00:54:12,430
+parent page, even if they're
+kind of hidden.
+
+1257
+00:54:12,430 --> 00:54:13,790
+Is there a web components
+person?
+
+1258
+00:54:13,790 --> 00:54:15,780
+Like you create--
+
+1259
+00:54:15,780 --> 00:54:18,060
+STEVE THAIR: The delegate put
+their hand up [INAUDIBLE].
+
+1260
+00:54:18,060 --> 00:54:19,880
+If anybody's an expert
+on web components.
+
+1261
+00:54:19,880 --> 00:54:22,560
+Anyone?
+
+1262
+00:54:22,560 --> 00:54:23,460
+BEN VINEGAR: Somebody
+over there, yeah.
+
+1263
+00:54:23,460 --> 00:54:25,040
+STEVE THAIR: Alex.
+
+1264
+00:54:25,040 --> 00:54:26,050
+Alex to the rescue.
+
+1265
+00:54:26,050 --> 00:54:26,560
+AUDIENCE: Hi.
+
+1266
+00:54:26,560 --> 00:54:28,650
+Yeah, Alex Russell
+from Google.
+
+1267
+00:54:28,650 --> 00:54:31,810
+So the way web components
+work are it's a
+
+1268
+00:54:31,810 --> 00:54:33,030
+bunch of related specs.
+
+1269
+00:54:33,030 --> 00:54:35,570
+We designed it that way for a
+reason that I won't go into.
+
+1270
+00:54:35,570 --> 00:54:38,980
+But you can have something
+called a shadow DOM, which
+
+1271
+00:54:38,980 --> 00:54:44,640
+sort of hides away the
+implementation of your UI from
+
+1272
+00:54:44,640 --> 00:54:47,710
+the normal iteration order
+through the document.
+
+1273
+00:54:47,710 --> 00:54:51,030
+And you're entirely correct that
+that doesn't solve the
+
+1274
+00:54:51,030 --> 00:54:52,790
+problem for you because you
+can still reach into the
+
+1275
+00:54:52,790 --> 00:54:53,570
+shadow DOM.
+
+1276
+00:54:53,570 --> 00:54:56,470
+It was explicitly designed not
+to be a security boundary.
+
+1277
+00:54:56,470 --> 00:55:02,040
+Today, the answer is put an
+iframe in your shadow DOM and
+
+1278
+00:55:02,040 --> 00:55:02,770
+use it that way.
+
+1279
+00:55:02,770 --> 00:55:03,780
+So it doesn't get you
+out of any of the
+
+1280
+00:55:03,780 --> 00:55:05,350
+sizing issues, I'm afraid.
+
+1281
+00:55:05,350 --> 00:55:07,730
+BEN VINEGAR: So I think a lot of
+this new stuff [INAUDIBLE]
+
+1282
+00:55:07,730 --> 00:55:11,770
+thing is still being developed
+from this perspective of,
+
+1283
+00:55:11,770 --> 00:55:13,030
+almost like widgets.
+
+1284
+00:55:13,030 --> 00:55:16,160
+If I was Google and I had
+widgets that I want on all my
+
+1285
+00:55:16,160 --> 00:55:18,150
+other services and I trust those
+services, I feel like a
+
+1286
+00:55:18,150 --> 00:55:20,080
+lot of it is being designed
+from that perspective.
+
+1287
+00:55:20,080 --> 00:55:23,770
+Somebody can shut me
+up if they want.
+
+1288
+00:55:23,770 --> 00:55:26,110
+Because the security things
+aren't addressed.
+
+1289
+00:55:26,110 --> 00:55:28,310
+Or, there was the seamless spec
+that came out, but it
+
+1290
+00:55:28,310 --> 00:55:30,450
+still let styles
+come in as if--
+
+1291
+00:55:30,450 --> 00:55:32,750
+maybe for that kind of
+publisher, they may be
+
+1292
+00:55:32,750 --> 00:55:33,360
+interested in that.
+
+1293
+00:55:33,360 --> 00:55:34,900
+But I'm not interested
+in that.
+
+1294
+00:55:34,900 --> 00:55:38,960
+Anyways, got that sheet
+that says shut up.
+
+1295
+00:55:38,960 --> 00:55:41,080
+STEVE THAIR: Time to go.
+
+1296
+00:55:41,080 --> 00:55:43,040
+All right, so basically
+we go one minute left.
+
+1297
+00:55:43,040 --> 00:55:44,510
+We're going to wrap up.
+
+1298
+00:55:44,510 --> 00:55:47,810
+I think immediately after this,
+we're staying here for
+
+1299
+00:55:47,810 --> 00:55:48,950
+lunch, is that right?
+
+1300
+00:55:48,950 --> 00:55:49,700
+AUDIENCE: [INAUDIBLE].
+
+1301
+00:55:49,700 --> 00:55:50,320
+STEVE THAIR: Yep.
+
+1302
+00:55:50,320 --> 00:55:53,240
+Well, thank you very much to
+the people on the party--
+
+1303
+00:55:53,240 --> 00:55:56,310
+people on the party.
+
+1304
+00:55:56,310 --> 00:55:56,910
+People on the panel.
+
+1305
+00:55:56,910 --> 00:56:07,450
+[APPLAUSE]
