@@ -7613,7 +7613,7 @@ header nav i {
 }
 /* line 195, ../sass/app.scss */
 #billboard h1 {
-  background: url(/2013-nyc/images/logo.png) center top no-repeat;
+  background: url(../images/logo.png) center top no-repeat;
   background-size: 100%;
   min-height: 185px;
 }
@@ -7826,11 +7826,11 @@ header nav i {
 }
 /* line 361, ../sass/app.scss */
 #billboard .layer p a:link, #billboard .layer p a:visited {
-  color: #0043ff;
+
 }
 /* line 364, ../sass/app.scss */
 #billboard .layer p a:hover, #billboard .layer p a:active {
-  color: #1a56ff;
+
 }
 @media only screen and (max-width: 768px) {
   /* line 368, ../sass/app.scss */
