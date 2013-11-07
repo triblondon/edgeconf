@@ -7627,8 +7627,8 @@ header nav i {
   background: #f9f900; 
   color: #333; 
 }
-#billboard a.button:hover { 
-  box-shadow: 0 0 25px 3px white; 
+#billboard a.button:hover {
+  background: #f0f000;
 }
 @media only screen and (max-width: 768px) {
   /* line 189, ../sass/app.scss */
