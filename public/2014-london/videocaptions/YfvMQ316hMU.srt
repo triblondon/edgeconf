@@ -1,0 +1,5666 @@
+1
+00:00:00,000 --> 00:00:07,335
+
+2
+00:00:07,335 --> 00:00:11,020
+PAUL IRISH: All right, so I'm
+really excited about this.
+
+3
+00:00:11,020 --> 00:00:13,960
+Edge Conf is kind of like the
+focal point of a discussion
+
+4
+00:00:13,960 --> 00:00:18,670
+around using cutting edge
+technologies to build amazing
+
+5
+00:00:18,670 --> 00:00:20,010
+user experiences.
+
+6
+00:00:20,010 --> 00:00:24,000
+But I think the elephant in
+the room is it's great to
+
+7
+00:00:24,000 --> 00:00:27,140
+learn all about all these new
+technologies, but what about
+
+8
+00:00:27,140 --> 00:00:30,790
+older browsers, browsers that
+are less capable that cannot
+
+9
+00:00:30,790 --> 00:00:32,640
+take advantage of some
+of these things?
+
+10
+00:00:32,640 --> 00:00:35,930
+So this session is an
+opportunity to kind of discuss
+
+11
+00:00:35,930 --> 00:00:38,110
+some of those challenges that
+we've had for a long time and
+
+12
+00:00:38,110 --> 00:00:39,830
+what we can do about them now.
+
+13
+00:00:39,830 --> 00:00:43,270
+We have a really powerful
+panel up here, so let me
+
+14
+00:00:43,270 --> 00:00:45,390
+quickly introduce everyone.
+
+15
+00:00:45,390 --> 00:00:49,530
+Over here to my right
+is Shwetank Dixit.
+
+16
+00:00:49,530 --> 00:00:52,720
+He has been on the Opera
+Developer Relations Team and
+
+17
+00:00:52,720 --> 00:00:57,230
+Open Web Team for a while now,
+working a lot on compatibility
+
+18
+00:00:57,230 --> 00:00:58,710
+of all sorts of sites.
+
+19
+00:00:58,710 --> 00:01:02,080
+So whether they have willy-nilly
+reg x's that are
+
+20
+00:01:02,080 --> 00:01:04,599
+blocking Opera and such.
+
+21
+00:01:04,599 --> 00:01:08,660
+Also, a member of the web
+education community group and
+
+22
+00:01:08,660 --> 00:01:13,260
+the mobile web for social
+development group at the W3C.
+
+23
+00:01:13,260 --> 00:01:15,720
+To my left, Tomomi Imura.
+
+24
+00:01:15,720 --> 00:01:18,920
+So she has been kind of fighting
+for the mobile web
+
+25
+00:01:18,920 --> 00:01:23,310
+for a long time, ever since 2005
+when she was leading the
+
+26
+00:01:23,310 --> 00:01:26,180
+mobile yahoo.com.
+
+27
+00:01:26,180 --> 00:01:27,180
+TOMOMI IMURA: [INAUDIBLE].
+
+28
+00:01:27,180 --> 00:01:27,680
+PAUL IRISH: Yahoo.com?
+
+29
+00:01:27,680 --> 00:01:29,415
+M.yahoo.com, yes.
+
+30
+00:01:29,415 --> 00:01:32,510
+
+31
+00:01:32,510 --> 00:01:35,290
+Also, was using [INAUDIBLE]
+
+32
+00:01:35,290 --> 00:01:39,700
+to great success, trying to
+wrangle all sorts of kind of
+
+33
+00:01:39,700 --> 00:01:42,480
+tricky little mobile devices
+coming over there.
+
+34
+00:01:42,480 --> 00:01:45,810
+Worked at webOS and
+is now at Nokia.
+
+35
+00:01:45,810 --> 00:01:48,150
+Cool.
+
+36
+00:01:48,150 --> 00:01:51,040
+On her left is Edd Sowden.
+
+37
+00:01:51,040 --> 00:01:56,510
+Edd works for the Government
+Digital Service and the GDS
+
+38
+00:01:56,510 --> 00:02:00,840
+finished a big, huge redesign
+of gov.uk, a kind of much
+
+39
+00:02:00,840 --> 00:02:04,950
+lauded, progressive enhancement
+redesign bringing
+
+40
+00:02:04,950 --> 00:02:06,680
+all of the UK's government
+online.
+
+41
+00:02:06,680 --> 00:02:09,199
+And they're now continuing to
+bring more departments online.
+
+42
+00:02:09,199 --> 00:02:12,690
+They've done a really good job
+kind of presenting the best
+
+43
+00:02:12,690 --> 00:02:14,980
+way to do progressive
+enhancement and documenting
+
+44
+00:02:14,980 --> 00:02:16,880
+kind of their strategies
+and methodologies.
+
+45
+00:02:16,880 --> 00:02:19,430
+And also, providing a very
+
+46
+00:02:19,430 --> 00:02:21,070
+transparent development process--
+
+47
+00:02:21,070 --> 00:02:24,060
+blogging, documenting,
+guidelines everywhere, really
+
+48
+00:02:24,060 --> 00:02:26,060
+fantastic job.
+
+49
+00:02:26,060 --> 00:02:29,760
+And our opening speaker,
+Tom Maslen.
+
+50
+00:02:29,760 --> 00:02:35,250
+Tom is the Tech Lead for BBC
+News Visual Journalism and has
+
+51
+00:02:35,250 --> 00:02:38,300
+been leading the client-side
+team for the mobile BBC News
+
+52
+00:02:38,300 --> 00:02:39,990
+team for a while.
+
+53
+00:02:39,990 --> 00:02:43,630
+Has been kind of a [INAUDIBLE]
+based developer, knows browser
+
+54
+00:02:43,630 --> 00:02:46,470
+performance and JavaScript
+extremely well.
+
+55
+00:02:46,470 --> 00:02:49,740
+And also, a while ago, worked on
+the team that built an open
+
+56
+00:02:49,740 --> 00:02:50,630
+source [INAUDIBLE]
+
+57
+00:02:50,630 --> 00:02:51,880
+JavaScript library.
+
+58
+00:02:51,880 --> 00:02:52,760
+So--
+
+59
+00:02:52,760 --> 00:02:53,460
+TOM MASLEN: Small
+part of that.
+
+60
+00:02:53,460 --> 00:02:54,230
+PAUL IRISH: Blast
+from the past.
+
+61
+00:02:54,230 --> 00:02:54,910
+All right, cool.
+
+62
+00:02:54,910 --> 00:02:57,540
+So Tom, if you want to take it
+away, that would be great.
+
+63
+00:02:57,540 --> 00:02:57,710
+TOM MASLEN: Hi.
+
+64
+00:02:57,710 --> 00:03:00,925
+Hello, and can I
+have my slides?
+
+65
+00:03:00,925 --> 00:03:03,910
+
+66
+00:03:03,910 --> 00:03:04,440
+Hi.
+
+67
+00:03:04,440 --> 00:03:07,940
+Hello and welcome to the
+introduction talk Legacy
+
+68
+00:03:07,940 --> 00:03:10,020
+Clients by me, Tom Maslen.
+
+69
+00:03:10,020 --> 00:03:14,190
+Or, as I think this talk should
+really be called, yay,
+
+70
+00:03:14,190 --> 00:03:17,050
+I'm so excited there's going
+to be five versions of
+
+71
+00:03:17,050 --> 00:03:20,010
+Internet Explorer for me
+to support next year.
+
+72
+00:03:20,010 --> 00:03:22,850
+I'm 34 years old.
+
+73
+00:03:22,850 --> 00:03:27,660
+Back in my arrogant 20s, I saw
+myself as a bit of a Han Solo,
+
+74
+00:03:27,660 --> 00:03:31,280
+flying around the office, saving
+princesses' websites,
+
+75
+00:03:31,280 --> 00:03:32,620
+fixing bugs.
+
+76
+00:03:32,620 --> 00:03:35,490
+My job used to be easy.
+
+77
+00:03:35,490 --> 00:03:39,710
+I had four rendering engines to
+support and yet, I also had
+
+78
+00:03:39,710 --> 00:03:40,950
+to worry about accessibility.
+
+79
+00:03:40,950 --> 00:03:44,340
+But writing my code semantically
+fixed that.
+
+80
+00:03:44,340 --> 00:03:47,310
+And I also had to concern myself
+about SEO, but that's
+
+81
+00:03:47,310 --> 00:03:49,780
+essentially accessibility
+for search engines.
+
+82
+00:03:49,780 --> 00:03:52,720
+So my semantic code
+sorted that, too.
+
+83
+00:03:52,720 --> 00:03:55,650
+This was a time when we could
+all afford to be little Han
+
+84
+00:03:55,650 --> 00:03:58,790
+Solos quickly putting
+sites together.
+
+85
+00:03:58,790 --> 00:04:02,920
+But then in 2007, all that
+changed when Steve Jobs
+
+86
+00:04:02,920 --> 00:04:05,260
+invented the bloody iPhone.
+
+87
+00:04:05,260 --> 00:04:08,230
+Shit got more complicated.
+
+88
+00:04:08,230 --> 00:04:11,720
+Suddenly, we had mobiles with
+very slow connection speeds
+
+89
+00:04:11,720 --> 00:04:15,350
+and phones with different size
+screens, new types of
+
+90
+00:04:15,350 --> 00:04:16,990
+interactions.
+
+91
+00:04:16,990 --> 00:04:20,000
+Smartphones started to appear
+with pathetic little
+
+92
+00:04:20,000 --> 00:04:22,370
+processors and tiny amounts
+of RAM that run
+
+93
+00:04:22,370 --> 00:04:25,270
+my code really slowly.
+
+94
+00:04:25,270 --> 00:04:28,190
+And PPK also pointed out that
+there was like a hundred
+
+95
+00:04:28,190 --> 00:04:30,450
+different vendors of web
+kits to support.
+
+96
+00:04:30,450 --> 00:04:33,120
+But all of these problems were
+nothing compared to what was
+
+97
+00:04:33,120 --> 00:04:35,360
+about to wash over us--
+
+98
+00:04:35,360 --> 00:04:39,020
+an avalanche of devices.
+
+99
+00:04:39,020 --> 00:04:40,610
+Being confident little
+Han Solos
+
+100
+00:04:40,610 --> 00:04:42,350
+wasn't good enough anymore.
+
+101
+00:04:42,350 --> 00:04:47,900
+Instead, we've all had to become
+intelligent, clever
+
+102
+00:04:47,900 --> 00:04:50,680
+Spocks who can balance all of
+these issues against getting
+
+103
+00:04:50,680 --> 00:04:52,490
+our job done correctly.
+
+104
+00:04:52,490 --> 00:04:54,940
+As developers, this is the
+biggest problem that we have
+
+105
+00:04:54,940 --> 00:04:57,400
+today, balancing agility--
+
+106
+00:04:57,400 --> 00:04:59,880
+getting the stuff
+done quickly--
+
+107
+00:04:59,880 --> 00:05:01,430
+versus robustness--
+
+108
+00:05:01,430 --> 00:05:03,970
+getting the stuff done right.
+
+109
+00:05:03,970 --> 00:05:07,370
+Now, in this paradigm that we
+find ourselves in, it's very
+
+110
+00:05:07,370 --> 00:05:10,380
+easy to concentrate on this
+issue so much the we forget
+
+111
+00:05:10,380 --> 00:05:17,310
+about boring, old issues like
+supporting IE7 and 8.
+
+112
+00:05:17,310 --> 00:05:21,040
+I can test in IE8 and 7 using
+a virtual machine on my Mac,
+
+113
+00:05:21,040 --> 00:05:22,913
+but it's really hard.
+
+114
+00:05:22,913 --> 00:05:25,570
+Oh, sorry, but it's
+really hard to do.
+
+115
+00:05:25,570 --> 00:05:29,700
+The experience is slow and the
+dev tools are terrible.
+
+116
+00:05:29,700 --> 00:05:34,600
+Trying to get IE7 dev tools to
+do I1 is like asking a wookie
+
+117
+00:05:34,600 --> 00:05:38,080
+that's wearing boxing gloves
+to wipe my bottom clean.
+
+118
+00:05:38,080 --> 00:05:42,955
+It's a terrible situation that
+normally ends up covering you
+
+119
+00:05:42,955 --> 00:05:44,205
+in something.
+
+120
+00:05:44,205 --> 00:05:48,170
+
+121
+00:05:48,170 --> 00:05:50,850
+Some bugs I just give up on
+because it's not worth
+
+122
+00:05:50,850 --> 00:05:55,700
+spending the time required
+to fix such a small--
+
+123
+00:05:55,700 --> 00:05:58,010
+fix a problem for such
+a small audience.
+
+124
+00:05:58,010 --> 00:06:00,610
+It raises questions about
+whether we should actually
+
+125
+00:06:00,610 --> 00:06:01,750
+support these browsers.
+
+126
+00:06:01,750 --> 00:06:04,445
+I'd argue that sometimes
+it depends.
+
+127
+00:06:04,445 --> 00:06:06,595
+While the challenges surrounding
+client support
+
+128
+00:06:06,595 --> 00:06:09,710
+have increased, web development
+itself has become
+
+129
+00:06:09,710 --> 00:06:10,390
+more popular.
+
+130
+00:06:10,390 --> 00:06:12,400
+It's entered the mainstream.
+
+131
+00:06:12,400 --> 00:06:15,980
+Everyone from schoolchildren
+to contestants on "The
+
+132
+00:06:15,980 --> 00:06:18,350
+Apprentice" are now
+making web pages.
+
+133
+00:06:18,350 --> 00:06:22,430
+And the act of making a web page
+is actually pretty easy.
+
+134
+00:06:22,430 --> 00:06:25,780
+Build something, look at it in
+your browser, there you go.
+
+135
+00:06:25,780 --> 00:06:26,450
+It's done.
+
+136
+00:06:26,450 --> 00:06:27,440
+It's very fast.
+
+137
+00:06:27,440 --> 00:06:30,000
+But as I've just shown you,
+the practice of web
+
+138
+00:06:30,000 --> 00:06:32,410
+development is the complete
+opposite.
+
+139
+00:06:32,410 --> 00:06:35,830
+It's actually really
+hard to do right.
+
+140
+00:06:35,830 --> 00:06:40,210
+Anyone can pick up a book or
+read an article online that
+
+141
+00:06:40,210 --> 00:06:44,980
+teaches you how to make a web
+page, how to write HTML or CSS
+
+142
+00:06:44,980 --> 00:06:46,240
+or JavaScript.
+
+143
+00:06:46,240 --> 00:06:50,050
+These things are hard to master,
+but they're easy to
+
+144
+00:06:50,050 --> 00:06:51,330
+start doing.
+
+145
+00:06:51,330 --> 00:06:54,240
+What is hard to learn though,
+is how to scale your website
+
+146
+00:06:54,240 --> 00:06:55,950
+up from a single user, ie
+
+147
+00:06:55,950 --> 00:06:59,570
+yourself, to a larger audience.
+
+148
+00:06:59,570 --> 00:07:03,240
+These things here, they help
+you to scale your audience.
+
+149
+00:07:03,240 --> 00:07:04,670
+But learning them
+is much harder.
+
+150
+00:07:04,670 --> 00:07:09,670
+Because to understand these, you
+have to change the context
+
+151
+00:07:09,670 --> 00:07:12,670
+of your thinking away from
+what's in front of you.
+
+152
+00:07:12,670 --> 00:07:15,310
+As a developer, I often
+find myself having to
+
+153
+00:07:15,310 --> 00:07:16,740
+defend these things.
+
+154
+00:07:16,740 --> 00:07:20,680
+But ultimately, the web
+isn't about these.
+
+155
+00:07:20,680 --> 00:07:23,460
+They're important, but we don't
+do accessibility for the
+
+156
+00:07:23,460 --> 00:07:24,590
+sake of accessibility.
+
+157
+00:07:24,590 --> 00:07:29,420
+And we don't make sites fast
+or SEO friendly or work
+
+158
+00:07:29,420 --> 00:07:31,710
+without JavaScript because
+it's nice.
+
+159
+00:07:31,710 --> 00:07:34,090
+What we're trying to
+achieve, our actual
+
+160
+00:07:34,090 --> 00:07:37,030
+end goal, is ubiquity.
+
+161
+00:07:37,030 --> 00:07:40,520
+We want as many people as
+possible to see our site.
+
+162
+00:07:40,520 --> 00:07:43,480
+The web should be inclusive,
+not exclusive.
+
+163
+00:07:43,480 --> 00:07:46,960
+I mean, nobody would build a
+shop that only the dwarf from
+
+164
+00:07:46,960 --> 00:07:48,660
+"Game of Thrones" could
+get into, right?
+
+165
+00:07:48,660 --> 00:07:52,140
+Shops have doors that are wide
+and as tall as possible.
+
+166
+00:07:52,140 --> 00:07:55,960
+Websites should be the same.
+
+167
+00:07:55,960 --> 00:07:57,900
+An easier way to think
+of ubiquity is to
+
+168
+00:07:57,900 --> 00:07:59,350
+call it browser support.
+
+169
+00:07:59,350 --> 00:08:02,280
+When people talk about web
+browser support, they think,
+
+170
+00:08:02,280 --> 00:08:03,660
+well, how far back
+should we go?
+
+171
+00:08:03,660 --> 00:08:05,230
+IE6, IE7.
+
+172
+00:08:05,230 --> 00:08:08,250
+
+173
+00:08:08,250 --> 00:08:10,990
+In the website versus native
+apps to beat, the reason why
+
+174
+00:08:10,990 --> 00:08:14,450
+website wins is because
+apps are binary.
+
+175
+00:08:14,450 --> 00:08:16,430
+They either work
+or they don't.
+
+176
+00:08:16,430 --> 00:08:18,940
+An iOS app works on
+an iPhone, but it
+
+177
+00:08:18,940 --> 00:08:20,560
+doesn't work on an Android.
+
+178
+00:08:20,560 --> 00:08:23,800
+However, your site will
+work on both.
+
+179
+00:08:23,800 --> 00:08:26,960
+And even better, if you build it
+properly, it will work to a
+
+180
+00:08:26,960 --> 00:08:29,610
+certain degree on pretty
+much anything.
+
+181
+00:08:29,610 --> 00:08:31,585
+It's the ubiquity of
+the web that wins.
+
+182
+00:08:31,585 --> 00:08:34,520
+
+183
+00:08:34,520 --> 00:08:38,070
+So to go back to the original
+problem I defined, this job is
+
+184
+00:08:38,070 --> 00:08:41,539
+also harder because the problem
+is continuing to
+
+185
+00:08:41,539 --> 00:08:43,270
+increase in complexity.
+
+186
+00:08:43,270 --> 00:08:47,030
+And we have to balance that
+against getting stuff done
+
+187
+00:08:47,030 --> 00:08:48,940
+fast and robustly.
+
+188
+00:08:48,940 --> 00:08:52,410
+What we shouldn't do is fight
+that complexity with ever more
+
+189
+00:08:52,410 --> 00:08:54,240
+complex solutions.
+
+190
+00:08:54,240 --> 00:08:56,700
+People who build responsive
+websites that are really just
+
+191
+00:08:56,700 --> 00:09:00,170
+a collection of smaller
+websites within it are
+
+192
+00:09:00,170 --> 00:09:02,370
+creating more problems
+for themselves.
+
+193
+00:09:02,370 --> 00:09:05,880
+When a problem grows to a
+certain size, the problem
+
+194
+00:09:05,880 --> 00:09:07,320
+changes into something else.
+
+195
+00:09:07,320 --> 00:09:11,020
+And to survive, you have to
+change how you think as well.
+
+196
+00:09:11,020 --> 00:09:13,230
+We did that at BBC News.
+
+197
+00:09:13,230 --> 00:09:16,930
+We turned the problem of browser
+support upside down.
+
+198
+00:09:16,930 --> 00:09:20,060
+Instead of thinking about how
+far back we should go, we
+
+199
+00:09:20,060 --> 00:09:22,480
+decided to support everything.
+
+200
+00:09:22,480 --> 00:09:26,960
+We call this technique
+cutting the mustard.
+
+201
+00:09:26,960 --> 00:09:31,210
+The responsive site has a very
+basic core experience that has
+
+202
+00:09:31,210 --> 00:09:34,750
+a simple layout, is
+very fast, and is
+
+203
+00:09:34,750 --> 00:09:36,710
+delivered to all browsers.
+
+204
+00:09:36,710 --> 00:09:40,690
+The core experience is good
+enough to allow everyone to
+
+205
+00:09:40,690 --> 00:09:42,680
+consume the news.
+
+206
+00:09:42,680 --> 00:09:45,820
+On top of this, we built an
+enhanced experience using
+
+207
+00:09:45,820 --> 00:09:49,810
+JavaScript and modern CSS.
+
+208
+00:09:49,810 --> 00:09:54,050
+It has a complex layout and
+is very functional.
+
+209
+00:09:54,050 --> 00:09:57,190
+This is only delivered
+to modern browsers.
+
+210
+00:09:57,190 --> 00:10:00,010
+It's conditionally loaded by
+checking for the existence of
+
+211
+00:10:00,010 --> 00:10:01,260
+specific features.
+
+212
+00:10:01,260 --> 00:10:04,490
+
+213
+00:10:04,490 --> 00:10:06,980
+All the browsers that cut the
+mustard have great JavaScript
+
+214
+00:10:06,980 --> 00:10:08,240
+and CSS support.
+
+215
+00:10:08,240 --> 00:10:11,690
+They have fast rendering engines
+and a less buggy.
+
+216
+00:10:11,690 --> 00:10:14,510
+This technique is robust because
+it supports a massive
+
+217
+00:10:14,510 --> 00:10:16,230
+amount of browsers.
+
+218
+00:10:16,230 --> 00:10:19,680
+It's also agile as you're
+building the enhanced
+
+219
+00:10:19,680 --> 00:10:22,430
+experience using modern
+coding practices.
+
+220
+00:10:22,430 --> 00:10:27,730
+But IE7 and 8 only get
+the core experience.
+
+221
+00:10:27,730 --> 00:10:29,970
+Now, this might be good enough
+for you if these browsers
+
+222
+00:10:29,970 --> 00:10:32,495
+don't bring a significant
+amount of traffic.
+
+223
+00:10:32,495 --> 00:10:35,120
+Or, you might decide that these
+browsers need more than
+
+224
+00:10:35,120 --> 00:10:37,130
+just the core experience.
+
+225
+00:10:37,130 --> 00:10:38,220
+How do you do that?
+
+226
+00:10:38,220 --> 00:10:39,990
+Well, with two ways.
+
+227
+00:10:39,990 --> 00:10:42,240
+We can edit the cuts the
+mustard test to load an
+
+228
+00:10:42,240 --> 00:10:45,745
+alternative JavaScript
+specifically
+
+229
+00:10:45,745 --> 00:10:47,670
+just for IE7 and 8.
+
+230
+00:10:47,670 --> 00:10:49,920
+We can then cherry pick what
+features the enhanced
+
+231
+00:10:49,920 --> 00:10:53,250
+experience we give them,
+like a two-column
+
+232
+00:10:53,250 --> 00:10:54,570
+layout or video support.
+
+233
+00:10:54,570 --> 00:10:57,640
+
+234
+00:10:57,640 --> 00:11:00,790
+We also need to give these
+browsers a CSS.
+
+235
+00:11:00,790 --> 00:11:05,750
+With mobile first CSS, IE7 and
+8 only render the smallest
+
+236
+00:11:05,750 --> 00:11:08,780
+view because they don't
+understand media queries.
+
+237
+00:11:08,780 --> 00:11:12,230
+But with a CSS preprocessor, you
+can output a version of a
+
+238
+00:11:12,230 --> 00:11:14,280
+site style at any defined width
+
+239
+00:11:14,280 --> 00:11:16,370
+specifically for these browsers.
+
+240
+00:11:16,370 --> 00:11:20,650
+The panelist Edd Sowden has
+already implemented this for
+
+241
+00:11:20,650 --> 00:11:24,200
+the UK government website,
+and here's one example of
+
+242
+00:11:24,200 --> 00:11:25,450
+how you can do it.
+
+243
+00:11:25,450 --> 00:11:28,450
+
+244
+00:11:28,450 --> 00:11:30,440
+Instead of writing media queries
+directly into your
+
+245
+00:11:30,440 --> 00:11:34,570
+SAS, use this mix-in instead.
+
+246
+00:11:34,570 --> 00:11:38,430
+Then, make a new SAS file that
+sets a variable with the width
+
+247
+00:11:38,430 --> 00:11:43,210
+value that you want IE7 and 8 to
+render the desktop view to.
+
+248
+00:11:43,210 --> 00:11:47,220
+Import the main SAS file into
+this and it will render out an
+
+249
+00:11:47,220 --> 00:11:49,480
+alternative desktop-only
+version of your
+
+250
+00:11:49,480 --> 00:11:53,464
+CSS into a new file.
+
+251
+00:11:53,464 --> 00:11:57,030
+You should add the legacy IE
+style sheet into the page
+
+252
+00:11:57,030 --> 00:11:58,710
+using a conditional comment.
+
+253
+00:11:58,710 --> 00:12:03,100
+Now, however, you have to be
+careful now, as IE7 and 8 will
+
+254
+00:12:03,100 --> 00:12:06,890
+be exposed to your modern CSS
+and there's lots of selectors
+
+255
+00:12:06,890 --> 00:12:09,230
+and properties that you
+need to watch out for.
+
+256
+00:12:09,230 --> 00:12:12,590
+If you're unlucky, you may
+find IE7 and 8 will be
+
+257
+00:12:12,590 --> 00:12:16,120
+rendering your modern CSS onto
+the page in a way that reminds
+
+258
+00:12:16,120 --> 00:12:19,090
+you of how Donald Trump's hair
+renders itself onto his head.
+
+259
+00:12:19,090 --> 00:12:22,470
+
+260
+00:12:22,470 --> 00:12:27,070
+So to summarize, how do you
+support legacy clients?
+
+261
+00:12:27,070 --> 00:12:30,710
+I'd say don't think about
+stretching your code across an
+
+262
+00:12:30,710 --> 00:12:33,770
+ever-increasing browser
+support list.
+
+263
+00:12:33,770 --> 00:12:36,710
+The problem is only ever going
+to get more complex.
+
+264
+00:12:36,710 --> 00:12:38,420
+And you can't keep up
+by making an ever
+
+265
+00:12:38,420 --> 00:12:40,680
+more complex solution.
+
+266
+00:12:40,680 --> 00:12:44,040
+If you keep thinking like a
+Han Solo, eventually this
+
+267
+00:12:44,040 --> 00:12:45,900
+problem will get
+on top of you.
+
+268
+00:12:45,900 --> 00:12:48,260
+Instead, I think the best
+way to solve this
+
+269
+00:12:48,260 --> 00:12:50,130
+is with team work.
+
+270
+00:12:50,130 --> 00:12:52,450
+Use the solid base of
+progressive enhancement as a
+
+271
+00:12:52,450 --> 00:12:55,550
+springboard for your JavaScript
+and treat each
+
+272
+00:12:55,550 --> 00:12:58,710
+feature on your website like in
+an away mission, deciding
+
+273
+00:12:58,710 --> 00:13:01,560
+when to send these agent
+browsers to the fore.
+
+274
+00:13:01,560 --> 00:13:03,470
+So that's enough from me.
+
+275
+00:13:03,470 --> 00:13:05,872
+Let's chat about it.
+
+276
+00:13:05,872 --> 00:13:13,162
+[APPLAUSE]
+
+277
+00:13:13,162 --> 00:13:14,412
+PAUL IRISH: Very nice.
+
+278
+00:13:14,412 --> 00:13:18,140
+
+279
+00:13:18,140 --> 00:13:18,580
+EDD SOWDEN: I'm sorry--
+
+280
+00:13:18,580 --> 00:13:19,830
+TOM MASLEN: Gee, thanks.
+
+281
+00:13:19,830 --> 00:13:23,640
+
+282
+00:13:23,640 --> 00:13:24,740
+PAUL IRISH: Thank you
+very much, Tom.
+
+283
+00:13:24,740 --> 00:13:25,800
+That was great.
+
+284
+00:13:25,800 --> 00:13:28,540
+So we'll go to our
+first question.
+
+285
+00:13:28,540 --> 00:13:33,090
+Our first question delivered
+by [? Hakim ?]
+
+286
+00:13:33,090 --> 00:13:34,340
+there.
+
+287
+00:13:34,340 --> 00:13:41,270
+
+288
+00:13:41,270 --> 00:13:42,610
+AUDIENCE: Hello?
+
+289
+00:13:42,610 --> 00:13:45,930
+Anonymous question, why should
+there be a stigma attached to
+
+290
+00:13:45,930 --> 00:13:47,580
+not supporting older clients?
+
+291
+00:13:47,580 --> 00:13:50,220
+If a developer knows their
+audience and they all have the
+
+292
+00:13:50,220 --> 00:13:52,530
+latest clients, what's
+the problem?
+
+293
+00:13:52,530 --> 00:13:55,510
+I think that should be why is
+there a stigma attached and
+
+294
+00:13:55,510 --> 00:13:57,490
+not why should there be.
+
+295
+00:13:57,490 --> 00:13:59,850
+So I'll rephrase it.
+
+296
+00:13:59,850 --> 00:14:02,920
+PAUL IRISH: So Shwetank, do
+you want to take this?
+
+297
+00:14:02,920 --> 00:14:04,640
+Why should there be--
+
+298
+00:14:04,640 --> 00:14:06,280
+why is there a stigma
+attached to not
+
+299
+00:14:06,280 --> 00:14:08,890
+supporting older browsers?
+
+300
+00:14:08,890 --> 00:14:11,400
+SHWETANK DIXIT: There is,
+but there shouldn't be.
+
+301
+00:14:11,400 --> 00:14:15,630
+Mainly because when it comes to
+older browsers, there's a
+
+302
+00:14:15,630 --> 00:14:20,390
+lot of reason to actually
+support older browsers because
+
+303
+00:14:20,390 --> 00:14:23,460
+there's a lot of times in which
+the user cannot update
+
+304
+00:14:23,460 --> 00:14:25,280
+their browser.
+
+305
+00:14:25,280 --> 00:14:28,500
+Whether it's because the system
+administrator doesn't
+
+306
+00:14:28,500 --> 00:14:32,470
+allow it or because many times
+the user doesn't know what a
+
+307
+00:14:32,470 --> 00:14:33,030
+browser is.
+
+308
+00:14:33,030 --> 00:14:37,280
+So if you say update your
+browser, it's like, how could
+
+309
+00:14:37,280 --> 00:14:38,180
+I update my browser?
+
+310
+00:14:38,180 --> 00:14:39,890
+I don't know what it is.
+
+311
+00:14:39,890 --> 00:14:42,260
+So that's one thing.
+
+312
+00:14:42,260 --> 00:14:46,240
+Second things are that sometimes
+people know what a
+
+313
+00:14:46,240 --> 00:14:46,840
+browser is.
+
+314
+00:14:46,840 --> 00:14:49,000
+They're fully aware of
+how to update it, but
+
+315
+00:14:49,000 --> 00:14:51,770
+they don't want to.
+
+316
+00:14:51,770 --> 00:14:55,560
+Sometimes it's because they're
+using a phone and they have a
+
+317
+00:14:55,560 --> 00:14:58,370
+very crappy network and they
+might use a proxy browser
+
+318
+00:14:58,370 --> 00:15:03,890
+instead of something which is
+like a full-fledged browser.
+
+319
+00:15:03,890 --> 00:15:08,460
+And proxy browsers are tricky
+as we'll see later on.
+
+320
+00:15:08,460 --> 00:15:11,620
+Sometimes, people have very
+limited data plans.
+
+321
+00:15:11,620 --> 00:15:13,940
+I know people in Europe
+who have 30 MB
+
+322
+00:15:13,940 --> 00:15:15,100
+data plans for a month.
+
+323
+00:15:15,100 --> 00:15:16,550
+And if you exceed that,
+then you'll get
+
+324
+00:15:16,550 --> 00:15:19,950
+charged very, very highly.
+
+325
+00:15:19,950 --> 00:15:24,680
+So there's multiple reasons why
+and genuine reasons why
+
+326
+00:15:24,680 --> 00:15:29,160
+you should support older
+or proxy browsers.
+
+327
+00:15:29,160 --> 00:15:34,270
+And there shouldn't be any
+stigma attached as such.
+
+328
+00:15:34,270 --> 00:15:37,370
+We all like to play with the
+greatest and the most
+
+329
+00:15:37,370 --> 00:15:38,510
+cutting-edge stuff.
+
+330
+00:15:38,510 --> 00:15:41,260
+But the realities of the
+world is we need
+
+331
+00:15:41,260 --> 00:15:42,970
+to deal with everyone.
+
+332
+00:15:42,970 --> 00:15:50,050
+And sometimes there's also
+what's called regulation, or
+
+333
+00:15:50,050 --> 00:15:53,460
+some laws regarding
+accessibility and stuff like
+
+334
+00:15:53,460 --> 00:15:57,960
+that as well, which need to
+be considered as well.
+
+335
+00:15:57,960 --> 00:16:00,490
+PAUL IRISH: So I wonder if--
+
+336
+00:16:00,490 --> 00:16:04,900
+so the second part is if we do
+know what your clients are, if
+
+337
+00:16:04,900 --> 00:16:07,470
+you're looking at analytics
+and numbers and they're
+
+338
+00:16:07,470 --> 00:16:11,790
+indicating that you're OK on
+dropping support for IE6 and
+
+339
+00:16:11,790 --> 00:16:15,790
+7, and potentially
+8, is that fine?
+
+340
+00:16:15,790 --> 00:16:19,150
+TOM MASLEN: I think it depends
+on the context of the content.
+
+341
+00:16:19,150 --> 00:16:23,990
+I think if you're making a
+government website, then there
+
+342
+00:16:23,990 --> 00:16:25,960
+definitely is a stigma
+because these
+
+343
+00:16:25,960 --> 00:16:28,210
+services are like mandatory.
+
+344
+00:16:28,210 --> 00:16:31,460
+They have to be viewable
+by anyone.
+
+345
+00:16:31,460 --> 00:16:34,610
+But if you're making an
+application, like Gmail, then
+
+346
+00:16:34,610 --> 00:16:35,320
+probably not.
+
+347
+00:16:35,320 --> 00:16:38,200
+Because somebody with
+IE7 won't give
+
+348
+00:16:38,200 --> 00:16:40,580
+you that much benefit.
+
+349
+00:16:40,580 --> 00:16:45,630
+PAUL IRISH: Edd, is there
+legal legislation that
+
+350
+00:16:45,630 --> 00:16:49,360
+requires the accessibility
+to old browsers?
+
+351
+00:16:49,360 --> 00:16:52,790
+EDD SOWDEN: So the only legal
+legislation or legal things
+
+352
+00:16:52,790 --> 00:16:56,610
+that exist for older browsers
+are accessibility.
+
+353
+00:16:56,610 --> 00:16:59,380
+You can be sued for not having
+accessible website.
+
+354
+00:16:59,380 --> 00:17:05,520
+But that's up for the user to
+determine what accessible is.
+
+355
+00:17:05,520 --> 00:17:07,780
+The stigma that we have-- this
+industry seems to have this
+
+356
+00:17:07,780 --> 00:17:09,460
+horrible stigma with,
+oh, you can't drop
+
+357
+00:17:09,460 --> 00:17:10,339
+support for old browsers.
+
+358
+00:17:10,339 --> 00:17:12,579
+You can't drop support.
+
+359
+00:17:12,579 --> 00:17:14,150
+You got to go back to the
+question, what is supporting
+
+360
+00:17:14,150 --> 00:17:16,480
+an old browser?
+
+361
+00:17:16,480 --> 00:17:18,730
+Supporting an old browser for
+most of us means that we're
+
+362
+00:17:18,730 --> 00:17:20,380
+going to test in it.
+
+363
+00:17:20,380 --> 00:17:21,819
+So that's not support at all.
+
+364
+00:17:21,819 --> 00:17:23,740
+That means you're testing
+in these browsers.
+
+365
+00:17:23,740 --> 00:17:27,109
+Supporting in actually, if
+anyone has a problem, you'll
+
+366
+00:17:27,109 --> 00:17:30,530
+go and fix it for them,
+like that's support.
+
+367
+00:17:30,530 --> 00:17:32,900
+So if someone has a problem
+using your website, yeah, you
+
+368
+00:17:32,900 --> 00:17:34,260
+want to help that person out.
+
+369
+00:17:34,260 --> 00:17:36,550
+But there shouldn't be
+any stigma attached
+
+370
+00:17:36,550 --> 00:17:37,930
+with helping someone.
+
+371
+00:17:37,930 --> 00:17:42,160
+Because if you want to spend
+time making sure ahead of time
+
+372
+00:17:42,160 --> 00:17:44,870
+that those people won't have
+problems, then that's how you
+
+373
+00:17:44,870 --> 00:17:46,050
+spend your time.
+
+374
+00:17:46,050 --> 00:17:47,440
+PAUL IRISH: I see.
+
+375
+00:17:47,440 --> 00:17:51,170
+TOMOMI IMURA: The one problem I
+see is that, OK, let's say,
+
+376
+00:17:51,170 --> 00:17:55,610
+maybe by the statistics, each
+companies the services
+
+377
+00:17:55,610 --> 00:17:57,050
+[INAUDIBLE] and maybe they just
+
+378
+00:17:57,050 --> 00:17:59,190
+decide to drop IE support.
+
+379
+00:17:59,190 --> 00:18:01,230
+And sometimes they're doing
+it in the wrong way.
+
+380
+00:18:01,230 --> 00:18:03,140
+I mean, they try to--
+
+381
+00:18:03,140 --> 00:18:05,980
+like a sniff in the user agent
+or something and try to
+
+382
+00:18:05,980 --> 00:18:09,030
+eliminate all the IE which
+seem to be old.
+
+383
+00:18:09,030 --> 00:18:11,600
+But many time, they're like
+doing the wrong way.
+
+384
+00:18:11,600 --> 00:18:14,390
+So let's say, I work
+for Nokia and I use
+
+385
+00:18:14,390 --> 00:18:16,850
+the Lumia phone regularly.
+
+386
+00:18:16,850 --> 00:18:20,090
+And my browser choice-- well,
+it's not my choice, actually.
+
+387
+00:18:20,090 --> 00:18:22,600
+It comes with the operating
+system.
+
+388
+00:18:22,600 --> 00:18:24,130
+And it's IE 10.
+
+389
+00:18:24,130 --> 00:18:28,000
+And oftentimes I see the
+site like, oops, sorry.
+
+390
+00:18:28,000 --> 00:18:29,580
+You have to update
+your browser.
+
+391
+00:18:29,580 --> 00:18:31,510
+It's like really, it's IE 10.
+
+392
+00:18:31,510 --> 00:18:35,460
+It's pretty decent and I believe
+that service, so sites
+
+393
+00:18:35,460 --> 00:18:36,600
+should work.
+
+394
+00:18:36,600 --> 00:18:40,580
+But I think they're just try
+to sniff it out mistakenly.
+
+395
+00:18:40,580 --> 00:18:44,180
+And try to suggest to me to
+upgrade a browser or just
+
+396
+00:18:44,180 --> 00:18:45,220
+download some other browsers.
+
+397
+00:18:45,220 --> 00:18:47,390
+But the thing is, like he
+was saying, we don't
+
+398
+00:18:47,390 --> 00:18:48,820
+always have a choice.
+
+399
+00:18:48,820 --> 00:18:51,346
+Users don't always have the
+choice, so that's something I
+
+400
+00:18:51,346 --> 00:18:52,650
+have to remind--
+
+401
+00:18:52,650 --> 00:18:54,260
+people have to remind.
+
+402
+00:18:54,260 --> 00:18:58,130
+PAUL IRISH: So I guess on the
+topic of support, support is
+
+403
+00:18:58,130 --> 00:19:00,130
+kind of a--
+
+404
+00:19:00,130 --> 00:19:02,750
+it is the verb that we always
+use in this discussion.
+
+405
+00:19:02,750 --> 00:19:05,630
+And it implies that it
+is a binary decision.
+
+406
+00:19:05,630 --> 00:19:07,040
+You either support
+it or you don't.
+
+407
+00:19:07,040 --> 00:19:10,680
+And I think for many of our
+development cycles, our
+
+408
+00:19:10,680 --> 00:19:16,390
+development approach support is
+kind of this sliding scale.
+
+409
+00:19:16,390 --> 00:19:21,290
+And so Tom, with cutting the
+mustard, when a browser falls
+
+410
+00:19:21,290 --> 00:19:25,490
+into unsupported, they get
+a core experience?
+
+411
+00:19:25,490 --> 00:19:28,470
+TOM MASLEN: So there
+is no unsupported.
+
+412
+00:19:28,470 --> 00:19:32,270
+The idea is that everybody is
+supplied a core experience.
+
+413
+00:19:32,270 --> 00:19:34,070
+Everybody gets the content.
+
+414
+00:19:34,070 --> 00:19:38,740
+But the content, the way it's
+displayed is very simple.
+
+415
+00:19:38,740 --> 00:19:42,867
+So if there is additional
+content on the home page of
+
+416
+00:19:42,867 --> 00:19:47,770
+the BBC News site, for example,
+like analysis and
+
+417
+00:19:47,770 --> 00:19:49,610
+features, that's available
+but you have to
+
+418
+00:19:49,610 --> 00:19:51,260
+click it to go to it.
+
+419
+00:19:51,260 --> 00:19:56,660
+So the experience is very basic,
+but you still get all
+
+420
+00:19:56,660 --> 00:19:57,120
+the content.
+
+421
+00:19:57,120 --> 00:19:59,575
+But then with a premium version,
+we'll just go and
+
+422
+00:19:59,575 --> 00:20:01,100
+fetch all of that content
+and put it straight into
+
+423
+00:20:01,100 --> 00:20:01,670
+the page for you.
+
+424
+00:20:01,670 --> 00:20:03,790
+PAUL IRISH: And is the
+difference in your case, the
+
+425
+00:20:03,790 --> 00:20:09,000
+amount of testing between core
+and the premium experience?
+
+426
+00:20:09,000 --> 00:20:13,350
+I imagine you are not as
+actively testing the core
+
+427
+00:20:13,350 --> 00:20:13,910
+experience?
+
+428
+00:20:13,910 --> 00:20:16,480
+TOM MASLEN: No, the core
+experience is so simple it's a
+
+429
+00:20:16,480 --> 00:20:18,100
+single column.
+
+430
+00:20:18,100 --> 00:20:21,460
+We don't add any functionality
+into the page.
+
+431
+00:20:21,460 --> 00:20:22,730
+Yeah, so that's going to pretty
+
+432
+00:20:22,730 --> 00:20:25,330
+much render on anything.
+
+433
+00:20:25,330 --> 00:20:28,950
+PAUL IRISH: I think Andy Clark,
+a well-known developer
+
+434
+00:20:28,950 --> 00:20:31,590
+in the UK, a while
+ago released a
+
+435
+00:20:31,590 --> 00:20:34,540
+universal IE6 style sheet.
+
+436
+00:20:34,540 --> 00:20:37,360
+And the idea here was basically
+a style sheet that
+
+437
+00:20:37,360 --> 00:20:42,530
+had very good-looking
+typography, but destroyed all
+
+438
+00:20:42,530 --> 00:20:44,750
+the layout, killed all your
+floats, just kept it all in a
+
+439
+00:20:44,750 --> 00:20:45,390
+single column.
+
+440
+00:20:45,390 --> 00:20:49,380
+And the idea was give that to
+IE, give them nothing else.
+
+441
+00:20:49,380 --> 00:20:52,840
+The content is there and it's
+accessible, but you can forget
+
+442
+00:20:52,840 --> 00:20:56,340
+about the visualness of
+the rest of the site.
+
+443
+00:20:56,340 --> 00:20:58,760
+And I think that's kind of a
+nice way for something to go
+
+444
+00:20:58,760 --> 00:20:59,490
+unsupported.
+
+445
+00:20:59,490 --> 00:21:03,820
+It's basically to fall into a
+pit of accessible content.
+
+446
+00:21:03,820 --> 00:21:06,760
+EDD SOWDEN: So having an IE6
+style sheet which has
+
+447
+00:21:06,760 --> 00:21:08,930
+virtually nothing is kind of the
+approach we took for one
+
+448
+00:21:08,930 --> 00:21:12,280
+the large sections of gov.UK
+because we used the approach
+
+449
+00:21:12,280 --> 00:21:16,430
+that Tom was mentioning during
+the intro with using mobile
+
+450
+00:21:16,430 --> 00:21:20,040
+first, and then sending specific
+IE style sheets for
+
+451
+00:21:20,040 --> 00:21:21,180
+IE6, 7, and 8.
+
+452
+00:21:21,180 --> 00:21:24,630
+But IE6, they don't get any
+layout because layout is added
+
+453
+00:21:24,630 --> 00:21:26,110
+on desktop.
+
+454
+00:21:26,110 --> 00:21:30,120
+So IE6 just gets a mobile view,
+so it's a single column.
+
+455
+00:21:30,120 --> 00:21:31,870
+It's basically got typography
+because
+
+456
+00:21:31,870 --> 00:21:33,190
+that's all that it gets.
+
+457
+00:21:33,190 --> 00:21:34,330
+TOM MASLEN: I think it's
+a benefit as well.
+
+458
+00:21:34,330 --> 00:21:36,890
+Because people with IE6
+or IE7 probably
+
+459
+00:21:36,890 --> 00:21:38,380
+don't have a good computer.
+
+460
+00:21:38,380 --> 00:21:41,130
+And so the fact that it's so
+simple means it will render
+
+461
+00:21:41,130 --> 00:21:44,290
+like five or six times faster
+than other experiences.
+
+462
+00:21:44,290 --> 00:21:44,840
+TOMOMI IMURA: [INAUDIBLE].
+
+463
+00:21:44,840 --> 00:21:48,480
+And as long as users can get
+what they want, experience is
+
+464
+00:21:48,480 --> 00:21:49,660
+not killed.
+
+465
+00:21:49,660 --> 00:21:52,680
+SHWETANK DIXIT: I think that's
+a good strategy because
+
+466
+00:21:52,680 --> 00:21:55,780
+there's so many sites which
+either support it or just send
+
+467
+00:21:55,780 --> 00:21:58,540
+an error message saying that,
+OK, this site is not supported
+
+468
+00:21:58,540 --> 00:21:59,570
+and that's it.
+
+469
+00:21:59,570 --> 00:22:02,150
+The user cannot do anything
+about that.
+
+470
+00:22:02,150 --> 00:22:05,830
+So I think that's a very
+important thing that you don't
+
+471
+00:22:05,830 --> 00:22:06,810
+block anyone.
+
+472
+00:22:06,810 --> 00:22:09,880
+You at least serve them
+the core experience.
+
+473
+00:22:09,880 --> 00:22:11,500
+The first part of that
+question was if
+
+474
+00:22:11,500 --> 00:22:13,000
+you know your audience.
+
+475
+00:22:13,000 --> 00:22:16,370
+And it's really difficult to
+know your audience in a very,
+
+476
+00:22:16,370 --> 00:22:17,690
+very accurate way.
+
+477
+00:22:17,690 --> 00:22:21,970
+Even if you know using your
+statistics and analysis what
+
+478
+00:22:21,970 --> 00:22:25,090
+are the browsers which are
+coming through, there are
+
+479
+00:22:25,090 --> 00:22:27,800
+times in which you get a mention
+on the front page of
+
+480
+00:22:27,800 --> 00:22:32,540
+Reddit, or you get slashed
+audit, or any influential news
+
+481
+00:22:32,540 --> 00:22:34,790
+website mention you and then
+you'll get this whole stream
+
+482
+00:22:34,790 --> 00:22:37,530
+of traffic which is completely
+unpredictable.
+
+483
+00:22:37,530 --> 00:22:41,000
+So even that premise of that
+question that you know your
+
+484
+00:22:41,000 --> 00:22:43,090
+audience is flawed.
+
+485
+00:22:43,090 --> 00:22:44,960
+PAUL IRISH: So I think it's a
+good time to move on to the
+
+486
+00:22:44,960 --> 00:22:45,700
+next question.
+
+487
+00:22:45,700 --> 00:22:48,320
+This one to be asked by
+John [? Follows. ?]
+
+488
+00:22:48,320 --> 00:22:51,980
+
+489
+00:22:51,980 --> 00:22:53,660
+AUDIENCE: So this is an
+anonymous question.
+
+490
+00:22:53,660 --> 00:22:57,030
+What's the best way to make
+legacy clients a visible part
+
+491
+00:22:57,030 --> 00:23:00,510
+of the development process?
+
+492
+00:23:00,510 --> 00:23:03,670
+PAUL IRISH: So I think this
+is both visibility on the
+
+493
+00:23:03,670 --> 00:23:10,330
+developers side to understand
+what is necessary to give them
+
+494
+00:23:10,330 --> 00:23:12,470
+what you plan to give them.
+
+495
+00:23:12,470 --> 00:23:17,120
+And also, potentially on the
+executive side, to better
+
+496
+00:23:17,120 --> 00:23:21,400
+understand what from a
+development cost perspective
+
+497
+00:23:21,400 --> 00:23:24,090
+is included here.
+
+498
+00:23:24,090 --> 00:23:28,380
+TOM MASLEN: So at the BBC News,
+once we-- we made the
+
+499
+00:23:28,380 --> 00:23:30,370
+responsive site, but it was
+a small team that did it.
+
+500
+00:23:30,370 --> 00:23:32,900
+And then, eventually we fanned
+it out to the rest of the
+
+501
+00:23:32,900 --> 00:23:33,940
+department.
+
+502
+00:23:33,940 --> 00:23:37,530
+And so we've had to go through
+a training process with
+
+503
+00:23:37,530 --> 00:23:42,370
+everyone as they become engaged
+with the product.
+
+504
+00:23:42,370 --> 00:23:46,140
+So we've got the designers
+thinking about the core
+
+505
+00:23:46,140 --> 00:23:46,650
+experience as well.
+
+506
+00:23:46,650 --> 00:23:48,440
+And they're thinking about
+progressive enhancements, so
+
+507
+00:23:48,440 --> 00:23:52,220
+they start off with the core
+experience, and then they
+
+508
+00:23:52,220 --> 00:23:55,310
+progressively enhance it and
+make the better version.
+
+509
+00:23:55,310 --> 00:24:00,420
+The problem that we find is
+that many people just
+
+510
+00:24:00,420 --> 00:24:02,600
+associate the core
+basic experience
+
+511
+00:24:02,600 --> 00:24:07,420
+with a very thin layout.
+
+512
+00:24:07,420 --> 00:24:11,100
+What they find harder to do is
+to probably try and understand
+
+513
+00:24:11,100 --> 00:24:13,900
+that the core experience could
+be any width, and the premium
+
+514
+00:24:13,900 --> 00:24:16,892
+experience could be
+any width as well.
+
+515
+00:24:16,892 --> 00:24:21,380
+PAUL IRISH: I also wonder,
+included on this, I think,
+
+516
+00:24:21,380 --> 00:24:25,780
+there is a visibility of the
+perceived experience between
+
+517
+00:24:25,780 --> 00:24:27,290
+legacy clients and
+modern clients.
+
+518
+00:24:27,290 --> 00:24:31,270
+And one of these parts is
+performance, certainly.
+
+519
+00:24:31,270 --> 00:24:35,940
+So just rendering a page or any
+sort of interactivity, the
+
+520
+00:24:35,940 --> 00:24:38,320
+more modern browser, it's going
+to be quite a bit more
+
+521
+00:24:38,320 --> 00:24:40,070
+responsive.
+
+522
+00:24:40,070 --> 00:24:45,120
+Is there a good way to kind of
+demonstrate the difference
+
+523
+00:24:45,120 --> 00:24:50,270
+between the user experience of
+someone on an older client
+
+524
+00:24:50,270 --> 00:24:51,640
+versus a newer client?
+
+525
+00:24:51,640 --> 00:24:57,500
+And is that something that the
+executive team wants to see
+
+526
+00:24:57,500 --> 00:24:58,750
+and understand?
+
+527
+00:24:58,750 --> 00:25:02,500
+
+528
+00:25:02,500 --> 00:25:04,850
+TOMOMI IMURA: Maybe
+I would say--
+
+529
+00:25:04,850 --> 00:25:05,260
+[INAUDIBLE]
+
+530
+00:25:05,260 --> 00:25:09,560
+UI or I would say UX using
+some Ajax-y type of
+
+531
+00:25:09,560 --> 00:25:10,660
+interaction.
+
+532
+00:25:10,660 --> 00:25:14,130
+And that works, probably
+wonderfully on latest,
+
+533
+00:25:14,130 --> 00:25:15,930
+greatest browsers.
+
+534
+00:25:15,930 --> 00:25:18,410
+Chrome and desktop [INAUDIBLE]
+
+535
+00:25:18,410 --> 00:25:20,190
+works nicely.
+
+536
+00:25:20,190 --> 00:25:21,750
+But yeah, they show
+the same UI.
+
+537
+00:25:21,750 --> 00:25:25,330
+And let's say, like older mobile
+browsers, or could be
+
+538
+00:25:25,330 --> 00:25:27,840
+Android, older Android
+and stuff.
+
+539
+00:25:27,840 --> 00:25:28,590
+It's [INAUDIBLE]
+
+540
+00:25:28,590 --> 00:25:33,450
+look really janky or maybe
+even it fails.
+
+541
+00:25:33,450 --> 00:25:35,820
+EDD SOWDEN: A lot of it's
+managing expectation, though.
+
+542
+00:25:35,820 --> 00:25:39,500
+People on the older browser,
+people on IE6 who are stuck on
+
+543
+00:25:39,500 --> 00:25:41,090
+IE6 in their corporate
+environments, they'll be used
+
+544
+00:25:41,090 --> 00:25:43,400
+to an internet which is not
+quite like the internet the
+
+545
+00:25:43,400 --> 00:25:45,880
+rest of us use.
+
+546
+00:25:45,880 --> 00:25:50,590
+So while, like for me or for
+you, browsing a website in IE6
+
+547
+00:25:50,590 --> 00:25:54,935
+will feel painfully janky and
+painfully horrible, it's--
+
+548
+00:25:54,935 --> 00:25:57,690
+they're kind of almost
+expecting that.
+
+549
+00:25:57,690 --> 00:25:59,870
+And people aren't left on these
+browsers because they
+
+550
+00:25:59,870 --> 00:26:01,450
+want to be there.
+
+551
+00:26:01,450 --> 00:26:04,050
+They're there because those
+are the browsers they have
+
+552
+00:26:04,050 --> 00:26:07,550
+because corporate IT has said
+that's what they've got.
+
+553
+00:26:07,550 --> 00:26:10,380
+So it's all a case of managing
+expectation for those guys.
+
+554
+00:26:10,380 --> 00:26:13,610
+Those people, if they know
+they're getting a janky
+
+555
+00:26:13,610 --> 00:26:17,520
+experience, they come
+into that knowing.
+
+556
+00:26:17,520 --> 00:26:20,020
+I have colleagues who
+have IE6 as their
+
+557
+00:26:20,020 --> 00:26:21,390
+browser on their machines.
+
+558
+00:26:21,390 --> 00:26:23,860
+And they know it's going
+to look crap.
+
+559
+00:26:23,860 --> 00:26:26,925
+And they joke with me,
+like is this supposed
+
+560
+00:26:26,925 --> 00:26:27,920
+to look that bad?
+
+561
+00:26:27,920 --> 00:26:30,130
+And it's like, yeah, I think
+the developer picked that
+
+562
+00:26:30,130 --> 00:26:30,970
+color for you.
+
+563
+00:26:30,970 --> 00:26:32,050
+It's like, no.
+
+564
+00:26:32,050 --> 00:26:34,790
+They I know the internet's
+horrible.
+
+565
+00:26:34,790 --> 00:26:38,760
+SHWETANK DIXIT: I mean, the
+thing is just to add, or maybe
+
+566
+00:26:38,760 --> 00:26:44,390
+even remove from your point,
+they might be used to it when
+
+567
+00:26:44,390 --> 00:26:44,970
+they're working.
+
+568
+00:26:44,970 --> 00:26:49,300
+But for sure, they're using the
+internet at their home or
+
+569
+00:26:49,300 --> 00:26:52,170
+on the mobile, in transit or
+something, so they know what
+
+570
+00:26:52,170 --> 00:26:52,880
+the internet--
+
+571
+00:26:52,880 --> 00:26:55,130
+what the real internet
+is like.
+
+572
+00:26:55,130 --> 00:27:00,220
+And it'll be even more
+frustrating for them to see
+
+573
+00:27:00,220 --> 00:27:03,640
+the internet as it is
+in the wild on IE6
+
+574
+00:27:03,640 --> 00:27:04,505
+all the time at work.
+
+575
+00:27:04,505 --> 00:27:06,620
+EDD SOWDEN: Go and sit
+next to them at work.
+
+576
+00:27:06,620 --> 00:27:09,215
+Their lives are a pain
+at work, anyway.
+
+577
+00:27:09,215 --> 00:27:10,550
+They know.
+
+578
+00:27:10,550 --> 00:27:13,020
+PAUL IRISH: Calvin [INAUDIBLE],
+something to add?
+
+579
+00:27:13,020 --> 00:27:13,840
+AUDIENCE: Yeah.
+
+580
+00:27:13,840 --> 00:27:15,120
+Actually, I was going
+to ask something
+
+581
+00:27:15,120 --> 00:27:15,990
+but you've just said.
+
+582
+00:27:15,990 --> 00:27:18,170
+But I wanted to ask
+specifically,
+
+583
+00:27:18,170 --> 00:27:19,590
+is there a way to--
+
+584
+00:27:19,590 --> 00:27:22,440
+if people have these different
+experiences at work and at
+
+585
+00:27:22,440 --> 00:27:24,730
+home, they know your site's
+different when they're
+
+586
+00:27:24,730 --> 00:27:25,460
+accessing it at work.
+
+587
+00:27:25,460 --> 00:27:27,420
+And something might be missing
+functionality that they're
+
+588
+00:27:27,420 --> 00:27:28,300
+used to at home.
+
+589
+00:27:28,300 --> 00:27:31,340
+Is there some strategy we can
+take to make them not
+
+590
+00:27:31,340 --> 00:27:33,840
+frustrated at us seeming like
+they're suddenly hitting a
+
+591
+00:27:33,840 --> 00:27:38,000
+broken version of the site
+that they were used to?
+
+592
+00:27:38,000 --> 00:27:39,940
+EDD SOWDEN: Well, I think this
+comes back to the approach
+
+593
+00:27:39,940 --> 00:27:40,750
+with cutting the mustard.
+
+594
+00:27:40,750 --> 00:27:42,480
+You make sure they can
+get the content
+
+595
+00:27:42,480 --> 00:27:44,580
+they need to get still.
+
+596
+00:27:44,580 --> 00:27:46,900
+While it will look different, it
+will feel a bit different,
+
+597
+00:27:46,900 --> 00:27:48,810
+as long as they can achieve
+the goals that
+
+598
+00:27:48,810 --> 00:27:50,060
+they need to achieve.
+
+599
+00:27:50,060 --> 00:27:52,650
+
+600
+00:27:52,650 --> 00:27:54,760
+It's the best you
+can do for them.
+
+601
+00:27:54,760 --> 00:27:55,750
+PAUL IRISH: True.
+
+602
+00:27:55,750 --> 00:27:59,730
+What I'm hearing from both of
+you is that there is kind of--
+
+603
+00:27:59,730 --> 00:28:04,020
+both strategies include a
+degraded experience for older
+
+604
+00:28:04,020 --> 00:28:07,280
+browsers in some way.
+
+605
+00:28:07,280 --> 00:28:10,290
+And that seems to scale
+pretty well.
+
+606
+00:28:10,290 --> 00:28:14,660
+But that does mean that we do
+have at least two experiences.
+
+607
+00:28:14,660 --> 00:28:16,420
+And so if we are in a situation
+where you have
+
+608
+00:28:16,420 --> 00:28:19,760
+someone that is seeing both of
+those experiences, is that
+
+609
+00:28:19,760 --> 00:28:21,080
+going to be a problem?
+
+610
+00:28:21,080 --> 00:28:26,270
+TOM MASLEN: I think that's fine
+because we can't-- like I
+
+611
+00:28:26,270 --> 00:28:31,180
+said in the talk, we can't make
+a premium experience that
+
+612
+00:28:31,180 --> 00:28:36,660
+works across the whole spectrum
+of browsers because
+
+613
+00:28:36,660 --> 00:28:41,470
+polyfilling and mobile internet
+connections are so
+
+614
+00:28:41,470 --> 00:28:43,105
+hard to marry up together.
+
+615
+00:28:43,105 --> 00:28:43,430
+PAUL IRISH: Yeah.
+
+616
+00:28:43,430 --> 00:28:48,100
+So it has to be good enough
+because there's no other way.
+
+617
+00:28:48,100 --> 00:28:48,630
+TOM MASLEN: No.
+
+618
+00:28:48,630 --> 00:28:50,370
+SHWETANK DIXIT: Yeah, it's
+better than just showing them
+
+619
+00:28:50,370 --> 00:28:53,810
+that, oh, your browser's
+not supported by--
+
+620
+00:28:53,810 --> 00:28:56,550
+it's at least better
+than that.
+
+621
+00:28:56,550 --> 00:28:58,220
+TOM MASLEN: I guess-- sorry, the
+one caveat to what I just
+
+622
+00:28:58,220 --> 00:29:02,610
+said is that if you do
+server-side detection and
+
+623
+00:29:02,610 --> 00:29:04,710
+sniff for old browsers,
+which is probably--
+
+624
+00:29:04,710 --> 00:29:07,640
+because normally people when
+they talk about UA sniffing,
+
+625
+00:29:07,640 --> 00:29:10,400
+you think about, oh, is this a
+mobile device or is this a
+
+626
+00:29:10,400 --> 00:29:11,120
+desktop device?
+
+627
+00:29:11,120 --> 00:29:14,330
+Whereas, I think now we should
+probably be thinking about, is
+
+628
+00:29:14,330 --> 00:29:16,860
+this an old browser
+or a new browser?
+
+629
+00:29:16,860 --> 00:29:18,145
+I think that'd be
+an interesting--
+
+630
+00:29:18,145 --> 00:29:21,090
+PAUL IRISH: In your case, would
+it be, does this browser
+
+631
+00:29:21,090 --> 00:29:22,700
+cut the mustard versus
+[INAUDIBLE]?
+
+632
+00:29:22,700 --> 00:29:24,015
+TOM MASLEN: Yeah, you could
+do that on the server
+
+633
+00:29:24,015 --> 00:29:24,630
+if you wanted to.
+
+634
+00:29:24,630 --> 00:29:25,860
+TOMOMI IMURA: Right.
+
+635
+00:29:25,860 --> 00:29:28,100
+Like the old browser that
+doesn't support JavaScript, or
+
+636
+00:29:28,100 --> 00:29:31,810
+doesn't understand JavaScript
+feature detection, then you
+
+637
+00:29:31,810 --> 00:29:33,280
+have to rely on the
+server side.
+
+638
+00:29:33,280 --> 00:29:36,210
+
+639
+00:29:36,210 --> 00:29:37,330
+PAUL IRISH: All right,
+I'd like to move
+
+640
+00:29:37,330 --> 00:29:39,420
+on to the next question.
+
+641
+00:29:39,420 --> 00:29:43,440
+This one comes from
+Dustin Caston.
+
+642
+00:29:43,440 --> 00:29:45,425
+Dustin's up here
+in the purple.
+
+643
+00:29:45,425 --> 00:29:49,110
+
+644
+00:29:49,110 --> 00:29:52,480
+AUDIENCE: Hey, so what as a
+community can we do to help
+
+645
+00:29:52,480 --> 00:29:56,300
+the holdouts of legacy clients
+such as the government and IT
+
+646
+00:29:56,300 --> 00:29:56,990
+departments?
+
+647
+00:29:56,990 --> 00:29:58,100
+EDD SOWDEN: Nothing.
+
+648
+00:29:58,100 --> 00:29:59,650
+TOM MASLEN: That was
+my answer as well.
+
+649
+00:29:59,650 --> 00:30:01,710
+I was going to say nothing.
+
+650
+00:30:01,710 --> 00:30:05,550
+EDD SOWDEN: So I did a little
+bit of research kind of around
+
+651
+00:30:05,550 --> 00:30:07,340
+this point before I came.
+
+652
+00:30:07,340 --> 00:30:10,940
+The saying Paul said to me
+earlier, I've built a thing
+
+653
+00:30:10,940 --> 00:30:14,570
+which takes your Google
+Analytics and splits out
+
+654
+00:30:14,570 --> 00:30:16,070
+browsers with graphs.
+
+655
+00:30:16,070 --> 00:30:18,240
+You can see browser
+usage over time.
+
+656
+00:30:18,240 --> 00:30:19,780
+PAUL IRISH: It's called
+browser matrix.
+
+657
+00:30:19,780 --> 00:30:21,590
+It takes in your Google
+Analytics account and then
+
+658
+00:30:21,590 --> 00:30:23,870
+just charts the trend lines for
+a browser [? merger. ?]
+
+659
+00:30:23,870 --> 00:30:25,380
+EDD SOWDEN: Paul said it'd be
+really cool if it could show
+
+660
+00:30:25,380 --> 00:30:27,380
+future trends.
+
+661
+00:30:27,380 --> 00:30:32,300
+So I went and had a look because
+I'm a nerd at IE6's
+
+662
+00:30:32,300 --> 00:30:35,720
+and 7's trend lines on gov.UK.
+
+663
+00:30:35,720 --> 00:30:36,850
+They're going down.
+
+664
+00:30:36,850 --> 00:30:39,670
+IE6 lost half a percent in
+the last six months.
+
+665
+00:30:39,670 --> 00:30:41,320
+TOM MASLEN: What
+percent was it?
+
+666
+00:30:41,320 --> 00:30:46,010
+EDD SOWDEN: It's gone from just
+over one to around half.
+
+667
+00:30:46,010 --> 00:30:48,050
+TOM MASLEN: Is that at any
+particular time of the week?
+
+668
+00:30:48,050 --> 00:30:52,940
+EDD SOWDEN: So it can also show
+you stats on a day by
+
+669
+00:30:52,940 --> 00:30:54,950
+day, seven day rolling basis.
+
+670
+00:30:54,950 --> 00:30:58,070
+And during the week,
+6 is above that.
+
+671
+00:30:58,070 --> 00:31:00,320
+And at weekends, it's
+not really there.
+
+672
+00:31:00,320 --> 00:31:03,350
+PAUL IRISH: But I guess the
+question is like, like IE8
+
+673
+00:31:03,350 --> 00:31:04,440
+would be a better case.
+
+674
+00:31:04,440 --> 00:31:06,260
+EDD SOWDEN: Like those guys,
+they're going down.
+
+675
+00:31:06,260 --> 00:31:07,820
+They're going to get there.
+
+676
+00:31:07,820 --> 00:31:11,880
+And from the government
+perspective, like working in
+
+677
+00:31:11,880 --> 00:31:16,630
+government, everyone is
+painfully aware in government
+
+678
+00:31:16,630 --> 00:31:18,590
+that we're tied into these
+horrible contracts that
+
+679
+00:31:18,590 --> 00:31:19,980
+require us to have IE6.
+
+680
+00:31:19,980 --> 00:31:22,200
+And everyone's working to
+try and get out of them.
+
+681
+00:31:22,200 --> 00:31:24,325
+No one is trying to stay
+in that world.
+
+682
+00:31:24,325 --> 00:31:29,350
+There's not much a development
+community can do to help that.
+
+683
+00:31:29,350 --> 00:31:32,390
+And on gov.uk, we have a browser
+bar that pops up if
+
+684
+00:31:32,390 --> 00:31:35,920
+you're on an old browser that
+says, try and upgrade, which
+
+685
+00:31:35,920 --> 00:31:39,090
+hilariously when we-- we won a
+design award earlier this year
+
+686
+00:31:39,090 --> 00:31:41,410
+and a whole collection of the
+screenshots that were in news
+
+687
+00:31:41,410 --> 00:31:43,460
+article, you could see
+that browser bar.
+
+688
+00:31:43,460 --> 00:31:46,760
+
+689
+00:31:46,760 --> 00:31:50,050
+It made us smile that these
+people writing reports for
+
+690
+00:31:50,050 --> 00:31:53,880
+fairly large magazines
+online still use
+
+691
+00:31:53,880 --> 00:31:55,430
+old browsers as well.
+
+692
+00:31:55,430 --> 00:31:57,440
+But in terms of government
+and massive
+
+693
+00:31:57,440 --> 00:31:58,880
+corporates, very aware.
+
+694
+00:31:58,880 --> 00:32:00,815
+We're trying to get rid
+of it internally.
+
+695
+00:32:00,815 --> 00:32:04,070
+
+696
+00:32:04,070 --> 00:32:05,735
+PAUL IRISH: Question from
+the audience, Daniel.
+
+697
+00:32:05,735 --> 00:32:11,460
+
+698
+00:32:11,460 --> 00:32:15,360
+AUDIENCE: So we always want
+all our users to be happy.
+
+699
+00:32:15,360 --> 00:32:17,550
+And I looked at some numbers
+and we have IE--
+
+700
+00:32:17,550 --> 00:32:20,050
+all of IE is like 8%
+of our traffic,
+
+701
+00:32:20,050 --> 00:32:23,550
+maybe 4% of our traffic.
+
+702
+00:32:23,550 --> 00:32:25,150
+IE8.
+
+703
+00:32:25,150 --> 00:32:29,920
+But is it worth spending the
+effort versus things like
+
+704
+00:32:29,920 --> 00:32:32,030
+developer happiness
+and retention?
+
+705
+00:32:32,030 --> 00:32:33,330
+PAUL IRISH: It sounds
+like it's not worth
+
+706
+00:32:33,330 --> 00:32:36,710
+the effort for you.
+
+707
+00:32:36,710 --> 00:32:40,510
+It sounds like you're
+doing well.
+
+708
+00:32:40,510 --> 00:32:42,230
+TOM MASLEN: I'd say
+it depends.
+
+709
+00:32:42,230 --> 00:32:45,700
+Those old devices might bring a
+lot of traffic to your site.
+
+710
+00:32:45,700 --> 00:32:47,583
+But do they bring a
+lot of revenue?
+
+711
+00:32:47,583 --> 00:32:51,730
+
+712
+00:32:51,730 --> 00:32:56,050
+PAUL IRISH: I think that's
+something that it's--
+
+713
+00:32:56,050 --> 00:32:59,530
+I don't know that we've seen a
+lot in the way of business
+
+714
+00:32:59,530 --> 00:33:05,390
+metrics that are segregated by
+browser or by connectivity or
+
+715
+00:33:05,390 --> 00:33:08,360
+by the performance load
+time of the site.
+
+716
+00:33:08,360 --> 00:33:12,850
+But I think it's worth looking
+into kind of how those
+
+717
+00:33:12,850 --> 00:33:16,440
+technical metrics of the site
+and of those users translate
+
+718
+00:33:16,440 --> 00:33:21,210
+into their success
+on the site.
+
+719
+00:33:21,210 --> 00:33:23,770
+I guess to get back to Dustin's
+question, we're
+
+720
+00:33:23,770 --> 00:33:26,500
+talking about what our community
+can do to help
+
+721
+00:33:26,500 --> 00:33:29,150
+legacy clients.
+
+722
+00:33:29,150 --> 00:33:39,320
+So Google Apps dropped support
+for IE8 last November.
+
+723
+00:33:39,320 --> 00:33:43,430
+And Google Analytics Dashboard
+is dropping support for IE8 in
+
+724
+00:33:43,430 --> 00:33:44,790
+a few months.
+
+725
+00:33:44,790 --> 00:33:48,790
+Google has a policy of only
+supporting the most recent and
+
+726
+00:33:48,790 --> 00:33:50,930
+the last version.
+
+727
+00:33:50,930 --> 00:33:54,070
+And so Google's being kind of
+aggressive in this and saying,
+
+728
+00:33:54,070 --> 00:33:56,190
+you just have to upgrade
+in order to use it.
+
+729
+00:33:56,190 --> 00:34:01,400
+You can't use Google
+Docs on IE8.
+
+730
+00:34:01,400 --> 00:34:05,990
+But is there anyone else that
+is in a position where they
+
+731
+00:34:05,990 --> 00:34:09,540
+can help move this forward or
+were you just in a case where
+
+732
+00:34:09,540 --> 00:34:12,440
+we are just waiting for those
+trend lines to naturally go
+
+733
+00:34:12,440 --> 00:34:18,699
+down over the course of years
+as we did with IE6?
+
+734
+00:34:18,699 --> 00:34:20,100
+EDD SOWDEN: Internally
+in the UK government,
+
+735
+00:34:20,100 --> 00:34:20,920
+I'd love to say more.
+
+736
+00:34:20,920 --> 00:34:24,130
+But there is work going
+on to fix it there.
+
+737
+00:34:24,130 --> 00:34:27,230
+But yeah, it's still--
+
+738
+00:34:27,230 --> 00:34:28,889
+there are people trying.
+
+739
+00:34:28,889 --> 00:34:31,679
+SHWETANK DIXIT: One more thing
+that I wanted to add was a lot
+
+740
+00:34:31,679 --> 00:34:34,830
+of these things are decided
+at the contract level.
+
+741
+00:34:34,830 --> 00:34:36,800
+Sometimes what happens is--
+
+742
+00:34:36,800 --> 00:34:38,600
+I can at least talk about
+the Indian government.
+
+743
+00:34:38,600 --> 00:34:40,469
+Sometimes what happens
+is they don't make
+
+744
+00:34:40,469 --> 00:34:41,650
+the government websites.
+
+745
+00:34:41,650 --> 00:34:45,170
+They sometimes send it out
+to a contractor who
+
+746
+00:34:45,170 --> 00:34:47,139
+makes it for them.
+
+747
+00:34:47,139 --> 00:34:49,820
+And usually, things
+are decided when
+
+748
+00:34:49,820 --> 00:34:50,830
+the contract is signed.
+
+749
+00:34:50,830 --> 00:34:54,550
+And if there's a clause saying
+that, OK, IE6 will be
+
+750
+00:34:54,550 --> 00:34:57,600
+supported, it has
+to be supported.
+
+751
+00:34:57,600 --> 00:35:01,010
+So one of the things is to, as
+a web developer, if you're
+
+752
+00:35:01,010 --> 00:35:03,440
+vying for that contract, to
+argue at that level before
+
+753
+00:35:03,440 --> 00:35:06,980
+signing that yes, I will not
+be supporting these things.
+
+754
+00:35:06,980 --> 00:35:10,950
+I might be supporting
+the newer versions.
+
+755
+00:35:10,950 --> 00:35:14,690
+And the second thing I wanted to
+mention was this problem is
+
+756
+00:35:14,690 --> 00:35:17,520
+exacerbated by the fact that
+many people who were in
+
+757
+00:35:17,520 --> 00:35:21,170
+government weren't really tech
+savvy that much for a while.
+
+758
+00:35:21,170 --> 00:35:25,070
+They didn't really know about
+browsers and stuff like that.
+
+759
+00:35:25,070 --> 00:35:28,340
+But with newer devices coming
+in, people are having iPhones
+
+760
+00:35:28,340 --> 00:35:30,420
+and iPads and stuff like that.
+
+761
+00:35:30,420 --> 00:35:34,380
+They still might not know what
+a browser is or not care, but
+
+762
+00:35:34,380 --> 00:35:37,070
+they know that, OK,
+whatever I'm--
+
+763
+00:35:37,070 --> 00:35:40,040
+this website that I'm signing
+the contract for, it has to
+
+764
+00:35:40,040 --> 00:35:41,980
+work on my iPad, for example.
+
+765
+00:35:41,980 --> 00:35:45,450
+So they're more focused on
+those things, on devices,
+
+766
+00:35:45,450 --> 00:35:47,710
+rather than the older
+browsers.
+
+767
+00:35:47,710 --> 00:35:50,090
+So that mind shift is happening
+a little bit.
+
+768
+00:35:50,090 --> 00:35:54,450
+But once again, as web
+developers, before signing the
+
+769
+00:35:54,450 --> 00:35:56,710
+contract you have to
+see it and be very
+
+770
+00:35:56,710 --> 00:35:58,560
+careful about that.
+
+771
+00:35:58,560 --> 00:36:01,270
+EDD SOWDEN: Talking of
+contracts, all contracts that
+
+772
+00:36:01,270 --> 00:36:04,240
+the UK government signs now
+cannot have anything which
+
+773
+00:36:04,240 --> 00:36:07,520
+even hints at vendor lock-in or
+device or browser lock-in.
+
+774
+00:36:07,520 --> 00:36:09,980
+Anything that hints at a
+specific version has to be
+
+775
+00:36:09,980 --> 00:36:12,980
+removed before contracts can
+go out for tender because
+
+776
+00:36:12,980 --> 00:36:14,230
+nothing like that's
+allowed anymore.
+
+777
+00:36:14,230 --> 00:36:16,850
+
+778
+00:36:16,850 --> 00:36:17,930
+PAUL IRISH: Comment
+from the audience.
+
+779
+00:36:17,930 --> 00:36:20,860
+Mary from O'Reilly.
+
+780
+00:36:20,860 --> 00:36:22,850
+AUDIENCE: Hey, so just going
+back to we were talking
+
+781
+00:36:22,850 --> 00:36:25,830
+earlier about how frustrating
+it is for your coworkers if
+
+782
+00:36:25,830 --> 00:36:27,950
+they have one browser version
+at home and one browser
+
+783
+00:36:27,950 --> 00:36:30,210
+version at work and those
+types of scenarios.
+
+784
+00:36:30,210 --> 00:36:35,330
+I think we might be referring
+to very specific portion of
+
+785
+00:36:35,330 --> 00:36:39,140
+the world in that those are the
+people who are very tech
+
+786
+00:36:39,140 --> 00:36:42,570
+savvy, who have the latest and
+greatest things, who--
+
+787
+00:36:42,570 --> 00:36:45,810
+yeah, bigger and newer
+is better.
+
+788
+00:36:45,810 --> 00:36:50,300
+But what about the rest of the
+world that updating your
+
+789
+00:36:50,300 --> 00:36:52,450
+browser is scary, because it
+means all of a sudden you
+
+790
+00:36:52,450 --> 00:36:54,630
+don't know how to
+use it anymore.
+
+791
+00:36:54,630 --> 00:36:56,820
+So there's people who
+consciously make the choice to
+
+792
+00:36:56,820 --> 00:36:59,730
+not update because of that.
+
+793
+00:36:59,730 --> 00:37:01,020
+TOMOMI IMURA: Your moms.
+
+794
+00:37:01,020 --> 00:37:02,660
+AUDIENCE: I'm sorry?
+
+795
+00:37:02,660 --> 00:37:03,560
+TOMOMI IMURA: Your moms.
+
+796
+00:37:03,560 --> 00:37:04,520
+AUDIENCE: Well, OK.
+
+797
+00:37:04,520 --> 00:37:05,820
+So yeah, that's an example.
+
+798
+00:37:05,820 --> 00:37:07,270
+My mom does that.
+
+799
+00:37:07,270 --> 00:37:09,740
+But I mean, it's a
+legit scenario.
+
+800
+00:37:09,740 --> 00:37:16,170
+And by eliminating the ability
+for them to view your website,
+
+801
+00:37:16,170 --> 00:37:18,770
+you're basically telling
+them they don't matter.
+
+802
+00:37:18,770 --> 00:37:20,170
+PAUL IRISH: Yes, I think change
+
+803
+00:37:20,170 --> 00:37:22,010
+aversion is real for everyone.
+
+804
+00:37:22,010 --> 00:37:23,830
+And in a lot of cases,
+browsers and
+
+805
+00:37:23,830 --> 00:37:26,910
+website features as well.
+
+806
+00:37:26,910 --> 00:37:31,330
+My take here is that a lot of
+it is up to browser makers
+
+807
+00:37:31,330 --> 00:37:35,870
+themselves to make transitions
+as smooth as possible.
+
+808
+00:37:35,870 --> 00:37:36,880
+EDD SOWDEN: We're good
+now because the
+
+809
+00:37:36,880 --> 00:37:38,995
+problem was always IE.
+
+810
+00:37:38,995 --> 00:37:40,960
+Or, more like corporate IE.
+
+811
+00:37:40,960 --> 00:37:43,370
+So people would build corporate
+intranets and they
+
+812
+00:37:43,370 --> 00:37:44,970
+would rely on ActiveX.
+
+813
+00:37:44,970 --> 00:37:47,250
+And that's why we're in the
+situation where there's so
+
+814
+00:37:47,250 --> 00:37:51,370
+many corporate desktops
+that can't upgrade.
+
+815
+00:37:51,370 --> 00:37:53,440
+TOMOMI IMURA: Yeha, I was going
+to mention that, too.
+
+816
+00:37:53,440 --> 00:37:57,105
+Many times you can't just
+download, install any browsers
+
+817
+00:37:57,105 --> 00:37:57,910
+on your computers.
+
+818
+00:37:57,910 --> 00:38:00,720
+You have to ask IT
+guys to do that.
+
+819
+00:38:00,720 --> 00:38:05,090
+So obviously, probably that's
+where a lot of legacy IE is
+
+820
+00:38:05,090 --> 00:38:05,760
+coming from.
+
+821
+00:38:05,760 --> 00:38:10,810
+So if you're working for the
+web services for, like
+
+822
+00:38:10,810 --> 00:38:12,910
+enterprise and such,
+this is something
+
+823
+00:38:12,910 --> 00:38:14,320
+like really huge issue.
+
+824
+00:38:14,320 --> 00:38:16,580
+And you have to really
+[INAUDIBLE]
+
+825
+00:38:16,580 --> 00:38:20,260
+browser stats and what your
+people are using.
+
+826
+00:38:20,260 --> 00:38:22,110
+PAUL IRISH: So I want to move
+onto the next question.
+
+827
+00:38:22,110 --> 00:38:24,060
+But before I do, I want
+to get Jeffrey
+
+828
+00:38:24,060 --> 00:38:25,890
+Burtoft from Microsoft.
+
+829
+00:38:25,890 --> 00:38:30,570
+Since we are talking about IE a
+lot, its be nice to get his
+
+830
+00:38:30,570 --> 00:38:33,442
+comment here.
+
+831
+00:38:33,442 --> 00:38:35,070
+AUDIENCE: Yeah, thank you.
+
+832
+00:38:35,070 --> 00:38:39,850
+So first, to defend
+Microsoft here.
+
+833
+00:38:39,850 --> 00:38:41,660
+One thing I want
+to make sure--
+
+834
+00:38:41,660 --> 00:38:42,790
+and I do that proudly.
+
+835
+00:38:42,790 --> 00:38:44,450
+Because one of the things I
+want to make sure that we
+
+836
+00:38:44,450 --> 00:38:48,640
+understand is that Windows
+XP that runs
+
+837
+00:38:48,640 --> 00:38:50,870
+IE8 was a great product.
+
+838
+00:38:50,870 --> 00:38:52,490
+And that's why people
+still use it.
+
+839
+00:38:52,490 --> 00:38:55,810
+So any time we build great
+products, we're going to have
+
+840
+00:38:55,810 --> 00:38:58,020
+to deal with legacy browsers
+because they're
+
+841
+00:38:58,020 --> 00:38:59,200
+going to stick around.
+
+842
+00:38:59,200 --> 00:39:02,990
+So if you look at a parallel to
+iOS, so we just stopped--
+
+843
+00:39:02,990 --> 00:39:07,210
+or Apple just stopped
+supporting, was it 3GS?
+
+844
+00:39:07,210 --> 00:39:10,580
+With updates, which means that
+iOS 6 is the last version
+
+845
+00:39:10,580 --> 00:39:11,820
+they'll ever see.
+
+846
+00:39:11,820 --> 00:39:14,360
+But those phones are going
+to continue to be around.
+
+847
+00:39:14,360 --> 00:39:16,330
+And they'll become
+a legacy platform
+
+848
+00:39:16,330 --> 00:39:17,740
+that we have to support.
+
+849
+00:39:17,740 --> 00:39:19,580
+So when we have good products
+that are going to stick
+
+850
+00:39:19,580 --> 00:39:21,850
+around, it's something that
+we need to plan for.
+
+851
+00:39:21,850 --> 00:39:25,380
+So these type of discussions
+will always be relevant.
+
+852
+00:39:25,380 --> 00:39:31,120
+PAUL IRISH: I think in this
+case, our situation is that
+
+853
+00:39:31,120 --> 00:39:36,270
+Windows XP is a great product,
+but the problem there is that
+
+854
+00:39:36,270 --> 00:39:39,870
+users of IE on Windows XP
+don't have an ability to
+
+855
+00:39:39,870 --> 00:39:43,080
+upgrade their browser to
+the next version of IE.
+
+856
+00:39:43,080 --> 00:39:43,440
+AUDIENCE: Yeah.
+
+857
+00:39:43,440 --> 00:39:48,430
+So that's something
+that's clear.
+
+858
+00:39:48,430 --> 00:39:51,800
+If you are on that platform,
+there's two different things
+
+859
+00:39:51,800 --> 00:39:55,670
+that are going to cause you to
+stay on older versions of IE.
+
+860
+00:39:55,670 --> 00:39:58,080
+One is it's your environment,
+whether it's because you don't
+
+861
+00:39:58,080 --> 00:39:59,950
+want to upgrade or you
+can't upgrade.
+
+862
+00:39:59,950 --> 00:40:05,226
+Or, the fact that with IE, you
+can't upgrade passed IE8 if
+
+863
+00:40:05,226 --> 00:40:06,910
+you're on Windows XP.
+
+864
+00:40:06,910 --> 00:40:11,555
+So at Microsoft, we
+use JavaScript.
+
+865
+00:40:11,555 --> 00:40:14,390
+We use our JavaScript
+engine, HTML5, in
+
+866
+00:40:14,390 --> 00:40:16,230
+a lot of our products.
+
+867
+00:40:16,230 --> 00:40:21,550
+And so whether it's writing apps
+for Office or in embedded
+
+868
+00:40:21,550 --> 00:40:25,040
+or in Xbox or in Windows 8 apps,
+all of that can be done
+
+869
+00:40:25,040 --> 00:40:26,680
+with a JavaScript engine.
+
+870
+00:40:26,680 --> 00:40:30,380
+So there's definitely a coupling
+there that makes us
+
+871
+00:40:30,380 --> 00:40:33,410
+have to draw some lines in the
+sands as to where we can
+
+872
+00:40:33,410 --> 00:40:37,420
+update and where we can't.
+
+873
+00:40:37,420 --> 00:40:40,050
+There's reasons behind it, I
+guess is what I would say.
+
+874
+00:40:40,050 --> 00:40:40,500
+PAUL IRISH: Sure.
+
+875
+00:40:40,500 --> 00:40:46,790
+And I guess we can close this IE
+discussion for now with the
+
+876
+00:40:46,790 --> 00:40:50,060
+end of support date for Windows
+XP is April 2014?
+
+877
+00:40:50,060 --> 00:40:50,830
+AUDIENCE: That's right.
+
+878
+00:40:50,830 --> 00:40:54,200
+PAUL IRISH: So that trend line
+that we're watching for IE8
+
+879
+00:40:54,200 --> 00:41:00,060
+may potentially drop down more
+substantially at that point.
+
+880
+00:41:00,060 --> 00:41:02,636
+EDD SOWDEN: So there's a whole
+nother dark world which no one
+
+881
+00:41:02,636 --> 00:41:05,630
+talks about, talking about
+like old IEs and the fact
+
+882
+00:41:05,630 --> 00:41:07,650
+there are other things which
+we have to support which no
+
+883
+00:41:07,650 --> 00:41:11,700
+one talks about, and they're
+old screen readers, screen
+
+884
+00:41:11,700 --> 00:41:12,860
+reading technology.
+
+885
+00:41:12,860 --> 00:41:14,310
+PAUL IRISH: Edd, before we move
+onto screen readers, I
+
+886
+00:41:14,310 --> 00:41:18,300
+want to get Alex Russell's
+comments here.
+
+887
+00:41:18,300 --> 00:41:19,120
+AUDIENCE: Hi, thanks.
+
+888
+00:41:19,120 --> 00:41:19,570
+Alex Russell.
+
+889
+00:41:19,570 --> 00:41:21,600
+One of my first projects at
+Google was a product called
+
+890
+00:41:21,600 --> 00:41:24,680
+Chrome Frame, which was
+necessitated because you
+
+891
+00:41:24,680 --> 00:41:26,160
+didn't do what you just said.
+
+892
+00:41:26,160 --> 00:41:29,930
+Microsoft didn't take
+care of the legacy.
+
+893
+00:41:29,930 --> 00:41:32,720
+It was Microsoft's
+responsibility to do that, and
+
+894
+00:41:32,720 --> 00:41:36,000
+instead Microsoft chose not to
+invest in making sure that
+
+895
+00:41:36,000 --> 00:41:38,810
+users of Windows XP could
+continue to use modern
+
+896
+00:41:38,810 --> 00:41:39,390
+technology.
+
+897
+00:41:39,390 --> 00:41:44,630
+So having done the cleanup work
+for you, I just need to
+
+898
+00:41:44,630 --> 00:41:48,685
+make the point that
+you didn't.
+
+899
+00:41:48,685 --> 00:41:55,490
+[APPLAUSE]
+
+900
+00:41:55,490 --> 00:41:56,740
+PAUL IRISH: This is going
+to get exciting.
+
+901
+00:41:56,740 --> 00:41:59,350
+
+902
+00:41:59,350 --> 00:42:04,030
+For the moment, we're going to
+move on to the next question.
+
+903
+00:42:04,030 --> 00:42:07,395
+This one [? Matias ?]
+
+904
+00:42:07,395 --> 00:42:08,645
+[? Kauzman. ?]
+
+905
+00:42:08,645 --> 00:42:14,340
+
+906
+00:42:14,340 --> 00:42:17,860
+AUDIENCE: Hi, my question is
+for how long is it worth
+
+907
+00:42:17,860 --> 00:42:20,510
+polyfilling features for legacy
+browsers and taking the
+
+908
+00:42:20,510 --> 00:42:23,260
+hit in performance or
+dev productivity?
+
+909
+00:42:23,260 --> 00:42:26,200
+What factors should influence
+the ultimate choice to seize
+
+910
+00:42:26,200 --> 00:42:28,970
+support for a legacy client?
+
+911
+00:42:28,970 --> 00:42:31,820
+PAUL IRISH: Yeah, so in a lot
+of cases, our method of
+
+912
+00:42:31,820 --> 00:42:34,030
+dealing with older clients that
+don't support a certain
+
+913
+00:42:34,030 --> 00:42:36,000
+capability is polyfilling
+them.
+
+914
+00:42:36,000 --> 00:42:40,500
+We started out with the JSON
+2.js, JSON polyfill.
+
+915
+00:42:40,500 --> 00:42:43,460
+And we've managed to polyfill
+many, many things.
+
+916
+00:42:43,460 --> 00:42:47,100
+These polyfills do have
+performance costs, not only in
+
+917
+00:42:47,100 --> 00:42:50,580
+the bytes that we have to send
+down the wire in CSS and
+
+918
+00:42:50,580 --> 00:42:53,670
+JavaScript but also in
+runtime performance.
+
+919
+00:42:53,670 --> 00:42:58,410
+So performance of polyfills
+is a concern.
+
+920
+00:42:58,410 --> 00:43:02,710
+And what are the other aspects
+that could help influence the
+
+921
+00:43:02,710 --> 00:43:05,860
+choice to--
+
+922
+00:43:05,860 --> 00:43:09,700
+seize support might not be the
+right words, but change the
+
+923
+00:43:09,700 --> 00:43:10,830
+support level.
+
+924
+00:43:10,830 --> 00:43:13,450
+TOM MASLEN: So maybe a good
+example is with animations.
+
+925
+00:43:13,450 --> 00:43:15,540
+So a couple of years ago, people
+would do JavaScript
+
+926
+00:43:15,540 --> 00:43:16,180
+animations.
+
+927
+00:43:16,180 --> 00:43:19,730
+And now, we try to see all
+animations with CSS.
+
+928
+00:43:19,730 --> 00:43:22,960
+And we just say, well, if you
+don't have that CSS feature,
+
+929
+00:43:22,960 --> 00:43:28,560
+you just get a janky
+animation.
+
+930
+00:43:28,560 --> 00:43:29,410
+I'd say that's fine.
+
+931
+00:43:29,410 --> 00:43:33,590
+I don't have a problem with
+people in IE getting janky
+
+932
+00:43:33,590 --> 00:43:35,180
+transitions.
+
+933
+00:43:35,180 --> 00:43:36,610
+TOMOMI IMURA: I'm not sure
+about jankiness.
+
+934
+00:43:36,610 --> 00:43:40,610
+If you want to have some
+animation but it doesn't work
+
+935
+00:43:40,610 --> 00:43:42,370
+in some browsers, I
+think you have to
+
+936
+00:43:42,370 --> 00:43:43,910
+just kill the animation.
+
+937
+00:43:43,910 --> 00:43:46,220
+I think not moving
+at all, it's far
+
+938
+00:43:46,220 --> 00:43:48,390
+better than janky animation.
+
+939
+00:43:48,390 --> 00:43:49,780
+PAUL IRISH: If you want to say
+janky, unless you mean like
+
+940
+00:43:49,780 --> 00:43:52,690
+binary, like it's closed
+than it's open.
+
+941
+00:43:52,690 --> 00:43:56,920
+But with a more modern browser,
+you can [INAUDIBLE].
+
+942
+00:43:56,920 --> 00:43:57,900
+TOMOMI IMURA: [INAUDIBLE].
+
+943
+00:43:57,900 --> 00:43:59,900
+EDD SOWDEN: Although, I guess
+an issue that is not so much
+
+944
+00:43:59,900 --> 00:44:00,880
+with polyfill.
+
+945
+00:44:00,880 --> 00:44:04,690
+Something I've seen recently
+where I made a panel appear
+
+946
+00:44:04,690 --> 00:44:08,500
+and I gave it a nice
+animation.
+
+947
+00:44:08,500 --> 00:44:10,300
+It worked lovely in iOS.
+
+948
+00:44:10,300 --> 00:44:15,470
+But when I checked it on
+an Amazon Kindle Fire--
+
+949
+00:44:15,470 --> 00:44:16,560
+it had a great browser.
+
+950
+00:44:16,560 --> 00:44:18,730
+It supported the feature.
+
+951
+00:44:18,730 --> 00:44:22,290
+But it was really janky because
+the hardware just
+
+952
+00:44:22,290 --> 00:44:25,885
+couldn't keep up.
+
+953
+00:44:25,885 --> 00:44:27,210
+TOMOMI IMURA: And not
+just the hardware.
+
+954
+00:44:27,210 --> 00:44:30,870
+Actually, in the Amazon Kindle,
+the Silk browser is a
+
+955
+00:44:30,870 --> 00:44:32,480
+proxy browser.
+
+956
+00:44:32,480 --> 00:44:35,990
+Well, maybe a marketing term
+is like cloud accelerated
+
+957
+00:44:35,990 --> 00:44:39,660
+browser, whatever that is.
+
+958
+00:44:39,660 --> 00:44:41,600
+Yeah, so that is keep in mind.
+
+959
+00:44:41,600 --> 00:44:43,900
+It's not like all JavaScript
+is forced to work in some
+
+960
+00:44:43,900 --> 00:44:45,410
+WebKit, works [INAUDIBLE]
+
+961
+00:44:45,410 --> 00:44:48,640
+you want in a proxy.
+
+962
+00:44:48,640 --> 00:44:53,170
+PAUL IRISH: But I guess when we
+talk about legacy clients,
+
+963
+00:44:53,170 --> 00:44:57,090
+there's a few reasons why we
+use the term "legacy." And
+
+964
+00:44:57,090 --> 00:45:00,900
+that does happen to usually
+refer to them being old.
+
+965
+00:45:00,900 --> 00:45:04,350
+But I think the reason that we
+don't embrace them and love
+
+966
+00:45:04,350 --> 00:45:08,450
+them is because they
+may have bugs.
+
+967
+00:45:08,450 --> 00:45:11,810
+They're probably slower than
+what we're used to and they
+
+968
+00:45:11,810 --> 00:45:14,830
+lack features that we want
+to use, that we're
+
+969
+00:45:14,830 --> 00:45:16,320
+interested in using.
+
+970
+00:45:16,320 --> 00:45:18,980
+So it's not necessarily that
+they're old, but they aren't
+
+971
+00:45:18,980 --> 00:45:22,210
+good as what we want.
+
+972
+00:45:22,210 --> 00:45:28,460
+And I mean, is it worth forming
+a policy around how to
+
+973
+00:45:28,460 --> 00:45:30,020
+change your support level
+for browsers?
+
+974
+00:45:30,020 --> 00:45:32,810
+What's your take on
+this, Shwetank?
+
+975
+00:45:32,810 --> 00:45:35,000
+SHWETANK DIXIT: I think,
+ultimately, there's going to
+
+976
+00:45:35,000 --> 00:45:38,660
+be so many variations that you
+should stop with the mindset
+
+977
+00:45:38,660 --> 00:45:41,660
+of supporting or not supporting
+those kind of
+
+978
+00:45:41,660 --> 00:45:43,040
+browsers or not.
+
+979
+00:45:43,040 --> 00:45:45,750
+You should just go with the
+thing of progressive
+
+980
+00:45:45,750 --> 00:45:49,660
+enhancement and feature
+detection.
+
+981
+00:45:49,660 --> 00:45:53,350
+Because what will happen is you
+say that, OK, I'm going to
+
+982
+00:45:53,350 --> 00:45:55,410
+support this old browser.
+
+983
+00:45:55,410 --> 00:45:58,090
+But ultimately, what will happen
+is you'll get more and
+
+984
+00:45:58,090 --> 00:45:59,020
+more devices.
+
+985
+00:45:59,020 --> 00:46:02,690
+Nowadays, we get devices which
+are running a very good
+
+986
+00:46:02,690 --> 00:46:06,590
+version of Android, but
+are less than $100.
+
+987
+00:46:06,590 --> 00:46:09,590
+So even though they're running
+like a very, very nice version
+
+988
+00:46:09,590 --> 00:46:13,890
+of WebKit, for example, the
+performance is such that it
+
+989
+00:46:13,890 --> 00:46:15,940
+really makes them almost
+like a legacy
+
+990
+00:46:15,940 --> 00:46:18,470
+browser in many cases.
+
+991
+00:46:18,470 --> 00:46:22,410
+So how do you define a legacy
+browser is going to become
+
+992
+00:46:22,410 --> 00:46:26,230
+more and more muddled because
+a browser with a very, very
+
+993
+00:46:26,230 --> 00:46:30,930
+nice phone can behave like a
+legacy browser if the network
+
+994
+00:46:30,930 --> 00:46:33,180
+connection sucks.
+
+995
+00:46:33,180 --> 00:46:38,060
+And there's a lot of smartphones
+coming up with
+
+996
+00:46:38,060 --> 00:46:43,890
+good version of WebKit,
+but very underpowered.
+
+997
+00:46:43,890 --> 00:46:45,490
+TOM MASLEN: It's
+a strange time.
+
+998
+00:46:45,490 --> 00:46:49,900
+So you've got like a Nokia C5
+that's an entry level phone.
+
+999
+00:46:49,900 --> 00:46:54,220
+It's got a really bad processor
+and RAM, but it will
+
+1000
+00:46:54,220 --> 00:46:55,830
+have a really good version
+of WebKit on it.
+
+1001
+00:46:55,830 --> 00:46:56,980
+So it will render the
+page really well.
+
+1002
+00:46:56,980 --> 00:47:01,090
+And then you can compare that to
+an iPhone 5 that has Opera
+
+1003
+00:47:01,090 --> 00:47:01,630
+Mini in it.
+
+1004
+00:47:01,630 --> 00:47:04,780
+So the capabilities would be
+less, or you would at least
+
+1005
+00:47:04,780 --> 00:47:06,140
+get a static version
+of the site.
+
+1006
+00:47:06,140 --> 00:47:10,460
+It's a very bizarre issue
+to try and solve.
+
+1007
+00:47:10,460 --> 00:47:12,680
+I don't think there
+is a magic bullet.
+
+1008
+00:47:12,680 --> 00:47:15,610
+TOMOMI IMURA: Actually, in the
+Modernizr web page, in the
+
+1009
+00:47:15,610 --> 00:47:19,120
+documentation set, just because
+you can use polyfill
+
+1010
+00:47:19,120 --> 00:47:20,540
+doesn't mean you should.
+
+1011
+00:47:20,540 --> 00:47:21,930
+I think I say that in aside.
+
+1012
+00:47:21,930 --> 00:47:22,780
+PAUL IRISH: It's true.
+
+1013
+00:47:22,780 --> 00:47:24,030
+TOMOMI IMURA: Yeah,
+so it's really--
+
+1014
+00:47:24,030 --> 00:47:26,180
+
+1015
+00:47:26,180 --> 00:47:30,630
+developers have to decide what
+you want to really support.
+
+1016
+00:47:30,630 --> 00:47:33,660
+Many times, like a fancy UI will
+be really nice, but do
+
+1017
+00:47:33,660 --> 00:47:36,280
+you really care in
+some browsers?
+
+1018
+00:47:36,280 --> 00:47:38,320
+I mean, like round
+corners, really?
+
+1019
+00:47:38,320 --> 00:47:39,370
+You don't always need this.
+
+1020
+00:47:39,370 --> 00:47:41,530
+You can't always
+drop certain--
+
+1021
+00:47:41,530 --> 00:47:44,300
+especially if it's just UI
+prettiness you can drop it.
+
+1022
+00:47:44,300 --> 00:47:46,560
+PAUL IRISH: But I guess the
+other part of this is that
+
+1023
+00:47:46,560 --> 00:47:48,210
+there are some features, there's
+a set of features that
+
+1024
+00:47:48,210 --> 00:47:52,550
+you cannot let degrade
+gracefully.
+
+1025
+00:47:52,550 --> 00:48:01,870
+WebGL, getUserMedia, Web Audio
+API, many can't be polyfilled.
+
+1026
+00:48:01,870 --> 00:48:05,120
+And so what is the responsible
+way in defining a browser
+
+1027
+00:48:05,120 --> 00:48:07,230
+support policy when you're
+dealing with
+
+1028
+00:48:07,230 --> 00:48:08,910
+features of this sort?
+
+1029
+00:48:08,910 --> 00:48:12,670
+Where you're providing an
+experience that competes with
+
+1030
+00:48:12,670 --> 00:48:17,210
+something on a native platform
+and it's not content based.
+
+1031
+00:48:17,210 --> 00:48:18,180
+TOM MASLEN: So you
+mentioned WebGL.
+
+1032
+00:48:18,180 --> 00:48:19,430
+I can give you an
+example there.
+
+1033
+00:48:19,430 --> 00:48:22,220
+
+1034
+00:48:22,220 --> 00:48:25,460
+On the BBC News, we've started
+doing WebGL content now.
+
+1035
+00:48:25,460 --> 00:48:30,500
+We've got the Mars, We had the
+Mars lander 3D object.
+
+1036
+00:48:30,500 --> 00:48:34,540
+So if you had WebGL supported,
+you could spin it round and
+
+1037
+00:48:34,540 --> 00:48:36,820
+zoom in and stuff like that,
+and it was really nice.
+
+1038
+00:48:36,820 --> 00:48:40,140
+But then, there's no
+polyfill in that.
+
+1039
+00:48:40,140 --> 00:48:43,960
+So what other browsers
+would get is an image
+
+1040
+00:48:43,960 --> 00:48:45,910
+gallery of the 3D model.
+
+1041
+00:48:45,910 --> 00:48:49,420
+So we wouldn't try to polyfill
+the content.
+
+1042
+00:48:49,420 --> 00:48:51,370
+We offered an alternative
+content.
+
+1043
+00:48:51,370 --> 00:48:56,300
+
+1044
+00:48:56,300 --> 00:48:56,750
+PAUL IRISH: OK.
+
+1045
+00:48:56,750 --> 00:48:58,970
+I'd like to move on to
+the next question.
+
+1046
+00:48:58,970 --> 00:49:04,530
+John [INAUDIBLE], if you
+could, would love--
+
+1047
+00:49:04,530 --> 00:49:05,780
+thank you.
+
+1048
+00:49:05,780 --> 00:49:07,490
+
+1049
+00:49:07,490 --> 00:49:08,840
+AUDIENCE: So I took this
+question, because
+
+1050
+00:49:08,840 --> 00:49:09,770
+I don't like it.
+
+1051
+00:49:09,770 --> 00:49:12,860
+So I didn't want
+it to be asked.
+
+1052
+00:49:12,860 --> 00:49:17,520
+The question was roughly that
+they felt that you could get
+
+1053
+00:49:17,520 --> 00:49:22,330
+away with supporting browsers
+that did not have JavaScript.
+
+1054
+00:49:22,330 --> 00:49:25,650
+And I feel that that
+is not the case.
+
+1055
+00:49:25,650 --> 00:49:28,700
+That for most content websites,
+you need to support
+
+1056
+00:49:28,700 --> 00:49:30,480
+clients that do not
+have JavaScript.
+
+1057
+00:49:30,480 --> 00:49:34,590
+But to spin it into a more
+legitimate question, what
+
+1058
+00:49:34,590 --> 00:49:38,210
+about web applications where
+you're not dealing with
+
+1059
+00:49:38,210 --> 00:49:39,460
+strictly content-based?
+
+1060
+00:49:39,460 --> 00:49:41,830
+I feel like most of you are
+dealing with content, where
+
+1061
+00:49:41,830 --> 00:49:43,290
+it's like here's
+a news article.
+
+1062
+00:49:43,290 --> 00:49:45,240
+Here's some information
+you want to read.
+
+1063
+00:49:45,240 --> 00:49:47,960
+Obviously, in that case, there
+shouldn't be a barrier between
+
+1064
+00:49:47,960 --> 00:49:49,440
+you and reading that.
+
+1065
+00:49:49,440 --> 00:49:53,190
+So but what about a whole
+application that is built and
+
+1066
+00:49:53,190 --> 00:49:56,710
+very JavaScript-centric, should
+you be making a fall
+
+1067
+00:49:56,710 --> 00:49:57,490
+back for that?
+
+1068
+00:49:57,490 --> 00:50:00,280
+I know if you want to use
+Gmail and there's no
+
+1069
+00:50:00,280 --> 00:50:03,620
+JavaScript, you fall back to
+this form-based thing.
+
+1070
+00:50:03,620 --> 00:50:06,550
+And I have no idea how well
+that's maintained, but that's
+
+1071
+00:50:06,550 --> 00:50:07,810
+got to be someone's sad job.
+
+1072
+00:50:07,810 --> 00:50:10,930
+
+1073
+00:50:10,930 --> 00:50:16,370
+But I mean, like I assume not
+everyone wants to be doing old
+
+1074
+00:50:16,370 --> 00:50:18,990
+HTML tables and doing
+the forms.
+
+1075
+00:50:18,990 --> 00:50:21,130
+So is that a legitimate thing?
+
+1076
+00:50:21,130 --> 00:50:23,190
+Should people be worrying
+about that for their
+
+1077
+00:50:23,190 --> 00:50:24,440
+applications?
+
+1078
+00:50:24,440 --> 00:50:26,790
+
+1079
+00:50:26,790 --> 00:50:27,660
+PAUL IRISH: Tom?
+
+1080
+00:50:27,660 --> 00:50:29,870
+TOM MASLEN: I'd say it's always
+best to create an
+
+1081
+00:50:29,870 --> 00:50:32,370
+experience that doesn't just
+immediately fail when
+
+1082
+00:50:32,370 --> 00:50:34,900
+something goes wrong with
+the JavaScript.
+
+1083
+00:50:34,900 --> 00:50:37,770
+So I think Gmail is a great
+example that you point out.
+
+1084
+00:50:37,770 --> 00:50:40,190
+So it's something that
+is a service.
+
+1085
+00:50:40,190 --> 00:50:43,710
+It is purely functionality.
+
+1086
+00:50:43,710 --> 00:50:47,050
+But then, I think we should
+just make the experience--
+
+1087
+00:50:47,050 --> 00:50:48,470
+there's a great--
+
+1088
+00:50:48,470 --> 00:50:50,640
+oh, in fact, I'll let
+you say this.
+
+1089
+00:50:50,640 --> 00:50:55,540
+So I read on the GDS website
+about why you should make
+
+1090
+00:50:55,540 --> 00:50:57,270
+progressive enhancement
+with JavaScript.
+
+1091
+00:50:57,270 --> 00:51:00,478
+Do you get what I'm
+talking about?
+
+1092
+00:51:00,478 --> 00:51:00,930
+EDD SOWDEN: No.
+
+1093
+00:51:00,930 --> 00:51:06,510
+TOM MASLEN: OK, so Edd said that
+build your applications
+
+1094
+00:51:06,510 --> 00:51:09,450
+like an escalator instead
+of a lift.
+
+1095
+00:51:09,450 --> 00:51:09,680
+Do you get me now?
+
+1096
+00:51:09,680 --> 00:51:10,963
+Was that you that said that?
+
+1097
+00:51:10,963 --> 00:51:12,773
+EDD SOWDEN: I don't think
+I wrote that.
+
+1098
+00:51:12,773 --> 00:51:13,500
+TOMOMI IMURA: Was it Jake?
+
+1099
+00:51:13,500 --> 00:51:14,340
+I remember reading this
+about elevator.
+
+1100
+00:51:14,340 --> 00:51:15,980
+TOM MASLEN: I read it
+on the GDS site.
+
+1101
+00:51:15,980 --> 00:51:20,010
+So somebody said if an escalator
+breaks, the worst
+
+1102
+00:51:20,010 --> 00:51:23,276
+thing that's going to happen
+is it's going to turn into
+
+1103
+00:51:23,276 --> 00:51:26,850
+some stairs so you can
+keep walking up it.
+
+1104
+00:51:26,850 --> 00:51:29,700
+But then if you're in a lift
+and it breaks, then you're
+
+1105
+00:51:29,700 --> 00:51:30,680
+stuck in the fucking lift.
+
+1106
+00:51:30,680 --> 00:51:33,350
+There's nothing you can do.
+
+1107
+00:51:33,350 --> 00:51:35,320
+And it's the same with
+JavaScript applications.
+
+1108
+00:51:35,320 --> 00:51:36,730
+PAUL IRISH: Well, I guess
+there's a certain--
+
+1109
+00:51:36,730 --> 00:51:39,730
+there's plenty of JavaScript
+applications, the diagramming
+
+1110
+00:51:39,730 --> 00:51:43,730
+tool and IM client, like many
+of these rely on real-time
+
+1111
+00:51:43,730 --> 00:51:48,760
+data cannot be done with
+page refreshes.
+
+1112
+00:51:48,760 --> 00:51:51,530
+And so some of these do require
+JavaScript further
+
+1113
+00:51:51,530 --> 00:51:52,690
+interactions.
+
+1114
+00:51:52,690 --> 00:51:55,992
+EDD SOWDEN: Jake wrote a good
+blog post on this recently.
+
+1115
+00:51:55,992 --> 00:51:57,242
+PAUL IRISH: Yeah.
+
+1116
+00:51:57,242 --> 00:51:59,680
+
+1117
+00:51:59,680 --> 00:52:02,606
+Jake, would you like
+to comment on how--
+
+1118
+00:52:02,606 --> 00:52:04,510
+EDD SOWDEN: But as you couldn't
+see, Jake was waving
+
+1119
+00:52:04,510 --> 00:52:05,218
+quite madly.
+
+1120
+00:52:05,218 --> 00:52:07,080
+AUDIENCE: I'm kind of perching
+on the stairs because I was
+
+1121
+00:52:07,080 --> 00:52:08,040
+actually on the way
+to the bathroom.
+
+1122
+00:52:08,040 --> 00:52:10,770
+So you caught me just
+at the right point.
+
+1123
+00:52:10,770 --> 00:52:14,910
+Any website that has a loading
+bar is a missed opportunity,
+
+1124
+00:52:14,910 --> 00:52:17,930
+is a missed opportunity to serve
+the content directly
+
+1125
+00:52:17,930 --> 00:52:20,230
+without JavaScript and
+then get JavaScript
+
+1126
+00:52:20,230 --> 00:52:21,020
+in there to do it.
+
+1127
+00:52:21,020 --> 00:52:23,960
+And Gmail is an example
+of that.
+
+1128
+00:52:23,960 --> 00:52:24,880
+Gmail should have URLs.
+
+1129
+00:52:24,880 --> 00:52:28,100
+I should be able to bookmark a
+page to a particular email.
+
+1130
+00:52:28,100 --> 00:52:30,710
+And when I hit that, I should
+get that content on the page,
+
+1131
+00:52:30,710 --> 00:52:32,160
+and then JavaScript can come
+in and add the rest.
+
+1132
+00:52:32,160 --> 00:52:35,980
+I mean, it is just a series
+of tabs and forms.
+
+1133
+00:52:35,980 --> 00:52:39,755
+It doesn't need to depend on
+JavaScript for first render.
+
+1134
+00:52:39,755 --> 00:52:43,820
+PAUL IRISH: But the Gmail Web
+App also has URLs that are
+
+1135
+00:52:43,820 --> 00:52:46,800
+permanent linkable for
+all messages as well.
+
+1136
+00:52:46,800 --> 00:52:48,450
+SHWETANK DIXIT: One thing I
+wanted to mention, just to
+
+1137
+00:52:48,450 --> 00:52:53,580
+repeat which matches this use
+case is you have JavaScript
+
+1138
+00:52:53,580 --> 00:52:57,040
+applications heavily reliant
+on JavaScript.
+
+1139
+00:52:57,040 --> 00:53:03,240
+But you also have these phones
+which are coming up which will
+
+1140
+00:53:03,240 --> 00:53:05,120
+have browsers which support
+JavaScript.
+
+1141
+00:53:05,120 --> 00:53:08,700
+But these are underpowered
+phones in which it will be
+
+1142
+00:53:08,700 --> 00:53:11,940
+actually better for them to
+get a version without
+
+1143
+00:53:11,940 --> 00:53:14,580
+JavaScript than to get a version
+with JavaScript but
+
+1144
+00:53:14,580 --> 00:53:16,640
+which runs really,
+really slowly.
+
+1145
+00:53:16,640 --> 00:53:20,120
+So in those cases, it might be
+better for them to get a
+
+1146
+00:53:20,120 --> 00:53:23,230
+lighter version of the page.
+
+1147
+00:53:23,230 --> 00:53:26,500
+And the other thing is search
+engines-- once again, if you
+
+1148
+00:53:26,500 --> 00:53:30,090
+have like single page
+applications, you can run node
+
+1149
+00:53:30,090 --> 00:53:34,710
+and PhantomJS and use a
+solution with that.
+
+1150
+00:53:34,710 --> 00:53:38,810
+But I still think that it would
+be better to just have
+
+1151
+00:53:38,810 --> 00:53:43,860
+something which can be run
+without JavaScript.
+
+1152
+00:53:43,860 --> 00:53:47,030
+PAUL IRISH: I suppose in the
+search engine optimization,
+
+1153
+00:53:47,030 --> 00:53:48,650
+it's a balance of what's
+easy for you.
+
+1154
+00:53:48,650 --> 00:53:52,030
+But certainly, if it's important
+for you to have that
+
+1155
+00:53:52,030 --> 00:53:55,120
+content available to
+search, you need to
+
+1156
+00:53:55,120 --> 00:53:55,860
+find a way to do that.
+
+1157
+00:53:55,860 --> 00:53:57,990
+Either through progressive
+enhancement or through a
+
+1158
+00:53:57,990 --> 00:54:01,520
+complex server-side
+rendering farm.
+
+1159
+00:54:01,520 --> 00:54:05,470
+TOM MASLEN: The other side of
+the argument is making an
+
+1160
+00:54:05,470 --> 00:54:08,780
+application that purely relies
+on JavaScript is probably a
+
+1161
+00:54:08,780 --> 00:54:09,960
+lot faster.
+
+1162
+00:54:09,960 --> 00:54:15,960
+So I would say if you're trying
+to get something up and
+
+1163
+00:54:15,960 --> 00:54:21,350
+running fast, if you're
+prototyping, if you've got
+
+1164
+00:54:21,350 --> 00:54:24,200
+deadline issues, then
+that is an option.
+
+1165
+00:54:24,200 --> 00:54:25,360
+You can do that.
+
+1166
+00:54:25,360 --> 00:54:29,400
+However, I would always try to
+make something a progressive
+
+1167
+00:54:29,400 --> 00:54:29,870
+enhancement.
+
+1168
+00:54:29,870 --> 00:54:32,120
+So in the slide where
+I spoke about the
+
+1169
+00:54:32,120 --> 00:54:33,390
+things that were nice.
+
+1170
+00:54:33,390 --> 00:54:38,190
+So accessibility, SEO, working
+without JavaScript, usability,
+
+1171
+00:54:38,190 --> 00:54:42,550
+all those things
+are idealisms.
+
+1172
+00:54:42,550 --> 00:54:45,570
+And on their own, they're
+probably not great arguments
+
+1173
+00:54:45,570 --> 00:54:48,260
+that you can go to your manager
+and say, hey, this
+
+1174
+00:54:48,260 --> 00:54:51,750
+doesn't work with screen readers
+because your boss will
+
+1175
+00:54:51,750 --> 00:54:52,930
+probably turn around and
+say, I don't care
+
+1176
+00:54:52,930 --> 00:54:53,940
+about screen readers.
+
+1177
+00:54:53,940 --> 00:54:57,720
+But when you add them all
+together, they create
+
+1178
+00:54:57,720 --> 00:54:58,590
+something bigger.
+
+1179
+00:54:58,590 --> 00:55:03,130
+And that's the whole
+point of the web.
+
+1180
+00:55:03,130 --> 00:55:06,520
+And all of those things, if you
+develop with all of those
+
+1181
+00:55:06,520 --> 00:55:11,810
+things in mind, then you're
+kind of developing in the
+
+1182
+00:55:11,810 --> 00:55:13,320
+current of the web.
+
+1183
+00:55:13,320 --> 00:55:16,500
+You're swimming with the web as
+opposed to swimming against
+
+1184
+00:55:16,500 --> 00:55:19,440
+it, which is what I think is
+like applications that are
+
+1185
+00:55:19,440 --> 00:55:24,580
+purely JavaScript are swimming
+against a little bit.
+
+1186
+00:55:24,580 --> 00:55:27,050
+So you can make things that are
+purely JavaScript, but I
+
+1187
+00:55:27,050 --> 00:55:31,140
+think it's better and you get
+added benefits by building
+
+1188
+00:55:31,140 --> 00:55:33,040
+things in a progressive
+enhanced way.
+
+1189
+00:55:33,040 --> 00:55:34,660
+PAUL IRISH: Matt [INAUDIBLE],
+I see you have a comment.
+
+1190
+00:55:34,660 --> 00:55:37,390
+We're going to have to make this
+very quick, but I want to
+
+1191
+00:55:37,390 --> 00:55:38,640
+get your voice here.
+
+1192
+00:55:38,640 --> 00:55:40,910
+
+1193
+00:55:40,910 --> 00:55:44,280
+AUDIENCE: Sorry, somebody says
+accessibility and I go crazy.
+
+1194
+00:55:44,280 --> 00:55:45,860
+I just wanted to
+add onto this.
+
+1195
+00:55:45,860 --> 00:55:49,290
+And I think BBC is a great
+example of this, that the
+
+1196
+00:55:49,290 --> 00:55:53,330
+users of assistive technology
+are not like legacy or
+
+1197
+00:55:53,330 --> 00:55:55,680
+down-level users either.
+
+1198
+00:55:55,680 --> 00:55:59,030
+If you have something, like data
+visualization or chat or
+
+1199
+00:55:59,030 --> 00:56:02,180
+anything interactive, those are
+still things that you need
+
+1200
+00:56:02,180 --> 00:56:04,440
+to make accessible whether or
+not you're going to serve them
+
+1201
+00:56:04,440 --> 00:56:05,850
+to legacy clients.
+
+1202
+00:56:05,850 --> 00:56:07,160
+Everybody is expecting that.
+
+1203
+00:56:07,160 --> 00:56:09,010
+They have the latest assistive
+technologies.
+
+1204
+00:56:09,010 --> 00:56:11,030
+They have the latest browsers
+like everybody else.
+
+1205
+00:56:11,030 --> 00:56:13,866
+And it's important to decouple
+them from like, well, we'll
+
+1206
+00:56:13,866 --> 00:56:16,630
+just serve them the text-only
+site because that's the same
+
+1207
+00:56:16,630 --> 00:56:17,180
+[INAUDIBLE]
+
+1208
+00:56:17,180 --> 00:56:19,212
+they've had since the '90s.
+
+1209
+00:56:19,212 --> 00:56:22,440
+PAUL IRISH: Yep, 98.4% of
+screen reader users have
+
+1210
+00:56:22,440 --> 00:56:25,240
+JavaScript enabled from
+recent [INAUDIBLE]
+
+1211
+00:56:25,240 --> 00:56:26,570
+survey.
+
+1212
+00:56:26,570 --> 00:56:28,880
+But guys, I think we're
+out of time.
+
+1213
+00:56:28,880 --> 00:56:31,285
+Thank you very much to our
+panelists for joining us up
+
+1214
+00:56:31,285 --> 00:56:32,480
+here and thank you, guys.
+
+1215
+00:56:32,480 --> 00:56:41,513
+[APPLAUSE]

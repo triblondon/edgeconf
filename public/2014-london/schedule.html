@@ -1,0 +1,115 @@
+
+<!DOCTYPE html>
+<!--[if IE 8]> 				 <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+
+<head>
+	<meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width" />
+  <title>Schedule | Edge Conference</title>
+
+  <link rel="stylesheet" href="stylesheets/normalize.css" />
+  <link rel="stylesheet" href="stylesheets/app.css" />
+  <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,900' rel='stylesheet' type='text/css'>
+
+  <script src="javascripts/vendor/custom.modernizr.js"></script>
+
+</head>
+<body>
+
+	<header>
+		<nav class="row">
+			<ul class="small-10 columns small-centered">
+				<li><a href="index.html">Overview</a></li>
+				<li><a href="schedule.html" class="active">Schedule</a></li>
+				<li><a href="faq.html">FAQs</a></li>
+				<li><a href="/2013-nyc" style='color: #bbb; font-style: italic; font-size: 90%; text-transform: none'>Edge NYC</a></li>
+			</ul>
+			<i class="icon-reorder"></i>
+		</nav>
+	</header>
+
+	<div id="billboard" class="inner">
+		<div class="row">
+			<div class="small-12 large-2 columns">
+				<h1 class="hide-text">Edge Conference</h1>
+			</div>
+			<div class="small-12 large-10 columns">
+				<h2>Schedule</h2>
+			</div>
+		</div>
+	</div>
+
+	<section class="layer final-session">
+		<div class="row">
+			<div class="small-12 columns">
+				<p>We're currently selecting the topic list for Edge 2014 London. Add your name to our <a href="http://eepurl.com/Ipvir">mailing list</a> and be notified when we set the topic list. </p>
+
+				<p>Visit the <a href="/2013-nyc">Edge 2013 NYC</a> site to see session videos and photos to get a sense of what you can expect at Edge.</p>
+			</div>
+		</div>
+	</section>
+
+	<footer>
+		<div class="row">
+			<div class="small-12 columns">
+				<p>©2013 Edge contributors. Site constructed by <a href="http://www.thepixelbots.com">Pixelbots</a> and licensed under a <a href="http://creativecommons.org/licenses/by-sa/3.0/deed.en_GB">Creative Commons License</a>.</p>
+			</div>
+		</div>
+	</footer>
+
+
+	<div id="registration-form" class="reveal-modal">
+		<h2>Pre-registration</h2>
+		<iframe src="https://docs.google.com/spreadsheet/embeddedform?formkey=dEJtUjA3UDR3MnQtbWdwdWM3Vm85Rnc6MA" width="760" height="1000" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe>
+		<a class="close-reveal-modal">&#215;</a>
+	</div>
+
+  <script>
+  document.write('<script src=' +
+  ('__proto__' in {} ? 'javascripts/vendor/zepto' : 'javascripts/vendor/jquery') +
+  '.js><\/script>')
+  </script>
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  <script src="javascripts/foundation/foundation.js"></script>
+  <script src="javascripts/foundation/foundation.reveal.js"></script>
+
+	<script>
+		$(document).ready(function() {
+			$('#registration-form').foundation('reveal', {
+				open: function(){
+					$('body').addClass('modal-open');
+				},
+				closed: function(){
+					$('body').removeClass('modal-open');
+				}
+			});
+
+			// Reveal mobile nav
+			$('header nav i.icon-reorder').click(function() {
+				$('header nav ul').fadeToggle(100);
+			});
+		});
+	</script>
+
+  <script>
+    $(document).foundation();
+  </script>
+
+  <script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-36962287-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+</body>
+</html>
