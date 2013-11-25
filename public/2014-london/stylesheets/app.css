@@ -7824,14 +7824,12 @@ header nav i {
   margin-bottom: 15px;
   text-align: left;
 }
-/* line 361, ../sass/app.scss */
-#billboard .layer p a:link, #billboard .layer p a:visited {
-
+#billboard .layer #mc-embedded-subscribe-form input {
+  font-size: 16px;
+  height: inherit;
+  padding: 10px;
 }
-/* line 364, ../sass/app.scss */
-#billboard .layer p a:hover, #billboard .layer p a:active {
 
-}
 @media only screen and (max-width: 768px) {
   /* line 368, ../sass/app.scss */
   #billboard .layer p {
