@@ -3,23 +3,24 @@ Time's running out.
 
 You registered for Edge and we sent you an invite, but you haven't used it.  If you still want to, you need to buy your ticket soon, as we're now issuing more invitations to people on our waitlist.
 
-Ticket page:  http://edge-nyc-2013.eventbrite.co.uk/?access={code}
+Ticket page:  http://www.eventbrite.co.uk/e/edge-london-2014-tickets-9594205527?access={code}
 Your code:    {code}
 
 ------
 
 Here's a reminder of where and when Edge will be held:
 
-Monday, February 23, 2013
-Google New York City
-4th Floor
-76 9th Ave
-New York, NY
-10011
+Friday March 21st, 2014
+
+Microsoft London
+Cardinal Place
+80-100 Victoria St
+London SW1E 5JL
+United Kingdom
 
 ------
 
-Edge is a new kind of one-day conference on advanced web technologies for developers and browser vendors, presented by FT Labs and Google.  Tickets cost $100, which will pay panelists' travel expenses and help us ensure that the venue is full without having to oversell.  Any money we have left will be donated to a local charity.  For more information visit http://edgeconf.com.
+Edge is a new kind of one-day conference on advanced web technologies for developers and browser vendors, presented by FT Labs and Google.  Tickets cost £100, which will pay panelists' travel expenses and help us ensure that the venue is full without having to oversell.  Any money we have left will be donated to CodeClub.  For more information visit edgeconf.com.
 
 You're receiving this invitation because you registered your interest on http://edgeconf.com by filling in our registration form.
 
