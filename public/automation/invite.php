@@ -30,7 +30,7 @@ $domailchimp = (empty($_GET['domailchimp'])) ? false : true;
 
 
 
-$db = new MySQLConnection('localhost', MYSQL_USER, MYSQL_PASS, 'edge2');
+$db = new MySQLConnection('localhost', MYSQL_USER, MYSQL_PASS, MYSQL_DBNAME);
 $db->setQueryLogging(true);
 $eb_client = new Eventbrite(array('app_key'=>EVENTBRITE_APPKEY, 'user_key'=>EVENTBRITE_USERKEY));
 
@@ -56,7 +56,7 @@ foreach ($res as $row) $people[$row['email']] = $row;
 
 /* Download Google Docs data */
 
-echo "<p>Downloading data from Google Drive</p>";
+echo "<p>Downloading application data from Google Drive</p>";
 flush();
 $http = new HTTPRequest(GSHEET_REG);
 $resp = $http->send();
@@ -89,33 +89,62 @@ foreach ($csv as $row) {
 }
 
 
+echo "<p>Downloading special invites from Google Drive</p>";
+flush();
+$http = new HTTPRequest(GSHEET_SPECIALINVITE);
+$resp = $http->send();
+
+echo "<p>Decoding CSV</p>";
+flush();
+file_put_contents('/tmp/edgecsv', $resp->getBody());
+$csv = new Coseva\CSV('/tmp/edgecsv');
+$csv->parse();
+foreach ($csv as $row) {
+	if ($row[0] == 'Ref' or empty($row[1])) continue;
+	$data = array(
+		'gdocs_email' => strtolower(trim($row[2])),
+		'gdocs_name' => $row[0],
+		'gdocs_org' => $row[1],
+		'gdocs_rating' => 6,
+	);
+	$key = strtolower(trim($row[2]));
+	if (empty($people[$key])) $people[$key] = array('participation'=>'Registrant');
+	$people[$key] = array_merge($people[$key], $data);
+}
+
+
+
 /* Download Eventbrite data */
 
 echo "<p>Downloading data from Eventbrite</p>";
 flush();
-$list = $eb_client->event_list_attendees(array('id'=>EVENTBRITE_EID));
-foreach ($list->attendees as $rec) {
-	$data = array(
-		'ebt_name' => ucwords(trim($rec->attendee->first_name).' '.trim($rec->attendee->last_name)),
-		'ebt_org' => isset($rec->attendee->company) ? trim($rec->attendee->company) : null,
-		'ebt_email' => strtolower($rec->attendee->email),
-		'ebt_datepurchased' => $rec->attendee->created,
-		'code' => isset($rec->attendee->discount) ? $rec->attendee->discount : null,
-		'participation' => 'Delegate'
-	);
-	if (!empty($data['code'])) {
-		$key = null;
-		foreach ($people as $email => $person) {
-			if (!empty($person['code']) and $person['code'] == $data['code']) {
-				$key = $email;
-				break;
+try {
+	$list = $eb_client->event_list_attendees(array('id'=>EVENTBRITE_EID));
+	foreach ($list->attendees as $rec) {
+		$data = array(
+			'ebt_name' => ucwords(trim($rec->attendee->first_name).' '.trim($rec->attendee->last_name)),
+			'ebt_org' => isset($rec->attendee->company) ? trim($rec->attendee->company) : null,
+			'ebt_email' => strtolower($rec->attendee->email),
+			'ebt_datepurchased' => $rec->attendee->created,
+			'code' => isset($rec->attendee->discount) ? $rec->attendee->discount : null,
+			'participation' => 'Delegate'
+		);
+		if (!empty($data['code'])) {
+			$key = null;
+			foreach ($people as $email => $person) {
+				if (!empty($person['code']) and $person['code'] == $data['code']) {
+					$key = $email;
+					break;
+				}
 			}
+		} else {
+			$key = $data['ebt_email'];
 		}
-	} else {
-		$key = $data['ebt_email'];
+		if (!isset($people[$key])) $people[$key] = array();
+		$people[$key] = array_merge($people[$key], $data);
 	}
-	if (!isset($people[$key])) $people[$key] = array();
-	$people[$key] = array_merge($people[$key], $data);
+} catch (Exception $e) {
+	if ($e->getMessage() != 'No records were found with the given parameters..') throw $e;
 }
 
 
@@ -217,7 +246,7 @@ if ($domailchimp) {
 		if (!empty($person['participation'])) {
 			$merge_vars = array(
 				'GROUPINGS'=> array(
-					array('name'=>'Edgeconf 2 participation', 'groups'=>$person['participation']),
+					array('name'=>MC_GROUP, 'groups'=>$person['participation']),
 				)
 			);
 			$retval = $api->listSubscribe(MC_LIST, $person['email'], $merge_vars, 'html', false, true, true, false);
@@ -239,7 +268,7 @@ foreach ($list->access_codes as $accesscode) {
 $oldinvites = $db->query('SELECT * FROM invites WHERE dateinvited < (NOW() - INTERVAL 7 DAY) AND ebt_datepurchased IS NULL AND dateexpired IS NULL');
 $count = 0;
 foreach ($oldinvites as $invite) {
-	if (!preg_match('/(facebook|twitter|github|hubspot|microsoft)/i', $invite['org'])) {
+	if (!preg_match('/(google|facebook|twitter|github|hubspot|microsoft)/i', $invite['org'])) {
 		$eb_client->access_code_update(array('id'=>$promocodes[$invite['code']], 'end_date'=>date('Y-m-d H:i:s', time()+10)));
 		$people[$invite['email']]['dateexpired'] = time();
 		$count++;
@@ -295,7 +324,7 @@ foreach ($people as $email => &$person) {
 		echo '<td>Waitlist</td><td>-</td>';
 		$stats['waitlist']++;
 
-	} elseif (isset($person['gdocs_ref'])) {
+	} elseif (isset($person['gdocs_rating'])) {
 
 		$code = $db->querySingle('SELECT c.code FROM codes c LEFT JOIN invites i ON c.code=i.code WHERE i.code IS NULL LIMIT 1;');
 		$numinvited = $db->querySingle('SELECT COUNT(*) FROM invites WHERE ebt_datepurchased IS NOT NULL or (dateinvited IS NOT NULL AND dateexpired IS NULL)');
@@ -358,7 +387,7 @@ function sendEmail($to, $subj, $text, $html) {
 
 	// Send
 	if ($overrideemail) $to = $overrideemail;
-	return mail($to, $subj, $email, $mimeheaders, '-f noreply@labs.ft.com');
+	//return mail($to, $subj, $email, $mimeheaders, '-f noreply@labs.ft.com');
 }
 
 function updatePerson($person) {
@@ -368,5 +397,5 @@ function updatePerson($person) {
 		if (!isset($person[$field])) $person[$field] = null;
 	}
 
-	$db->query('INSERT INTO invites SET {email}, {name}, {org}, {dateinvited|date}, {datereminded|date}, {participation}, {gdocs_ref}, {gdocs_rating}, {code}, {ebt_datepurchased|date}, {dateexpired|date} ON DUPLICATE KEY UPDATE {name}, {org}, {dateinvited|date}, {datereminded|date}, {participation}, {gdocs_ref}, {gdocs_rating}, {code}, {ebt_datepurchased|date}, {dateexpired|date}', $person);
+	//$db->query('INSERT INTO invites SET {email}, {name}, {org}, {dateinvited|date}, {datereminded|date}, {participation}, {gdocs_ref}, {gdocs_rating}, {code}, {ebt_datepurchased|date}, {dateexpired|date} ON DUPLICATE KEY UPDATE {name}, {org}, {dateinvited|date}, {datereminded|date}, {participation}, {gdocs_ref}, {gdocs_rating}, {code}, {ebt_datepurchased|date}, {dateexpired|date}', $person);
 }
