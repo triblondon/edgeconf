@@ -100,7 +100,7 @@ file_put_contents('/tmp/edgecsv', $resp->getBody());
 $csv = new Coseva\CSV('/tmp/edgecsv');
 $csv->parse();
 foreach ($csv as $row) {
-	if ($row[0] == 'Ref' or empty($row[1])) continue;
+	if ($row[0] == 'Name' or empty($row[2])) continue;
 	$data = array(
 		'gdocs_email' => strtolower(trim($row[2])),
 		'gdocs_name' => $row[0],
@@ -335,14 +335,23 @@ foreach ($people as $email => &$person) {
 		} else {
 			echo '<td>Invited</td><td>Invitation sent with code '.$code.'</td>';
 			$stats['invited']++;
+			$person['code'] = $code;
+			$person['dateinvited'] = time();
 
-			$htmloutput = str_replace(array('{email}', '{code}'), array($row[1], $code), $emailbody_html);
-			$textoutput = str_replace(array('{email}', '{code}'), array($row[1], $code), $emailbody_text);
+			$invitestr = ($person['gdocs_rating'] > 5) ? "You are receiving this special invite because we think you'd bring enormous value to Edge, and we'd very much like to see you there.  This may be because you've contributed to a previous Edge event, or simply because we'd especially value your contribution.<br><br>You're invited to skip our normal ticket application process and book a ticket immediately." : "Thanks for registering, we're looking forward to seeing you on March 21st.";
+			$htmloutput = str_replace(
+				array('{email}', '{code}', '{invitestr}'),
+				array($person['email'], $person['code'], $invitestr),
+				$emailbody_html
+			);
+			$textoutput = str_replace(
+				array('{email}', '{code}', '{invitestr}'),
+				array($person['email'], $person['code'], $invitestr),
+				$emailbody_text
+			);
 
 			sendEmail($person['email'], 'Invite to Edge conf', $textoutput, $htmloutput);
 
-			$person['dateinvited'] = time();
-			$person['code'] = $code;
 		}
 	} else {
 		echo '<td>Unknown</td><td>-</td>';
@@ -364,6 +373,7 @@ var_dump($stats);
 
 function sendEmail($to, $subj, $text, $html) {
 	global $overrideemail;
+	static $count;
 
 	// Set up mime headers...
 	$mime1 = '==MultipartBoundary_'.md5(time() + rand());
@@ -386,8 +396,9 @@ function sendEmail($to, $subj, $text, $html) {
 	$mimeheaders = "MIME-Version: 1.0\nContent-Type: multipart/alternative; boundary=\"".$mime1."\"\nFrom: \"Edge\" <edgeconf@labs.ft.com>\nReply-To: edgeconf@labs.ft.com";
 
 	// Send
+	$count++;
 	if ($overrideemail) $to = $overrideemail;
-	//return mail($to, $subj, $email, $mimeheaders, '-f noreply@labs.ft.com');
+	return mail($to, $subj, $email, $mimeheaders, '-f noreply@labs.ft.com');
 }
 
 function updatePerson($person) {
@@ -397,5 +408,5 @@ function updatePerson($person) {
 		if (!isset($person[$field])) $person[$field] = null;
 	}
 
-	//$db->query('INSERT INTO invites SET {email}, {name}, {org}, {dateinvited|date}, {datereminded|date}, {participation}, {gdocs_ref}, {gdocs_rating}, {code}, {ebt_datepurchased|date}, {dateexpired|date} ON DUPLICATE KEY UPDATE {name}, {org}, {dateinvited|date}, {datereminded|date}, {participation}, {gdocs_ref}, {gdocs_rating}, {code}, {ebt_datepurchased|date}, {dateexpired|date}', $person);
+	$db->query('INSERT INTO invites SET {email}, {name}, {org}, {dateinvited|date}, {datereminded|date}, {participation}, {gdocs_ref}, {gdocs_rating}, {code}, {ebt_datepurchased|date}, {dateexpired|date} ON DUPLICATE KEY UPDATE {name}, {org}, {dateinvited|date}, {datereminded|date}, {participation}, {gdocs_ref}, {gdocs_rating}, {code}, {ebt_datepurchased|date}, {dateexpired|date}', $person);
 }
