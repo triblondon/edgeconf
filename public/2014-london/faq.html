@@ -22,7 +22,12 @@
 				<li><a href="index.html">Overview</a></li>
 				<li><a href="schedule.html">Schedule</a></li>
 				<li><a href="faq.html" class="active">FAQs</a></li>
-				<li><a href="/2013-nyc" style='color: #bbb; font-style: italic; font-size: 90%; text-transform: none'>Edge NYC</a></li>
+				<li><a href="#" style='color: #bbb; font-style: italic; font-size: 90%; text-transform: none' class="conf-toggle">Edge London <i class="icon-caret-down"></i></a>
+		          <ul class="conf-list">
+		            <li><a href="/2013-nyc">Edge NYC</a></li>
+		            <li><a href="/2013-london">Edge London 2013</a></li>
+		          </ul>
+		        </li>
 
 			</ul>
 			<i class="icon-reorder"></i>
@@ -153,6 +158,29 @@
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
   <script src="javascripts/foundation/foundation.js"></script>
   <script src="javascripts/foundation/foundation.reveal.js"></script>
+
+  <script>
+		$(document).ready(function() {
+			$('#registration-form').foundation('reveal', {
+				open: function(){
+					$('body').addClass('modal-open');
+				},
+				closed: function(){
+					$('body').removeClass('modal-open');
+				}
+			});
+
+			// Reveal mobile nav
+			$('header nav i.icon-reorder').click(function() {
+				$('header nav ul').fadeToggle(100);
+			});
+			$('.conf-toggle').click(function() {
+				$('.conf-toggle i').toggleClass('icon-caret-down').toggleClass('icon-caret-up');
+				$('.conf-list').toggleClass('active');
+				return false;
+			});
+		});
+	</script>
 
   <script>
     $(document).foundation();

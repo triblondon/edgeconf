@@ -7524,6 +7524,7 @@ header nav ul {
 /* line 118, ../sass/app.scss */
 header nav li {
   display: inline-block;
+  position: relative;
   text-align: center;
   width: 24%;
 }
@@ -7601,6 +7602,51 @@ header nav i {
   /* line 183, ../sass/app.scss */
   header nav.row i {
     display: block !important;
+  }
+}
+
+.conf-toggle i {
+  display: inline !important;
+  font-size: 16px;
+  margin-top: 1px;
+  padding-left: 7px;
+  position: static;
+}
+.conf-list {
+  background-color: #000;
+  display: none !important;
+  position: absolute;
+  right: 15px;
+  top: 35px;
+}
+.conf-list li {
+  display: block;
+  text-align: left;
+  width: 100%;
+}
+.conf-list li a {
+  display: block;
+  font-size: 14px !important;
+  padding: 5px 20px;
+  text-transform: none !important;
+}
+.conf-list.active {
+  display: block !important;
+}
+@media only screen and (max-width: 768px) {
+  header nav.row .conf-toggle i {
+    display: inline !important;
+  }
+  .conf-list {
+    background-color: #000;
+    display: none !important;
+    position: absolute;
+    width: 100%;
+    top: 45px;
+    right: 0;
+  }
+  header nav.row .conf-list li {
+    padding: 5px;
   }
 }
 
