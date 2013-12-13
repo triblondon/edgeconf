@@ -23,7 +23,12 @@
 				<li><a href="index.html">Overview</a></li>
 				<li><a href="schedule.html" class="active">Topics</a></li>
 				<li><a href="faq.html">FAQs</a></li>
-				<li><a href="/2013-nyc" style='color: #bbb; font-style: italic; font-size: 90%; text-transform: none'>Edge NYC</a></li>
+				<li><a href="#" style='color: #bbb; font-style: italic; font-size: 90%; text-transform: none' class="conf-toggle">Edge London <i class="icon-caret-down"></i></a>
+		          <ul class="conf-list">
+		            <li><a href="/2013-nyc">Edge NYC</a></li>
+		            <li><a href="/2013-london">Edge London 2013</a></li>
+		          </ul>
+		        </li>
 			</ul>
 			<i class="icon-reorder"></i>
 		</nav>
@@ -363,6 +368,11 @@
 			// Reveal mobile nav
 			$('header nav i.icon-reorder').click(function() {
 				$('header nav ul').fadeToggle(100);
+			});
+			$('.conf-toggle').click(function() {
+				$('.conf-toggle i').toggleClass('icon-caret-down').toggleClass('icon-caret-up');
+				$('.conf-list').toggleClass('active');
+				return false;
 			});
 		});
 	</script>
