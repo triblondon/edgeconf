@@ -4,259 +4,274 @@ table { border: 1px solid #aaa; border-collapse: collapse; margin: 1em 0;}
 th, td { border: 1px solid #aaa; padding: 3px 5px; text-align: left; font-size:12px; }
 .error { color: red; }
 </style>
+<h1>Send invitations</h1>
 <?php
-
 
 require_once '../../app/global';
 
-
-
-/* Configurable stuff */
-
-// How many invites to have out at once (should gradually be ramped up to be a bit more than the total capacity of the venue)
-$eventcapacity = (empty($_GET['capacity']) or !is_numeric($_GET['capacity'])) ? 30 : $_GET['capacity'];
-
-// Minimum delegate rating in order to get an invite
-$minimumrating = (empty($_GET['minrating']) or !is_numeric($_GET['minrating'])) ? 5 : $_GET['minrating'];
-
-// Where to send invites, if not to the delegate themselves (for testing)
-$overrideemail = (empty($_GET['overrideemail'])) ? null : $_GET['overrideemail'];
-
-// How long after sending invite should reminder be sent if invite wasn't used? (days)
-$reminderperiod = (empty($_GET['reminderperiod']) or !is_numeric($_GET['reminderperiod'])) ? 999 : $_GET['reminderperiod'];
-
-// Whether to update mailchimp with participation status (defaults to false to avoid long pause)
-$domailchimp = (empty($_GET['domailchimp'])) ? false : true;
-
-
-
+$user = adminOnly();
 $db = new MySQLConnection('localhost', MYSQL_USER, MYSQL_PASS, MYSQL_DBNAME);
-$db->setQueryLogging(true);
 $eb_client = new Eventbrite(array('app_key'=>EVENTBRITE_APPKEY, 'user_key'=>EVENTBRITE_USERKEY));
 
-$emailbody_html = file_get_contents('../../lib/templates/email-invite.html');
-$emailbody_text = file_get_contents('../../lib/templates/email-invite.txt');
-$reminderbody_html = file_get_contents('../../lib/templates/email-reminder.html');
-$reminderbody_text = file_get_contents('../../lib/templates/email-reminder.txt');
-$sevendays = 60*60*24*7;
-$tzutc = new DateTimeZone('UTC');
+$sessions = $db->queryLookupTable('SELECT id as k, name as v FROM sessions WHERE eventid=%d ORDER BY starttime', EVENT_ID);
+$preselect = array();
 
-flush();
-while(ob_get_level()) ob_end_flush();
-flush();
-echo '<!--'.str_repeat('#', 1024).'-->';
+/* Download Eventbrite data and update local DB.  Output errors for mis-syncs */
 
-
-/* Get existing data from DB */
-
-$people = array();
-$res = $db->query('SELECT email, name, org, code, dateinvited, datereminded, dateexpired, gdocs_ref, gdocs_rating FROM invites');
-foreach ($res as $row) $people[$row['email']] = $row;
-
-
-/* Download Google Docs data */
-
-echo "<p>Downloading application data from Google Drive</p>";
-flush();
-$http = new HTTPRequest(GSHEET_REG);
-$resp = $http->send();
-
-echo "<p>Decoding CSV</p>";
-flush();
-file_put_contents('/tmp/edgecsv', $resp->getBody());
-$csv = new Coseva\CSV('/tmp/edgecsv');
-$csv->parse();
-foreach ($csv as $row) {
-	if ($row[0] == 'Ref' or empty($row[1])) continue;
-	$data = array(
-		'gdocs_ref' => $row[0],
-		'gdocs_email' => strtolower(trim($row[1])),
-		'gdocs_name' => ucwords(trim($row[3]) . ' ' . trim($row[2])),
-		'gdocs_org' => trim($row[4]),
-		'gdocs_rating' => $row[7],
-		'participation' => 'Registrant'
-	);
-	$key = null;
-	foreach ($people as $email => $person) {
-		if (!empty($person['gdocs_ref']) and $person['gdocs_ref'] == $data['gdocs_ref']) {
-			$key = $email;
-			break;
-		}
-	}
-	if (!$key) $key = $data['gdocs_email'];
-	if (empty($people[$key])) $people[$key] = array();
-	$people[$key] = array_merge($people[$key], $data);
-}
-
-
-echo "<p>Downloading special invites from Google Drive</p>";
-flush();
-$http = new HTTPRequest(GSHEET_SPECIALINVITE);
-$resp = $http->send();
-
-echo "<p>Decoding CSV</p>";
-flush();
-file_put_contents('/tmp/edgecsv', $resp->getBody());
-$csv = new Coseva\CSV('/tmp/edgecsv');
-$csv->parse();
-foreach ($csv as $row) {
-	if ($row[0] == 'Name' or empty($row[2])) continue;
-	$data = array(
-		'gdocs_email' => strtolower(trim($row[2])),
-		'gdocs_name' => $row[0],
-		'gdocs_org' => $row[1],
-		'gdocs_rating' => 6,
-	);
-	$key = strtolower(trim($row[2]));
-	if (empty($people[$key])) $people[$key] = array('participation'=>'Registrant');
-	$people[$key] = array_merge($people[$key], $data);
-}
-
-
-
-/* Download Eventbrite data */
-
-echo "<p>Downloading data from Eventbrite</p>";
-flush();
+$errors = array();
+$ticketsales = array();
+$updated = 0;
 try {
+	$tickets = array();
+	$evt = $eb_client->event_get(array('id'=>EVENTBRITE_EID));
+	foreach($evt->event->tickets as $tkttype) {
+		$tickets[$tkttype->ticket->id] = $tkttype->ticket->name;
+	}
+
 	$list = $eb_client->event_list_attendees(array('id'=>EVENTBRITE_EID));
 	foreach ($list->attendees as $rec) {
 		$data = array(
-			'ebt_name' => ucwords(trim($rec->attendee->first_name).' '.trim($rec->attendee->last_name)),
-			'ebt_org' => isset($rec->attendee->company) ? trim($rec->attendee->company) : null,
-			'ebt_email' => strtolower($rec->attendee->email),
-			'ebt_datepurchased' => $rec->attendee->created,
-			'code' => isset($rec->attendee->discount) ? $rec->attendee->discount : null,
-			'participation' => 'Delegate'
+			'givenname' => ucwords(trim($rec->attendee->first_name)),
+			'familyname' => ucwords(trim($rec->attendee->last_name)),
+			'org' => isset($rec->attendee->company) ? trim($rec->attendee->company) : null,
+			'email' => strtolower($rec->attendee->email),
+			'ticketdate' => $rec->attendee->created,
+			'tickettype' => $tickets[$rec->attendee->ticket_id],
+			'invitecode' => isset($rec->attendee->discount) ? $rec->attendee->discount : null,
+			'eventid' => EVENT_ID
 		);
-		if (!empty($data['code'])) {
-			$key = null;
-			foreach ($people as $email => $person) {
-				if (!empty($person['code']) and $person['code'] == $data['code']) {
-					$key = $email;
-					break;
-				}
-			}
+		$attendanceset = $db->query('SELECT * FROM attendance a WHERE ({invitecode} OR {email}) AND {eventid}', $data);
+		foreach ($attendanceset as $attendance) break;
+		$person = $db->queryRow('SELECT * FROM people WHERE {email}', $data);
+		if (!$person) {
+			$errors[] = 'An Eventbrite ticket has been issued to email address '.$data['email'].', but they are not in the Edge DB.  Please add an entry to the people table for this person.';
+		} else if (count($attendanceset) > 1) {
+			$errors[] = 'One Eventbrite order has used invite code '.$data['invitecode'].' and email address '.$data['email'].', but these belong to two different attendees in the Edge DB.  It\'s possible that an invitee has sent their invite to someone else who had also applied.  We should discourage that.';
+		} else if (count($attendanceset) == 0 and !empty($data['invitecode'])) {
+			$errors[] = $data['email'].' has bought a ticket on Eventbrite with invite code '.$data['invitecode'].' but is not in the Edge DB, under either the email address or the invite code.  Maybe a row has been inadvertently deleted in the Edge DB, or maybe someone gave them a code without going through the invite script.  This ought not to happen.';
+		} else if (count($attendanceset) == 0 and empty($data['invitecode'])) {
+			$errors[] = $data['email'].' has bought a ticket on Eventbrite but is not in the Edge DB.  You probably invited a VIP directly via Eventbrite.  Please put them in the Edge DB too.';
+		} else if ($attendance['email'] != $data['email']) {
+			$errors[] = $data['email'].' has bought a ticket on Eventbrite but using an invite code assigned to '.$attendance['email'].'. We should either cancel the ticket and let the buyer know that it has to be bought by the invitee, transfer it to the invitee by updating the email address in Eventbrite (if they agree, this is preferred), or make an exception and update the Edge DB to transfer the invite to the person who actually bought it.';
+		} else if (strtolower($person['givenname']) != strtolower($data['givenname'])) {
+			$errors[] = 'Given name mismatch for '.$data['email'].': '.$data['givenname'].' on Eventbrite, '.$person['givenname'].' on Edge DB. Please correct the one that\'s wrong';
+		} else if (strtolower($person['familyname']) != strtolower($data['familyname'])) {
+			$errors[] = 'Family name mismatch for '.$data['email'].': '.$data['familyname'].' on Eventbrite, '.$person['familyname'].' on Edge DB. Please correct the one that\'s wrong';
+		} else if (!empty($data['org']) and (strtolower($person['org']) != strtolower($data['org']))) {
+			$errors[] = 'Organisation mismatch for '.$data['email'].': '.$data['org'].' on Eventbrite, '.$person['org'].' on Edge DB. Please delete the org on Eventbrite, as we only need it in Edge DB';
 		} else {
-			$key = $data['ebt_email'];
-		}
-		if (!isset($people[$key])) $people[$key] = array();
-		$people[$key] = array_merge($people[$key], $data);
+			$res = $db->query('UPDATE attendance SET {tickettype}, {ticketdate} WHERE {email}', $data);
+			if ($res->getAffectedRows()) $updated++;
+			$ticketsales[] = $data['email'];
+ 		}
 	}
 } catch (Exception $e) {
+
+	// If no tickets have been sold
 	if ($e->getMessage() != 'No records were found with the given parameters..') throw $e;
 }
 
-
-/* Add participation data */
-
-echo "<p>Downloading VIP participation data from Google Drive</p>";
-flush();
-$http = new HTTPRequest(GSHEET_VIP);
-$resp = $http->send();
-
-echo "<p>Decoding CSV</p>";
-flush();
-$data = $resp->getBody();
-file_put_contents('/tmp/edgecsv', $data);
-$csv = new Coseva\CSV('/tmp/edgecsv');
-$csv->parse();
-foreach ($csv as $row) {
-	if ($row[4] == 'Email' or empty($row[8])) continue;
-	$data = array('participation' => $row[8]);
-	$key = strtolower(trim($row[4]));
-	if (empty($people[$key])) $people[$key] = array();
-	$people[$key] = array_merge($people[$key], $data);
-}
-
-
-/* Canonicalise */
-
-echo "<p>Canonicalising</p>";
-$errors = array();
-foreach ($people as $email => &$person) {
-	if (isset($person['gdocs_email']) and isset($person['ebt_email'])) {
-		if ($person['gdocs_email'] == $person['ebt_email']) {
-			$person['email'] = $person['gdocs_email'];
-			unset($person['gdocs_email'], $person['ebt_email']);
-		} else {
-			$errors[] = 'Email mismatch for '.$person['gdocs_email'].' (gdoc) vs '. $person['ebt_email']. ' (ebt)';
-		}
-	} elseif (isset($person['gdocs_email'])) {
-		$person['email'] = $person['gdocs_email'];
-		unset($person['gdocs_email']);
-	} elseif (isset($person['ebt_email'])) {
-		$person['email'] = $person['ebt_email'];
-		unset($person['ebt_email']);
-	} else {
-		$errors[] = 'Email address '.$email.' is not in Google doc or eventbrite (probably a VIP you need to issue a comp ticket to or a cancelled VIP you need to remove from the database)';
-	}
-	if (isset($person['gdocs_org']) and isset($person['ebt_org'])) {
-		if ($person['gdocs_org'] == $person['ebt_org']) {
-			$person['org'] = $person['gdocs_org'];
-			unset($person['gdocs_org'], $person['ebt_org']);
-		} else {
-			$errors[] = 'Org mismatch for '.$email.': '.$person['gdocs_org'].' (gdoc) vs '. $person['ebt_org']. ' (ebt)';
-		}
-	} elseif (isset($person['gdocs_org'])) {
-		$person['org'] = $person['gdocs_org'];
-		unset($person['gdocs_org']);
-	} elseif (isset($person['ebt_org'])) {
-		$person['org'] = $person['ebt_org'];
-		unset($person['ebt_org']);
-	}
-	if (isset($person['gdocs_name']) and isset($person['ebt_name'])) {
-		if ($person['gdocs_name'] == $person['ebt_name']) {
-			$person['name'] = $person['gdocs_name'];
-			unset($person['gdocs_name'], $person['ebt_name']);
-		} else {
-			$errors[] = 'Name mismatch for '.$email.': '.$person['gdocs_name'].' (gdoc) vs '. $person['ebt_name']. ' (ebt)';
-		}
-	} elseif (isset($person['gdocs_name'])) {
-		$person['name'] = $person['gdocs_name'];
-		unset($person['gdocs_name']);
-	} elseif (isset($person['ebt_name'])) {
-		$person['name'] = $person['ebt_name'];
-		unset($person['ebt_name']);
-	}
-	if (isset($person['email'])) {
-		$sql = 'SELECT 1 FROM invites WHERE {email}';
-		if (!empty($person['gdocs_ref'])) $sql .= ' OR {gdocs_ref}';
-		if (!empty($person['code'])) $sql .= ' OR {code}';
-		$res = $db->query($sql, $person);
-		if (count($res) > 1) {
-			$errors[] = 'Ambiguous email / gdocs ref / invite code usage: '.$res->getQueryExpr();
-		}
+// Check DB for sales that no longer seem to be in Eventbrite
+if ($ticketsales) {
+	$orphans = $db->queryList('SELECT email FROM attendance WHERE tickettype IS NOT NULL AND eventid=%d AND email NOT IN %s|list', EVENT_ID, $ticketsales);
+	if ($orphans) {
+		$errors[] = 'The following are recorded as having been issued tickets on Eventbrite but Eventbrite is no longer reporting their orders: '.join(', ', $orphans);
 	}
 }
+
 if ($errors) {
-	foreach ($errors as $err) {
-		echo '<p class="error">'.$err.'</p>';
-	}
-	exit;
+	echo '<h2>Errors syncing from Eventbrite:</h2><ul><li>'.join('</li><li>', $errors).'</li></ul>';
+} else if ($updated) {
+	echo '<h2>Eventbrite sync</h2>';
+	echo '<ul><li>'.$updated.' record(s) updated</li></ul>';
 }
 
 
-/* Update Mailchimp */
+/* Process requests */
 
-if ($domailchimp) {
-	echo "<p>Updating Mailchimp</p>";
-	$api = new MCAPI(MC_KEY);
-	foreach ($people as $person) {
-		if (!empty($person['participation'])) {
-			$merge_vars = array(
-				'GROUPINGS'=> array(
-					array('name'=>MC_GROUP, 'groups'=>$person['participation']),
-				)
-			);
-			$retval = $api->listSubscribe(MC_LIST, $person['email'], $merge_vars, 'html', false, true, true, false);
+// Don't allow update request if Eventbrite has made updates.  We may no longer want to do some of the things we requested.
+if (!empty($_POST) and $updated) {
+	echo '<h2>Update rejected</h2><p>New data available from Eventbrite.  Please recheck your request to make sure it\'s still correct and submit again.</p>';
+	$preselect = $_POST['invitees'];
+
+} else if (isset($_POST['action']) and $_POST['action'] == 'invite') {
+	$emailbody_html = file_get_contents('../../lib/templates/email/email-invite.html');
+	$emailbody_text = file_get_contents('../../lib/templates/email/email-invite.txt');
+	$results = array();
+	foreach ($_POST['invitees'] as $recip) {
+		$code = $db->querySingle('SELECT code FROM codes c LEFT JOIN attendance a ON c.code=a.invitecode WHERE a.invitecode IS NULL LIMIT 1;');
+		if (!$code) {
+			$results[] = 'Could not invite '.$recip.' because we\'re out of promo codes.';
+			continue;
 		}
+		$db->query("UPDATE attendance SET invitedatesent=NOW(), invitecode=%s WHERE email=%s AND eventid=%d", $code, $recip, EVENT_ID);
+
+		// Change this to be based on activity once data from Wes is imported
+		$avgrating = $db->querySingle('SELECT AVG(rating) FROM participation WHERE email=%s AND sessionid IN %d|list', $recip, array_keys($sessions));
+		$invitestr = (!$avgrating) ? "You are receiving this special invite because we think you'd bring enormous value to Edge, and we'd very much like to see you there.  This may be because you've contributed to a previous Edge event, or simply because we'd especially value your contribution.<br><br>You're invited to skip our normal ticket application process and book a ticket immediately." : "Thanks for registering, we're looking forward to seeing you on March 21st.";
+
+		$placeholders = array('{email}', '{code}', '{invitestr}');
+		$replacements = array($recip, $code, $invitestr);
+		$htmloutput = str_replace($placeholders, $replacements, $emailbody_html);
+		$textoutput = str_replace($placeholders, $replacements, $emailbody_text);
+
+		sendEmail($person['email'], 'Invite to Edge conf', $textoutput, $htmloutput);
+		$results[] = 'Sent invite to '.$recip;
 	}
+	echo "<h2>Result of sending invitations:</h2><ul><li>".join('</li><li>', $results).'</li></ul>';
+
+} else if (isset($_POST['action']) and $_POST['action'] == 'remind') {
+	$reminderbody_html = file_get_contents('../../lib/templates/email/email-reminder.html');
+	$reminderbody_text = file_get_contents('../../lib/templates/email/email-reminder.txt');
+	$results = array();
+	foreach ($_POST['invitees'] as $recip) {
+		$db->query("UPDATE attendance SET invitedatereminded=NOW() WHERE email=%s AND eventid=%d", $recip, EVENT_ID);
+		$code = $db->querySingle("SELECT invitecode FROM attendance WHERE email=%s AND eventid=%d", $recip, EVENT_ID);
+		$placeholders = array('{email}', '{code}');
+		$replacements = array($recip, $code);
+		$htmloutput = str_replace($placeholders, $replacements, $reminderbody_html);
+		$textoutput = str_replace($placeholders, $replacements, $reminderbody_text);
+		sendEmail($recip, 'Reminder: Edge conf invite', $textoutput, $htmloutput);
+		$results[] = 'Sent reminder to '.$recip;
+	}
+	echo "<h2>Result of sending reminders:</h2><ul><li>".join('</li><li>', $results).'</li></ul>';
 }
+
+
+
+
+/* Show current attendence stats and possible invitees */
+
+?>
+<h2>Stats by interest area</h2>
+<p>The following numbers are subsets from left to right - interested is everyone who has declared an interest in this session, including those who have been invited.  Invited is a subset of that.  Confirmed is a subset of invited.</p>
+<table>
+<thead>
+<tr>
+	<th>Session</th><th>Interested</th><th>Invited</th><th>Invited last 2 weeks</th><th>Confirmed</th>
+</tr>
+</thead>
+<tbody>
+	<?php
+	foreach ($sessions as $id=>$name) {
+		$stats = $db->queryRow('SELECT COUNT(*) as interested, SUM(IF(invitecode IS NOT NULL,1,0)) as invited, SUM(IF(invitedatesent > (NOW() - INTERVAL 2 WEEK),1,0)) as recent, SUM(IF(tickettype IS NOT NULL,1,0)) as confirmed FROM attendance a INNER JOIN participation p ON a.email=p.email WHERE a.eventid=%d AND p.sessionid=%d', EVENT_ID, $id);
+		echo "<tr>";
+		echo "<td>".$name."</td>";
+		echo "<td>".$stats['interested']."</td>";
+		echo "<td>".$stats['invited']."</td>";
+		echo "<td>".$stats['recent']."</td>";
+		echo "<td>".$stats['confirmed']."</td>";
+		echo "</tr>";
+	}
+	$stats = $db->queryRow('SELECT COUNT(*) as interested, SUM(IF(invitecode IS NOT NULL,1,0)) as invited, SUM(IF(invitedatesent > (NOW() - INTERVAL 2 WEEK),1,0)) as recent, SUM(IF(tickettype IS NOT NULL,1,0)) as confirmed FROM attendance a LEFT JOIN participation p ON a.email=p.email AND p.sessionid NOT IN %d|list WHERE a.eventid=%d AND p.email IS NULL', array_keys($sessions), EVENT_ID);
+	echo "<tr>";
+	echo "<td><em>No session participation</em></td>";
+	echo "<td>".$stats['interested']."</td>";
+	echo "<td>".$stats['invited']."</td>";
+	echo "<td>".$stats['recent']."</td>";
+	echo "<td>".$stats['confirmed']."</td>";
+	echo "</tr>";
+	?>
+</tbody>
+</table>
+
+<h2>Send new invitations</h2>
+<p>These applicants have an attendence for the current event, but do not yet have a ticket or an invite</p>
+<form method='post' action='<?php echo $_SERVER['REQUEST_URI']; ?>'>
+<table>
+<thead>
+<tr>
+	<th>&nbsp;</th>
+	<th>Email</th>
+	<th>Name</th>
+	<th>Org</th>
+	<th>Avg rating</th>
+	<th>Ratings</th>
+</tr>
+<tbody>
+<?php
+
+$prospects = $db->query('SELECT p.email, p.givenname, p.familyname, p.org, AVG(pa.rating) as avgrating FROM attendance a INNER JOIN people p ON a.email=p.email LEFT JOIN participation pa ON a.email=pa.email AND pa.sessionid IN %d|list WHERE a.eventid=%d AND a.tickettype IS NULL AND a.invitecode IS NULL GROUP BY p.email ORDER BY avgrating DESC', array_keys($sessions), EVENT_ID);
+foreach ($prospects as $prospect) {
+	$proposals = $db->query('SELECT sessionid, rating FROM participation WHERE email=%s AND sessionid IN %d|list', $prospect['email'], array_keys($sessions));
+	$ratings = array();
+	foreach ($proposals as $p) $ratings[] = $sessions[$p['sessionid']].': '.$p['rating'];
+
+	echo "<tr>";
+	echo "<td><input type='checkbox' name='invitees[]' value='".e($prospect,'email')."'".((in_array($prospect['email'], $preselect))?' checked':'')."></td>";
+	echo "<td>".e($prospect, 'email')."</td>";
+	echo "<td>".e($prospect, 'givenname')." ".e($prospect, 'familyname')."</td>";
+	echo "<td>".e($prospect, 'org')."</td>";
+	echo "<td>".round($prospect['avgrating'],2)."</td>";
+	echo "<td>".join(', ', $ratings)."</td>";
+	echo "</tr>";
+}
+
+?>
+</tbody>
+</table>
+<input type='hidden' name='action' value='invite' />
+<input type='submit' value='Invite selected' />
+</form>
+
+<h2>Send reminders</h2>
+<p>These applicants have an invite for the current event, but haven't used it yet, and have not yet received a reminder.  They're listed in order of oldest invite first. Don't remind people who've only received an invite!</p>
+<form method='post' action='<?php echo $_SERVER['REQUEST_URI']; ?>'>
+<table>
+<thead>
+<tr>
+	<th>&nbsp;</th>
+	<th>Email</th>
+	<th>Name</th>
+	<th>Org</th>
+	<th>Avg rating</th>
+	<th>Age of invite</th>
+</tr>
+<tbody>
+<?php
+
+$prospects = $db->query('SELECT p.email, p.givenname, p.familyname, p.org, AVG(pa.rating) as avgrating, a.invitedatesent FROM attendance a INNER JOIN people p ON a.email=p.email LEFT JOIN participation pa ON a.email=pa.email AND pa.sessionid IN %d|list WHERE a.eventid=%d AND a.tickettype IS NULL AND a.invitecode IS NOT NULL AND a.invitedatereminded IS NULL GROUP BY p.email ORDER BY a.invitedatesent', array_keys($sessions), EVENT_ID);
+foreach ($prospects as $prospect) {
+	$datesent = new DateTime($prospect['invitedatesent'], new DateTimeZone('UTC'));
+	$now = new DateTime();
+	$age = $now->diff($datesent)->format('%a');
+	echo "<tr>";
+	echo "<td><input type='checkbox' name='invitees[]' value='".e($prospect,'email')."'".((in_array($prospect['email'], $preselect))?' checked':'')."></td>";
+	echo "<td>".e($prospect, 'email')."</td>";
+	echo "<td>".e($prospect, 'givenname')." ".e($prospect, 'familyname')."</td>";
+	echo "<td>".e($prospect, 'org')."</td>";
+	echo "<td>".round($prospect['avgrating'],2)."</td>";
+	echo "<td>".$age." day(s)</td>";
+	echo "</tr>";
+}
+
+?>
+</tbody>
+</table>
+<input type='hidden' name='action' value='remind' />
+<input type='submit' value='Remind selected' />
+</form>
+<?php
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 /* Expire invitations more than 7 days old (for anyone from a non-whitelisted org). */
-
+/*
 // Create lookup table of discount code to Eventbrite discount ID
 echo "<p>Expiring old codes: ";
 flush();
@@ -276,103 +291,13 @@ foreach ($oldinvites as $invite) {
 }
 echo $count. " invitations expired.</p>\n";
 flush();
-
-
-/* Send invites and reminders as appropriate */
-
-$stats = array('attending'=>0, 'invited'=>0, 'waitlist'=>0, 'expired'=>0);
-echo "<table><tr><th>Email</th><th>Name</th><th>Org</th><th>Gdoc ref</th><th>Rating</th><th>Participation</th><th>Status</th><th>Action</th></tr>";
-foreach ($people as $email => &$person) {
-	echo '<tr><td>'.$person['email'].'</td><td>'.$person['name'].'</td><td>'.$person['org'].'</td>';
-	echo '<td>'.(isset($person['gdocs_ref']) ? $person['gdocs_ref'] : '-') . '</td>';
-	echo '<td>'.(isset($person['gdocs_rating']) ? $person['gdocs_rating'] : '-') . '</td>';
-	echo '<td>'.(isset($person['participation']) ? $person['participation'] : '-') . '</td>';
-
-	if (!empty($person['ebt_datepurchased'])) {
-		echo '<td>Attending</td><td>-</td>';
-		$stats['attending']++;
-
-	} elseif (!empty($person['dateexpired'])) {
-		echo '<td>Expired</td><td>-</td>';
-		$stats['expired']++;
-
-	} elseif (!empty($person['code']) and !empty($person['dateinvited'])) {
-		echo '<td>Invited ('.$person['code'].')</td>';
-		$stats['invited']++;
-
-		// If their invite is nearing expiry, send a reminder (only if they are 5*)
-		$datesent = new DateTime($person['dateinvited'], $tzutc);
-		$reminderhorizon = new DateTime($reminderperiod.' days ago', $tzutc);
-		if ($datesent < $reminderhorizon and empty($person['datereminded']) and $person['gdocs_rating'] >= 5) {
-
-			// Construct the message parts
-			$placeholders = array('{email}', '{code}');
-			$replacements = array($person['email'], $person['code']);
-			$htmloutput = str_replace($placeholders, $replacements, $reminderbody_html);
-			$textoutput = str_replace($placeholders, $replacements, $reminderbody_text);
-
-			// Send
-			sendEmail($person['email'], 'Reminder: Edge conf invite', $textoutput, $htmloutput);
-			$person['datereminded'] = time();
-
-			echo '<td>Sent reminder</td>';
-		} else {
-			echo '<td>-</td>';
-		}
-
-	} elseif (isset($person['gdocs_rating']) and $person['gdocs_rating'] < $minimumrating) {
-		echo '<td>Waitlist</td><td>-</td>';
-		$stats['waitlist']++;
-
-	} elseif (isset($person['gdocs_rating'])) {
-
-		$code = $db->querySingle('SELECT c.code FROM codes c LEFT JOIN invites i ON c.code=i.code WHERE i.code IS NULL LIMIT 1;');
-		$numinvited = $db->querySingle('SELECT COUNT(*) FROM invites WHERE ebt_datepurchased IS NOT NULL or (dateinvited IS NOT NULL AND dateexpired IS NULL)');
-		if (!$code) {
-			echo '<td>Eligible</td><td>Out of promo codes</td>';
-		} elseif ($numinvited > $eventcapacity) {
-			echo '<td>Eligible</td><td>Eligible to invite but event over capacity ('.$numinvited.' > '.$eventcapacity.')</td>';
-		} else {
-			echo '<td>Invited</td><td>Invitation sent with code '.$code.'</td>';
-			$stats['invited']++;
-			$person['code'] = $code;
-			$person['dateinvited'] = time();
-
-			$invitestr = ($person['gdocs_rating'] > 5) ? "You are receiving this special invite because we think you'd bring enormous value to Edge, and we'd very much like to see you there.  This may be because you've contributed to a previous Edge event, or simply because we'd especially value your contribution.<br><br>You're invited to skip our normal ticket application process and book a ticket immediately." : "Thanks for registering, we're looking forward to seeing you on March 21st.";
-			$htmloutput = str_replace(
-				array('{email}', '{code}', '{invitestr}'),
-				array($person['email'], $person['code'], $invitestr),
-				$emailbody_html
-			);
-			$textoutput = str_replace(
-				array('{email}', '{code}', '{invitestr}'),
-				array($person['email'], $person['code'], $invitestr),
-				$emailbody_text
-			);
-
-			sendEmail($person['email'], 'Invite to Edge conf', $textoutput, $htmloutput);
-
-		}
-	} else {
-		echo '<td>Unknown</td><td>-</td>';
-	}
-	echo '</tr>';
-	updatePerson($person);
-	flush();
-}
-echo "</table>\n";
-
-
-/* Output stats */
-
-var_dump($stats);
+*/
 
 
 
 
 
 function sendEmail($to, $subj, $text, $html) {
-	global $overrideemail;
 	static $count;
 
 	// Set up mime headers...
@@ -397,16 +322,7 @@ function sendEmail($to, $subj, $text, $html) {
 
 	// Send
 	$count++;
-	if ($overrideemail) $to = $overrideemail;
+	//$to = 'andrew@labs.ft.com';
 	return mail($to, $subj, $email, $mimeheaders, '-f noreply@labs.ft.com');
 }
 
-function updatePerson($person) {
-	global $db;
-	$fields = array('email', 'name', 'org', 'dateinvited', 'datereminded', 'participation', 'gdocs_ref', 'gdocs_rating', 'code', 'ebt_datepurchased', 'dateexpired');
-	foreach ($fields as $field) {
-		if (!isset($person[$field])) $person[$field] = null;
-	}
-
-	$db->query('INSERT INTO invites SET {email}, {name}, {org}, {dateinvited|date}, {datereminded|date}, {participation}, {gdocs_ref}, {gdocs_rating}, {code}, {ebt_datepurchased|date}, {dateexpired|date} ON DUPLICATE KEY UPDATE {name}, {org}, {dateinvited|date}, {datereminded|date}, {participation}, {gdocs_ref}, {gdocs_rating}, {code}, {ebt_datepurchased|date}, {dateexpired|date}', $person);
-}
