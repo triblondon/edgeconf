@@ -222,7 +222,7 @@ header('Cache-Control: max-age=0, no-store, must-revalidate');
 						} else {
 							?>
 							<a href='<?php echo $auth->getAuthRedirectUrl() ?>'><img width="200" src="https://developers.google.com/accounts/images/sign-in-with-google.png"></a>
-							<span class='note'>To verify your email address, please sign in with a Google account. This reduces the risk of duplicate applications and you will need a Google account anyway to use our conference-day debate tools.  We only ask for access to your email address.  If you don't have a Google account, <a href='mailto:hello@edgeconf.com'>email us</a> your details instead.</span>
+							<span class='note'>To verify your email address, please sign in with a Google account. This reduces the risk of duplicate applications, allows you to track your application, and use conference-day participation tools.  We only ask for access to your email address.  If you don't have a Google account, <a href='https://docs.google.com/forms/d/1YIg9mSjfUUje-_hPKi13Mh-fY84pefn1DerYruvOi-w/viewform'>use this form instead</a>.</span>
 							<?php
 						}
 						?>

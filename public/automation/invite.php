@@ -16,6 +16,7 @@ $eb_client = new Eventbrite(array('app_key'=>EVENTBRITE_APPKEY, 'user_key'=>EVEN
 $sessions = $db->queryLookupTable('SELECT id as k, name as v FROM sessions WHERE eventid=%d ORDER BY starttime', EVENT_ID);
 $preselect = array();
 
+
 /* Download Eventbrite data and update local DB.  Output errors for mis-syncs */
 
 $errors = array();
@@ -115,7 +116,7 @@ if (!empty($_POST) and $updated) {
 		$htmloutput = str_replace($placeholders, $replacements, $emailbody_html);
 		$textoutput = str_replace($placeholders, $replacements, $emailbody_text);
 
-		sendEmail($person['email'], 'Invite to Edge conf', $textoutput, $htmloutput);
+		sendEmail($recip, 'Invite to Edge conf', $textoutput, $htmloutput);
 		$results[] = 'Sent invite to '.$recip;
 	}
 	echo "<h2>Result of sending invitations:</h2><ul><li>".join('</li><li>', $results).'</li></ul>';

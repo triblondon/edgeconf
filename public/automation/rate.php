@@ -32,7 +32,7 @@ $idx = 0;
 $sessions = $db->query('SELECT * FROM sessions WHERE eventid=%d ORDER BY starttime', EVENT_ID);
 foreach ($sessions as $session) {
 	$stats = $db->queryRow('SELECT SUM(IF(tickettype IS NOT NULL, 1, 0)) as attending, SUM(IF(invitedatesent IS NOT NULL AND tickettype IS NULL, 1, 0)) as invited, SUM(IF(tickettype IS NULL AND invitedatesent IS NULL, 1, 0)) as waitlist, AVG(rating) as avgrating FROM attendance a INNER JOIN participation p ON a.email=p.email WHERE p.sessionid=%d', $session['id']);
-	$newproposals = $db->query('SELECT pe.email, pe.org, pa.proposal FROM people pe INNER JOIN participation pa ON pe.email=pa.email WHERE pa.sessionid=%d and rating IS NULL', $session['id']);
+	$newproposals = $db->query('SELECT pe.email, pe.org, pa.proposal FROM people pe INNER JOIN participation pa ON pe.email=pa.email WHERE pa.sessionid=%d AND role=%s AND rating IS NULL', $session['id'], 'Delegate');
 	echo '<h2>'.$session['name'].'</h2>';
 	echo '<p>Attending: '.$stats['attending'].', Invited: '.$stats['invited'].', Waitlist: '.$stats['waitlist'].', Avg rating: '.$stats['avgrating'].'</p>';
 	echo '<table>';
