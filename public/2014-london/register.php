@@ -38,16 +38,20 @@ if (!empty($user) and isset($_POST['givenname'])) {
 // Otherwise, if user is known, load details so they can modify existing records
 } elseif (!empty($user)) {
 	$data = $db->queryRow('SELECT * FROM people WHERE email=%s', $user['email']);
-	$data = array_merge($data, $db->queryRow('SELECT * FROM attendance WHERE email=%s AND eventid=%d', $user['email'], EVENT_ID));
-	$data['sessions'] = array();
-	$proposals = $db->query('SELECT * FROM participation WHERE email=%s AND sessionid IN %d|list', $user['email'], array_keys($sessions));
-	foreach ($proposals as $proposal) {
-		$data['proposal_'.$proposal['sessionid']] = $proposal['proposal'];
-		$data['sessions'][] = $proposal['sessionid'];
+	if (is_array($data)) {
+		$data = array_merge($data, $db->queryRow('SELECT * FROM attendance WHERE email=%s AND eventid=%d', $user['email'], EVENT_ID));
+		$data['sessions'] = array();
+		$proposals = $db->query('SELECT * FROM participation WHERE email=%s AND sessionid IN %d|list', $user['email'], array_keys($sessions));
+		foreach ($proposals as $proposal) {
+			$data['proposal_'.$proposal['sessionid']] = $proposal['proposal'];
+			$data['sessions'][] = $proposal['sessionid'];
+		}
+	} else {
+		$data = false;
 	}
 }
 
-header('Cache-Control: max-age=0, no-store, must-revalidate');
+if (!headers_sent()) header('Cache-Control: max-age=0, no-store, must-revalidate');
 
 ?>
 <!DOCTYPE html>
