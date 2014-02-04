@@ -1,0 +1,188 @@
+
+	<section class="layer">
+    <div class="row">
+      <div class="small-12 columns">
+        <h3>
+          <span class="conf-name">Edge<span hidden id="liveLabel"> Live</span>:</span>
+          <span id="sessionLabel">A new kind of web conference.</span>
+        </h3>
+      </div>
+    </div>
+    <div class="row">
+			<div class="small-12 columns iframe-wrapper">
+				<div id="player">
+        </div>
+        <div id="itsOver" hidden>
+            <p>The livestream is over, thanks for tuning in.</p>
+            <p>Missed the sessions live? You can watch them any time on <a href="http://goo.gl/4YE9Z0">YouTube</a></p>
+          </div>
+			</div>
+		</div>
+    <div class="row">
+      <div class="small-12 columns up-next" hidden>
+        <p>Up next: <span></span></p>
+      </div>
+    </div>
+	</section>
+
+  <script type="text/javascript">
+
+    var playlist = [
+      {
+        "title": "A new kind of web conference.",
+        "moderator": "http://goo.gl/xWsgc0",
+        "ends_at": Date.parse("2013-09-23T10:00:00-04:00"),
+        "video_id": 0
+      },
+      {
+        "title": "Responsive Images",
+        "moderator": "http://goo.gl/hFqwYT",
+        "ends_at": Date.parse("2013-09-23T11:00:00-04:00"),
+        "video_id": 0
+      },
+      {
+        "title": "Rendering Performance",
+        "moderator": "http://goo.gl/vFCl7F",
+        "ends_at": Date.parse("2013-09-23T12:00:00-04:00"),
+        "video_id": 0
+      },
+      {
+        "title": "Third Party Scripts",
+        "moderator": "http://goo.gl/wZxoyX",
+        "ends_at": Date.parse("2013-09-23T13:15:00-04:00"),
+        "video_id": 0
+      },
+      {
+        "title": "Real Time Data",
+        "moderator": "http://goo.gl/DzGimQ",
+        "ends_at": Date.parse("2013-09-23T15:15:00-04:00"),
+        "video_id": 1
+      },
+      {
+        "title": "Offline",
+        "moderator": "http://goo.gl/zL1rnz",
+        "ends_at": Date.parse("2013-09-23T16:15:00-04:00"),
+        "video_id": 1
+      },
+      {
+        "title": "Legacy Clients",
+        "moderator": "http://goo.gl/wff6D4",
+        "ends_at": Date.parse("2013-09-23T17:30:00-04:00"),
+        "video_id": 1
+      },
+      {
+        "title": "Payments",
+        "moderator": "http://goo.gl/2szNXP",
+        "ends_at": Date.parse("2013-09-23T18:30:00-04:00"),
+        "video_id": 1
+      },
+      {
+        "title": "Closing Statements",
+        "moderator": "http://goo.gl/xWsgc0",
+        "ends_at": Date.parse("2013-09-23T18:45:00-04:00"),
+        "video_id": 1
+      }
+    ];
+    var player;
+    var currentVideoIndex;
+
+    function getCurrentVideoIndex() {
+      var curTime = Date.now();
+      for (var i = 0; i < playlist.length; i++) {
+        var video = playlist[i];
+        if (curTime < video.ends_at) {
+          return i;
+          break;
+        }
+      }
+      return -1;
+    }
+
+    function init() {
+      currentVideoIndex = getCurrentVideoIndex();
+      if (currentVideoIndex >= 0) {
+        updateMetadata();
+
+        // Setup video player
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+      } else {
+        showOver();
+      }
+    }
+
+    function onYouTubeIframeAPIReady() {
+      console.log("onYouTubeIframeAPIReady");
+      player = new YT.Player('player', {
+        height: '315',
+        width: '560',
+        playerVars: {
+          listType: 'playlist',
+          list: 'PLNYkxOF6rcICJ_TvIcxTg729tc-jqZ8uc',
+          index: playlist[currentVideoIndex].video_id,
+          autoplay: 0
+        },
+        events: {
+          'onStateChange': onPlayerStateChange,
+          'onReady': onPlayerReady
+        }
+      });
+    }
+
+    function onPlayerReady(evt) {
+      console.log("onPlayerReady", evt);
+      player.playVideo();
+      setInterval(function() {
+        var newIndex = getCurrentVideoIndex();
+        if (newIndex != currentVideoIndex) {
+          currentVideoIndex = newIndex;
+          updateMetadata();
+        }
+      }, 5000);
+    }
+
+    function onPlayerStateChange(evt) {
+      console.log("onPlayerStateChange", evt);
+    }
+
+    function updateMetadata() {
+      console.log("updateMetadata", currentVideoIndex);
+      if (currentVideoIndex >= 0) {
+        var currentVideo = playlist[currentVideoIndex];
+        // set Title
+        $("#sessionLabel").text(currentVideo.title);
+
+        // set Live Label
+        if (Date.now() > Date.parse("2013-09-23T09:45:00-04:00")) {
+          $("#liveLabel").removeAttr("hidden");
+        }
+
+        // set next title
+        var upNext = $(".up-next");
+        if (currentVideoIndex + 1 < playlist.length) {
+          upNext.attr("hidden", null);
+          upNext.find("span").text(playlist[currentVideoIndex + 1].title);
+        } else {
+          upNext.attr("hidden", true);
+        }
+
+        // set Moderator link
+        $("a.moderatorLink").attr("href", currentVideo.moderator);
+        $("#moderatorIFrame").attr("src", currentVideo.moderator);
+      } else {
+        showOver();
+      }
+    }
+
+    function showOver() {
+      $("#liveLabel").attr("hidden", true);
+      $("#itsOver").removeAttr("hidden");
+      $("#secMod").attr("hidden", true);
+    }
+
+
+
+    init();
+  </script>

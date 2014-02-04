@@ -1,0 +1,95 @@
+<html>
+<head>
+	<link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,900' rel='stylesheet' type='text/css'>
+	<link href='//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.min.css' rel='stylesheet' type='text/css'>
+  	<style>
+	:root {-webkit-print-color-adjust:exact}
+	* { box-sizing: border-box; }
+	body, html { height: 100%; width: 100%; margin:0; padding:0; }
+	body { font-family: 'Lato', sans-serif; background: #f3f3f3; }
+	section { display: table; width: 850px; margin: 0 auto; background:white; height: 138mm; border-bottom: 1px dotted #ddd;}
+	section:nth-child(2n) { border-bottom: 1px dashed #ccc; }
+	section > div { display: table-cell; width: 50%; text-align: center; padding-top: 30mm; position: relative; border-left: 1px dotted #ddd; overflow:hidden; }
+	h1 { font-size: 60px; font-weight: normal; margin: 0; position: absolute; width: 100%; top: 30mm; }
+	h2 { margin-top:0; color: #555; font-weight: normal; font-size: 30px;position: absolute; width: 100%; top: 49mm;}
+	h3 { margin-top: 20mm; position: absolute; top: 50mm; width: 100%;}
+	.footer { position: absolute; left:0; right:0; bottom:30px; height: 170px; background: url(http://www.edgeconf.com/2013-nyc/images/bg_billboard.jpg); background-size: cover;}
+	.detail { list-style-type: none; position: absolute; bottom: 60px; left: 20px; padding:0; margin: 0; text-align: left; color: white; }
+	.interests { list-style-type: none; position: absolute; bottom: 0; left:0; right: 0; height: 30px; padding:0; margin:0; background:black; display: flex; }
+	.interests li { flex: 1 1 auto; padding-top: 4px; }
+	.interests li i { font-family: FontAwesome; color: white; font-size: 21px; font-style: normal; font-weight: normal; -webkit-font-smoothing: antialiased }
+
+	/* Edge 2 */
+	.session-9 { background: #15B100; }
+	.session-9 i:before { content:'\F085'; }
+	.session-14 { background: #088; }
+	.session-14 i:before { content: '\F155'; }
+	.session-12 { background: orange; }
+	.session-12 i:before { content: '\F011'; }
+	.session-11 { background: #00d;}
+	.session-11 i:before { content: '\F0E7'; }
+	.session-8 { background: #1AE3FF; }
+	.session-8 i:before { content: '\F03E'; }
+	.session-13 { background: red; }
+	.session-13 i:before { content:'\F188'; }
+	.session-10 { background: purple;}
+	.session-10 i:before { content:'\F121';}
+
+	/* Edge 3 */
+	.session-15 { background: #15B100; }
+	.session-15 i:before { content:'\F12E'; }
+	.session-16 { background: #088; }
+	.session-16 i:before { content: '\F0AD'; }
+	.session-17 { background: orange; }
+	.session-17 i:before { content: '\F013'; }
+	.session-18 { background: #00d;}
+	.session-18 i:before { content: '\F0E7'; }
+	.session-19 { background: #1AE3FF;}
+	.session-19 i:before { content: '\F10A'; }
+	.session-20 { background: red }
+	.session-20 i:before { content: '\F193'; }
+	.session-21 { background: purple }
+	.session-21 i:before { content: '\F005'; }
+
+
+	.logo { width: 140px; position: absolute; bottom: 35px; right: 25px;}
+	.bg { position: absolute; z-index: 0; top: 0; left: -27px; width: 479px; height: 546px; }
+
+	@media print {
+		@page { size: 210mm 148mm; margin: 0; }
+		section { border-bottom: none; width: 100%;}
+		section > div { border-left: none; }
+		section { page-break-after: always; border-bottom: none; }
+		body { background-color: white; }
+	}
+	</style>
+</head>
+<body>
+
+	{% for attendee in attendees %}
+	<section>
+		{% for side in sides %}
+			<div class='{{side}}'>
+				<h1>{{attendee.given_name|capitalize}}</h1>
+				<h2>{{attendee.family_name|capitalize}}</h2>
+				<h3>{{attendee.org}}</h3>
+				<div class='footer'>
+					<ul class='detail'>
+						<li>Edge conference</li>
+						<li>{{event.start_date|date("j F Y")}}</li>
+						<li>{{event.venue_name}}</li>
+					</ul>
+					<img class='logo' src='/images/events/{{event.slug}}/logo.png' />
+				</div>
+				<ul class='interests'>
+					{% for sessionid in attendee.interests %}
+						<li class='session-{{sessionid}}'><i></i></li>
+					{% endfor %}
+				</ul>
+			</div>
+		{% endfor %}
+	</section>
+	{% endfor %}
+
+</body>
+</html>

@@ -1,0 +1,34 @@
+{% extends 'layout.html' %}
+{% set activemenu = 'panels' %}
+{% set admin = true %}
+
+{% block content %}
+<div class='container'>
+
+	<h2>Session panels</h2>
+
+	{% for session in sessions %}
+		<h3 style='margin: 40px 0 20px 0'>{{session.name}}</h3>
+		<table>
+			<thead>
+				<tr><th>Name</th><th>Org</th><th>Location</th><th>Role</th><th>Panel status</th><th>Ticket status</th><th></th></tr>
+			</thead>
+			<tbody>
+				{% for person in session.people %}
+				<tr class='panelstatus-{{person.panel_status|lower}}'>
+					<td>{{person.given_name}} {{person.family_name}}</td>
+					<td>{{person.org}}</td>
+					<td>{{person.travel_origin}}</td>
+					<td>{{person.role}}</td>
+					<td>{{person.panel_status}}</td>
+					<td>{{person.ticket_type}}</td>
+					<td><a href='/admin/people/{{person.id}}'>Edit</a></td>
+				</tr>
+				<tr><td colspan='7'>{{person.bio|raw}}</td></tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	{% endfor %}
+
+</div>
+{% endblock %}

@@ -1,0 +1,55 @@
+{% macro text(name, label, data, placeholder, disabled) %}
+{% set val = (data is iterable) ? data[name] : data %}
+<div class="row form-field{{ disabled ? ' disabled' : '' }}">
+	<div class="small-12 large-4 columns">
+		<label for='txt{{name}}'>{{label}}</label>
+	</div>
+	<div class='small-12 large-8 columns'>
+		<input type='text' name='{{name}}' id='txt{{name}}' placeholder='{{placeholder}}' value='{{val}}'>
+	</div>
+</div>
+{% endmacro %}
+
+{% macro select(name, label, data, options, disabled, allowblank, notes) %}
+{% set val = (data is iterable) ? data[name] : data %}
+<div class="row form-field{{ disabled ? ' disabled' : '' }}">
+	<div class="small-12 large-4 columns">
+		<label for='sel{{name}}'>{{label}}</label>
+	</div>
+	<div class='small-12 large-8 columns'>
+		<select name='{{name}}' id='sel{{name}}'>
+			{% if allowblank %}<option value=""></option>{% endif %}
+			{% for key,label in options %}
+				<option value='{{key}}' {{ (key==val) ? ' selected' : '' }}>{{label}}</option>";
+			{% endfor %}
+		</select>
+		{% if notes %}<span class='note'>{{notes}}</span>{% endif %}
+	</div>
+</div>
+{% endmacro %}
+
+{% macro chklist(name, label, data, options, disabled, notes) %}
+<div class="row form-field{{ disabled ? ' disabled' : '' }}">
+	<div class="small-12 large-4 columns">
+		<label>{{label}}</label>
+	</div>
+	<div class='small-12 large-8 columns form-chklist' id='chklist{{name}}'>
+		{% if notes %}<span class='note'>{{notes}}</span>{% endif %}
+		{% for key,label in options %}
+			<label class='inline'><input type='checkbox' class='form-chklist__chk' name='{{name}}[]' value='{{key}}' {{ key in data[name] ? ' checked' : '' }}>{{label}}</label>
+		{% endfor %}
+	</div>
+</div>
+{% endmacro %}
+
+{% macro dummy(name, label, data) %}
+{% set val = (data is iterable) ? data[name] : data %}
+<div class="row form-field">
+	<div class="small-12 large-4 columns">
+		<label>{{label}}</label>
+	</div>
+	<div class='small-12 large-8 columns'>
+		{{val}}
+	</div>
+</div>
+{% endmacro %}

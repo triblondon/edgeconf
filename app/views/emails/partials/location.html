@@ -1,0 +1,20 @@
+<div style="margin-top:24px;">
+	<p style="color:#333; font-size: 17px; line-height: 20px; font-weight: bold">Place and time</p>
+	<p style="line-height:18px; margin-top:0px; color:#515151;">Here's a reminder of where and when Edge will be held:</p>
+</div>
+<table width="500" border="0" cellspacing="0" cellpadding="0">
+	<tr>
+		<td id="invite_body_logo" width="240" valign="top" style="display:inline;">
+			<img style="border: 1px solid #cac4c4" src="https://www.eventbrite.co.uk/staticmap_https_proxy?center=51.496816,-0.141369&amp;zoom=16&amp;markers=label:A|40.74189,-74.00417&amp;size=260x145&amp;sensor=true" />
+		</td>
+		<td valign="top" style="font-size:13px; line-height:18px;">
+			<p style="color:#515151; width: 200px; margin-top: 0">{{event.start_time|date('l F jS, Y')}}</p>
+			<p style="color:#515151;">
+			<b>{{event.venue_name}}</b>
+			<br />{{event.venue_address|nl2br}}
+			<br />
+			<br />
+			<a href="{{event.venue_map_url|raw}}" style="color:#0F90BA; text-decoration:none;" target="_blank">View Map</a></p>
+		</td>
+	</tr>
+</table>

@@ -1,0 +1,28 @@
+{% extends 'layout.html' %}
+{% set activemenu = 'faq' %}
+
+{% block content %}
+	<div id="billboard" class="inner billboard-{{ thisevent.slug }}">
+		<div class="row">
+			<div class="small-12 large-2 columns">
+				<h1 class="hide-text">Edge Conference</h1>
+			</div>
+			<div class="small-12 large-10 columns">
+				<h2>FAQs</h2>
+			</div>
+		</div>
+	</div>
+
+	{% for faq in faqs %}
+	<section class="layer">
+		<div class="row">
+			<div class="small-12 columns">
+				<div>
+					<h3 id='q{{loop.index}}'>{{faq.question|raw}}</h3>
+                    {{faq.answer|raw}}
+				</div>
+			</div>
+		</div>
+	</section>
+	{% endfor %}
+{% endblock %}

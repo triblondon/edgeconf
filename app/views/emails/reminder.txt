@@ -1,0 +1,15 @@
+
+Time's running out.
+
+You registered for Edge and we sent you an invite, but you haven't used it.  If you still want to, you need to buy your ticket soon, as we're now issuing more invitations to people on our waitlist.
+
+Ticket page:  http://www.eventbrite.co.uk/e/{{event.eventbrite_id}}?access={{code}}
+Your code:    {{code}}
+
+------
+
+{% include 'emails/partials/location.txt' %}
+
+------
+
+{% include 'emails/partials/about.txt' %}

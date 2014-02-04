@@ -1,0 +1,62 @@
+{% extends 'layout.html' %}
+{% import 'macros/forms.html' as forms %}
+{% set activemenu = 'people' %}
+{% set admin = true %}
+
+{% block content %}
+	<section class="layer">
+		<div class="row">
+			<div class="small-12 columns">
+				<h2>Edit person</h2>
+				<form class='edgeform' action='/admin/people/{{person.id}}' method='post'>
+
+					<h3 style='margin: 40px 0 20px 0'>Profile</h3>
+
+					{{ forms.text('given_name', 'Given name', person) }}
+					{{ forms.text('family_name', 'Family name', person) }}
+					{{ forms.text('email', 'Email address', person) }}
+					{{ forms.text('org', 'Organisation/affiliation', person) }}
+					{{ forms.text('bio', 'Biography', person) }}
+					{{ forms.select('travel_origin', 'Location', person, countries, false, true) }}
+
+					{% for attendance in attendances %}
+
+						<h3 style='margin: 40px 0 20px 0'>Attendance at Edge {{attendance.event_id}} {{attendance.location}}</h3>
+
+						{{ forms.dummy('status', 'Status', attendance.status) }}
+						{{ forms.text('expenses_travel_'~attendance.event_id, 'Travel expenses (£)', attendance.expenses_travel) }}
+						{{ forms.text('expenses_accom_'~attendance.event_id, 'Accomodation expenses (£)', attendance.expenses_accom) }}
+						{{ forms.text('invite_code_'~attendance.event_id, 'Invite code', attendance.invite_code) }}
+
+						<table>
+						<tr><th>Session</th><th>Proposal</th><th>Role</th><th>Status</th></tr>
+						{% for session in attendance.sessions %}
+							<tr>
+								<td>{{session.name}}</td>
+								<td>{{session.proposal}}</td>
+								<td><select name='role_{{session.id}}'>
+									{% for opt in role_options %}
+										<option{{ session.role==opt ? ' selected': '' }}>{{opt}}</option>
+									{% endfor %}
+								</select></td>
+								<td><select name='panel_status_{{session.id}}'>
+									{% for opt in panel_status_options %}
+										<option{{ session.panel_status==opt ? ' selected': '' }}>{{opt}}</option>
+									{% endfor %}
+								</select></td>
+							</tr>
+						{% endfor %}
+						</table>
+
+					{% endfor %}
+
+					<div class="row form-field{{ nouser ? ' disabled' : '' }}">
+						<div class='small-12 columns'>
+							<p style='text-align:right; margin-top: 30px'><input type='submit' class='button' value='Save' /></p>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</section>
+{% endblock %}

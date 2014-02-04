@@ -1,0 +1,468 @@
+<?php
+/**
+ * Helper to allow processes to be detached, stopped, restarted and to abstract away things like CLI arguments
+ *
+ * @codingstandard ftlabs-phpcs
+ * @copyright The Financial Times Limited [All Rights Reserved]
+ */
+
+
+class DaemonV2 {
+
+	/**
+	 * A list of settings (key/value pairs) to use if they are not passed into the constructor
+	 * @var array
+	 */
+	private $settingDefaults = array(
+
+
+		/*
+		 * The maximum amount of time the daemon should be allowed to run for in seconds
+		 * NOTE: In order to use this, you MUST state "declare(ticks=1)" at the top of your script.
+		 * @var number
+		 */
+
+		'maxruntime' => INF,
+
+
+		/*
+		 * A function to call when the daemon has reached its max runtime
+		 * @var callback
+		 */
+
+		'maxruntimecallback' => null,
+
+
+		/*
+		 * The UNIX user as whom to run the process
+		 * @var string
+		 */
+
+		'runas' => null,
+
+
+		/*
+		 * The maximum number of concurrent instances of this daemon which can be run
+		 * @var number
+		 */
+
+		'maxinstances' => INF,
+
+
+		/*
+		 * Whether, on reaching max instances, existing processing should be replaced.  (If not, the current process dies)
+		 * @var boolean
+		 */
+
+		'replaceexisting' => false,
+
+
+		/*
+		 * The number of instances of this daemon to start following a restart
+		 * @var number
+		 */
+
+		'startingdaemoninstances' => 1,
+
+
+		/*
+		 * A human-readable name for the daemon
+		 * @var string
+		 */
+
+		 'name' => "daemon",
+
+
+		/*
+		 * A description of what the daemon does (appox 1 sentence)
+		 * @var string
+		 */
+
+		 'description' => "",
+
+
+		/*
+		 * An explaination of the arguments the daemon accepts (not including those provided by this daemon class)
+		 * Must be an Array or traversable object where the keys are the names of the arguments and the values are descriptions
+		 * @var array|traversable
+		 */
+
+		'args' => array(),
+	);
+
+	/**
+	 * A list of CLI arguments which are used by this class and won't be passed to the app in getCLIArgs
+	 * key is the argument name; value is a description of the argument
+	 * @var array
+	 */
+	private $daemonArgNames = array(
+		'daemon' => "Detaches process and runs in the background",
+		'debug' => "Run the process in the foreground",
+		'help' => "Lists valid arguments",
+		'stop' => 'Kills all running instances of the {$name} (There is no \'--start\' argument, use --restart instead)',
+		'restart' => 'Kills all running instances of the {$name} and starts {$newinstances}',//.(($this->_startingdaemoninstances == 1) ? '' : 's'),
+	);
+
+	private $cliArgs, $pidfilehandle, $pidfile;
+
+	/**
+	 * Creates a new Daemon instance
+	 *
+	 * @param array $settings an associative array of settings (for details of valid keys, see settingsDefaults above)
+	 * @return DaemonV2
+	 */
+	public function __construct(array $settings = array()) {
+		$settings = array_merge($this->settingDefaults, $settings);
+
+		if ($settings['runas']) $this->runAs($settings['runas']);
+
+		$daemonArgs = $this->parseArgs($settings['args']);
+
+		if ($daemonArgs['help']) {
+			$this->showHelp($settings);
+			exit;
+		}
+
+		$this->setTimeAndMemoryLimits();
+
+		$this->pidfile = "/var/run/apps/".str_replace("/", "-", realpath($_SERVER["SCRIPT_FILENAME"])).".pid";
+
+		$this->openPidFile();
+		$processes = $this->getPidList();
+		if ($daemonArgs['stop'] or $daemonArgs['restart']) {
+			$this->stopInstances($processes);
+			if ($daemonArgs['restart']) {
+				if ($settings['startingdaemoninstances'] > $settings['maxinstances']) {
+					trigger_error("Attempting to start more than the maxmimum number of daemon instances.", E_USER_NOTICE);
+					$settings['startingdaemoninstances'] = $settings['maxinstances'];
+				}
+				$this->startInstances($settings['startingdaemoninstances']);
+			} else {
+				exit;
+			}
+		} else {
+			if ($daemonArgs['daemon'] and $daemonArgs['debug']) die("Cannot specify both --daemon and --debug.  Choose one.\n");
+
+			// On non-dev servers, default to --daemon
+			if ($daemonArgs['daemon'] or (!$daemonArgs['debug'] and empty($_SERVER['IS_DEV']))) {
+
+				if (count($processes) + 1 > $settings['maxinstances']) {
+					if ($settings['replaceexisting']) {
+						$this->stopInstances(array_shift($processes));
+					} else {
+						exit;
+					}
+				}
+
+				// Exit the parent process following the fork
+				if ($this->fork()) exit;
+			}
+		}
+		$this->closePidFile();
+
+		if ($settings['maxruntime'] < INF) $this->startMaxRuntimeTimer($settings['maxruntime'], $settings['maxruntimecallback']);
+	}
+
+	/**
+	 * Returns a parsed representation of the arguments passed in from the command line, excluding any arguments handled by the daemon class.
+	 * Only returns those arguments registered using the args setting
+	 *
+	 * @return array
+	 */
+	public function getCLIArgs() {
+		return $this->cliArgs;
+	}
+
+	/**
+	 * Forks the daemon into two processes, a parent and child
+	 *
+	 * @returns integer The pid of the newly forked child process.
+	 * @return boolean true if the process is a parent, false for a child process
+	 */
+	private function fork() {
+		$pid = pcntl_fork();
+		if ($pid == -1) {
+			throw new AssankaException("Could not fork");
+		} elseif ($pid) {
+			return true;
+		} else {
+
+			// Close STDIN, OUT and ERR.  If a child process produces output, it will terminate the process
+			fclose(STDIN);
+			fclose(STDOUT);
+			fclose(STDERR);
+
+			// And change directory for safety:
+			chdir("/");
+
+			if (!posix_setsid()) {
+				throw new AssankaException("Unable to detach");
+			}
+			$this->addCurrentToPidFile();
+			return false;
+		}
+	}
+
+	/**
+	 * Changes the time limit and memory allocation for this script
+	 *
+	 * @return void
+	 */
+	private function setTimeAndMemoryLimits() {
+
+		// Remove time limit - daemons must be able to run forever
+		set_time_limit(0);
+
+		// Increase memory allocation if it's under 256MB
+		$currentmem = ini_get('memory_limit');
+		if (preg_match("/^(\d+)([BKMG])$/", $currentmem, $m)) {
+			$multipliers = array('B' => 1, 'K' => 1024, 'M' => 1048576, 'G' => 1073741824);
+			$currentmem = $m[1] * $multipliers[$m[2]];
+		}
+		if ($currentmem < (256 * 1024 * 1024)) ini_set("memory_limit", "256M");
+
+	}
+
+	/**
+	 * Set maximum runtime
+	 *
+	 * Defines the maximum time, in seconds, for which the process is permitted to continue running after this method is called.  Note that time elapsed before this method is called does not count.
+	 * NOTE: In order to use this method, you MUST state "declare(ticks=1)" at the top of your script.  Also, it should be called after forking.
+	 *
+	 * @param integer $maxtime  Number of seconds
+	 * @param closure $callback A PHP closure to be invoked when the runtime expires
+	 * @return void
+	 */
+	private function startMaxRuntimeTimer($maxtime, $callback) {
+		pcntl_signal(SIGALRM, function() use($callback) {
+			if (!empty($callback)) $callback();
+			exit;
+		});
+		pcntl_alarm($maxtime);
+	}
+
+
+	/**
+	 * Switch ownership of the process to the specified user
+	 *
+	 * Regardless of which user started the process, the specified user should take it over as if they has been the one to run it in the first place.  This is often useful to enable a daemon to be run by a highly priveleged user as part of a deployment process, but for the daemon to switch its ownership to a user with lesser priveleges as part of its initialisation.  This may be done before or after detaching the process, but is typically done before.
+	 *
+	 * @param string $user The UNIX user as whom to run the currently running process
+	 * @return void
+	 */
+	private function runAs($user) {
+		$userdetails = posix_getpwnam($user);
+		if (!isset($userdetails["uid"]) or $userdetails["uid"] == 0) {
+			throw new AssankaException("Unable to retreive details about the user", 0, null, $user);
+		}
+		if (posix_setuid($userdetails["uid"]) == false) {
+			throw new AssankaException("Unable to switch to the specified user", 0, null, $user);
+		}
+		return true;
+	}
+
+	/**
+	 * Outputs some help text to stdout (don't call after forking process)
+	 *
+	 * @param array $settings The setting for this daemon
+	 * @return void
+	 */
+	private function showHelp($settings) {
+		$name = $settings['name'];
+		$description = $settings['description'];
+		$titleline = ucwords($name);
+		if ($description) $titleline .= ": ".$description;
+		print $titleline."\n";
+		$argsets = array(
+			"Standard Daemon Arguments" => $this->daemonArgNames,
+			"{$name} Arguments" => $settings['args'],
+		);
+		$newinstances = "{$settings['startingdaemoninstances']} new instance".(($settings['startingdaemoninstances'] == 1) ? '' : 's');
+		foreach ($argsets as $setname => $args) {
+			if (empty($args)) continue;
+			print "* ".ucwords($setname)." *\n";
+			foreach ($args as $argname => $desc) {
+				$desc = str_replace('{$name}', $name, $desc);
+				$desc = str_replace('{$newinstances}', $newinstances, $desc);
+				if (empty($desc)) print "\t--{$argname}\n";
+				else print "\t--{$argname}\n\t\t{$desc}\n";
+			}
+		}
+		exit;
+	}
+
+
+	/**
+	 * Gets the arguments provided at the command line and parses them into key value pairs. Returns arguments used by this class, others are put into $this->cliArgs array
+	 *
+	 * @param array $validargs A associative array where the keys are arguments used by the daemon
+	 * @return array
+	 */
+	private function parseArgs($validargs) {
+		if (!isset($_SERVER['argv']) or !is_array($_SERVER['argv'])) throw new AssankaException("argv not defined - daemons must run from the command line", 0, null, get_defined_vars());
+		$parsedArgs = array();
+		$latestkey = null;
+
+		// Remove the first argument as it is the command name
+		// REVIEW:AB:20121101: Consider using http://php.net/manual/en/function.getopt.php in future to simplify all this?
+		$args = $_SERVER['argv'];
+		array_shift($args);
+
+		foreach ($args as $arg) {
+			$keyval = explode('=', $arg);
+			if (substr($keyval[0], 0, 2) == '--') {
+				$latestkey = substr($keyval[0], 2);
+				if (empty($keyval[1])) {
+					$parsedArgs[$latestkey] = true;
+				} else {
+					$parsedArgs[$latestkey] = $keyval[1];
+					$latestkey = null;
+				}
+			} else {
+				if ($latestkey) {
+					$parsedArgs[$latestkey] = $arg;
+					$latestkey = null;
+				}
+				// NB: currently any values which aren't preceded by a --key are ignored.
+				// If support is required for these values, add an else statement here (and add relevant testing)
+			}
+		}
+
+		// Get any arguments which are used by the daemon class and put them in a new array
+		$daemonArgs = array();
+		foreach ($this->daemonArgNames as $key => $val) {
+			$daemonArgs[$key] = (isset($parsedArgs[$key])) ? $parsedArgs[$key] : null;
+		}
+
+		// Get any arguments which are used by this specific daemon and put them in a new array
+		$cliArgs = array();
+		foreach ($validargs as $key => $val) {
+			$cliArgs[$key] = (isset($parsedArgs[$key])) ? $parsedArgs[$key] : null;
+		}
+
+
+		// Store the remaining arguments in case the app calls getCLIArgs
+		$this->cliArgs = $cliArgs;
+
+		// Return the daemon arguments so they can be used internally
+		return $daemonArgs;
+	}
+
+	/**
+	 * Stops given instances of the daemon
+	 *
+	 * @param mixed $pids a pid or list of pids which need killing
+	 * @return void
+	 */
+	private function stopInstances($pids) {
+		$pids = (array)$pids;
+
+		// Keep track of whether any proccesses have been sent the kill signal
+		$failedkills = array();
+
+		// Go through the previous pids and kill them
+		foreach ($pids as $pid) {
+
+			// Ignore any pids which aren't running
+			if (!$pid or !posix_kill($pid, 0)) continue;
+
+			if (!posix_kill($pid, SIGTERM)) {
+				$failedkills[] = $pid;
+			}
+		}
+
+
+		// If any of the processes failed to die, trigger an error in the helpdesk
+		if (count($failedkills)) {
+			$errmessage = 'Failed to kill daemon process'.((count($failedkills) == 1) ? ' ' : 'es ').implode(', ', $failedkills);
+			trigger_error($errmessage, E_USER_NOTICE);
+		}
+
+		// GetPidList will update the pid file to remove the proccess which have been killed
+		$this->getPidList();
+	}
+
+	/**
+	 * Forks the current process a given number of times (and kills the parent process)
+	 *
+	 * @param integer $startingdaemoninstances The number of instances to fork
+	 * @return void
+	 */
+	private function startInstances($startingdaemoninstances) {
+
+		if ($startingdaemoninstances < 1) {
+			exit;
+		}
+
+		for ($i = 0; $i < $startingdaemoninstances; $i++) {
+
+			// Fork returns true for parent processes and false for child processes
+			if (!$this->fork()) {
+
+				// Only the parent process should continue the loop, returning here prevents child processes from forking themselves.
+				return;
+			}
+		}
+
+		// Only the parent process will reach here as the children have returned following their fork.
+		// Exiting here will kill the parent process, but leave the children running in the background.
+		exit;
+	}
+
+	/**
+	 * Opens a filehandle pointing to the pid file
+	 * (Also checks for any dead processes in the pid file and removes them)
+	 *
+	 * @return array
+	 */
+	private function openPidFile() {
+		$this->pidfilehandle = fopen($this->pidfile, 'a');
+	}
+
+	/**
+	 * Gets a list of the pids of the instances of this daemon currently running
+	 *
+	 * @return void
+	 */
+	private function getPidList() {
+
+		// Don't bother checking whether file exists as openPidFile should have created it
+		$prevpids = file_get_contents($this->pidfile);
+		$processes = array();
+		$needsrewrite = false;
+
+		// Go through the previous pids and work out which are still running
+		foreach (explode("\n", $prevpids) as $prevpid) {
+			$prevpid = trim($prevpid);
+			if (!$prevpid or !posix_kill($prevpid, 0)) {
+				$needsrewrite = true;
+				continue;
+			}
+			$processes[] = $prevpid;
+		}
+
+		// If a process has died, then remove from the pid file
+		if ($needsrewrite) file_put_contents($this->pidfile, implode("\n", $processes)."\n");
+
+		return $processes;
+	}
+
+	/**
+	 * Adds the current process to the pid file
+	 *
+	 * @return void
+	 */
+	private function addCurrentToPidFile() {
+		fwrite($this->pidfilehandle, posix_getpid()."\n");
+	}
+
+
+	/**
+	 * Closes the filehandle pointing to the pid file
+	 *
+	 * @return void
+	 */
+	private function closePidFile() {
+		fclose($this->pidfilehandle);
+	}
+}

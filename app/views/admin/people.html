@@ -1,0 +1,41 @@
+{% extends 'layout.html' %}
+{% set activemenu = 'people' %}
+{% set admin = true %}
+
+{% block content %}
+<form method='post' action='/admin/people'>
+<style>input[type=checkbox] { margin: 0; }</style>
+<table>
+	<thead>
+		<tr><th></th><th>Name</th><th>Org</th><th>Email</th><th>Edge {{event.id}} status</th><th>Travel</th><th>Accom</th><th></th></tr>
+	</thead>
+	<tbody>
+		{% for person in people %}
+		<tr>
+			<td><input type='checkbox' name='people[]' value='{{person.id}}' /></td>
+			<td>{{person.given_name}} {{person.family_name}}</td>
+			<td>{{person.org}}</td>
+			<td>{{person.email}}</td>
+			<td>{{person.status}}</td>
+			<td style='text-align:right'>{% if person.expenses_travel %}{{person.expenses_travel|number_format(2)}}{% endif %}</td>
+			<td style='text-align:right'>{% if person.expenses_accom %}{{person.expenses_accom|number_format(2)}}{% endif %}</td>
+			<td><a href='/admin/people/{{person.id}}'>Edit</a></td>
+		</tr>
+		{% endfor %}
+		<tr>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td style='border-top: 1px solid black'><b>Expenses totals</b></td>
+			<td style='text-align:right; border-top: 1px solid black'>{{totals.travel|number_format(2)}}</td>
+			<td style='text-align:right; border-top: 1px solid black'>{{totals.accom|number_format(2)}}</td>
+			<td></td>
+		</tr>
+
+	</tbody>
+</table>
+
+<p style='margin-top: 30px'>With selected: <select name='action'><option>Merge</option></select> <input type='submit' class='button' value='Go' /></p>
+</form>
+{% endblock %}

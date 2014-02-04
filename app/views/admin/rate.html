@@ -1,0 +1,35 @@
+{% extends 'layout.html' %}
+{% set activemenu = 'rate' %}
+{% set admin = true %}
+
+{% block content %}
+<div class='container'>
+	<form method='post' action='/admin/rate'>
+
+	<h2>Rate new proposals</h2>
+
+	{% for session in sessions %}
+		{% if session.proposals|length > 0 %}
+			<h3 style='margin: 40px 0 20px 0'>{{session.name}}</h3>
+			<p>Attending: {{session.stats.attending}}, Invited: {{session.stats.invited}}, Waitlist: {{session.stats.waitlist}}, Avg rating: {{session.stats.avgrating}}</p></p>
+			<table>
+				<thead>
+					<tr><th>Org</th><th>Proposal</th><th>Rating</th></tr>
+				</thead>
+				<tbody>
+					{% for proposal in session.proposals %}
+					<tr>
+						<td>{{proposal.org}}</td>
+						<td>{{proposal.proposal}}</td>
+						<td><input type='text' style='width: 40px' name='rating_{{proposal.person_id}}_{{session.id}}' /></td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		{% endif %}
+	{% endfor %}
+
+	<p style='text-align:right; margin-top: 10px'><input type='submit' class='button' value='Save ratings' /></p>
+	</form>
+</div>
+{% endblock %}

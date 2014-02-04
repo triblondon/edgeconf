@@ -1,0 +1,19 @@
+
+You're invited.
+
+{% if avgrating %}You are receiving this special invite because we think you'd bring enormous value to Edge, and we'd very much like to see you there.  This may be because you've contributed to a previous Edge event, or simply because we'd especially value your contribution.
+
+You're invited to skip our normal ticket application process and book a ticket immediately.{% else %}Thanks for registering, we're looking forward to seeing you on {{event.start_time|date("F jS")}}.{% endif %}.  To claim a ticket, visit our Eventbrite ticket page and enter the unique promo code we generated for {{email}}:
+
+Ticket page:  http://www.eventbrite.co.uk/e/{{event.eventbrite_id}}?access={{code}}
+Your code:    {{code}}
+
+We will continue to issue invitations until all tickets are sold, and tickets are available on a FIRST COME FIRST SERVED BASIS to anyone with an invitation.  This invitation therefore DOES NOT GUARANTEE THAT YOU WILL GET A TICKET, and we encourage you to use it to buy a ticket as soon as possible.
+
+------
+
+{% include 'emails/partials/location.txt' %}
+
+------
+
+{% include 'emails/partials/about.txt' %}

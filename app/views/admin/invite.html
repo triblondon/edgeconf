@@ -1,0 +1,57 @@
+{% extends 'layout.html' %}
+{% set activemenu = 'invite' %}
+{% set admin = true %}
+
+{% block content %}
+<div class='container'>
+	<h3 style='margin: 40px 0 20px0 '>Send invites</h3>
+
+	<p>Target event = Edge {{event.id}} {{event.location}}</p>
+
+	<form method='post' action='/admin/invite'>
+	<input type='hidden' name='action' value='invite' />
+	<table>
+		<thead>
+			<tr><th>Name</th><th>Org</th><th>Email</th><th>Sessions</th><th>Avg rating</th><th></th></tr>
+		</thead>
+		<tbody>
+			{% for person in invitable %}
+			<tr>
+				<td>{{person.given_name}} {{person.family_name}}</td>
+				<td>{{person.org}}</td>
+				<td>{{person.email}}</td>
+				<td>{{person.sessions}}</td>
+				<td>{{person.avgrating|round(1)}}</td>
+				<td><input type='checkbox' name='people[]' value="{{person.id}}" /></td>
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+	<p style='text-align:right; margin-top: 10px'><input type='submit' class='button' value='Invite selected' /></p>
+	</form>
+
+	<h3 style='margin: 40px 0 20px 0'>Send reminders</h3>
+
+	<form method='post' action='/admin/invite'>
+	<input type='hidden' name='action' value='remind' />
+	<table>
+		<thead>
+			<tr><th>Name</th><th>Org</th><th>Email</th><th>Sessions</th><th>Avg rating</th><th></th></tr>
+		</thead>
+		<tbody>
+			{% for person in remindable %}
+			<tr>
+				<td>{{person.given_name}} {{person.family_name}}</td>
+				<td>{{person.org}}</td>
+				<td>{{person.email}}</td>
+				<td>{{person.sessions}}</td>
+				<td>{{person.avgrating|round(1)}}</td>
+				<td><input type='checkbox' name='people[]' value="{{person.id}}" /></td>
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+	<p style='text-align:right; margin-top: 10px'><input type='submit' class='button' value='Remind selected' /></p>
+	</form>
+</div>
+{% endblock %}

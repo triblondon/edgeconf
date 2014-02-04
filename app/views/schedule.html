@@ -1,0 +1,57 @@
+{% extends 'layout.html' %}
+{% set activemenu = 'schedule' %}
+
+{% block content %}
+	<div id="billboard" class="inner billboard-{{ thisevent.slug }}">
+		<div class="row">
+			<div class="small-12 large-2 columns">
+				<h1 class="hide-text">Edge Conference</h1>
+			</div>
+			<div class="small-12 large-10 columns">
+				<h2>Schedule</h2>
+			</div>
+		</div>
+	</div>
+
+	{% for session in sessions %}
+	<section class="layer">
+		<div class="row">
+			<div class="small-12 columns">
+				<div class='session'>
+					<div class='session-time'>
+						<time datetime='{{session.start_time|date("c")}}'>{{session.start_time|date("H:i")}}</time>
+					</div>
+					<h3>{{session.name}}</h3>
+					{% if session.youtube_id %}
+						<p class="watch">
+	          				<a href="/{{thisevent.slug}}?v={{session.youtube_id}}#videos"><i class="fa fa-play-circle"></i> Watch video</a>
+	          				{% if session.notes_url %}
+	          					<a href="{{session.notes_url}}"><i class="fa fa-list"></i> View notes</a>
+	          				{% endif %}
+	          				{% if session.analytics_url %}
+	          					<a href="{{session.analytics_url}}"><i class="fa fa-bar-chart-o"></i> View session analytics</a>
+	          				{% endif %}
+	          			</p>
+	          		{% endif %}
+					<p class='session-summary'>{{session.description}}</p>
+					{% if session.panelists %}
+					<div class="row">
+						{% for panelist in session.panelists %}
+							<dl class="small-12 large-6 columns panelist{{ panelist.role=='Moderator' ? ' moderator' : '' }}">
+								<dt>{{panelist.given_name}} {{panelist.family_name}}</dt>
+								<dd class="headshot"><img src="/images/heads/{{panelist.given_name|lower}}-{{panelist.family_name|lower}}.jpg" alt="{{panelist.given_name}} {{panelist.family_name}}" />{% if panelist.role == 'Moderator' %}<em>Moderator</em>{% endif %}</dd>
+								<dd>{{panelist.org}}</dd>
+								<dd>{{panelist.bio|raw}}</dd>
+							</dl>
+							{% if loop.index is even %}
+								</div><div class='row'>
+							{% endif %}
+						{% endfor %}
+					</div>
+					{% endif %}
+				</div>
+			</div>
+		</div>
+	</section>
+	{% endfor %}
+{% endblock %}
