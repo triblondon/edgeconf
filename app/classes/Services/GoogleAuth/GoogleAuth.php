@@ -1,10 +1,14 @@
 <?php
+
+namespace Services\GoogleAuth;
+
 class GoogleAuth {
 
 	const INITIALURL = "https://www.google.com/accounts/o8/id";
 	private $endpoint, $session, $options;
 	private $defaults = array(
-		'canceldest' => '/'
+		'canceldest' => '/',
+		'callback' => '/auth/callback'
 	);
 
 	function __construct(&$sessionhandler, $options = array()) {
@@ -26,7 +30,7 @@ class GoogleAuth {
 		}
 	}
 
-	function getAuthRedirectUrl($callbackurl) {
+	function getAuthRedirectUrl() {
 		$this->determineEndPoint();
 		$associationdata = $this->associate();
 		$this->session[$associationdata["assoc_handle"]] = $associationdata;
@@ -36,7 +40,7 @@ class GoogleAuth {
 		$url = $this->endpoint."?".http_build_query(array(
 			"openid.mode"=>"checkid_setup",
 			"openid.ns"=>"http://specs.openid.net/auth/2.0",
-			"openid.return_to"=>$protocol.$_SERVER["HTTP_HOST"].$callbackurl,
+			"openid.return_to"=>$protocol.$_SERVER["HTTP_HOST"].$this->options['callback'],
 			"openid.claimed_id"=>"http://specs.openid.net/auth/2.0/identifier_select",
 			"openid.identity"=>"http://specs.openid.net/auth/2.0/identifier_select",
 			"openid.assoc_handle"=>$associationdata['assoc_handle'],
@@ -64,25 +68,25 @@ class GoogleAuth {
 		$requiredparameters = array("openid_signed", "openid_sig", "openid_op_endpoint", "openid_claimed_id", "openid_assoc_handle", "openid_response_nonce");
 		$notfound = array_diff($requiredparameters, array_keys(array_filter($_GET)));
 		if (!empty($notfound)) {
-			throw new Exception("Missing:".join(", ", str_replace("openid_", "", $notfound)));
+			throw new \Exception("Missing:".join(", ", str_replace("openid_", "", $notfound)));
 		}
 
 		// Validate nonce
 		$datepat = "/^([0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2})/";
 		if (!preg_match($datepat, $params["openid_response_nonce"], $m)) {
-			throw new Exception('Invalid nonce');
+			throw new \Exception('Invalid nonce');
 		}
-		$noncetime = new DateTime($m[1]);
-		$now = new DateTime;
+		$noncetime = new \DateTime($m[1]);
+		$now = new \DateTime;
 		$nonceage = ($now->getTimestamp() - $noncetime->getTimestamp());
 		$maxnonceage = 300;
 		if ($nonceage > $maxnonceage) {
-			throw new Exception('Expired nonce');
+			throw new \Exception('Expired nonce');
 		}
 
 		// Check against previously stored signing key, and then delete the key to prevent replays
 		if (empty($this->session[$params["openid_assoc_handle"]])) {
-			throw new Exception('No pending authentication request found');
+			throw new \Exception('No pending authentication request found');
 		} else {
 			$assocdata = $this->session[$params["openid_assoc_handle"]];
 			unset($this->session[$params["openid_assoc_handle"]]);
@@ -95,12 +99,23 @@ class GoogleAuth {
 		}
 		$generatedsignature = base64_encode(hash_hmac("sha256", $tosign, base64_decode($assocdata["mac_key"]), true));
 		if ($generatedsignature != $params["openid_sig"]) {
-			throw new Exception('Incorrect signature');
+			throw new \Exception('Incorrect signature');
+		}
+
+		// Get the email address
+		list($username, $domain) = explode('@', $_GET["openid_ext1_value_email"]);
+
+		// Canonicalise GMail addresses: googlemail and gmail are the same,
+		// dots in username are ignored, as is anything after a +
+		if ($domain == 'googlemail.com') $domain = 'gmail.com';
+		if ($domain == 'gmail.com') {
+			$username = str_replace('.', '', $username);
+			$username = preg_replace('/\+.*$/', '', $username);
 		}
 
 		// Set authenticated user
 		$this->session['user'] = array(
-			"email" => $_GET["openid_ext1_value_email"]
+			"email" => $username . '@' . $domain
 		);
 
 		// Redirect to the remembered destination
@@ -115,11 +130,11 @@ class GoogleAuth {
 
 	private function determineEndPoint() {
 		$responsebody = self::makeHTTPRequest(self::INITIALURL);
-		$doc = new DOMDocument();
+		$doc = new \DOMDocument();
 		@$doc->loadXML($responsebody);
 		$nodes = $doc->getElementsByTagName("URI");
 		if (empty($nodes->item(0)->nodeValue)) {
-			throw new APIException(API::ERRTEXT_EXTERNAL_SERVICE_FAILED);
+			throw new \Exception('Failed to retrieve authentication endpoint from Google');
 		} else {
 			$this->endpoint = $nodes->item(0)->nodeValue;
 		}
@@ -137,7 +152,7 @@ class GoogleAuth {
 		)));
 
 		if (empty($responsebody)) {
-			throw new Exception('Association failed');
+			throw new \Exception('Association failed');
 		}
 
 		$foundfields = array();
@@ -150,7 +165,7 @@ class GoogleAuth {
 		$requiredfields = array("ns", "session_type", "assoc_type", "assoc_handle", "expires_in", "mac_key");
 		$notfound = array_diff($requiredfields, array_keys($foundfields));
 		if (!empty($notfound)) {
-			throw new Exception("Missing fields in associate response");
+			throw new \Exception("Missing fields in associate response");
 		}
 
 		return $foundfields;
@@ -159,7 +174,7 @@ class GoogleAuth {
 
 
 	private static function makeHTTPRequest($url) {
-		$request = new HTTPRequest($url);
+		$request = new \Services\HTTP\HTTPRequest($url);
 		$response = $request->send();
 		$responsebody = $response->getBody();
 
