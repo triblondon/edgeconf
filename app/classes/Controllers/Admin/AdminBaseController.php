@@ -13,7 +13,8 @@ class AdminBaseController extends \Controllers\BaseController {
 		'wilson.page@ft.com',
 		'george.crawford@ft.com',
 		'ada.edwards@ft.com',
-		'rowan.beentje@ft.com'
+		'rowan.beentje@ft.com',
+		'torbenfoerster@gmail.com'
 	);
 
 	public function initialise() {
