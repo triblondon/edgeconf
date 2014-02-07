@@ -51,10 +51,10 @@ class ServicesContainer extends Services\Pimple\Pimple {
         };
 
         $this['auth'] = function($c) {
-            if (!session_id()) session_start();
-            return new GoogleAuth($_SESSION, array(
-				'canceldest' => 'http://edgeconf.com/'
-			));
-		};
+        	if (!session_id()) session_start();
+        	return new \Services\GoogleAuth\GoogleAuth($_SESSION, array(
+			'canceldest' => 'http://edgeconf.com/'
+		));
+	};
     }
 }
