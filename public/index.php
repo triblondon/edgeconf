@@ -2,6 +2,7 @@
 
 require __DIR__."/../vendor/autoload.php";
 
+try {
 
 /* Load services into dependency injection container */
 
@@ -51,3 +52,8 @@ $router->dispatch($req, $resp);
 /* Serve the response */
 
 $resp->serve();
+
+}
+catch (Exception $e) {
+    echo $e->getMessage();
+}
