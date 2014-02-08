@@ -7,6 +7,11 @@ require __DIR__."/../vendor/autoload.php";
 
 $app = new ServicesContainer();
 
+if (isset($_SERVER['HTTP_DEBUG']) and $_SERVER['HTTP_DEBUG'] == $app->config->debug->debug_key) {
+	ini_set('display_errors', 1);
+	ini_set('html_errors', 1);
+}
+
 
 /* Define routing and dispatch controllers to build response */
 
@@ -38,6 +43,8 @@ $router->route('/admin/panels', 'Admin\Panels');
 $router->route('/admin/invite', 'Admin\Invite');
 $router->route('/admin/rate', 'Admin\Rate');
 $router->route('/admin/badges', 'Admin\Badges');
+
+$router->route('/errortest', 'ErrorTest');
 
 $router->errorUnsupportedMethod('Errors\Error405');
 $router->errorNoRoute('Errors\Error404');
