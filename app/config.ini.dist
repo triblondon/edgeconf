@@ -14,3 +14,6 @@ list_id = [____________]
 
 [view]
 cache_path = /tmp/viewscache
+
+[debug]
+debug_key = [____________]
