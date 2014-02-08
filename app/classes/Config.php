@@ -8,6 +8,9 @@ class Config {
 		if (is_array($path)) {
 			$this->data = $path;
 		} else {
+			if (!file_exists($path)) {
+				throw new Exception('Unable to locate configuration file!');
+			}
 			$this->data = parse_ini_file($path, true);
 		}
 	}

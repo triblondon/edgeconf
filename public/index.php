@@ -2,7 +2,6 @@
 
 require __DIR__."/../vendor/autoload.php";
 
-
 /* Load services into dependency injection container */
 
 $app = new ServicesContainer();
