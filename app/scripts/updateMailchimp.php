@@ -5,19 +5,24 @@ require __DIR__."/../../vendor/autoload.php";
 
 $app = new ServicesContainer();
 
-$res = $app->db->query('SELECT pe.email, e.mailchimp_group, IF(a.ticket_type IS NULL, %s, IF(pa.role=%s, %s, IF(pa.role=%s, %s, %s))) as groupvalue FROM attendance a INNER JOIN people pe ON a.person_id=pe.id INNER JOIN events e ON a.event_id=e.id LEFT JOIN participation pa ON a.person_id=pa.person_id GROUP BY a.event_id, pe.id ORDER BY email', "Registrant", "Moderator", "Moderator", "Panellist", "Panellist", "Delegate");
+$res = $app->db->query('SELECT pe.email, e.mailchimp_group, IF(a.ticket_type IS NULL, %s, IF(pa.role=%s, %s, IF(pa.role=%s OR pa.role=%s, %s, %s))) as groupvalue FROM attendance a INNER JOIN people pe ON a.person_id=pe.id INNER JOIN events e ON a.event_id=e.id LEFT JOIN participation pa ON a.person_id=pa.person_id GROUP BY a.event_id, pe.id ORDER BY email', "Registrant", "Moderator", "Moderator", "Panellist", "Speaker", "Panellist", "Delegate");
 
 $groupings = array();
+$summary = array();
 $email = '';
 foreach ($res as $person) {
+	//if ($email != 'joelzimmer@gmail.com') continue;
 	if ($email !== $person['email']) {
 		if ($email) send($email, $groupings);
 		$email = $person['email'];
 		$groupings = array();
 	}
 	$groupings[] = array('name'=>$person['mailchimp_group'], 'groups'=>$person['groupvalue']);
+	$summary[$person['email']][$person['mailchimp_group']] = $person['groupvalue'];
 }
 send($email, $groupings);
+
+print_r($summary);
 
 function send($email, $groups) {
 	global $app;

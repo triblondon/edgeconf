@@ -17,7 +17,7 @@ class InfoController extends \Controllers\PublicSite\PublicBaseController {
 		} else if ($this->routeargs['page'] == 'schedule') {
 			$sessions = $this->app->db->queryAllRows('SELECT * FROM sessions WHERE event_id=%d ORDER BY start_time', $this->viewdata['thisevent']['id']);
 			foreach ($sessions as &$session) {
-				$session['panelists'] = $this->app->db->queryAllRows('SELECT pe.given_name, pe.family_name, pe.org, pe.bio, par.role FROM people pe INNER JOIN participation par ON pe.id=par.person_id WHERE par.session_id=%d AND role IN (%s, %s) AND panel_status=%s ORDER BY role=%s DESC', $session['id'], 'Moderator', 'Panelist', 'Confirmed', 'Moderator');
+				$session['panelists'] = $this->app->db->queryAllRows('SELECT pe.given_name, pe.family_name, pe.org, pe.bio, par.role FROM people pe INNER JOIN participation par ON pe.id=par.person_id WHERE par.session_id=%d AND role IN (%s, %s, %s) AND panel_status=%s ORDER BY role=%s DESC, role=%s DESC', $session['id'], 'Moderator', 'Panelist', 'Speaker', 'Confirmed', 'Moderator', 'Speaker');
 			}
 			$this->addViewData('sessions', $sessions);
 			$templ = 'schedule';
