@@ -22,7 +22,7 @@
 						<time datetime='{{session.start_time|date("c")}}'>{{session.start_time|date("H:i")}}</time>
 					</div>
 					<h3>{{session.name}}</h3>
-					{% if session.youtube_id %}
+					{% if session.youtube_id and thisevent.video_playlist %}
 						<p class="watch">
 	          				<a href="/{{thisevent.slug}}?v={{session.youtube_id}}#videos"><i class="fa fa-play-circle"></i> Watch video</a>
 	          				{% if session.notes_url %}
