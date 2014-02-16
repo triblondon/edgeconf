@@ -14,6 +14,11 @@ class InfoController extends \Controllers\PublicSite\PublicBaseController {
 		} else if (empty($this->routeargs['page'])) {
 			$templ = 'home';
 
+			$this->addViewData(array(
+				'livesession' => $this->app->db->queryRow("SELECT * FROM sessions WHERE start_time < NOW() AND end_time > NOW() AND event_id=%d", $this->event['id']),
+				'sessions' => $this->app->db->queryAllRows("SELECT name, start_time, end_time, youtube_id FROM sessions WHERE event_id=%d ORDER BY start_time", $this->event['id']),
+			));
+
 		} else if ($this->routeargs['page'] == 'schedule') {
 			$sessions = $this->app->db->queryAllRows('SELECT * FROM sessions WHERE event_id=%d ORDER BY start_time', $this->viewdata['thisevent']['id']);
 			foreach ($sessions as &$session) {

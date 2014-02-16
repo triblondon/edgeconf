@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /* Defaults */
 body {
   font-family: 'Lato', sans-serif;
@@ -347,21 +348,6 @@ form.edgeform {
 /* Video search */
 #videos {
   margin-top: 10px; }
-  #videos .videoframe {
-    width: 100%;
-    height: 0;
-    padding-top: 56.25%;
-    position: relative;
-    margin-bottom: 10px; }
-    #videos .videoframe > *:first-child {
-      position: absolute;
-      display: block;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      width: 100%;
-      height: 100%; }
   #videos #videos-container {
     min-height: 150px; }
   #videos #videos-container:after {
@@ -409,6 +395,36 @@ form.edgeform {
   #videos .cue .cueStartTime {
     font-size: 90%;
     color: #555; }
+
+#onair .live {
+  background: red;
+  border-radius: 3px;
+  padding: 1px 5px;
+  margin: 0 4px 0 0;
+  font-weight: bold;
+  text-transform: uppercase; }
+#onair .videoframe {
+  box-shadow: 0 0 25px 0 rgba(255, 255, 255, 0.7);
+  margin-bottom: 25px; }
+#onair #current-session {
+  color: #73FFD2; }
+
+.videoframe {
+  width: 100%;
+  height: 0;
+  padding-top: 56.25%;
+  position: relative;
+  margin-bottom: 10px;
+  overflow: hidden; }
+  .videoframe > *:first-child {
+    position: absolute;
+    display: block;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%; }
 
 footer {
   background: #333;

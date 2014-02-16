@@ -13,46 +13,46 @@
 		</div>
 		<div class="layer">
 			<div class="row">
-				<div class="small-12 columns">
-					<div class="row">
-						<div class="small-12 columns large-6 columns">
-							<p><strong>{{ thisevent.location }}, {{ thisevent.start_time|date('F j, Y') }}</strong></p>
-							{% if date(thisevent.start_time) > date() %}
-								{% if thisevent.ticketsavailable %}
-									<p><a class="button" href='/{{ thisevent.slug }}/register'>Register to attend</a></p>
-								{% else %}
-									<p><strong>SOLD OUT</strong></p>
-								{% endif %}
-							{% elseif date(thisevent.end_time) < date() %}
-								{% if nextevent %}
-									<p class='subtext'>This edition of Edge is long gone, but the next Edge conference is coming up in {{nextevent.location}}.  <a href='/{{nextevent.slug}}'>Get more details</a></p>
-								{% else %}
-									<p class='subtext'>This edition of Edge is long gone, but you can still sign up to our newsletter and be informed of future events.</p>
-									<form id='emailsignup' action="http://assanka.us1.list-manage1.com/subscribe/post" method="post">
-									<input type="hidden" name="u" value="b17e923e9f871f8fc40327494">
-									<input type="hidden" name="id" value="0c9bd2c13d">
-									<div class='row collapse'>
-										<div class='small-10 columns'>
-											<input type="email" autocapitalize="off" autocorrect="off" name="MERGE0" id="MERGE0" placeholder='Your email address'/>
-										</div>
-										<div class='small-2 columns'>
-											<button type='submit' class='btn' style='padding: 0.6rem'>Go</button>
-										</div>
-									</div>
-									</form>
-								{% endif %}
-							{% endif %}
-						</div>
-						<div class="small-12 columns large-6 columns">
-							<p>Presented by <a href="http://labs.ft.com">FT Labs</a>, <a href="http://www.modern.ie/">Microsoft</a> and <a href="http://developers.google.com/chrome">Google</a></p>
-							<ul class="social-icons">
-								<li><a href="https://www.facebook.com/edgeconf" class="hide-text facebook">Facebook</a></li>
-								<li><a href="https://www.twitter.com/edgeconf" class="hide-text twitter">Twitter</a></li>
-								<li><a href="https://plus.google.com/+Edgeconf" class="hide-text google-plus">Google Plus</a></li>
-							</ul>
-						</div>
-					</div>
+				{% if date(thisevent.start_time) > date() or date(thisevent.end_time) < date() %}
+				<div class="small-12 large-6 columns">
+					<p><strong>{{ thisevent.location }}, {{ thisevent.start_time|date('F j, Y') }}</strong></p>
+					{% if date(thisevent.start_time) > date() %}
+						{% if thisevent.ticketsavailable %}
+							<p><a class="button" href='/{{ thisevent.slug }}/register'>Register to attend</a></p>
+						{% else %}
+							<p><strong>SOLD OUT</strong></p>
+						{% endif %}
+					{% elseif date(thisevent.end_time) < date() %}
+						{% if nextevent %}
+							<p class='subtext'>This edition of Edge is long gone, but the next Edge conference is coming up in {{nextevent.location}}.  <a href='/{{nextevent.slug}}'>Get more details</a></p>
+						{% else %}
+							<p class='subtext'>This edition of Edge is long gone, but you can still sign up to our newsletter and be informed of future events.</p>
+							<form id='emailsignup' action="http://assanka.us1.list-manage1.com/subscribe/post" method="post">
+							<input type="hidden" name="u" value="b17e923e9f871f8fc40327494">
+							<input type="hidden" name="id" value="0c9bd2c13d">
+							<div class='row collapse'>
+								<div class='small-10 columns'>
+									<input type="email" autocapitalize="off" autocorrect="off" name="MERGE0" id="MERGE0" placeholder='Your email address'/>
+								</div>
+								<div class='small-2 columns'>
+									<button type='submit' class='btn' style='padding: 0.6rem'>Go</button>
+								</div>
+							</div>
+							</form>
+						{% endif %}
+					{% endif %}
 				</div>
+				<div class="small-12 large-6 columns">
+					<p>Presented by <a href="http://labs.ft.com">FT Labs</a>, <a href="http://www.modern.ie/">Microsoft</a> and <a href="http://developers.google.com/chrome">Google</a></p>
+					<ul class="social-icons">
+						<li><a href="https://www.facebook.com/edgeconf" class="hide-text facebook">Facebook</a></li>
+						<li><a href="https://www.twitter.com/edgeconf" class="hide-text twitter">Twitter</a></li>
+						<li><a href="https://plus.google.com/+Edgeconf" class="hide-text google-plus">Google Plus</a></li>
+					</ul>
+				</div>
+				{% else %}
+					{% include 'live.html' %}
+				{% endif %}
 			</div>
 		</div>
 	</div>
@@ -83,9 +83,7 @@
 				</div>
 			</div>
 		</section>
-	{% elseif date(thisevent.end_time) > date() %}
-		{% include 'live.html' %}
-	{% else %}
+	{% elseif date(thisevent.end_time) < date() %}
 		<section class="layer" id='videos'>
 			<div class="row">
 				<div class="small-12 columns">
@@ -93,7 +91,7 @@
 				</div>
 				<div class="small-12 large-8 columns">
 					<div class='videoframe'>
-						<iframe id='youTubePlayer' src='http://www.youtube.com/embed/videoseries?list={{thisevent.video_playlist}}' frameborder='0'></iframe>
+						<iframe id='youTubePlayer' src='http://www.youtube.com/embed/videoseries?list={{thisevent.video_playlist}}&amp;enablejsapi=1&amp;origin=http://{{ SERVER.HTTP_HOST }}&amp;autohide=1&amp;modestbranding=1&amp;rel=0' frameborder='0'></iframe>
 					</div>
 				</div>
 				<div id="videos-container" class="small-12 large-4 columns">

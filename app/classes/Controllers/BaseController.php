@@ -34,6 +34,8 @@ abstract class BaseController {
 			$this->viewdata['alerts'] = $_SESSION['alerts'];
 			unset($_SESSION['alerts']);
 		}
+		$this->viewdata['SERVER'] = $_SERVER;
+
 		$this->resp->setContent(
 			$this->app->view->render($templ.'.html', $this->viewdata)
 		);

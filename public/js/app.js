@@ -55,10 +55,11 @@ $(function() {
 // Video search
 $(function() {
 
-	var $iframe = $('iframe#youTubePlayer');
+	var $iframe = $('#videos iframe#youTubePlayer');
 	var $query = $("#query");
 	var $numResults = $("#numResults");
 	var $resultsList = $("#results");
+	var player;
 	var trackPath = location.pathname.match(/^(\/\d{4}\-\w+)/)[1]+"/video";
 	var videos = {};
 	var cues = [];
@@ -68,7 +69,18 @@ $(function() {
 
 	if (!$iframe.length) return;
 
-	$.getJSON(trackPath, function(data) {
+	// Bind to player and load track data when the player is ready
+	$('body').on('youTubeAPIReady', function() {
+		player = new YT.Player('youTubePlayer', {
+			events: {
+				'onReady': function () {
+					$.getJSON(trackPath, init);
+				}
+			}
+		});
+	});
+
+	function init(data) {
 
 		videos = data;
 
@@ -135,13 +147,13 @@ $(function() {
 		// Bind to cues
 		$('#videos').on('click', '.cue', function() {
 			var cue = cues[$(this).attr('data-index')];
-			if ($iframe.get(0).src.indexOf(cue.videoId) != -1){
-				callPlayer("youTubePlayer", "seekTo", [cue.startTime]);
+			if (player.getVideoUrl().indexOf(cue.videoId) != -1){
+				player.seekTo(cue.startTime, true);
 			} else {
-				$iframe.get(0).src = "http://www.youtube.com/embed/" + cue.videoid + "?start=" + cue.startTime + "&autoplay=1&enablejsapi=1"
+				player.loadVideoById(cue.videoid, cue.startTime);
 			}
 		});
-	});
+	}
 
 	function loadingComplete() {
 		if (_GET.q) {
@@ -149,7 +161,7 @@ $(function() {
 			doSearch();
 		}
 		if (_GET.v && videos[_GET.v]) {
-			$iframe.get(0).src = "http://www.youtube.com/embed/" + _GET.v + "?autoplay=1&enablejsapi=1"
+			player.loadVideoById(_GET.v, 0);
 		}
 	}
 
@@ -193,3 +205,53 @@ $(function() {
 		return hours + ":" + mins + ":" + secs;
 	}
 });
+
+// Live player
+$(function() {
+
+	var player;
+
+	if (!$('#onair').length || !livePlaylist) return;
+
+	$('body').on('youTubeAPIReady', function() {
+		player = new YT.Player(
+			'youTubePlayer', {
+			events: {
+				'onStateChange': checkCurrent,
+				'onReady': onPlayerReady
+			}
+		});
+	});
+
+	function onPlayerReady(evt) {
+		for (var i=0, s=livePlaylist.length; i<s; i++) {
+			livePlaylist[i].start_time = Date.parse(livePlaylist[i].start_time);
+			livePlaylist[i].end_time = Date.parse(livePlaylist[i].end_time);
+		}
+		setInterval(checkCurrent, 5000);
+	}
+
+	function checkCurrent() {
+		var now = (new Date()).getTime();
+		var current = player.getVideoUrl();
+		for (var i=0, s=livePlaylist.length; i<s; i++) {
+			if (livePlaylist[i].start_time < now && livePlaylist[i].end_time > now) {
+				if (current.indexOf(livePlaylist[i].youtube_id) === -1) {
+					cue(livePlaylist[i]);
+				}
+				break;
+			}
+		}
+	}
+
+	function cue(session) {
+		player.loadVideoById(session.youtube_id);
+		$('#current-session').html(session.name);
+	}
+
+});
+
+// It seems pretty ugly that YouTube requires a global variable.  This seems a bit neater.
+function onYouTubeIframeAPIReady() {
+	$('body').trigger('youTubeAPIReady');
+}
