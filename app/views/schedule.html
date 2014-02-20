@@ -39,7 +39,7 @@
 						{% for panelist in session.panelists %}
 							<dl class="small-12 large-6 columns panelist{{ panelist.role=='Moderator' ? ' moderator' : '' }}">
 								<dt>{{panelist.given_name}} {{panelist.family_name}}</dt>
-								<dd class="headshot"><img src="/images/heads/{{panelist.given_name|lower}}-{{panelist.family_name|lower}}.jpg" alt="{{panelist.given_name}} {{panelist.family_name}}" />{% if panelist.role == 'Moderator' %}<em>Moderator</em>{% endif %}{% if panelist.role == 'Speaker' %}<em>Opening talk</em>{% endif %}</dd>
+								<dd class="headshot"><img src="/images/heads/{{panelist.given_name|slugify}}-{{panelist.family_name|slugify}}.jpg" alt="{{panelist.given_name}} {{panelist.family_name}}" />{% if panelist.role == 'Moderator' %}<em>Moderator</em>{% endif %}{% if panelist.role == 'Speaker' %}<em>Opening talk</em>{% endif %}</dd>
 								<dd>{{panelist.org}}</dd>
 								<dd>{{panelist.bio|raw}}</dd>
 							</dl>
