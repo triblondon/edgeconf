@@ -7,16 +7,26 @@ abstract class BaseController {
 	protected $app, $req, $resp, $routeargs;
 	protected $viewdata = array();
 
-	final public function __construct($di, $req, $resp, $routeargs) {
+	final public function __construct($di, $req, $resp, $routeargs=array()) {
 		$this->app = $di;
 		$this->req = $req;
 		$this->resp = $resp;
 		$this->routeargs = $routeargs;
-
-		if (!session_id()) session_start();
 	}
 
-	public function initialise() { }
+	final public function dispatch($method) {
+		if (!session_id()) session_start();
+		if (method_exists($this, 'initialise')) {
+			if ($this->initialise() === false) return;
+		}
+		if (method_exists($this, $method)) {
+			$this->$method();
+		} elseif (method_exists($this, 'all')) {
+			$this->all();
+		}
+	}
+
+
 
 
 	protected function addViewData($a, $val=null) {
@@ -44,5 +54,12 @@ abstract class BaseController {
 	protected function alert($type, $content) {
 		if (empty($_SESSION['alerts'][$type])) $_SESSION['alerts'][$type] = array();
 		$_SESSION['alerts'][$type][] = $content;
+	}
+
+
+
+
+	final public static function getSupportedMethods() {
+		return get_class_methods(get_called_class());
 	}
 }

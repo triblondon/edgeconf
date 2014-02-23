@@ -1,0 +1,8 @@
+{% extends 'message.html' %}
+{% set title = '404: Page not found' %}
+
+
+{% block message %}
+<p>Sorry, the request URI <strong>{{ SERVER.REQUEST_URI }}</strong> does not match a known resource on this site.  If you don't know what that means and what to do now, you're probably on the wrong website,frankly.</p>
+<p>Is this our fault?  If so, <a href='http://twitter.com/edgeconf'>tweet us</a> and we'll look into it.</p>
+{% endblock %}

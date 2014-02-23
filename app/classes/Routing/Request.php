@@ -1,4 +1,8 @@
 <?php
+/**
+ * Representation of an inbound HTTP request
+ *
+ */
 
 namespace Routing;
 

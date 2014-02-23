@@ -1,0 +1,22 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+	<div id="billboard" class="inner">
+		<div class="row">
+			<div class="small-12 columns">
+				<h2>{{title}}</h2>
+			</div>
+		</div>
+	</div>
+
+	<section class="layer">
+		<div class="row">
+			<div class="small-12 columns">
+				<div>
+                    {% block message %}{% endblock %}
+				</div>
+			</div>
+		</div>
+	</section>
+
+{% endblock %}

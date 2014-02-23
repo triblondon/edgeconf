@@ -427,12 +427,10 @@ form.edgeform {
     height: 100%; }
 
 footer {
-  background: #333;
   padding: 10px 0;
   text-align: center;
   width: 100%; }
   footer p {
-    color: #fff;
     font-size: 0.875em;
     margin-bottom: 0; }
   @media only screen and (max-width: 768px) {

@@ -1,11 +1,15 @@
 <?php
+/**
+ * HTTP Response
+ *
+ * Creates an HTTP response and provides methods to serve it directly to the conencted user agent
+ */
 
 namespace Routing;
 
 class Response {
 
 	private $_status = 200;
-	private $_cachettl = 0;
 	private $_headers = array();
 	private $_content;
 

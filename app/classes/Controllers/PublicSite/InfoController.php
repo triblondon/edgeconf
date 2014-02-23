@@ -4,11 +4,11 @@ namespace Controllers\PublicSite;
 
 class InfoController extends \Controllers\PublicSite\PublicBaseController {
 
-    public function get() {
+	public function get() {
 
 		if (!$this->event) {
-    		$slug = $this->app['db']->querySingle('SELECT slug FROM events WHERE end_time > NOW() ORDER BY start_time ASC LIMIT 1');
-    		$this->resp->redirect('/'.$slug);
+			$slug = $this->app['db']->querySingle('SELECT slug FROM events WHERE end_time > NOW() ORDER BY start_time ASC LIMIT 1');
+			$this->resp->redirect('/'.$slug);
 			return;
 
 		} else if (empty($this->routeargs['page'])) {
@@ -32,6 +32,7 @@ class InfoController extends \Controllers\PublicSite\PublicBaseController {
 			$templ = 'faq';
 		}
 
-    	$this->renderView($templ);
-    }
+		$this->renderView($templ);
+	}
+
 }
