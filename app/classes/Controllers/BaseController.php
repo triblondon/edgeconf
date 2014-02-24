@@ -46,7 +46,7 @@ abstract class BaseController {
 		}
 		$this->viewdata['SERVER'] = $_SERVER;
 
-		$this->resp->setHeader('Content-type: text/html; charset=UTF-8');
+		$this->resp->setHeader('Content-type', 'text/html; charset=UTF-8');
 		$this->resp->setContent(
 			$this->app->view->render($templ.'.html', $this->viewdata)
 		);
