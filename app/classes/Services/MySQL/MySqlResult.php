@@ -209,7 +209,9 @@ class MySqlResult implements \Iterator, \Countable {
 	public function getLookupTable() {
 		$data = array();
 		foreach ($this as $row) {
-			if (!isset($row["k"]) or !isset($row["v"])) throw new \Exception ("k and v are not all set for lookup table");
+			if (!array_key_exists('k', $row) or !array_key_exists('v', $row)) {
+				throw new \Exception ("k and v are not all set for lookup table");
+			}
 			$data[$row["k"]] = $row["v"];
 		}
 		return $data;

@@ -34,7 +34,7 @@ class PersonController extends \Controllers\Admin\AdminBaseController {
 			'countries' => $this->app->db->queryLookupTable('SELECT iso as k, name as v FROM countries ORDER BY name'),
 			'attendances' => $attendances,
 			'panel_status_options' => array(null, 'Potential', 'Invited', 'Interested', 'Confirmed', 'Rejected', 'Declined'),
-			'role_options' => array(null, 'Delegate', 'Panelist', 'Moderator'),
+			'role_options' => array(null, 'Delegate', 'Panelist', 'Speaker', 'Moderator'),
 		));
 		$this->renderView('admin/person');
 	}

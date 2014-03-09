@@ -1,14 +1,20 @@
 <?php
 
-namespace Controllers\Errors;
+	namespace Controllers\Errors;
 
-class Error405Controller extends \Controllers\BaseController {
+	class Error405Controller extends \Controllers\BaseController {
 
-    public function all() {
-    	$this->resp->setStatus(405);
-    	$this->resp->setContent("Sorry, ".$this->req->getMethod()." is not allowed on this resource.\n");
+	public function all() {
+		$allowlist = strtoupper(join(', ', $this->routeargs['allowedmethods']));
 
-    	// TODO: Add an Allow header listing allowed methods
-    }
+		$this->resp->setStatus(405);
+		$this->resp->setHeader('Allow', $allowlist);
+
+		$this->addViewData(array(
+			'method' => $this->req->getMethod(),
+			'allowedmethods' => $allowlist
+		));
+		$this->renderView('errors/405');
+	}
 
 }

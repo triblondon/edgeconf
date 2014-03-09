@@ -15,5 +15,9 @@ list_id = [____________]
 [view]
 cache_path = /tmp/viewscache
 
+[auth]
+; Gmail accounts that should have admin access
+admins = someone@example.com, someone.else@example.com
+
 [debug]
 debug_key = [____________]

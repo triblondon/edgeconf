@@ -31,6 +31,7 @@ $res = $app->db->query($sql, "Registrant", "Moderator", "Moderator", "Panelist",
 
 $email_list = array();
 $groupings = array();
+$summary = array();
 $email = '';
 
 foreach ($res as $person) {
@@ -42,6 +43,7 @@ foreach ($res as $person) {
 
     // Build group list.
 
+    # if ($email != 'joelzimmer@gmail.com') continue;
     if ($email !== $person['email']) {
 
         if ($email) {
@@ -53,9 +55,11 @@ foreach ($res as $person) {
     }
 
     $groupings[] = array('name'=>$person['mailchimp_group'], 'groups'=>$person['groupvalue']);
+    $summary[$person['email']][$person['mailchimp_group']] = $person['groupvalue'];
 }
 
 send($email, $groupings);
+# print_r($summary);
 
 
 // Now we have all users of our database at MailChimp, but in order to
@@ -94,7 +98,7 @@ foreach ($list['data'] as $member) {
         !isset($memberInfo['data'][0]) ||
         ($memberInfo['success'] !== 1)
     ) {
-        echo 'An error occured while loading a member.' . "\n";
+        echo 'An error occured while loading member: ' . $member['email'] . '.'. "\n";
         continue;
     }
 

@@ -2,6 +2,7 @@
 
 require __DIR__."/../vendor/autoload.php";
 
+
 /* Load services into dependency injection container */
 
 $app = new ServicesContainer();
@@ -18,9 +19,7 @@ $router = new Routing\Router($app);
 
 // Set URL slug patterns
 $router->setPattern('eventslug', '\d{4}\-\w+');
-$router->setPattern('page', 'schedule|faq');
 $router->setPattern('id', '\d+');
-$router->setPattern('video_id', '[\w\d\-\_]+');
 
 // Authentication routes
 $router->route('/auth/callback', 'AuthCallback');
@@ -29,10 +28,10 @@ $router->route('/auth/logout', 'AuthLogout');
 // Public content routes
 $router->route('/', 'PublicSite\Info');
 $router->route('/:eventslug', 'PublicSite\Info');
-$router->route('/:eventslug/:page', 'PublicSite\Info');
+$router->route('/:eventslug/(?<page>schedule|faq)', 'PublicSite\Info');
 $router->route('/:eventslug/register', 'PublicSite\Register');
 $router->route('/:eventslug/video', 'PublicSite\VideoAPI');
-$router->route('/:eventslug/video/:video_id', 'PublicSite\VideoAPI');
+$router->route('/:eventslug/video/(?<video_id>[\w\d\-\_]+)', 'PublicSite\VideoAPI');
 
 // Admin routes
 $router->route('/admin', '/admin/people');
