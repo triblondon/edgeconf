@@ -16,7 +16,7 @@ require __DIR__."/../../vendor/autoload.php";
 $app = new ServicesContainer();
 
 $sql  = 'SELECT pe.email, e.mailchimp_group,' .
-        '   IF(a.ticket_type IS NULL, %s, IF(pa.role=%s, %s, IF(pa.role=%s OR pa.role=%s, %s, %s))) as groupvalue ' .
+        ' IF(a.ticket_type IS NULL, %s, IF(pa.role=%s, %s, IF(pa.role=%s OR pa.role=%s, %s, %s))) as groupvalue ' .
         ' FROM people pe' .
         ' INNER JOIN attendance a' .
         ' ON pe.id = a.person_id' .
@@ -57,7 +57,6 @@ foreach ($res as $person) {
 
 send($email, $groupings);
 
-exit;
 
 // Now we have all users of our database at MailChimp, but in order to
 // have a consistend dataset, we compare the other way round as well.
@@ -152,6 +151,8 @@ function send($email, $groups)
 
 /**
  * Normalise email addresses to allow comparison.
+ *
+ * @todo We have this code multiple times.
  */
 
 function normaliseEmail($email)
