@@ -1,6 +1,11 @@
 {
+	"repositories": [
+		{"type": "vcs", "url": "https://github.com/triblondon/Pimple.git"}
+	],
 	"require": {
-		"twig/twig": "1.*"
+		"twig/twig": "1.*",
+		"pimple/pimple": "dev-master",
+		"johnnyfreeman/coseva": "dev-master"
 	},
 	"autoload": {
 		"psr-0": {
