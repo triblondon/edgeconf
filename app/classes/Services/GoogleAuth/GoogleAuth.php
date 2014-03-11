@@ -174,7 +174,7 @@ class GoogleAuth {
 
 
 	private static function makeHTTPRequest($url) {
-		$request = new \Services\HTTP\HTTPRequest($url);
+		$request = new \HTTP\HTTPRequest($url);
 		$response = $request->send();
 		$responsebody = $response->getBody();
 
