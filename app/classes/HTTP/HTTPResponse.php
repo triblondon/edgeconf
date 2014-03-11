@@ -7,7 +7,7 @@
  * @author Andrew Betts <andrew.betts@assanka.net>
 */
 
-namespace Services\HTTP;
+namespace HTTP;
 
 class HTTPResponse {
 	private $headers;

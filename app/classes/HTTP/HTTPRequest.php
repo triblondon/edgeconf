@@ -9,7 +9,7 @@
  * @author Andrew Betts <andrew.betts@assanka.net>
  */
 
-namespace Services\HTTP;
+namespace HTTP;
 
 class HTTPRequest {
 
@@ -93,7 +93,7 @@ class HTTPRequest {
 	 *
 	 * If you do not use this method to set an alternative hostname or addres for resolution, then the URL used in the constructor will be used.  If this method is used, then the hostname is extacted from the URL in the constructor, and replaced with the alternative host supplied by this method.  The original hostname is then passed to the server via the 'Host: ' header.  This method is only applicable to HTTP(s) requests.
 	 *
-	 * @param string $host Host address or name 
+	 * @param string $host Host address or name
 	 * @return void
 	 */
 	public function resolveTo($host) {
