@@ -33,7 +33,7 @@
 	          				{% endif %}
 	          			</p>
 	          		{% endif %}
-					<p class='session-summary'>{{session.description}}</p>
+					<p class='session-summary'>{{session.description|raw}}</p>
 					{% if session.panelists %}
 					<div class="row">
 						{% for panelist in session.panelists %}

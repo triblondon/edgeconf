@@ -148,6 +148,8 @@
 		{% include 'partners/' ~ thisevent.partner_name|slugify ~ '.html' %}
 	{% endif %}
 
+	{% include 'events/' ~ thisevent.slug ~ '/home-foot.html' ignore missing %}
+
 	<section class="layer connect">
 		<div class="row">
 			<div class="small-12 columns">
