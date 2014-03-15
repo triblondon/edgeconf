@@ -1,0 +1,50 @@
+<html>
+<head>
+	<link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,900' rel='stylesheet' type='text/css'>
+	<link href='//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.min.css' rel='stylesheet' type='text/css'>
+  	<style>
+	:root {-webkit-print-color-adjust:exact}
+	* { box-sizing: border-box; }
+	body, html { height: 100%; width: 100%; margin:0; padding:0; }
+	body { font-family: 'Lato', sans-serif; background: #f3f3f3; font-size: 25px; }
+
+	header { background: url(/images/events/{{event.slug}}/bg_billboard.jpg) 50% 50% no-repeat; background-size: cover; height: 200px; }
+	header .logo { height: 135px; margin: 30px; float: left;}
+	#credit {margin: 110px 40px 0 0;
+color: #FFF;
+text-align: right;
+float: right;
+width: 290px;
+text-shadow: 0 0 7px #000;
+font-size: 15px;}
+	#credit img {
+		float: right;
+-webkit-filter: invert() brightness(1.2);
+width: 80px;
+margin-left: 15px;
+margin-top: -34px;
+	}
+	section { padding: 50px;}
+	h1 { font-size: 100px; color: #333; font-weight: normal; margin: 0.8em 0; text-transform: uppercase; text-align:center;}
+	h2 { font-size: 40px; color: #333; margin: 0.8em 0; text-transform: uppercase;}
+
+	@media print {
+		@page { size: 210mm 297mm; margin: 0; }
+		body { background-color: white; }
+	}
+	</style>
+</head>
+<body>
+
+	<header>
+		<img src='/images/events/{{event.slug}}/logo.png' class='logo' />
+		<div id='credit'>
+			<img src='/images/partners/ft_logo_bw.svg' />
+			After-hours at The Royal Institution, sponsored by
+	</header>
+
+	<section>
+		{{message|raw}}
+	</section>
+</body>
+</html>

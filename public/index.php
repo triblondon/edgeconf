@@ -41,6 +41,7 @@ $router->route('/admin/panels', 'Admin\Panels');
 $router->route('/admin/invite', 'Admin\Invite');
 $router->route('/admin/rate', 'Admin\Rate');
 $router->route('/admin/badges', 'Admin\Badges');
+$router->route('/admin/sign', 'Admin\Signage');
 $router->route('/admin/exports/(?<export>panels|attendees)', 'Admin\Export');
 
 $router->route('/errortest', 'ErrorTest');

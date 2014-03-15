@@ -416,7 +416,7 @@ form.edgeform {
   position: relative;
   margin-bottom: 10px;
   overflow: hidden; }
-  .videoframe > *:first-child {
+  .videoframe > * {
     position: absolute;
     display: block;
     top: 0;
@@ -425,6 +425,21 @@ form.edgeform {
     bottom: 0;
     width: 100%;
     height: 100%; }
+  .videoframe > #youTubePlayer {
+    display: none; }
+  .videoframe > #noVideo {
+    text-align: center !important; }
+    .videoframe > #noVideo h2 {
+      color: white;
+      margin: 50px 50px 30px 50px; }
+    .videoframe > #noVideo p {
+      margin: 30px 50px 0 50px;
+      text-align: center !important; }
+
+.videoframe.playing #youTubePlayer {
+  display: block; }
+.videoframe.playing #noVideo {
+  display: none; }
 
 footer {
   padding: 10px 0;

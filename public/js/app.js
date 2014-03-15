@@ -235,12 +235,14 @@ $(function() {
 		var now = (new Date()).getTime();
 		var current = player.getVideoUrl();
 		for (var i=0, s=livePlaylist.length; i<s; i++) {
-			if (livePlaylist[i].start_time < now && livePlaylist[i].end_time > now) {
+			if (livePlaylist[i].start_time < now && livePlaylist[i].end_time > now && livePlaylist[i].youtube_id) {
 				if (current.indexOf(livePlaylist[i].youtube_id) === -1) {
 					cue(livePlaylist[i]);
 				}
-				break;
+				$('.videoframe').addClass('playing');
+				return;
 			}
+			$('.videoframe').removeClass('playing');
 		}
 	}
 
