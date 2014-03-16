@@ -4,6 +4,14 @@ namespace Controllers\Admin;
 
 class BadgesController extends \Controllers\Admin\AdminBaseController {
 
+	/**
+	 * @todo Remove hardcoded identifiers.
+	 * Party-Sessions are handled separatly as they generate an Exception in case
+	 * someone is assigned to the party and any other sessions.
+	 */
+
+	private $partySessions = array(29, 37);
+
 	public function get() {
 
 		// Get the next event
@@ -12,6 +20,14 @@ class BadgesController extends \Controllers\Admin\AdminBaseController {
 		$attendees = $this->app->db->queryAllRows('SELECT pe.* FROM people pe INNER JOIN attendance a ON a.person_id=pe.id WHERE a.event_id=%d AND ticket_type IS NOT NULL', $event['id']);
 		foreach ($attendees as &$attendee) {
 			$attendee['interests'] = $this->app->db->queryList('SELECT s.id FROM sessions s INNER JOIN participation p ON s.id=p.session_id WHERE p.person_id=%d AND s.event_id=%d', $attendee['id'], $event['id']);
+
+			if (count($attendee['interests']) > 1) {
+				foreach ($attendee['interests'] as $session) {
+					if (in_array($session, $this->partySessions)) {
+						throw new \Exception('Partyists are not allowed to be mapped to any other sessions! "person_id": ' . $attendee['id']);
+					}
+				}
+			}
 		}
 
 		$this->addViewData(array(
