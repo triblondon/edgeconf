@@ -34,7 +34,7 @@ $router->route('/:eventslug/video', 'PublicSite\VideoAPI');
 $router->route('/:eventslug/video/(?<video_id>[\w\d\-\_]+)', 'PublicSite\VideoAPI');
 
 // Public tools
-$router->route('/sign', 'Admin\Signage');
+$router->route('/sign', 'Signage');
 
 // Admin routes
 $router->route('/admin', '/admin/people');
