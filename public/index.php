@@ -33,6 +33,9 @@ $router->route('/:eventslug/register', 'PublicSite\Register');
 $router->route('/:eventslug/video', 'PublicSite\VideoAPI');
 $router->route('/:eventslug/video/(?<video_id>[\w\d\-\_]+)', 'PublicSite\VideoAPI');
 
+// Public tools
+$router->route('/sign', 'Admin\Signage');
+
 // Admin routes
 $router->route('/admin', '/admin/people');
 $router->route('/admin/people', 'Admin\People');
@@ -41,7 +44,6 @@ $router->route('/admin/panels', 'Admin\Panels');
 $router->route('/admin/invite', 'Admin\Invite');
 $router->route('/admin/rate', 'Admin\Rate');
 $router->route('/admin/badges', 'Admin\Badges');
-$router->route('/admin/sign', 'Admin\Signage');
 $router->route('/admin/exports/(?<export>panels|attendees)', 'Admin\Export');
 
 $router->route('/errortest', 'ErrorTest');

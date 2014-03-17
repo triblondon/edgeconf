@@ -1,8 +1,8 @@
 <?php
 
-namespace Controllers\Admin;
+namespace Controllers;
 
-class SignageController extends \Controllers\Admin\AdminBaseController {
+class SignageController extends \Controllers\BaseController {
 
 	public function get() {
 
