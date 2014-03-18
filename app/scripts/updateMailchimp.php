@@ -148,6 +148,7 @@ function send($email, $groups)
         echo "\nStopping due to a Mailchimp error:\n";
         var_dump($groups);
         var_dump($retval);
+        var_dump($app->mailchimp->errorMessage);
         // exit;
     }
 }
