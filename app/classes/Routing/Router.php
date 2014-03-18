@@ -119,7 +119,7 @@ final class Router {
 			if (preg_match($pattern, $path, $m)) {
 
 				// Handle naive redirects
-				if (substr($dest, 0, 1) == '/') {
+				if (preg_match('/^(\/|https?\:\/\/)/i', $dest)) {
 					$dest = preg_replace_callback('/\{\{(\w+)\}\}/', function($m_dest) use($m) {
 						return isset($m[$m_dest[0]]) ? $m[$m_dest[0]] : $m[0];
 					}, $dest);

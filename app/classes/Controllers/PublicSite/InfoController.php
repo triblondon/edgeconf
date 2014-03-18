@@ -27,6 +27,9 @@ class InfoController extends \Controllers\PublicSite\PublicBaseController {
 			$this->addViewData('sessions', $sessions);
 			$templ = 'schedule';
 
+		} else if ($this->routeargs['page'] == 'hub') {
+			$templ = 'hub';
+
 		} else if ($this->routeargs['page'] == 'faq') {
 			$this->addViewData('faqs', $this->app->db->queryAllRows('SELECT * FROM faqs WHERE event_id=%d OR event_id IS NULL', $this->viewdata['thisevent']['id']));
 			$templ = 'faq';
