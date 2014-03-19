@@ -1,0 +1,42 @@
+{% extends 'layout.html' %}
+{% set activemenu = 'schedule' %}
+
+{% block content %}
+	<div id="billboard" class="inner billboard-{{ thisevent.slug }}">
+		<div class="row">
+			<div class="small-12 large-2 columns">
+				<h1 class="hide-text">Edge Conference</h1>
+			</div>
+			<div class="small-12 large-10 columns">
+				<h2>Conference hub</h2>
+			</div>
+		</div>
+	</div>
+
+	<section class="layer">
+		<div class="row">
+			<div class="small-12 columns">
+				<h2>Welcome to the Edge</h2>
+
+				<p>Here are some useful links to help you get the most out of the conference today.</p>
+
+				<dl>
+					<dt><a href='https://docs.google.com/forms/d/16wWvmMctRJCJpN77U6l5J0hplAo-2vLCdvokQXqoWHQ/viewform'>Leave feedback</a></dt>
+					<dd>Review early, review often.</dd>
+
+					<dt><a href='https://docs.google.com/document/d/114mvPMvBTTHa42tKBJHASlIYyIqR8p_pBTzUJNKKPWM/edit'>Briefing for delegates</a></dt>
+					<dd>Conference code of conduct, after-hours details, guide to how sessions work etc.</dd>
+
+					<dt><a href='http://lanyrd.com/2014/edgeconf/'>Lanyrd event</a></dt>
+					<dd>View and post coverage of the day's sessions</dd>
+
+					<dt><a href='https://goo.gl/maps/5R4ob'>Directions to after-hours party at the Royal Insitution</a></dt>
+					<dd>Walking directions via Buckingham Palace and Green Park.  If you don't fancy the walk, take the Tube from Victoria one stop to Green Park instead.  You need your conference badge to get into after-hours.</dd>
+
+				</dl>
+
+				<p>If you're producing content about Edge, please tag it with <code>edgeconf</code> so we can find and link to it.  We're on twitter at <a href='http://twitter.com/edgeconf'>@edgeconf</a>, and also on <a href='http://facebook.com/edgeconf'>Facebook</a> and <a href='https://plus.google.com/+Edgeconf'>Google+</a>.  If you need any help during the day, feel free to ask Microsoft or FT staff, or send an email to <a href='mailto:edgeconf@labs.ft.com'>edgeconf@labs.ft.com</a>.</p>
+			</div>
+		</div>
+	</section>
+{% endblock %}

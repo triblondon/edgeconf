@@ -30,6 +30,8 @@ class BadgesController extends \Controllers\Admin\AdminBaseController {
 			}
 		}
 
+		for ($i=1; $i<=10; $i++) $attendees[] = array();
+
 		$this->addViewData(array(
 			'sides' => array('left', 'right'),
 			'event' => $event,

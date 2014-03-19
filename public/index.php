@@ -28,10 +28,13 @@ $router->route('/auth/logout', 'AuthLogout');
 // Public content routes
 $router->route('/', 'PublicSite\Info');
 $router->route('/:eventslug', 'PublicSite\Info');
-$router->route('/:eventslug/(?<page>schedule|faq)', 'PublicSite\Info');
+$router->route('/:eventslug/(?<page>schedule|faq|hub)', 'PublicSite\Info');
 $router->route('/:eventslug/register', 'PublicSite\Register');
 $router->route('/:eventslug/video', 'PublicSite\VideoAPI');
 $router->route('/:eventslug/video/(?<video_id>[\w\d\-\_]+)', 'PublicSite\VideoAPI');
+
+// Public tools
+$router->route('/sign', 'Signage');
 
 // Admin routes
 $router->route('/admin', '/admin/people');
@@ -41,8 +44,12 @@ $router->route('/admin/panels', 'Admin\Panels');
 $router->route('/admin/invite', 'Admin\Invite');
 $router->route('/admin/rate', 'Admin\Rate');
 $router->route('/admin/badges', 'Admin\Badges');
-$router->route('/admin/sign', 'Admin\Signage');
 $router->route('/admin/exports/(?<export>panels|attendees)', 'Admin\Export');
+
+$router->route('/hub', '/2014-london/hub');
+$router->route('/feedback', 'https://docs.google.com/forms/d/16wWvmMctRJCJpN77U6l5J0hplAo-2vLCdvokQXqoWHQ/viewform');
+
+
 
 $router->route('/errortest', 'ErrorTest');
 
