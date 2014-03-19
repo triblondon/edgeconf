@@ -16,7 +16,7 @@ require __DIR__."/../../vendor/autoload.php";
 $app = new ServicesContainer();
 
 $sql  = 'SELECT pe.email, e.mailchimp_group,' .
-        ' IF(a.ticket_type IS NULL, %s, IF(pa.role=%s, %s, IF(pa.role=%s OR pa.role=%s, %s, %s))) as groupvalue ' .
+        ' IF(a.ticket_type IS NULL, %s, IF(a.ticket_type=%s, %s, IF(pa.role=%s, %s, IF(pa.role=%s OR pa.role=%s, %s, %s)))) as groupvalue ' .
         ' FROM people pe' .
         ' INNER JOIN attendance a' .
         ' ON pe.id = a.person_id' .
@@ -27,7 +27,7 @@ $sql  = 'SELECT pe.email, e.mailchimp_group,' .
         ' GROUP BY pe.id, e.mailchimp_group' .
         ' ORDER BY email';
 
-$res = $app->db->query($sql, "Registrant", "Moderator", "Moderator", "Panelist", "Speaker", "Panelist", "Delegate", "Delegate", "Confirmed");
+$res = $app->db->query($sql, "Registrant", "Partyist", "Partyist", "Moderator", "Moderator", "Panelist", "Speaker", "Panelist", "Delegate", "Delegate", "Confirmed");
 
 $email_list = array();
 $groupings = array();
@@ -148,6 +148,7 @@ function send($email, $groups)
         echo "\nStopping due to a Mailchimp error:\n";
         var_dump($groups);
         var_dump($retval);
+        var_dump($app->mailchimp->errorMessage);
         // exit;
     }
 }
