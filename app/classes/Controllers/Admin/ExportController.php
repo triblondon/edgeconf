@@ -15,14 +15,15 @@ class ExportController extends \Controllers\Admin\AdminBaseController {
 			$sessions = $this->app->db->queryAllRows('SELECT * FROM sessions WHERE event_id=%d AND type=%s', $event['id'], 'session');
 			foreach ($sessions as $session) {
 				$data[self::slugify($session['name'])] = array('panelists'=>array(), 'questions'=>array());
-				$panelists = $this->app->db->queryAllRows('SELECT pe.twitter_username, pe.family_name, pe.given_name, pa.role FROM participation pa INNER JOIN people pe ON pa.person_id=pe.id WHERE pa.session_id=%d AND role != %s AND panel_status=%s', $session['id'], 'Delegate', 'Confirmed');
+				$panelists = $this->app->db->queryAllRows('SELECT pe.twitter_username, pe.family_name, pe.given_name, pe.org, pa.role FROM participation pa INNER JOIN people pe ON pa.person_id=pe.id WHERE pa.session_id=%d AND role != %s AND panel_status=%s', $session['id'], 'Delegate', 'Confirmed');
 				foreach ($panelists as $panelist) {
 					$data[self::slugify($session['name'])]['panelists'][] = array(
-						'family_name' => $panelist['family_name'],
-						'given_name' => $panelist['given_name'],
+						'Surname' => $panelist['family_name'],
+						'FirstName' => $panelist['given_name'],
 						'mod' => ($panelist['role'] == 'Moderator'),
 						'pic' => 'http://edgeconf.com/images/heads/'.self::slugify($panelist['given_name'].'-'.$panelist['family_name'], '-').'.jpg',
-						'twitter' => $panelist['twitter_username']
+						'twitter' => $panelist['twitter_username'],
+						'org' => $panelist['org']
 					);
 				}
 			}
@@ -43,7 +44,7 @@ class ExportController extends \Controllers\Admin\AdminBaseController {
 					'FirstName' => $pe['given_name'],
 					'Email' => $pe['email'],
 					'Ticket Type' => $pe['ticket_type'],
-					'Company' => $pe['org'],
+					'org' => $pe['org'],
 					'Sessions of interest' => $this->app->db->queryList('SELECT s.name FROM sessions s INNER JOIN participation p ON s.id=p.session_id WHERE p.person_id=%d AND s.event_id=%d', $pe['id'], $event['id'])
 				);
 			}
