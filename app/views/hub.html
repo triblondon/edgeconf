@@ -2,6 +2,11 @@
 {% set activemenu = 'schedule' %}
 
 {% block content %}
+	<style>
+	ul.bullets { padding-left: 40px; }
+	ul.bullets li { list-style-type: disc; }
+	</style>
+
 	<div id="billboard" class="inner billboard-{{ thisevent.slug }}">
 		<div class="row">
 			<div class="small-12 large-2 columns">
@@ -19,6 +24,29 @@
 				<h2>Welcome to the Edge</h2>
 
 				<p>Here are some useful links to help you get the most out of the conference today.</p>
+
+				<h3>OnSlyde remotes</h3>
+
+				<p>Get yourself into the debate, agree or disagree with current speakers and put yourself in the speaking queue.  Use these links on any browser that supports web sockets:</p>
+
+				<ul class='bullets'>
+					<!--<li><a href='https://www.onslyde.com/go/fhs'>Components</a></li>
+					<li><a href='https://www.onslyde.com/go/fhj'>Developer tooling</a></li>
+					<li><a href='https://www.onslyde.com/go/fsx'>Build process</a></li>
+					<li><a href='https://www.onslyde.com/go/fsb'>Page load performance</a></li>
+					<li><a href='https://www.onslyde.com/go/fsz'>Pointers and interactions</a></li>
+					<li><a href='https://www.onslyde.com/go/fsd'>Accessibility</a></li>
+					<li><a href='https://www.onslyde.com/go/fsy'>Future web</a></li>-->
+					<li><a href='http://goo.gl/v3E8Wt'>Components</a></li>
+					<li><a href='http://goo.gl/jrGNll'>Developer tooling</a></li>
+					<li><a href='http://goo.gl/Zaf7BI'>Build process</a></li>
+					<li><a href='http://goo.gl/vGkdl7'>Page load performance</a></li>
+					<li><a href='http://goo.gl/dERgy6'>Pointers and interactions</a></li>
+					<li><a href='http://goo.gl/YmcYuX'>Accessibility</a></li>
+					<li><a href='http://goo.gl/4VBLdK'>Future web</a></li>
+				</ul>
+
+				<h3>Other useful things</h3>
 
 				<dl>
 					<dt><a href='https://docs.google.com/forms/d/16wWvmMctRJCJpN77U6l5J0hplAo-2vLCdvokQXqoWHQ/viewform'>Leave feedback</a></dt>
