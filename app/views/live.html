@@ -6,7 +6,7 @@
       <div id='noVideo'><h2>Stand by</h2><p>The live stream will resume when the next session begins</p></div>
     </div>
     {% if livesession.youtube_id %}
-    <div><a href="https://www.youtube.com/watch?v={{ livesession.youtube_id }}">View on YouTube</a>
+        <a href="https://www.youtube.com/watch?v={{ livesession.youtube_id }}">View on YouTube</a>
     {% endif %}
   </div>
   <script>var livePlaylist = {{ sessions|json_encode|raw }};</script>
