@@ -20,6 +20,6 @@ class PublicBaseController extends \Controllers\BaseController {
 
 		// Also add details of the next event (may be the same)
 		$event = $this->app->db->queryRow('SELECT * FROM events WHERE end_time > NOW() ORDER BY start_time ASC LIMIT 1');
-		$this->addViewData('nextevent', $event);
+		if ($event) $this->addViewData('nextevent', $event);
 	}
 }

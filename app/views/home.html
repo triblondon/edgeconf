@@ -83,7 +83,7 @@
 				</div>
 			</div>
 		</section>
-	{% elseif date(thisevent.end_time) < date() %}
+	{% elseif date(thisevent.end_time) < date() and hasvideo %}
 		<section class="layer" id='videos'>
 			<div class="row">
 				<div class="small-12 columns">

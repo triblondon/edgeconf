@@ -26,7 +26,7 @@ $router->route('/auth/callback', 'AuthCallback');
 $router->route('/auth/logout', 'AuthLogout');
 
 // Public content routes
-$router->route('/', 'PublicSite\Info');
+$router->route('/', '/2014-london');
 $router->route('/:eventslug', 'PublicSite\Info');
 $router->route('/:eventslug/(?<page>schedule|faq|hub)', 'PublicSite\Info');
 $router->route('/:eventslug/register', 'PublicSite\Register');
