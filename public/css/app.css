@@ -36,10 +36,10 @@ p {
   line-height: 1.5em; }
 
 ul {
-  margin-bottom: 30px; }
+  margin-bottom: 30px;
+  padding-left: 1em; }
   ul li {
-    font-size: 1.125em;
-    list-style-type: none; }
+    font-size: 1.125em; }
 
 table {
   width: 100%;
@@ -55,6 +55,9 @@ form select {
 /* Objects */
 .top-bar, .contain-to-grid, .top-bar-section li a:not(.button) {
   background-color: black; }
+
+.top-bar-section ul {
+  padding: 0; }
 
 .top-bar-section li a.active {
   background-color: #222;
@@ -126,6 +129,11 @@ form select {
     color: #fff;
     font-size: 2.25em;
     margin-top: 40px; }
+
+.billboard-2014-sf {
+  background-image: url(/images/events/2014-sf/bg_billboard.jpg); }
+  .billboard-2014-sf h1 {
+    background-image: url(/images/events/2014-sf/logo.png); }
 
 .billboard-2014-london {
   background-image: url(/images/events/2014-london/bg_billboard.jpg); }

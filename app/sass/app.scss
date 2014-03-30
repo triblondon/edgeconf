@@ -58,9 +58,9 @@ p {
 }
 ul {
 	margin-bottom: 30px;
+	padding-left: 1em;
 	li {
 		font-size: em(18px);
-		list-style-type: none;
 	}
 }
 table {
@@ -84,6 +84,9 @@ form select {
 
 .top-bar, .contain-to-grid, .top-bar-section li a:not(.button) {
 	background-color: black;
+}
+.top-bar-section ul {
+	padding: 0;
 }
 .top-bar-section li a.active {
     background-color: #222;
@@ -175,6 +178,12 @@ form select {
 	}
 }
 
+.billboard-2014-sf {
+	background-image: url(/images/events/2014-sf/bg_billboard.jpg);
+	h1 {
+		background-image: url(/images/events/2014-sf/logo.png);
+	}
+}
 .billboard-2014-london {
 	background-image: url(/images/events/2014-london/bg_billboard.jpg);
 	h1 {

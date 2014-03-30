@@ -156,6 +156,7 @@ $(function() {
 	}
 
 	function loadingComplete() {
+		$iframe.show();
 		if (_GET.q) {
 			$query.val(_GET.q);
 			doSearch();
