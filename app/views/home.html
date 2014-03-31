@@ -90,13 +90,19 @@
 					<h2 style='margin-bottom:25px'>Watch the coverage</h2>
 				</div>
 				<div class="small-12 large-8 columns">
-					<div class='videoframe'>
-						<iframe id='youTubePlayer' src='http://www.youtube.com/embed/videoseries?list={{thisevent.video_playlist}}&amp;enablejsapi=1&amp;origin=http://{{ SERVER.HTTP_HOST }}&amp;autohide=1&amp;modestbranding=1&amp;rel=0' frameborder='0'></iframe>
+					<div class='videoframe playing'>
+						<div id='youTubePlayer'></div>
 					</div>
 				</div>
 				<div id="videos-container" class="small-12 large-4 columns">
 					<input id="query" type="text" class='input-block-level' placeholder="Search video transcripts"/>
-					<span class='help-block'>Enter text to search transcripts, then click on a result to view video.</span>
+					<div class='help-block'>Enter text to search transcripts, then click on a result to view video, or choose from one of the sessions:
+					<ul class='video-list'>
+						{% for session in sessions %}
+						<li><a href='?v={{session.youtube_id}}'>{{session.name}}</a></li>
+						{% endfor %}
+					</ul>
+					</div>
 					<div id="numResults"></div>
 					<ul id="results"></ul>
 				</div>

@@ -486,7 +486,7 @@ form.edgeform {
 	}
 	#videos-container:after {
 		background: -webkit-linear-gradient(top, rgba(255,255,255, 0), rgba(255,255,255, 1));
-		bottom: 30px;
+		bottom: 0;
 		content: "";
 		height: 25px;
 		position: absolute;
@@ -514,6 +514,13 @@ form.edgeform {
 		list-style-type:none;
 		padding: 0;
 		margin: 0;
+	}
+	#results li:last-child {
+		margin-bottom: 15px;
+	}
+	.video-list {
+		line-height: normal;
+		margin-top: 10px;
 	}
 	.video-heading {
 		border-bottom: 1px solid #ddd;

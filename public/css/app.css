@@ -360,7 +360,7 @@ form.edgeform {
     min-height: 150px; }
   #videos #videos-container:after {
     background: -webkit-linear-gradient(top, rgba(255, 255, 255, 0), white);
-    bottom: 30px;
+    bottom: 0;
     content: "";
     height: 25px;
     position: absolute;
@@ -383,6 +383,11 @@ form.edgeform {
     list-style-type: none;
     padding: 0;
     margin: 0; }
+  #videos #results li:last-child {
+    margin-bottom: 15px; }
+  #videos .video-list {
+    line-height: normal;
+    margin-top: 10px; }
   #videos .video-heading {
     border-bottom: 1px solid #ddd;
     font-size: 14px;

@@ -55,7 +55,7 @@ $(function() {
 // Video search
 $(function() {
 
-	var $iframe = $('#videos iframe#youTubePlayer');
+	var $iframe;
 	var $query = $("#query");
 	var $numResults = $("#numResults");
 	var $resultsList = $("#results");
@@ -66,22 +66,28 @@ $(function() {
 	var loading = 0;
 	var inputTimer;
 	var _GET = {};
+	var defaultvid;
 
-	if (!$iframe.length) return;
+	if (!$('#videos #youTubePlayer').length) return;
 
 	// Bind to player and load track data when the player is ready
 	$('body').on('youTubeAPIReady', function() {
+		console.log('YT API ready');
 		player = new YT.Player('youTubePlayer', {
 			events: {
 				'onReady': function () {
+					console.log('YT player ready');
+					$iframe = $(player.getIframe());
 					$.getJSON(trackPath, init);
 				}
 			}
 		});
+		window.YTplayer = player;
 	});
 
 	function init(data) {
 
+		console.log("Track index loaded");
 		videos = data;
 
 		// Recognise query params
@@ -93,17 +99,13 @@ $(function() {
 			})
 		}
 
-		// Limit height of results panel to match IFRAME
-		$resultsList.css('max-height', Math.max($iframe.height()-80, 150));
-		$(window).resize(function() {
-			$resultsList.css('max-height', Math.max($iframe.height()-80, 150));
-		})
-
 		// Load caption data
 		for (var id in videos) {
+			if (!defaultvid) defaultvid = id;
 			loading++;
 			(function (_id) {
 				$.get(trackPath + '/' + _id, function(track) {
+					console.log("Track content loaded", videos[_id]);
 					var lines = track.replace(/(\r\n|\n\r|\n|\r)/, "\n").split('\n');
 					var currentCue = {videoid: _id, text:''};
 					var timings;
@@ -153,20 +155,32 @@ $(function() {
 				player.loadVideoById(cue.videoid, cue.startTime);
 			}
 		});
+
+		// Bind to window size changes
+		$(window).resize(resize);
+
 	}
 
 	function loadingComplete() {
-		$iframe.show();
 		if (_GET.q) {
 			$query.val(_GET.q);
 			doSearch();
 		}
 		if (_GET.v && videos[_GET.v]) {
 			player.loadVideoById(_GET.v, 0);
+		} else {
+			console.log(defaultvid);
+			player.cueVideoById(defaultvid);
 		}
+		resize();
 	}
 
-	function doSearch(){
+	// Limit height of results panel to match IFRAME
+	function resize() {
+		$resultsList.css('max-height', Math.max($iframe.height()-80, 150));
+	}
+
+	function doSearch() {
 		var querystr = $query.val(), numResults = 0, maxresults = 100, currentVid = '';
 		if (querystr.length <= 2) return;
 		document.querySelector("*").style.cursor = "wait";
@@ -213,6 +227,7 @@ $(function() {
 	var player;
 
 	if (!$('#onair').length || !livePlaylist) return;
+	console.log('Doing live video player');
 
 	$('body').on('youTubeAPIReady', function() {
 		player = new YT.Player(
