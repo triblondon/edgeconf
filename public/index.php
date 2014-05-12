@@ -26,7 +26,7 @@ $router->route('/auth/callback', 'AuthCallback');
 $router->route('/auth/logout', 'AuthLogout');
 
 // Public content routes
-$router->route('/', '/2014-london');
+$router->route('/', '/2014-sf');
 $router->route('/:eventslug', 'PublicSite\Info');
 $router->route('/:eventslug/(?<page>schedule|faq|hub)', 'PublicSite\Info');
 $router->route('/:eventslug/register', 'PublicSite\Register');
@@ -46,7 +46,7 @@ $router->route('/admin/rate', 'Admin\Rate');
 $router->route('/admin/badges', 'Admin\Badges');
 $router->route('/admin/exports/(?<export>panels|attendees)', 'Admin\Export');
 
-$router->route('/hub', '/2014-london/hub');
+$router->route('/hub', '/2014-sf/hub');
 $router->route('/feedback', 'https://docs.google.com/forms/d/16wWvmMctRJCJpN77U6l5J0hplAo-2vLCdvokQXqoWHQ/viewform');
 
 
