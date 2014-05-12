@@ -8,7 +8,7 @@
 				<h1 class="hide-text">Edge Conference</h1>
 			</div>
 			<div class="small-12 large-9 columns">
-				<p class="tagline">A day of group discussion and debate on advanced web technologies for developers and browser vendors, raising funds for <a href='{{thisevent.partner_url}}'>{{thisevent.partner_name}}</a>.</p>
+				<p class="tagline">A day of group discussion and debate on advanced web technologies for developers and browser vendors{% if thisevent.partner_name %}, raising funds for <a href='{{thisevent.partner_url}}'>{{thisevent.partner_name}}</a>{% endif %}.</p>
 			</div>
 		</div>
 		<div class="layer">
@@ -43,7 +43,7 @@
 					{% endif %}
 				</div>
 				<div class="small-12 large-6 columns">
-					<p>Presented by <a href="http://labs.ft.com">FT Labs</a>, <a href="http://www.modern.ie/">Microsoft</a> and <a href="http://developers.google.com/chrome">Google</a></p>
+					<p>Presented by <a href="http://labs.ft.com">FT Labs</a>, <a href="http://www.adobe.com/devnet.html">Adobe</a> and <a href="http://developers.google.com/chrome">Google</a></p>
 					<ul class="social-icons">
 						<li><a href="https://www.facebook.com/edgeconf" class="hide-text facebook">Facebook</a></li>
 						<li><a href="https://www.twitter.com/edgeconf" class="hide-text twitter">Twitter</a></li>
@@ -190,7 +190,7 @@
 						{% endif %}
 					</div>
 					<div class="small-12 columns large-6 columns">
-						<p>Presented by <a href="http://labs.ft.com">FT Labs</a>, <a href="http://modern.ie">Microsoft</a> and <a href="http://developers.google.com/chrome">Google</a></p>
+						<p>Presented by <a href="http://labs.ft.com">FT Labs</a>, <a href="http://www.adobe.com/devnet.html">Adobe</a> and <a href="http://developers.google.com/chrome">Google</a></p>
 						<ul class="social-icons social-icons--dark">
 								<li><a href="https://www.facebook.com/edgeconf" class="hide-text facebook">Facebook</a></li>
 								<li><a href="https://www.twitter.com/edgeconf" class="hide-text twitter">Twitter</a></li>
