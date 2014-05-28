@@ -72,11 +72,11 @@ class GoogleAuth {
 		}
 
 		// Validate nonce
-		$datepat = "/^([0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2})/";
+		$datepat = "/^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z?/";
 		if (!preg_match($datepat, $params["openid_response_nonce"], $m)) {
 			throw new \Exception('Invalid nonce');
 		}
-		$noncetime = new \DateTime($m[1]);
+		$noncetime = new \DateTime($m[0]);
 		$now = new \DateTime;
 		$nonceage = ($now->getTimestamp() - $noncetime->getTimestamp());
 		$maxnonceage = 300;
