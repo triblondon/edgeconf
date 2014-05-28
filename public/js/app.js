@@ -20,6 +20,7 @@ _gaq.push(['_trackPageview']);
 
 // Registration form
 $(function() {
+	var isdirty = false;
 	$('form.register').submit(function(e) {
 		var errorhtml = '<div class="note error">You forgot this one</div>';
 		$('.error').remove();
@@ -40,6 +41,7 @@ $(function() {
 			e.preventDefault();
 			return false;
 		}
+		isdirty = false;
 	});
 	$('form.register').on('click change', '#chklistsessions .form-chklist__chk', function() {
 		$('#proposalgroup_'+this.value)[this.checked?"show":"hide"]();
@@ -48,6 +50,16 @@ $(function() {
 	$('#chklistsessions .form-chklist__chk:checked').each(function() {
 		$('#proposalgroup_'+this.value).show();
 		$('#noproposals').hide();
+	});
+	$('form.register').on('click change', 'input, select', function() {
+		isdirty = true;
+	});
+	$(window).on('beforeunload', function(e) {
+		var msg = 'If you navigate away from this page any unsaved information will be lost.';
+		if (!isdirty) return;
+		e = e || window.event;
+		if (e) e.returnValue = msg;
+		return msg;
 	});
 });
 
