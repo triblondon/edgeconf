@@ -54,11 +54,15 @@ class RegisterController extends \Controllers\PublicSite\PublicBaseController {
 	/* Methods shared by GET and POST requests */
 
 	private function loadCommon() {
+
+		// Authenticate the user
 		$this->user = $this->app->auth->authenticate(false);
 
 		// Check for email aliases
-		$target = $this->app->db->querySingle('SELECT target FROM emailaliases WHERE source=%s', $this->user['email']);
-		if ($target) $this->user['email'] = $target;
+		if ($this->user) {
+			$target = $this->app->db->querySingle('SELECT target FROM emailaliases WHERE source=%s', $this->user['email']);
+			if ($target) $this->user['email'] = $target;
+		}
 
 		$this->sessions = $this->app->db->queryLookupTable('SELECT id as k, name as v FROM sessions WHERE event_id=%d AND type=%s ORDER BY start_time', $this->event['id'], 'Session');
 	}

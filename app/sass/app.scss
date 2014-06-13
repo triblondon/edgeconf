@@ -225,9 +225,6 @@ form select {
 			top: 30px;
 		}
 	}
-	.button {
-		margin-bottom: 30px;
-	}
 	.large-6 {
 		margin-bottom: 20px;
 		h2 {
@@ -474,6 +471,15 @@ form.edgeform {
 	}
 	textarea {
 		resize: vertical;
+	}
+}
+form.register {
+	.email-verify-code {
+		display: none;
+	}
+	.inline-field {
+		max-width: 200px;
+		display: inline-block;
 	}
 }
 

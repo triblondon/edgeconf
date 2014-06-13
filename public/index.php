@@ -24,6 +24,8 @@ $router->setPattern('id', '\d+');
 // Authentication routes
 $router->route('/auth/callback', 'AuthCallback');
 $router->route('/auth/logout', 'AuthLogout');
+$router->route('/auth/email/start-verify', 'AuthEmailSendCode');
+$router->route('/auth/email/verify', 'AuthEmailVerify');
 
 // Public content routes
 $router->route('/', '/2014-sf');

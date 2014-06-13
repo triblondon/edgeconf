@@ -51,6 +51,7 @@ $(function() {
 		$('#proposalgroup_'+this.value).show();
 		$('#noproposals').hide();
 	});
+
 	$('form.register').on('click change', 'input, select', function() {
 		isdirty = true;
 	});
@@ -61,6 +62,50 @@ $(function() {
 		if (e) e.returnValue = msg;
 		return msg;
 	});
+
+	$('.email-verify-button').click(function() {
+		$('.email-field .error').remove();
+		if (!/^\S+@\S+\.\S+$/.test($('#txtemail').val())) {
+			$('.email-verify-button').after('<div class="note error"><em>Probably</em> not a valid email address</div>');
+			return;
+		}
+		this.blur();
+		$('#txtemail').attr('disabled', 'disabled');
+		$.ajax({
+			type: 'POST',
+			url: '/auth/email/start-verify',
+			data: {email:$('#txtemail').val()},
+			success: function() {
+				$('.email-verify-button').hide();
+				$('.email-verify-code').show();
+				$('#txtemailverify').focus();
+			},
+			error: resetEmailField
+		});
+	});
+	$('.email-verify-reset-link').click(resetEmailField);
+	function resetEmailField() {
+		$('.email-verify-code').hide().find('input:text').val('');
+		$('.email-verify-button').show();
+		$('#txtemail').removeAttr('disabled').focus();
+	}
+
+	$('.email-verify2-button').click(function() {
+		$('.email-field .error').remove();
+		$.ajax({
+			type: 'POST',
+			url: '/auth/email/verify',
+			data: {email:$('#txtemail').val(),code:$('#txtemailverify').val()},
+			success: function() {
+				isdirty = false;
+				window.location.reload();
+			},
+			error: function() {
+				$('.email-verify-code').after('<div class="note error">Incorrect code</div>');
+			}
+		});
+	});
+
 });
 
 

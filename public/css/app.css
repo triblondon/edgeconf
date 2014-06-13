@@ -165,8 +165,6 @@ form select {
   .layer img.full {
     width: 100%;
     margin-top: 30px; }
-  .layer .button {
-    margin-bottom: 30px; }
   .layer .large-6 {
     margin-bottom: 20px; }
     .layer .large-6 h2 {
@@ -352,6 +350,12 @@ form.edgeform {
     display: block; }
   form.edgeform textarea {
     resize: vertical; }
+
+form.register .email-verify-code {
+  display: none; }
+form.register .inline-field {
+  max-width: 200px;
+  display: inline-block; }
 
 /* Video search */
 #videos {

@@ -39,7 +39,7 @@
 			<div class="row">
 				<div class="small-12 columns">
 					<p>Tickets to Edge cost {{thisevent.cost}}.  The space in the venue is quite limited, and we expect this event to be popular, so we are operating a pre-registration process to allocate tickets fairly and ensure a broad cross-section of the development community is able to attend.</p>
-					<p>To register your interest, update an existing registration, or claim a reserved ticket, first sign in with a Google account.</p>
+					<p>To register your interest, update an existing registration, or claim a reserved ticket, first sign in.</p>
 				</div>
 			</div>
 			<form class='edgeform register' action='/{{thisevent.slug}}/register' method='post'>
@@ -55,13 +55,19 @@
 					<div class="small-12 large-4 columns">
 						<label for='txtemail'>Email address</label>
 					</div>
-					<div class='small-12 large-8 columns'>
+					<div class='small-12 large-8 columns email-field'>
 						{% if user.email %}
 							{{user.email}} (<a href='/auth/logout?redir={{server.request_uri}}'>Not correct?</a>)
 							<input type='hidden' name='email' value='{{user.email}}'/>
 						{% else %}
-							<a href='{{auth_url}}'><img width="200" src="https://developers.google.com/accounts/images/sign-in-with-google.png"></a>
-							<span class='note'>To verify your email address, please sign in with a Google account. This reduces the risk of duplicate applications, allows you to track your application, and use conference-day participation tools.  We only ask for access to your email address.  If you don't have a Google account, <a href='mailto:hello@edgeconf.com'>drop us a line by email instead</a>.</span>
+							<input type='text' name='email' class='inline-field' id='txtemail' />
+							<input type='button' value='Verify' class='email-verify-button small button' />
+							<span class='email-verify-code'>
+								<input type='text' name='emailverify' id='txtemailverify' class='inline-field' style='max-width:150px' placeholder='Paste code here' />
+								<input type='button' value='Submit' class='email-verify2-button small button' />
+								or <a href='javascript:void(0)' class='email-verify-reset-link'>start again</a>
+							</span>
+							<span class='note'>To prevent duplicate submissions and allow you to update an existing registration, you need to verify that you own this email address.  Click verify and enter the code that you receive by email</span>
 						{% endif %}
 					</div>
 				</div>
