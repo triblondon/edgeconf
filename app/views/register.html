@@ -93,8 +93,8 @@
 
 				{{ forms.text('given_name', 'Given name', user, 'Usually your first name', nouser) }}
 				{{ forms.text('family_name', 'Family name', user, 'Usually your last name', nouser) }}
-				{{ forms.select('travel_origin', 'Location', user, countries, nouser, true, 'Choose the ISO 3166 country you are most likely to be travelling from to attend the conference.  We use this to give a slight preference to locals.') }}
-				{{ forms.text('org', 'Organisation/affiliation', user, 'eg. IBM', nouser, 'Your company, school or institution name. We try to avoid having too many delegates from the same company, and this will also get printed on your name badge') }}
+				{{ forms.select('travel_origin', 'Location', user, countries, nouser, true, 'Choose the ISO 3166 country you are most likely to be travelling from to attend the conference.  We use this to figure out where we should host Edge next time.') }}
+				{{ forms.text('org', 'Organisation/affiliation', user, 'eg. IBM', nouser, 'Your company, school or institution name. We try to avoid having too many delegates from the same company. <strong>This will get printed on your name badge</strong>') }}
 				{{ forms.chklist('sessions', 'Sessions of interest', user, sessions, nouser, 'Which sessions interest you the most?  Choose up to four.') }}
 
 				<div class="row form-field{{ nouser ? ' disabled' : '' }}">

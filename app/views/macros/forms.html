@@ -1,4 +1,4 @@
-{% macro text(name, label, data, placeholder, disabled) %}
+{% macro text(name, label, data, placeholder, disabled, notes) %}
 {% set val = (data is iterable) ? data[name] : data %}
 <div class="row form-field{{ disabled ? ' disabled' : '' }}">
 	<div class="small-12 large-4 columns">
@@ -6,6 +6,7 @@
 	</div>
 	<div class='small-12 large-8 columns'>
 		<input type='text' name='{{name}}' id='txt{{name}}' placeholder='{{placeholder}}' value='{{val}}'>
+		{% if notes %}<span class='note'>{{notes|raw}}</span>{% endif %}
 	</div>
 </div>
 {% endmacro %}
@@ -23,7 +24,7 @@
 				<option value='{{key}}' {{ (key==val) ? ' selected' : '' }}>{{label}}</option>";
 			{% endfor %}
 		</select>
-		{% if notes %}<span class='note'>{{notes}}</span>{% endif %}
+		{% if notes %}<span class='note'>{{notes|raw}}</span>{% endif %}
 	</div>
 </div>
 {% endmacro %}
@@ -34,7 +35,7 @@
 		<label>{{label}}</label>
 	</div>
 	<div class='small-12 large-8 columns form-chklist' id='chklist{{name}}'>
-		{% if notes %}<span class='note'>{{notes}}</span>{% endif %}
+		{% if notes %}<span class='note'>{{notes|raw}}</span>{% endif %}
 		{% for key,label in options %}
 			<label class='inline'><input type='checkbox' class='form-chklist__chk' name='{{name}}[]' value='{{key}}' {{ key in data[name] ? ' checked' : '' }}>{{label}}</label>
 		{% endfor %}
