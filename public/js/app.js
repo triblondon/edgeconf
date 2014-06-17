@@ -117,7 +117,7 @@ $(function() {
 	var $numResults = $("#numResults");
 	var $resultsList = $("#results");
 	var player;
-	var trackPath = location.pathname.match(/^(\/\d{4}\-\w+)/)[1]+"/video";
+	var trackPath;
 	var videos = {};
 	var cues = [];
 	var loading = 0;
@@ -126,6 +126,8 @@ $(function() {
 	var defaultvid;
 
 	if (!$('#videos #youTubePlayer').length) return;
+
+	trackPath = location.pathname.match(/^(\/\d{4}\-\w+)/)[1]+"/video";
 
 	// Bind to player and load track data when the player is ready
 	$('body').on('youTubeAPIReady', function() {
@@ -330,3 +332,25 @@ $(function() {
 function onYouTubeIframeAPIReady() {
 	$('body').trigger('youTubeAPIReady');
 }
+
+
+// Table filter
+$('input[data-filter-for]').each(function() {
+	var t, inp = $(this);
+	inp.on('keyup', function() {
+		clearTimeout(t);
+		t = setTimeout(search, 300);
+	});
+	function search() {
+		var query = inp.val().toLowerCase();
+		var table = $('#'+inp.attr('data-filter-for'));
+		var matching;
+		if (query) {
+			matching = table.find('.filterable[data-filter-value*="'+query+'"]');
+			matching.show();
+			table.find('.filterable').not(matching).hide();
+		} else {
+			table.find('.filterable').show();
+		}
+	}
+})

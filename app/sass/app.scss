@@ -334,8 +334,6 @@ form select {
 	}
 }
 
-
-
 .social-icons {
 	li {
 		display: block;
@@ -389,6 +387,7 @@ form select {
 	font-size: 1rem !important;
 	line-height: 1.3rem;
 }
+
 
 /* Registration form */
 
@@ -471,6 +470,7 @@ form.edgeform {
 	}
 	textarea {
 		resize: vertical;
+		min-height: 100px;
 	}
 }
 form.register {
@@ -482,6 +482,7 @@ form.register {
 		display: inline-block;
 	}
 }
+
 
 /* Video search */
 
@@ -612,6 +613,17 @@ form.register {
 	}
 	#noVideo {
 		display:none;
+	}
+}
+
+.toolbar {
+	background: black;
+	.filter input {
+		margin: 5px 0;
+	}
+	.tools {
+		text-align: right;
+		padding-top: 15px;
 	}
 }
 

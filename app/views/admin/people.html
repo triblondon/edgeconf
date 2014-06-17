@@ -5,13 +5,23 @@
 {% block content %}
 <form method='post' action='/admin/people'>
 <style>input[type=checkbox] { margin: 0; }</style>
-<table>
+<div class='toolbar'>
+	<div class='row'>
+		<div class='filter columns large-4'>
+			<input type='text' placeholder='Type to filter' data-filter-for='tblpeople'>
+		</div>
+		<div class='tools columns large-8'>
+			<a href='/admin/people/new'>New person</a>
+		</div>
+	</div>
+</div>
+<table id='tblpeople'>
 	<thead>
 		<tr><th></th><th>Name</th><th>Org</th><th>Email</th><th>Edge {{event.id}} status</th><th>Travel</th><th>Accom</th><th></th></tr>
 	</thead>
 	<tbody>
 		{% for person in people %}
-		<tr>
+		<tr class='filterable' data-filter-value='{{person.given_name|lower}} {{person.family_name|lower}} {{person.org|lower}}'>
 			<td><input type='checkbox' name='people[]' value='{{person.id}}' /></td>
 			<td>{{person.given_name}} {{person.family_name}}</td>
 			<td>{{person.org}}</td>
@@ -36,6 +46,6 @@
 	</tbody>
 </table>
 
-<p style='margin-top: 30px'>With selected: <select name='action'><option>Merge</option></select> <input type='submit' class='button' value='Go' /></p>
+<p style='margin-top: 30px'>With selected: <select name='action'><option></option><option>Merge</option><option>VIP registration</option></select> <input type='submit' class='button' value='Go' /></p>
 </form>
 {% endblock %}

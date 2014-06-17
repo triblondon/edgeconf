@@ -10,7 +10,7 @@ class InviteController extends \Controllers\Admin\AdminBaseController {
 		$event = $this->app->db->queryRow('SELECT * FROM events WHERE end_time > NOW() ORDER BY start_time ASC LIMIT 1');
 
 		// Fetch people who could be invited
-		$invitable = $this->app->db->queryAllRows('SELECT p.id, p.given_name, p.family_name, p.email, p.org, GROUP_CONCAT(s.name) as sessions, AVG(pa.rating) as avgrating FROM people p INNER JOIN attendance a ON p.id=a.person_id AND a.event_id=%d LEFT JOIN participation pa ON p.id=pa.person_id LEFT JOIN sessions s ON pa.session_id=s.id WHERE a.ticket_type IS NULL AND a.invite_code IS NULL GROUP BY p.id ORDER BY avgrating DESC', $event['id']);
+		$invitable = $this->app->db->queryAllRows('SELECT p.id, p.given_name, p.family_name, p.email, p.org, GROUP_CONCAT(s.name) as sessions, AVG(pa.rating) as avgrating, a.type FROM people p INNER JOIN attendance a ON p.id=a.person_id AND a.event_id=%d LEFT JOIN participation pa ON p.id=pa.person_id LEFT JOIN sessions s ON pa.session_id=s.id AND s.event_id=%d WHERE a.ticket_type IS NULL AND a.invite_code IS NULL GROUP BY p.id ORDER BY avgrating DESC', $event['id'], $event['id'], $event['id']);
 
 		// Fetch people who could be reminded
 		$remindable = $this->app->db->queryAllRows('SELECT p.id, p.given_name, p.family_name, p.email, p.org, GROUP_CONCAT(s.name) as sessions, AVG(pa.rating) as avgrating FROM people p INNER JOIN attendance a ON p.id=a.person_id AND a.event_id=%d LEFT JOIN participation pa ON p.id=pa.person_id LEFT JOIN sessions s ON pa.session_id=s.id WHERE a.invite_code IS NOT NULL AND a.ticket_type IS NULL AND a.invite_date_reminded IS NULL AND a.invite_date_sent < (NOW() - INTERVAL 7 DAY) GROUP BY p.id ORDER BY avgrating DESC', $event['id']);
@@ -38,18 +38,18 @@ class InviteController extends \Controllers\Admin\AdminBaseController {
 					$this->alert('warning', 'Could not invite '.$person['email'].' because we\'re out of promo codes.');
 					continue;
 				}
-				$this->app->db->query("UPDATE attendance SET invite_date_sent=NOW(), invite_code=%s WHERE person_id=%d AND event_id=%d", $code, $personid, $event['id']);
-
-				// Change this to be based on activity once data from Wes is imported
-				$avgrating = $this->app->db->querySingle('SELECT AVG(pa.rating) FROM participation pa INNER JOIN sessions s ON pa.session_id = s.id WHERE pa.person_id=%d AND s.event_id=%d', $personid, $event['id']);
+				$attendance = $this->app->db->queryRow('SELECT * FROM attendance WHERE person_id=%d AND event_id=%d', $personid, $event['id']);
 
 				$viewdata = array(
 					'person'=>$person,
 					'event'=>$event,
+					'attendance'=>$attendance,
 					'code'=>$code
 				);
 				$htmloutput = $this->app->view->render('emails/invite.html', $viewdata);
 				$textoutput = $this->app->view->render('emails/invite.txt', $viewdata);
+
+				$this->app->db->query("UPDATE attendance SET invite_date_sent=NOW(), invite_code=%s WHERE person_id=%d AND event_id=%d", $code, $personid, $event['id']);
 
 				$this->sendEmail($person['email'], 'Invite to Edge conf', $textoutput, $htmloutput);
 				$this->alert('info', 'Sent invite to '.$person['email']);

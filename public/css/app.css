@@ -349,7 +349,8 @@ form.edgeform {
   form.edgeform .alert strong {
     display: block; }
   form.edgeform textarea {
-    resize: vertical; }
+    resize: vertical;
+    min-height: 100px; }
 
 form.register .email-verify-code {
   display: none; }
@@ -459,6 +460,14 @@ form.register .inline-field {
   display: block; }
 .videoframe.playing #noVideo {
   display: none; }
+
+.toolbar {
+  background: black; }
+  .toolbar .filter input {
+    margin: 5px 0; }
+  .toolbar .tools {
+    text-align: right;
+    padding-top: 15px; }
 
 footer {
   padding: 10px 0;

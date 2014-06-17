@@ -11,6 +11,19 @@
 </div>
 {% endmacro %}
 
+{% macro textarea(name, label, data, placeholder, disabled, notes) %}
+{% set val = (data is iterable) ? data[name] : data %}
+<div class="row form-field{{ disabled ? ' disabled' : '' }}">
+	<div class="small-12 large-4 columns">
+		<label for='txt{{name}}'>{{label}}</label>
+	</div>
+	<div class='small-12 large-8 columns'>
+		<textarea name='{{name}}' id='txt{{name}}' placeholder='{{placeholder}}'>{{val}}</textarea>
+		{% if notes %}<span class='note'>{{notes|raw}}</span>{% endif %}
+	</div>
+</div>
+{% endmacro %}
+
 {% macro select(name, label, data, options, disabled, allowblank, notes) %}
 {% set val = (data is iterable) ? data[name] : data %}
 <div class="row form-field{{ disabled ? ' disabled' : '' }}">

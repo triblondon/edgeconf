@@ -41,6 +41,9 @@ class PeopleController extends \Controllers\Admin\AdminBaseController {
 
 		$this->app->db->query('START TRANSACTION');
 
+		// Get the next event
+		$event = $this->app->db->queryRow('SELECT * FROM events WHERE end_time > NOW() ORDER BY start_time ASC LIMIT 1');
+
 		if ($this->req->getPost('action') == 'Merge' and is_array($this->req->getPost('people'))) {
 
 			// Get all the people in the set, preferring those with gmail addresses and more events
@@ -87,6 +90,13 @@ class PeopleController extends \Controllers\Admin\AdminBaseController {
 			$this->app->db->query('COMMIT');
 
 			$this->alert('info', 'Merged '.(count($people)+1).' people into person '.$keeppeople['id'].' ('.$keeppeople['email'].')');
+
+		} else if ($this->req->getPost('action') == 'VIP registration' and is_array($this->req->getPost('people'))) {
+			foreach ($this->req->getPost('people') as $personid) {
+				$this->app->db->query('INSERT IGNORE INTO attendance SET person_id=%d, event_id=%d, type=%s, created_at=NOW()', $personid, $event['id'], 'VIP');
+			}
+			$this->alert('info', 'Created VIP registrations');
+			$this->app->db->query('COMMIT');
 		}
 
 		$this->resp->redirect('/admin/people');

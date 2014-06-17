@@ -21,7 +21,7 @@
 				<td>{{person.org}}</td>
 				<td>{{person.email}}</td>
 				<td>{{person.sessions}}</td>
-				<td>{{person.avgrating|round(1)}}</td>
+				<td>{% if person.type == 'VIP' %}VIP{% else %}{{person.avgrating|round(1)}}{% endif %}</td>
 				<td><input type='checkbox' name='people[]' value="{{person.id}}" /></td>
 			</tr>
 			{% endfor %}

@@ -7,8 +7,8 @@
 	<section class="layer">
 		<div class="row">
 			<div class="small-12 columns">
-				<h2>Edit person</h2>
-				<form class='edgeform' action='/admin/people/{{person.id}}' method='post'>
+				<h2>{% if person %}Edit{% else %}New{% endif %} person</h2>
+				<form class='edgeform' action='/admin/people/{{person.id|default("new")}}' method='post'>
 
 					<h3 style='margin: 40px 0 20px 0'>Profile</h3>
 
@@ -16,7 +16,7 @@
 					{{ forms.text('family_name', 'Family name', person) }}
 					{{ forms.text('email', 'Email address', person) }}
 					{{ forms.text('org', 'Organisation/affiliation', person) }}
-					{{ forms.text('bio', 'Biography', person) }}
+					{{ forms.textarea('bio', 'Biography', person) }}
 					{{ forms.select('travel_origin', 'Location', person, countries, false, true) }}
 
 					{% for attendance in attendances %}

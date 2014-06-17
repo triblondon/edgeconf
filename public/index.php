@@ -42,6 +42,7 @@ $router->route('/sign', 'Signage');
 $router->route('/admin', '/admin/people');
 $router->route('/admin/people', 'Admin\People');
 $router->route('/admin/people/:id', 'Admin\Person');
+$router->route('/admin/people/new', 'Admin\Person');
 $router->route('/admin/panels', 'Admin\Panels');
 $router->route('/admin/invite', 'Admin\Invite');
 $router->route('/admin/rate', 'Admin\Rate');
