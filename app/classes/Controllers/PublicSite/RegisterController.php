@@ -10,17 +10,23 @@ class RegisterController extends \Controllers\PublicSite\PublicBaseController {
 
 		if ($this->loadCommon() === false) return false;
 
-		if (!empty($this->user)) {
-			$data = $this->app->db->queryRow('SELECT * FROM people WHERE email=%s', $this->user['email']);
-			if (is_array($data)) {
-				$existing = $this->app->db->queryRow('SELECT * FROM attendance WHERE person_id=%d AND event_id=%d', $data['id'], $this->event['id']);
-				$this->user = $existing ? array_merge($data, $existing) : $data;
-				$this->user['proposals'] = $this->app->db->queryLookupTable('SELECT session_id as k, proposal as v FROM participation WHERE person_id=%d AND session_id IN %d|list', $this->user['id'], array_keys($this->sessions));
-				$this->user['sessions'] = array_keys($this->user['proposals']);
-			}
-		}
+		// HACK: Due to lack of registrations for Edge SF, we're dropping the vetting, and sending people directly to Eventbrite
+		if ($this->event['ticketsavailable']) {
+			$this->resp->redirect('http://www.eventbrite.co.uk/e/'.$this->event['eventbrite_id']);
+		} else {
 
-		$this->buildResponse();
+			if (!empty($this->user)) {
+				$data = $this->app->db->queryRow('SELECT * FROM people WHERE email=%s', $this->user['email']);
+				if (is_array($data)) {
+					$existing = $this->app->db->queryRow('SELECT * FROM attendance WHERE person_id=%d AND event_id=%d', $data['id'], $this->event['id']);
+					$this->user = $existing ? array_merge($data, $existing) : $data;
+					$this->user['proposals'] = $this->app->db->queryLookupTable('SELECT session_id as k, proposal as v FROM participation WHERE person_id=%d AND session_id IN %d|list', $this->user['id'], array_keys($this->sessions));
+					$this->user['sessions'] = array_keys($this->user['proposals']);
+				}
+			}
+
+			$this->buildResponse();
+		}
 	}
 
 	public function post() {
