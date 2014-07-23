@@ -7,6 +7,7 @@ db_name = edgeconf
 [eventbrite]
 appkey = [____________]
 userkey = [____________]
+vipcode = [____________]
 
 [mailchimp]
 api_key = [____________]

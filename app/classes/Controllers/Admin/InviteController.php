@@ -33,12 +33,17 @@ class InviteController extends \Controllers\Admin\AdminBaseController {
 			$person = $this->app->db->queryRow('SELECT * FROM people WHERE id=%d', $personid);
 
 			if ($this->req->getPost('action') === 'invite') {
-				$code = $this->app->db->querySingle('SELECT code FROM codes c LEFT JOIN attendance a ON c.code=a.invite_code WHERE a.invite_code IS NULL LIMIT 1;');
-				if (!$code) {
-					$this->alert('warning', 'Could not invite '.$person['email'].' because we\'re out of promo codes.');
-					continue;
-				}
+
 				$attendance = $this->app->db->queryRow('SELECT * FROM attendance WHERE person_id=%d AND event_id=%d', $personid, $event['id']);
+				if ($attendance['type'] == 'VIP') {
+					$code = $this->app->config->eventbrite->vipcode; // $50 off
+				} else {
+					$code = $this->app->db->querySingle('SELECT code FROM codes c LEFT JOIN attendance a ON c.code=a.invite_code WHERE a.invite_code IS NULL LIMIT 1;');
+					if (!$code) {
+						$this->alert('warning', 'Could not invite '.$person['email'].' because we\'re out of promo codes.');
+						continue;
+					}
+				}
 
 				$viewdata = array(
 					'person'=>$person,
