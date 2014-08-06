@@ -8,6 +8,9 @@
 				<h1 class="hide-text">Edge Conference</h1>
 			</div>
 			<div class="small-12 large-10 columns">
+				{% if date(thisevent.start_time) > date() and thisevent.ticketsavailable %}
+					<a style ='float:right; margin-top:33px; box-shadow: 0 0 20px 10px black' class="button" href='/{{ thisevent.slug }}/register'>Register to attend</a>
+				{% endif %}
 				<h2>Schedule</h2>
 			</div>
 		</div>
