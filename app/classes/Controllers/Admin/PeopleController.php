@@ -135,6 +135,11 @@ class PeopleController extends \Controllers\Admin\AdminBaseController {
 						'event_id' => $event['id']
 					);
 
+					// Remove the invite code if it's the VIP one
+					if ($data['invite_code'] == $this->app->config->eventbrite->vipcode or $data['invite_code'] == 'OBRAFH') {
+						$data['invite_code'] = null;
+					}
+
 					// Canonicalise the email address from EB (to match GAuth)
 					// googlemail and gmail are the same, dots in username are ignored, as is anything after a +
 					list($username, $domain) = explode('@', $data['email'], 2);
