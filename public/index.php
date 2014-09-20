@@ -50,7 +50,7 @@ $router->route('/admin/badges', 'Admin\Badges');
 $router->route('/admin/exports/(?<export>panels|attendees)', 'Admin\Export');
 
 $router->route('/hub', '/2014-sf/hub');
-$router->route('/feedback', 'https://docs.google.com/forms/d/16wWvmMctRJCJpN77U6l5J0hplAo-2vLCdvokQXqoWHQ/viewform');
+$router->route('/feedback', 'https://docs.google.com/forms/d/1bVPMF3FJjLPyj9-ECCko4leA4kV-6y0gbOYiEGvB-18/viewform');
 
 
 
