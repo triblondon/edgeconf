@@ -285,88 +285,8 @@ $(function() {
 
 	var player;
 
-	var livePlaylistHack = [
-	{
-		"name": "Registration and breakfast",
-		"start_time": "2014-09-20 09:00:00 -0700",
-		"end_time": "2014-09-20 09:45:00 -0700",
-		"youtube_id": null
-	},
-	{
-		"name": "Welcome",
-		"start_time": "2014-09-20 09:45:00 -0700",
-		"end_time": "2014-09-20 10:00:00 -0700",
-		"youtube_id": "eqfAZ4WeS3g"
-	},
-	{
-		"name": "Installable apps and permissions",
-		"start_time": "2014-09-20 10:00:00 -0700",
-		"end_time": "2014-09-20 11:00:00 -0700",
-		"youtube_id": "eqfAZ4WeS3g"
-	},
-	{
-		"name": "Layout performance",
-		"start_time": "2014-09-20 11:00:00 -0700",
-		"end_time": "2014-09-20 12:00:00 -0700",
-		"youtube_id": "eqfAZ4WeS3g"
-	},
-	{
-		"name": "Morning break",
-		"start_time": "2014-09-20 12:00:00 -0700",
-		"end_time": "2014-09-20 12:15:00 -0700",
-		"youtube_id": null
-	},
-	{
-		"name": "Security and Identity",
-		"start_time": "2014-09-20 12:15:00 -0700",
-		"end_time": "2014-09-20 13:15:00 -0700",
-		"youtube_id": "eqfAZ4WeS3g"
-	},
-	{
-		"name": "Lunch",
-		"start_time": "2014-09-20 13:15:00 -0700",
-		"end_time": "2014-09-20 14:15:00 -0700",
-		"youtube_id": null
-	},
-	{
-		"name": "Package management",
-		"start_time": "2014-09-20 14:15:00 -0700",
-		"end_time": "2014-09-20 15:15:00 -0700",
-		"youtube_id": "eqfAZ4WeS3g"
-	},
-	{
-		"name": "Image formats",
-		"start_time": "2014-09-20 15:15:00 -0700",
-		"end_time": "2014-09-20 16:15:00 -0700",
-		"youtube_id": "eqfAZ4WeS3g"
-	},
-	{
-		"name": "Afternoon break",
-		"start_time": "2014-09-20 16:15:00 -0700",
-		"end_time": "2014-09-20 16:30:00 -0700",
-		"youtube_id": null
-	},
-	{
-		"name": "Breakout",
-		"start_time": "2014-09-20 16:30:00 -0700",
-		"end_time": "2014-09-20 17:30:00 -0700",
-		"youtube_id": null
-	},
-	{
-		"name": "Standards and the extensible web manifesto",
-		"start_time": "2014-09-20 17:30:00 -0700",
-		"end_time": "2014-09-20 18:30:00 -0700",
-		"youtube_id": "eqfAZ4WeS3g"
-	},
-	{
-		"name": "Closing remarks and thanks",
-		"start_time": "2014-09-20 18:30:00 -0700",
-		"end_time": "2014-09-20 18:45:00 -0700",
-		"youtube_id": "eqfAZ4WeS3g"
-	}
-	];
-
 	if (!$('#onair').length || !livePlaylist) return;
+	console.log('Doing live video player');
 
 	$('body').on('youTubeAPIReady', function() {
 		player = new YT.Player(
@@ -379,38 +299,31 @@ $(function() {
 	});
 
 	function onPlayerReady(evt) {
-		for (var i=0, s=livePlaylistHack.length; i<s; i++) {
-			livePlaylistHack[i].start_time = Date.parse(livePlaylistHack[i].start_time);
-			livePlaylistHack[i].end_time = Date.parse(livePlaylistHack[i].end_time);
+		for (var i=0, s=livePlaylist.length; i<s; i++) {
+			livePlaylist[i].start_time = Date.parse(livePlaylist[i].start_time);
+			livePlaylist[i].end_time = Date.parse(livePlaylist[i].end_time);
 		}
-		checkCurrent();
 		setInterval(checkCurrent, 5000);
 	}
 
 	function checkCurrent() {
 		var now = (new Date()).getTime();
-		//var nowUtc = Date.UTC(now.getUTCFullYear(),now.getUTCMonth(), now.getUTCDate(), now.getUTCHours(), now.getUTCMinutes(), now.getUTCSeconds(), now.getUTCMilliseconds());
 		var current = player.getVideoUrl();
-
-		for (var i=0, s=livePlaylistHack.length; i<s; i++) {
-			if (livePlaylistHack[i].start_time < now && livePlaylistHack[i].end_time > now) {
-				if (current.indexOf(livePlaylistHack[i].youtube_id) === -1) {
-					cue(livePlaylistHack[i]);
+		for (var i=0, s=livePlaylist.length; i<s; i++) {
+			if (livePlaylist[i].start_time < now && livePlaylist[i].end_time > now && livePlaylist[i].youtube_id) {
+				if (current.indexOf(livePlaylist[i].youtube_id) === -1) {
+					cue(livePlaylist[i]);
 				}
-				
-				$('#current-session').html(livePlaylistHack[i].name);
+				$('.videoframe').addClass('playing');
 				return;
 			}
+			$('.videoframe').removeClass('playing');
 		}
-
-		$('.videoframe').removeClass('playing');
 	}
 
 	function cue(session) {
-		if (session.youtube_id !== null) {
-			$('.videoframe').addClass('playing');
-			player.loadVideoById(session.youtube_id);	
-		}
+		player.loadVideoById(session.youtube_id);
+		$('#current-session').html(session.name);
 	}
 
 });
