@@ -16,45 +16,52 @@
 		</div>
 	</div>
 
-	{% for session in sessions %}
-	<section class="layer">
-		<div class="row">
-			<div class="small-12 columns">
-				<div class='session'>
-					<div class='session-time'>
-						<time datetime='{{session.start_time|date("c")}}'>{{session.start_time|date("H:i")}}</time>
-					</div>
-					<h3>{{session.name}}</h3>
-					{% if session.youtube_id and thisevent.video_playlist %}
-						<p class="watch">
-	          				<a href="/{{thisevent.slug}}?v={{session.youtube_id}}#videos"><i class="fa fa-play-circle"></i> Watch video</a>
-	          				{% if session.notes_url %}
-	          					<a href="{{session.notes_url}}"><i class="fa fa-list"></i> View notes</a>
-	          				{% endif %}
-	          				{% if session.analytics_url %}
-	          					<a href="{{session.analytics_url}}"><i class="fa fa-bar-chart-o"></i> View session analytics</a>
-	          				{% endif %}
-	          			</p>
-	          		{% endif %}
-					<p class='session-summary'>{{session.description|raw}}</p>
-					{% if session.panelists %}
-					<div class="row">
-						{% for panelist in session.panelists %}
-							<dl class="small-12 large-6 columns panelist{{ panelist.role=='Moderator' ? ' moderator' : '' }}">
-								<dt>{{panelist.given_name}} {{panelist.family_name}}</dt>
-								<dd class="headshot"><img src="/images/heads/{{panelist.given_name|slugify}}-{{panelist.family_name|slugify}}.jpg" alt="{{panelist.given_name}} {{panelist.family_name}}" />{% if panelist.role == 'Moderator' %}<em>Moderator</em>{% endif %}{% if panelist.role == 'Speaker' %}<em>Opening talk</em>{% endif %}</dd>
-								<dd>{{panelist.org}}</dd>
-								<dd>{{panelist.bio|raw}}</dd>
-							</dl>
-							{% if loop.index is even %}
-								</div><div class='row'>
-							{% endif %}
-						{% endfor %}
-					</div>
-					{% endif %}
-				</div>
+	<section class="layer"><div class="row"><div class='small-12 columns'>
+
+	{% for slot in slots %}
+		<div class='schedule-slot'>
+			<div class='slot-time'>
+				<time datetime='{{slot.time|date("c", "UTC")}}'>{{slot.time|date("H:i", thisevent.time_zone)}}</time>
 			</div>
+			<ul class='slot-sessions'>
+				{% for session in slot.sessions %}
+					<li class='session session-{{ session.type|slugify }}'>
+						<ul class="session-links">
+						{% if session.youtube_id and thisevent.video_playlist %}
+							<li><a href="/{{thisevent.slug}}?v={{session.youtube_id}}#videos"><i class="fa fa-play-circle"></i> Video</a></li>
+						{% endif %}
+						{% if session.notes_url %}
+							<li><a href="{{session.notes_url}}"><i class="fa fa-list"></i> Writeup</a></li>
+						{% endif %}
+						{% if session.analytics_url %}
+							<li><a href="{{session.analytics_url}}"><i class="fa fa-bar-chart-o"></i> Analytics</a></li>
+						{% endif %}
+						</ul>
+						<h3>{{session.name}}</h3>
+						{% if session.room %}
+							<span class='room'><i class='fa fa-map-marker'></i> {{session.room}}</span>
+						{% endif %}
+						<p class='session-summary'>{{session.description|raw}}</p>
+						{% if session.participants %}
+						<ul class="session-participants">
+							{% for person in session.participants %}
+								<li class="participant {{ person.role=='Moderator' ? 'moderator' : '' }}">
+									<img src="/images/heads/{{person.given_name|slugify}}-{{person.family_name|slugify}}.jpg" alt="{{person.given_name}} {{person.family_name}}" />
+									<span class='name'>{{person.given_name}} {{person.family_name}}</span>
+									<span class='org'>{{person.org}}</span>
+									{% if person.role == 'Moderator' %}<span class='label moderator'>Mod</span>{% endif %}
+									{% if person.role == 'Speaker' %}<span class='label speaker'>Speaker</span>{% endif %}
+									<div class='bio'>{{person.bio|raw}}</p>
+								</li>
+							{% endfor %}
+						</ul>
+						{% endif %}
+					</li>
+				{% endfor %}
+			</ul>
 		</div>
-	</section>
 	{% endfor %}
+
+	</div></div></section>
+
 {% endblock %}

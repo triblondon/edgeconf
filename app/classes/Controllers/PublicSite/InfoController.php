@@ -16,11 +16,15 @@ class InfoController extends \Controllers\PublicSite\PublicBaseController {
 			));
 
 		} else if ($this->routeargs['page'] == 'schedule') {
-			$sessions = $this->app->db->queryAllRows('SELECT * FROM sessions WHERE event_id=%d ORDER BY start_time', $this->viewdata['thisevent']['id']);
+			$sessions = $this->app->db->queryAllRows('SELECT * FROM sessions WHERE event_id=%d ORDER BY start_time, room', $this->viewdata['thisevent']['id']);
+			$slots = array();
 			foreach ($sessions as &$session) {
-				$session['panelists'] = $this->app->db->queryAllRows('SELECT pe.given_name, pe.family_name, pe.org, pe.bio, par.role FROM people pe INNER JOIN participation par ON pe.id=par.person_id WHERE par.session_id=%d AND role IN (%s, %s, %s) AND panel_status=%s ORDER BY role=%s DESC, role=%s DESC', $session['id'], 'Moderator', 'Panelist', 'Speaker', 'Confirmed', 'Moderator', 'Speaker');
+				$session['participants'] = $this->app->db->queryAllRows('SELECT pe.given_name, pe.family_name, pe.org, pe.bio, par.role FROM people pe INNER JOIN participation par ON pe.id=par.person_id WHERE par.session_id=%d AND role IN (%s, %s, %s) AND panel_status=%s ORDER BY role=%s DESC, role=%s DESC', $session['id'], 'Moderator', 'Panelist', 'Speaker', 'Confirmed', 'Moderator', 'Speaker');
+				$timekey = $session['start_time']->format('U');
+				if (!isset($slots[$timekey])) $slots[$timekey] = array('time'=>$session['start_time'], 'sessions'=>array());
+				$slots[$timekey]['sessions'][] = $session;
 			}
-			$this->addViewData('sessions', $sessions);
+			$this->addViewData('slots', $slots);
 			$templ = 'schedule';
 
 		} else if ($this->routeargs['page'] == 'hub') {

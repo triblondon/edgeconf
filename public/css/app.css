@@ -183,72 +183,6 @@ form select {
 .layer.connect, .layer:last-child {
   border: none; }
 
-.layer.panelists {
-  border: none; }
-
-.panelist {
-  margin: 20px 0; }
-  .panelist dt {
-    font-size: 1.125em;
-    text-transform: uppercase; }
-  .panelist dt, .panelist dd {
-    clear: right;
-    float: right;
-    margin-bottom: 5px;
-    width: 77%; }
-  .panelist dd em {
-    color: #0043ff;
-    display: block;
-    font-size: 0.75em;
-    font-style: normal;
-    font-weight: 600;
-    text-transform: uppercase; }
-  .panelist dd.headshot {
-    clear: left;
-    float: left;
-    margin-top: 2px;
-    width: 20%; }
-    .panelist dd.headshot img {
-      opacity: .7;
-      -webkit-transition: opacity 0.5s ease;
-      -moz-transition: opacity 0.5s ease;
-      -ms-transition: opacity 0.5s ease;
-      -o-transition: opacity 0.5s ease;
-      transition: opacity 0.5s ease;
-      width: 100%;
-      border-radius: 5px;
-      border: 2px solid #ddd;
-      margin: -2px 0 0 -2px; }
-  .panelist dd.headshot + dd {
-    font-size: 1.125em;
-    font-style: italic; }
-
-.panelist:hover dd.headshot img {
-  opacity: 1;
-  -webkit-transition: opacity 0.2s ease;
-  -moz-transition: opacity 0.2s ease;
-  -ms-transition: opacity 0.2s ease;
-  -o-transition: opacity 0.2s ease;
-  transition: opacity 0.2s ease; }
-
-.moderator {
-  background: #fafafa;
-  border: 1px solid #f2f2f2;
-  margin: 10px 0;
-  padding-top: 10px;
-  padding-bottom: 10px; }
-  .moderator dd.headshot img {
-    opacity: 1; }
-
-.watch {
-  display: block;
-  margin: 1em 0; }
-  .watch a {
-    display: inline;
-    margin-right: 35px; }
-    .watch a i {
-      padding-right: 5px; }
-
 .social-icons li {
   display: block;
   float: left;
@@ -286,6 +220,104 @@ form select {
   font-size: 1rem !important;
   line-height: 1.3rem; }
 
+/* Schedule */
+.schedule-slot ul {
+  list-style-type: none; }
+.schedule-slot .slot-time {
+  float: left;
+  width: 80px;
+  font-size: 27px;
+  font-weight: 300; }
+.schedule-slot .slot-sessions {
+  margin: 0 0 10px 90px;
+  padding: 20px;
+  border: 1px solid #EEE;
+  box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.1);
+  display: flex; }
+  .schedule-slot .slot-sessions .session {
+    flex: 1 1 0px;
+    overflow: hidden;
+    margin: 0 10px 0 0;
+    border-right: 1px dotted #ddd; }
+  .schedule-slot .slot-sessions .session:last-child {
+    margin: 0;
+    border-right: 0; }
+  .schedule-slot .slot-sessions h3 {
+    font-size: 18px;
+    font-weight: normal; }
+  .schedule-slot .slot-sessions p {
+    font-size: 15px; }
+.schedule-slot .session-participants {
+  margin: 1.25rem 0;
+  padding: 0;
+  overflow: hidden; }
+  .schedule-slot .session-participants li {
+    float: left;
+    margin: 0 10px 10px 0;
+    overflow: hidden;
+    width: 275px; }
+  .schedule-slot .session-participants img {
+    width: 40px;
+    height: 40px;
+    float: left;
+    margin-right: 8px;
+    filter: grayscale(100%);
+    -webkit-filter: grayscale(100%); }
+  .schedule-slot .session-participants .name {
+    line-height: 1.3;
+    display: block;
+    white-space: nowrap;
+    text-overflow: ellipsis; }
+  .schedule-slot .session-participants .org {
+    font-style: italic;
+    font-size: 12px;
+    float: left; }
+  .schedule-slot .session-participants .label {
+    float: left;
+    margin: 0 0 0 5px;
+    padding: 3px 6px;
+    text-transform: uppercase;
+    font-weight: bold; }
+  .schedule-slot .session-participants .label.speaker {
+    background-color: #C08A55; }
+  .schedule-slot .session-participants .label.moderator {
+    background-color: #BA78C2; }
+  .schedule-slot .session-participants .bio {
+    display: none; }
+.schedule-slot .room {
+  font-size: 12px; }
+.schedule-slot .session *:first-child {
+  margin-top: 0; }
+.schedule-slot .session *:last-child {
+  margin-bottom: 0; }
+.schedule-slot .session-links {
+  float: right; }
+  .schedule-slot .session-links li {
+    display: inline-block;
+    margin-right: 10px; }
+
+@media only screen and (max-width: 768px) {
+  .schedule-slot {
+    margin: 0 0 10px 0;
+    padding: 20px;
+    border: 1px solid #EEE;
+    box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.1); }
+    .schedule-slot .slot-time {
+      float: none;
+      display: block; }
+    .schedule-slot .slot-sessions {
+      margin-left: 0;
+      box-shadow: none;
+      padding: 0;
+      border: 0;
+      display: block; }
+      .schedule-slot .slot-sessions .session {
+        flex: none;
+        overflow: hidden;
+        margin: 0;
+        border-right: 0; }
+      .schedule-slot .slot-sessions .participant {
+        display: none; } }
 /* Registration form */
 form.edgeform {
   margin: 0;
