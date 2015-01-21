@@ -17,6 +17,7 @@ class ServicesContainer extends Pimple {
 				$c->config->mysql->password,
 				$c->config->mysql->db_name
 			);
+			$db->setTimeZone("+00:00");
 			return $db;
 		};
 

@@ -2,12 +2,21 @@
 /**
  * Class for connection to mysql database
  *
- * @codingstandard Assanka
- * @author Luke Blaney <luke.blaney@assanka.net>
- * @copyright Assanka Limited [All rights reserved]
+ * @codingstandard ftlabs-phpcs
+ * @copyright The Financial Times Limited [All Rights Reserved]
  */
 
 namespace Services\MySQL;
+
+use mysqli;
+
+// COMPLEX:SH:20141002: Note that although importing \Exception
+// without an alias does work as desired here, it will conflict
+// with any project that makes use of FTLabs\Exception.
+use Exception as BaseException;
+
+use DateTime;
+use DateTimeZone;
 
 class MySqlConnection {
 
@@ -16,20 +25,44 @@ class MySqlConnection {
 	private $connectionOpened = false;
 	private $conn;
 	private $mode, $args;
-	protected $reconnectOnFail = false;
+	protected $reconnectOnFail = true;
+	private $reconnectCount = 0;
+
 	protected $logQueries = false;
 	protected $queryLog = array();
 	protected $suppressErrors = false;
+	protected $timezone = null;
 	private $queryCount = 0;
+	private $deadlockRetry = false;
+	private $connectionComment = "";
+
+	const PARAM_SERVER = 1;
+	const PARAM_DBNAME = 2;
+	const PARAM_USERNAME = 3;
+	const PARAM_PASSWORD = 4;
+
+	const CONFIG_FILE_USERNAME = '/etc/sysconfig/mysql-app-user';
+	const CONFIG_FILE_PASSWORD = '/etc/sysconfig/mysql-app-password';
 
 	const CR_SERVER_GONE = 2006;
 	const CR_SERVER_LOST = 2013;
 	const ER_LOCK_WAIT_TIMEOUT = 1205;
 	const ER_LOCK_DEADLOCK = 1213;
 
+	const MAX_CONNECTION_FAILURES = 2;
+	const MAX_PARSE_FAILURES = 2;
 
 	/**
 	 * Creates a new MySqlConnection instance, but dosen't connect until needed.
+	 *
+	 * This can be instantiated with either one or four arguments. If one argument is
+	 * provided, it is assumed to be an associative array with MySqlConnection PARAM_*
+	 * constants as keys. If the array is used, the minimum requirement is that the
+	 * value for the key PARAM_SERVER is supplied. If values for the keys
+	 * PARAM_USERNAME and/or PARAM_PASSWORD are not supplied, then the username and/or
+	 * password will be read from the filesystem. This permits the application to use
+	 * different credentials per environment, and eliminates the need to hard-code
+	 * credentials in applications.
 	 *
 	 * @param string $server   The server to connect to
 	 * @param string $username The username to use for authentication
@@ -37,11 +70,63 @@ class MySqlConnection {
 	 * @param string $dbname   The name of the database to connect to
 	 * @return void
 	 */
-	public function __construct($server, $username, $password, $dbname) {
-		$this->server = $server;
-		$this->username = $username;
-		$this->password = $password;
-		$this->dbname = $dbname;
+	public function __construct() {
+
+		// This constructor supports two formats of argument list:
+		switch (func_num_args()) {
+
+			// A single array of key => value options
+			case 1:
+				$options = func_get_arg(0);
+				if (!isset($options[self::PARAM_SERVER])) {
+					throw new MySqlConnectionException('MySqlConnection constructor parameter PARAM_SERVER is required');
+				} else {
+					$this->server = $options[self::PARAM_SERVER];
+					$this->username = isset($options[self::PARAM_USERNAME]) ? $options[self::PARAM_USERNAME] : $this->_getConfigVariable(self::CONFIG_FILE_USERNAME);
+					$this->password = isset($options[self::PARAM_PASSWORD]) ? $options[self::PARAM_PASSWORD] : $this->_getConfigVariable(self::CONFIG_FILE_PASSWORD);
+					$this->dbname = isset($options[self::PARAM_DBNAME]) ? $options[self::PARAM_DBNAME] : '';
+				}
+				break;
+
+			// Backwards-compatible constructor format
+			case 4:
+				$this->server = func_get_arg(0);
+				$this->username = func_get_arg(1);
+				$this->password = func_get_arg(2);
+				$this->dbname = func_get_arg(3);
+				break;
+
+			default:
+				throw new MySqlConnectionException('MySqlConnection constructed with wrong number of arguments');
+				break;
+		}
+
+		// Other set-up operations
+		$this->connectionComment = "CorrelationID:".(isset($_SERVER["HTTP_X_VARNISH"])?$_SERVER["HTTP_X_VARNISH"]:0);
+	}
+
+	/**
+	 * Attempt to obtain a configuration variable by reading the contents of the specified file
+	 *
+	 * @param string $filename The file which contains the required configuration variable
+	 * @return string
+	 */
+	private static function _getConfigVariable($filename) {
+		$exceptionContext = array(
+			'filename' => $filename,
+		);
+		if (!is_file($filename)) {
+			throw new MySqlConnectionException('MySqlConnection config file not found', 0, null, $exceptionContext);
+		} elseif (!is_readable($filename)) {
+			throw new MySqlConnectionException('MySqlConnection config file not readable', 0, null, $exceptionContext);
+		} elseif (($variable = @file_get_contents($filename)) === false) {
+			if (($error = error_get_last()) !== null) {
+				$exceptionContext['error'] = $error['message'];
+			}
+			throw new MySqlConnectionException('Error attempting to read from MySqlConnection config file', 0, null, $exceptionContext);
+		} else {
+			return trim($variable);
+		}
 	}
 
 	/**
@@ -53,18 +138,65 @@ class MySqlConnection {
 	 * @return void
 	 */
 	private function _connect() {
-		$this->conn = new \mysqli($this->server, $this->username, $this->password, $this->dbname);
-		if ($this->conn->connect_error) {
 
-			// Try exactly once more to reconnect, so as to mitigate temporary problems discussed in helpdesk #15410
-			sleep(1);
-			$this->conn = new \mysqli($this->server, $this->username, $this->password, $this->dbname);
-			if (!$this->conn) throw new \Exception("Database server could not be contacted");
+		$this->connectionOpened = false;
+
+		if (!($this->conn = mysqli_init()) instanceof mysqli) {
+			throw new MySqlConnectionException('Unable to create MySQLi instance', get_defined_vars());
+
+		} else {
+			$failedConnectionAttempts = 0;
+			do {
+
+				// It is necessary to set the connection timeout and autocommit inside this loop, since MySQLi will reset these variables after a failed connection attempt
+				if (!$this->conn->options(MYSQLI_OPT_CONNECT_TIMEOUT, 2)) {
+					throw new MySqlConnectionException("Error setting MySQL connection timeout: $this->conn->error", $this->conn->errno, get_defined_vars());
+
+				} elseif (!$this->conn->options(MYSQLI_INIT_COMMAND, 'SET autocommit = 1')) {
+					throw new MySqlConnectionException("Error enabling MySQL 'autocommit' system variable: $this->conn->error", $this->conn->errno, get_defined_vars());
+
+				} elseif (!@$this->conn->real_connect($this->server, $this->username, $this->password, $this->dbname)) {
+					if (++$failedConnectionAttempts == self::MAX_CONNECTION_FAILURES) {
+						throw new MySqlConnectionException("Connection to database server '{$this->server}' could not be established: {$this->conn->error}", $this->conn->errno, array(
+							'context' => get_defined_vars(),
+							'eh:hashcode'=>'587CD2E0',
+							'eh:noreport'=>true,
+						));
+					} else {
+						trigger_error("Database connection error '{$this->conn->error}' server '{$this->server}' (will try again) eh:noreport eh:hashcode=DB".str_pad($this->conn->errno, 6, '0', STR_PAD_LEFT).' eh:tolerance=10/day', E_USER_WARNING);
+						sleep($failedConnectionAttempts);
+					}
+				} else {
+					$this->connectionOpened = true;
+				}
+			} while (!$this->connectionOpened);
+
+			if (!$this->conn->set_charset('utf8')) {
+				throw new MySqlConnectionException("Error setting MySQL client character set: $this->conn->error", $this->conn->errno, get_defined_vars());
+
+			} elseif (!empty($this->timezone) and $this->runQuery('SET time_zone = "' . $this->sqlenc($this->timezone) . '"') === false) {
+				throw new MySqlConnectionException("Error setting MySQL session time zone: $this->conn->error", $this->conn->errno, get_defined_vars());
+			}
 		}
-		$this->conn->set_charset('utf8');
-		$this->runQuery("SET AUTOCOMMIT = 1");
-		$this->connectionOpened = true;
 	}
+
+
+	/**
+	 * This is run on unserialize, at which point there will
+	 * be no database connection, and so leaving connectionOpened
+	 * set to true will result in errors.
+	 *
+	 * An example of where this is relevant is during automated
+	 * tests of code that assumes a global database object.
+	 * Phpunit preserves globals between tests by serializing and
+	 * unserializing them.
+	 *
+	 * @return void
+	 */
+	public function __wakeup() {
+		$this->connectionOpened = false;
+	}
+
 
 	/**
 	 * Returns whether or not the connection has already been opened
@@ -84,6 +216,13 @@ class MySqlConnection {
 	 * @return FALSE on failure. For successful SELECT, SHOW, DESCRIBE or EXPLAIN queries returns a result object. For other successful queries returns TRUE.
 	 */
 	private function runQuery($queryExpr) {
+
+		// Prepend debugging comment
+		if (!empty($this->connectionComment)) {
+			$queryExpr = "/* ".str_replace("*/", "* /", $this->sqlenc($this->connectionComment))." */ ".$queryExpr;
+		}
+
+		// Run query and return the result
 		return $this->conn->query($queryExpr);
 	}
 
@@ -121,10 +260,46 @@ class MySqlConnection {
 	 * @return MySqlResult
 	 */
 	public function query() {
-		if (!$this->isConnected()) $this->_connect();
-		$args = func_get_args();
-		$queryExpr = call_user_func_array(array($this, 'parse'), $args);
-		if (empty($queryExpr)) throw new \Exception("Query is empty");
+
+		$failedParseAttempts = 0;
+		do {
+			if (!$this->isConnected()) $this->_connect();
+			$args = func_get_args();
+			$queryExpr = call_user_func_array(array($this, 'parse'), $args);
+			if (empty($queryExpr)) {
+
+				// Do some diagnostices to try and work out why the query is empty
+				switch (preg_last_error()) {
+					case PREG_NO_ERROR:
+						$error = "No PREG error.";
+						break;
+					case PREG_INTERNAL_ERROR:
+						$error = "Internal PREG error.";
+						if (++$failedParseAttempts < self::MAX_PARSE_FAILURES) {
+							trigger_error("Query is empty: $error eh:caller eh:noreport eh:hashcode=DBE17747 eh:tolerance=5/day", E_USER_WARNING);
+							sleep($failedParseAttempts);
+							continue 2;
+						}
+						break;
+					case PREG_BACKTRACK_LIMIT_ERROR:
+						$error = "Backtrack limit exhasuted.";
+						break;
+					case PREG_RECURSION_LIMIT_ERROR:
+						$error = "Too much recursion.";
+						break;
+					case PREG_BAD_UTF8_ERROR:
+						$error = "Bad UTF8.";
+						break;
+					case PREG_BAD_UTF8_OFFSET_ERROR:
+						$error = "Bad UTF8 offset.";
+						break;
+					default:
+						$error = "Unknown PREG error.";
+						break;
+				}
+				throw new MySqlQueryException("Query is empty: $error eh:caller", get_defined_vars());
+			}
+		} while (empty($queryExpr));
 
 		$start = microtime(true);
 		$resultObject = $this->runQuery($queryExpr);
@@ -145,8 +320,13 @@ class MySqlConnection {
 
 		if (!$resultObject and $this->reconnectOnFail and ($resultDetails['errorNo'] == self::CR_SERVER_LOST or $resultDetails['errorNo'] == self::CR_SERVER_GONE)) {
 			$this->connectionOpened = false;
-			sleep(5);
-			return call_user_func_array(array($this, "query"), func_get_args());
+
+			if ($this->reconnectCount++ < self::MAX_CONNECTION_FAILURES) {
+				sleep(2);
+				return call_user_func_array(array($this, "query"), func_get_args());
+			} else {
+				$this->reconnectCount = 0;
+			}
 		}
 		if (!$resultObject and ($resultDetails['errorNo'] == self::ER_LOCK_WAIT_TIMEOUT)) {
 
@@ -157,29 +337,31 @@ class MySqlConnection {
 			global $mysqldebug_proclist;
 
 			// If the fetch_all method exists (requires mysqlnd), then use it.
-			if (method_exists($this->result, 'fetch_all')) {
+			if (isset($this->result) and method_exists($this->result, 'fetch_all')) {
 				$mysqldebug_proclist = $this->result->fetch_all(MYSQLI_ASSOC);
 			} else {
 				$mysqldebug_proclist = array();
 				while ($row = $proclistres->fetch_assoc()) $mysqldebug_proclist[] = $row;
 			}
-			throw new \Exception("MySQL lock wait timeout");
+			throw new MySqlLockTimeoutException('MySQL lock wait timeout eh:caller', get_defined_vars());
 		}
 		if (!$resultObject and $resultDetails['errorNo'] == self::ER_LOCK_DEADLOCK) {
 
 			// If deadlock found, retry once.
-			static $deadlockRetry;
-			if (!isset($deadlockRetry)) {
-				$deadlockRetry = 1;
+			if (!$this->deadlockRetry) {
+				$this->deadlockRetry = true;
 				sleep(5);
 				return call_user_func_array(array($this, "query"), func_get_args());
 			}
 		}
 		if (!$resultObject and !$this->suppressErrors) {
 			$this->runQuery("ROLLBACK");
-			throw new \Exception($resultDetails['errorMsg']." (".$resultDetails['errorNo'].") occured in query: ".$queryExpr);
+			throw new MySqlQueryException("$resultDetails[errorMsg] ($resultDetails[errorNo]) eh:caller occured in query: $queryExpr", $resultDetails['errorNo'], get_defined_vars());
 		}
-		return new MySqlResult($resultObject, $resultDetails);
+
+		// If the result worked, reset the deadlockretry variable
+		if ($resultObject) $this->deadlockRetry = false;
+		return new MySqlResult($resultObject, $resultDetails, $this->timezone);
 	}
 
 
@@ -193,11 +375,13 @@ class MySqlConnection {
 	 * @return string Complete query
 	 */
 	public function parse() {
-		if (!func_num_args()) throw new \Exception("No query specified");
+		if (!func_num_args()) {
+			throw new MySqlQueryException('No query specified. eh:caller');
+		}
 		$this->args = func_get_args();
 		$queryExpr = array_shift($this->args);
 
-		if ((strpos($queryExpr, "'") !== false or strpos($queryExpr, "\"") !== false)) trigger_error("Literal strings should not be included in queries.  Use a prepared statement.", E_USER_DEPRECATED);
+		if ((strpos($queryExpr, "'") !== false or strpos($queryExpr, "\"") !== false)) trigger_error("Literal strings should not be included in queries.  Use a prepared statement. eh:caller", E_USER_DEPRECATED);
 
 		// Determine which type of prepared statement is being used
 		if (count($this->args) == 1 and is_array($this->args[0]) and ($this->args[0] != array_values($this->args[0]))) {
@@ -229,7 +413,9 @@ class MySqlConnection {
 		if (empty($modifierString)) $modifiers = array();
 		else $modifiers = explode('_', strtolower($modifierString));
 		if ($this->mode == 'sprintf') {
-			if (!count($this->args)) throw new \Exception("Not enough parameters");
+			if (!count($this->args)) {
+				throw new MySqlQueryException('Not enough parameters. eh:caller', get_defined_vars());
+			}
 			$value = array_shift($this->args);
 			$sprintfFormat = trim($match[1], '%');
 			$key = null;
@@ -237,7 +423,9 @@ class MySqlConnection {
 			$key = $match[1];
 
 			// Use array_key_exists instead of isset because isset returns false if value is null
-			if (!array_key_exists($key, $this->args)) throw new \Exception("Can't find argument for '$key'");
+			if (!array_key_exists($key, $this->args)) {
+				throw new MySqlQueryException("Can't find argument for '$key'. eh:caller", get_defined_vars());
+			}
 			$value = $this->args[$key];
 			$sprintfFormat = null;
 		}
@@ -296,13 +484,17 @@ class MySqlConnection {
 					break;
 				case 'date':
 				case 'utcdate':
-					$value = self::parseDate($value);
+					$value = self::_convertHumanTime($value);
 					$beenEncoded = false;
 					if (!$value) {
 						$value = null;
 						break;
 					}
-					if ($modifier == 'utcdate') $value->setTimezone(new \DateTimeZone("UTC"));
+					if ($modifier == 'utcdate') {
+						$value->setTimezone(new DateTimeZone("UTC"));
+					} elseif ($this->timezone) {
+						$value->setTimezone(new DateTimeZone($this->timezone));
+					}
 					$value = $value->format("Y-m-d H:i:s");
 					break;
 				case '10':
@@ -338,7 +530,9 @@ class MySqlConnection {
 			}
 		}
 
-		if (!is_null($value) and !is_scalar($value) and !(is_object($value) and method_exists($value, '__toString'))) throw new \Exception("Can't convert value to string");
+		if (!is_null($value) && !is_scalar($value) && !(is_object($value) && method_exists($value, '__toString'))) {
+			throw new MySqlQueryException('Can\'t convert value to string eh:caller', get_defined_vars());
+		}
 
 		if ($sprintfFormat and !is_null($value)) $value = sprintf('%'.$sprintfFormat, $value);
 
@@ -362,7 +556,7 @@ class MySqlConnection {
 	 * @param mixed $val String to escape
 	 * @return mixed Escaped version of input
 	 */
-	private function sqlenc($val) {
+	protected function sqlenc($val) {
 		if (!$this->isConnected()) $this->_connect();
 		return $this->conn->real_escape_string($val);
 	}
@@ -395,8 +589,29 @@ class MySqlConnection {
 	 * @param bool $newval whether or not to log queries
 	 * @return void
 	 */
-	public function setQueryLogging($newval ) {
+	public function setQueryLogging($newval) {
 		$this->logQueries = (bool)$newval;
+	}
+
+
+	/**
+	 * Set a custom debugging comment to prepend to queries, overriding the default
+	 *
+	 * @param string $comment the new comment
+	 * @return void
+	 */
+	public function setConnectionComment($comment) {
+		$this->connectionComment = $comment;
+	}
+
+	/**
+	 * Sets the timezone that should be used for the connection
+	 *
+	 * @param string $tz TZ-format timezone name
+	 * @return void
+	 */
+	public function setTimezone($tz) {
+		$this->timezone = $tz;
 	}
 
 	/**
@@ -408,7 +623,9 @@ class MySqlConnection {
 	public function changeDatabase($dbname ) {
 		$this->dbname = $dbname;
 		if ($this->isConnected()) {
-			if (!$this->conn->select_db($dbname)) throw new \Exception("Database was not found");
+			if (!$this->conn->select_db($dbname)) {
+				throw new MySqlConnectionException('Database was not found eh:hashcode=74154CDD', get_defined_vars());
+			}
 		} else {
 			$this->_connect();
 		}
@@ -556,8 +773,14 @@ class MySqlConnection {
 		return $results->getCSV();
 	}
 
-
-	public static function parseDate($date, DateTimeZone $timezone = NULL) {
+	/**
+	 * Converts a date into a DateTime object
+	 *
+	 * @param mixed        $date     A DateTime object, unixtimestamp or string representation of a date
+	 * @param DateTimeZone $timezone The timezone the date is in. (defaults to current timezone).  NB: this is ignored if $date is a UNIX timestamp or specifies a timezone.
+	 * @return DateTime or false on failure.
+	 */
+	private static function _convertHumanTime($date, DateTimeZone $timezone = NULL) {
 		if ($date instanceof DateTime) return $date;
 		if (is_object($date) and method_exists($date, '__toString')) $date = (string)$date;
 		if (empty($date) or is_object($date)) return null;
@@ -590,16 +813,15 @@ class MySqlConnection {
 		if (is_numeric($date)) $date = "@".$date;
 
 		try {
-			$datetime = is_null($timezone) ? new \DateTime($date) : new \DateTime($date, $timezone);
+			$datetime = is_null($timezone) ? new DateTime($date) : new DateTime($date, $timezone);
 			if ($date[0] != '@') return $datetime;
 
 			// If the input was a UNIX timestamp, set the timezone to stop it defaulting to UTC
-			if (is_null($timezone)) $timezone = new \DateTimeZone(date_default_timezone_get());
+			if (is_null($timezone)) $timezone = new DateTimeZone(date_default_timezone_get());
 			$datetime->setTimezone($timezone);
 			return $datetime;
-		} catch (Exception $e) {
+		} catch (BaseException $e) {
 			return false;
 		}
 	}
-
 }

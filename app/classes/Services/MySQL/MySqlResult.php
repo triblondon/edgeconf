@@ -1,21 +1,43 @@
 <?php
 /**
- * Class for results returned by MySqlConnectionV4
+ * Class for results returned by MySqlConnection
  *
- * @codingstandard Assanka
- * @author Luke Blaney <luke.blaney@assanka.net>
- * @copyright Assanka Limited [All rights reserved]
+ * @codingstandard ftlabs-phpcs
+ * @copyright The Financial Times Limited [All Rights Reserved]
  */
 
 namespace Services\MySQL;
 
-class MySqlResult implements \Iterator, \Countable {
+use mysqli_result;
+use Iterator;
+use Countable;
 
-	private $result, $affectedRows, $insertId, $errorNo, $timeTaken, $queryExpr, $errorMsg, $objectClassName, $objectParams, $Current, $currentKey, $numRows;
+class MySqlResult implements Iterator, Countable {
 
-	public function getQueryExpr() {
-		return $this->queryExpr;
+	protected $result, $affectedRows, $insertId, $errorNo, $queryExpr, $errorMsg, $objectClassName, $objectParams, $current, $currentKey, $numRows, $timeTaken, $dateExecuted, $timezone;
+
+
+	public function __construct($resultObject, array $resultDetails, $timezone='UTC') {
+		$this->result = $resultObject;
+		$this->affectedRows = (int)$resultDetails['affectedRows'];
+		$this->insertId = (int)$resultDetails['insertId'];
+		$this->errorNo = (int)$resultDetails['errorNo'];
+		$this->errorMsg = (string)$resultDetails['errorMsg'];
+		$this->queryExpr = (string)$resultDetails['queryExpr'];
+		$this->timezone = $timezone;
+
+		if (isset($resultDetails["timeTaken"])) {
+			$this->timeTaken = $resultDetails["timeTaken"];
+		}
+
+		if (isset($resultDetails["dateExecuted"])) {
+			$this->dateExecuted = $resultDetails["dateExecuted"];
+		}
+
+		$this->currentKey = -1;
+		$this->current = false;
 	}
+
 
 	/* Impelement the Iterator Interface */
 
@@ -43,12 +65,12 @@ class MySqlResult implements \Iterator, \Countable {
 	 * @return void
 	 */
 	public function next () {
-		if (!($this->result instanceof \mysqli_result) ) return;
+		if (!($this->result instanceof mysqli_result) ) return;
 		if (isset($this->objectClassName)) {
 			if ($this->objectParams) $this->current = $this->result->fetch_object($this->objectClassName, $this->objectParams);
 			else $this->current = $this->result->fetch_object($this->objectClassName);
 		}
-		else $this->current = $this->result->fetch_assoc();
+		else $this->current = $this->convertDateTimes($this->result->fetch_assoc());
 		$this->currentKey++;
 	}
 
@@ -83,20 +105,8 @@ class MySqlResult implements \Iterator, \Countable {
 	 */
 	public function count () {
 		if (isset($this->numRows)) return $this->numRows;
-		if (!($this->result instanceof \mysqli_result)) return 0;
+		if (!($this->result instanceof mysqli_result)) return 0;
 		return $this->numRows = $this->result->num_rows;
-	}
-
-
-	public function __construct($resultObject, array $resultDetails) {
-		$this->result = $resultObject;
-		$this->affectedRows = (int)$resultDetails['affectedRows'];
-		$this->insertId = (int)$resultDetails['insertId'];
-		$this->errorNo = (int)$resultDetails['errorNo'];
-		$this->errorMsg = (string)$resultDetails['errorMsg'];
-		$this->queryExpr = (string)$resultDetails['queryExpr'];
-		$this->currentKey = -1;
-		$this->current = false;
 	}
 
 	/**
@@ -152,7 +162,9 @@ class MySqlResult implements \Iterator, \Countable {
 	public function getCrosstab() {
 		$data = array();
 		foreach ($this as $row) {
-			if (!isset($row["x"]) or !isset($row["y"]) or !isset($row["data"])) throw new \Exception ("x, y and data are not all set for crosstab");
+			if (!isset($row['x']) || !isset($row['y']) || !isset($row['data'])) {
+				throw new MySqlQueryException('x, y and data are not all set for crosstab', get_defined_vars());
+			}
 			$data[$row["y"]][$row["x"]] = $row["data"];
 		}
 		return $data;
@@ -170,14 +182,14 @@ class MySqlResult implements \Iterator, \Countable {
 	}
 
 	/**
-	 * Fetch a single 'cell' of data from the first row returned from a query
+	 * Fetch a single 'cell' of data from the first row returned from a query.  COMPLEX: This should only be called by the connection object as you can't guarantee that this returns the first result if used directly.  As it does not rewind.  Perhaps call $this->result->data_seek(0); (Unknown performance problems?)
 	 *
 	 * @param integer $columnoffset Index of column to fetch, where 0 is the leftmost column. Optional, defaults to 0.
 	 * @return array A row of data as key/value pairs
 	 */
 	public function getSingle($columnoffset = 0) {
 		if (!count($this)) return null;
-		$row = $this->result->fetch_array(MYSQLI_NUM);
+		$row = $this->convertDateTimes($this->result->fetch_array(MYSQLI_NUM));
 		return $row[$columnoffset];
 	}
 
@@ -194,7 +206,7 @@ class MySqlResult implements \Iterator, \Countable {
 		if (method_exists($this->result, 'fetch_all')) return $this->result->fetch_all(MYSQLI_ASSOC);
 		$data = array();
 		foreach ($this as $row) {
-			$data[] = $row;
+			$data[] = $this->convertDateTimes($row);
 		}
 		return $data;
 	}
@@ -210,7 +222,7 @@ class MySqlResult implements \Iterator, \Countable {
 		$data = array();
 		foreach ($this as $row) {
 			if (!array_key_exists('k', $row) or !array_key_exists('v', $row)) {
-				throw new \Exception ("k and v are not all set for lookup table");
+				throw new MySqlQueryException('k and v are not all set for lookup table', get_defined_vars());
 			}
 			$data[$row["k"]] = $row["v"];
 		}
@@ -243,8 +255,9 @@ class MySqlResult implements \Iterator, \Countable {
 	 * @return integer The results as a CSV
 	 */
 	public function getCSV($lineend="\n", $delim=",", $escape="\\", $enclose="\"") {
+		$op = '';
 		foreach ($this as $row) {
-			if (!isset($op)) {
+			if (!$op) {
 				$keys = array_keys($row);
 				if ($enclose) foreach ($keys as $colkey=>$col) $keys[$colkey] = $enclose.str_replace($enclose, $escape.$enclose, $col).$enclose;
 				$op = join($delim, $keys).$lineend;
@@ -266,6 +279,18 @@ class MySqlResult implements \Iterator, \Countable {
 		$this->objectClassName = $className;
 		$this->objectParams = $params;
 		$this->rewind();
+	}
+
+	private function convertDateTimes($row) {
+		if ($row) {
+			$zone = new \DateTimeZone($this->timezone);
+			foreach ($row as $key=>$val) {
+				if (is_string($val) and preg_match("/^\d+\-\d+\-\d+ \d+:\d+:\d+$/", $val)) {
+					$row[$key] = new \DateTime($val, $zone);
+				}
+			}
+		}
+		return $row;
 	}
 
 }
