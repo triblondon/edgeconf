@@ -10,6 +10,7 @@ $app = new ServicesContainer();
 if (isset($_SERVER['HTTP_DEBUG']) and $_SERVER['HTTP_DEBUG'] == $app->config->debug->debug_key) {
 	ini_set('display_errors', 1);
 	ini_set('html_errors', 1);
+	header('Debug: Enabled');
 }
 
 
