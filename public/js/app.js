@@ -366,7 +366,7 @@ $(function() {
 	}
 	];
 
-	if (!$('#onair').length || !livePlaylistHack) return;
+	if (!$('#onair').length || !livePlaylist) return;
 
 	$('body').on('youTubeAPIReady', function() {
 		player = new YT.Player(
