@@ -10,7 +10,7 @@ class InfoController extends \Controllers\PublicSite\PublicBaseController {
 			$templ = 'home';
 
 			$this->addViewData(array(
-				'livesession' => $this->app->db->queryRow("SELECT * FROM sessions WHERE start_time < DATE_SUB(UTC_TIMESTAMP( ) , INTERVAL 7 HOUR) AND end_time > DATE_SUB( UTC_TIMESTAMP( ) , INTERVAL 7 HOUR) AND event_id=%d", $this->event['id']),
+				'livesession' => $this->app->db->queryRow("SELECT * FROM sessions WHERE start_time < NOW() AND end_time > NOW() AND event_id=%d", $this->event['id']),
 				'sessions' => $this->app->db->queryAllRows("SELECT name, start_time, end_time, youtube_id FROM sessions WHERE event_id=%d AND type=%s ORDER BY start_time", $this->event['id'], 'session'),
 				'hasvideo' => $this->app->db->querySingle("SELECT 1 FROM sessions WHERE event_id=%d AND youtube_id IS NOT NULL", $this->event['id']),
 			));
