@@ -1,4 +1,4 @@
-Edge is a new kind of one-day conference on advanced web technologies for developers and browser vendors, presented by FT Labs, Adobe, Akamai and Google.  Tickets cost {{event.cost}}, which will pay panelists' travel expenses and help us ensure that the venue is full without having to oversell.  Any money we have left will be donated to Hack the Hood.  For more information visit edgeconf.com.
+Edge is a new kind of one-day conference on advanced web technologies for developers and browser vendors, presented by FT Labs, Adobe, Akamai and Google.  Tickets cost {{event.cost}}, which will pay panelists' travel expenses and help us ensure that the venue is full without having to oversell.  {% if event.partner_name %}Any money we have left will be donated to {{event.partner_name}}. {% endif %}For more information visit edgeconf.com.
 
 You're receiving this invitation because you registered your interest on http://edgeconf.com by filling in our registration form.
 

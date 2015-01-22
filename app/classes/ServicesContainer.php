@@ -41,6 +41,9 @@ class ServicesContainer extends Pimple {
 			$twig->addFilter(new Twig_SimpleFilter('slugify', function ($string) {
 				return strtolower(str_replace(' ', '-', $string));
 			}));
+			$twig->addFilter(new Twig_SimpleFilter('tourl', function ($string) {
+				return rawurlencode(str_replace('\n', ',', $string));
+			}));
 			$twig->addGlobal('server', array(
 				'request_uri' => $_SERVER['REQUEST_URI']
 			));

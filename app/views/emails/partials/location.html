@@ -5,7 +5,7 @@
 <table width="500" border="0" cellspacing="0" cellpadding="0">
 	<tr>
 		<td id="invite_body_logo" width="240" valign="top" style="display:inline;">
-			<img style="border: 1px solid #cac4c4" src="https://www.eventbrite.co.uk/staticmap_https_proxy?center=51.496816,-0.141369&amp;zoom=16&amp;markers=label:A|40.74189,-74.00417&amp;size=260x145&amp;sensor=true" />
+			<img style="border: 1px solid #cac4c4" src="https://maps.googleapis.com/maps/api/staticmap?center={{event.venue_address|tourl}}&amp;zoom=15&amp;size=260x145&amp;markers=color:blue%7C{{event.venue_address|tourl}}" />
 		</td>
 		<td valign="top" style="font-size:13px; line-height:18px;">
 			<p style="color:#515151; width: 200px; margin-top: 0">{{event.start_time|date('l F jS, Y')}}</p>
