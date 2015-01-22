@@ -247,6 +247,8 @@ form select {
   .schedule-slot .slot-sessions .session:last-child {
     margin: 0;
     border-right: 0; }
+  .schedule-slot .slot-sessions .session-breakout .session-summary {
+    font-size: 12px; }
   .schedule-slot .slot-sessions h3 {
     font-size: 18px;
     font-weight: normal; }
