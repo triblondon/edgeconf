@@ -345,6 +345,10 @@ form select {
 			border-right: 0;
 		}
 		.session-session {
+			h3:before {
+				content: "Panel: ";
+				color: #900;
+			}
 		}
 		.session-other {
 		}
