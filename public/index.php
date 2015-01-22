@@ -29,7 +29,7 @@ $router->route('/auth/email/start-verify', 'AuthEmailSendCode');
 $router->route('/auth/email/verify', 'AuthEmailVerify');
 
 // Public content routes
-$router->route('/', '/2014-sf');
+$router->route('/', '/2015-london');
 $router->route('/:eventslug', 'PublicSite\Info');
 $router->route('/:eventslug/(?<page>schedule|faq|hub)', 'PublicSite\Info');
 $router->route('/:eventslug/register', 'PublicSite\Register');
