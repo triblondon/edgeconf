@@ -187,6 +187,14 @@ class PeopleController extends \Controllers\Admin\AdminBaseController {
 					}
 					if (!empty($data['person_id'])) $ticketsales[] = $data['person_id'];
 				}
+
+				// Check DB for sales that no longer seem to be in Eventbrite
+				if ($ticketsales) {
+					$orphans = $this->app->db->queryList('SELECT person_id FROM attendance WHERE ticket_type IS NOT NULL AND event_id=%d AND person_id NOT IN %s|list', $event['id'], $ticketsales);
+					if ($orphans) {
+						$errors[] = 'The following people are recorded as having been issued tickets on Eventbrite for Edge '.$event['id'].' but Eventbrite is no longer reporting their orders: '.join(', ', $orphans);
+					}
+				}
 			}
 		} catch (Exception $e) {
 
@@ -194,13 +202,6 @@ class PeopleController extends \Controllers\Admin\AdminBaseController {
 			if ($e->getMessage() != 'No records were found with the given parameters..') throw $e;
 		}
 
-		// Check DB for sales that no longer seem to be in Eventbrite
-		if ($ticketsales) {
-			$orphans = $this->app->db->queryList('SELECT person_id FROM attendance WHERE ticket_type IS NOT NULL AND event_id=%d AND person_id NOT IN %s|list', $event['id'], $ticketsales);
-			if ($orphans) {
-				$errors[] = 'The following people are recorded as having been issued tickets on Eventbrite for Edge '.$event['id'].' but Eventbrite is no longer reporting their orders: '.join(', ', $orphans);
-			}
-		}
 
 		if ($errors) {
 			return $errors;
