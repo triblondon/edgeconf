@@ -243,9 +243,11 @@ form select {
     flex: 1 1 0px;
     overflow: hidden;
     margin: 0 10px 0 0;
+    padding: 0 10px 0 0;
     border-right: 1px dotted #ddd; }
   .schedule-slot .slot-sessions .session:last-child {
     margin: 0;
+    padding: 0;
     border-right: 0; }
   .schedule-slot .slot-sessions .session-session h3:before {
     content: "Panel: ";

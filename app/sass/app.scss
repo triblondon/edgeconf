@@ -338,10 +338,12 @@ form select {
 			flex: 1 1 0px;
 			overflow: hidden;
 			margin: 0 10px 0 0;
+			padding: 0 10px 0 0;
 			border-right: 1px dotted #ddd;
 		}
 		.session:last-child {
 			margin: 0;
+			padding: 0;
 			border-right: 0;
 		}
 		.session-session {
