@@ -22,3 +22,6 @@ admins = someone@example.com, someone.else@example.com
 
 [debug]
 debug_key = [____________]
+
+[sentry]
+dsn = [____________]

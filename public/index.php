@@ -13,6 +13,10 @@ if (isset($_SERVER['HTTP_DEBUG']) and $_SERVER['HTTP_DEBUG'] == $app->config->de
 	header('Debug: Enabled');
 }
 
+$error_handler = new Raven_ErrorHandler($app->sentry);
+set_error_handler(array($error_handler, 'handleError'));
+set_exception_handler(array($error_handler, 'handleException'));
+
 
 /* Define routing and dispatch controllers to build response */
 

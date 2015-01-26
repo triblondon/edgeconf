@@ -60,5 +60,13 @@ class ServicesContainer extends Pimple {
 				'canceldest' => 'http://edgeconf.com/'
 			));
 		};
+
+		$this['sentry'] = function($c) {
+			return new Raven_Client($c->config->sentry->dsn, array(
+				'tags' => array(
+					'php_version' => phpversion(),
+				)
+			));
+		};
 	}
 }
