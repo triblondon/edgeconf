@@ -104,13 +104,13 @@ class PeopleController extends \Controllers\Admin\AdminBaseController {
 
 	private function syncFromEventbrite() {
 
+		$errors = array();
 		$this->app->db->query('START TRANSACTION');
 
 		try {
 			$events = $this->app->db->queryAllRows('SELECT id, location, eventbrite_id FROM events WHERE eventbrite_id IS NOT NULL AND end_time > NOW()');
 			foreach ($events as $event) {
 
-				$errors = array();
 				$ticketsales = array();
 				$updated = 0;
 
