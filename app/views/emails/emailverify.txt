@@ -1,0 +1,7 @@
+Your code is:
+
+{{code}}
+
+
+
+As part of the registration process on edgeconf.com (the website for the Edge web conference) we ask people to verify that they own the email address they are using to register.  Someone is asserting that they own {{email}}, so this email is intended to allow them to prove that they can receive mail sent to that address.  If you didn't register for Edge, you can ignore this email, or reply for further assistance.
