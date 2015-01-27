@@ -10,6 +10,7 @@ $app = new ServicesContainer();
 if (isset($_SERVER['HTTP_DEBUG']) and $_SERVER['HTTP_DEBUG'] == $app->config->debug->debug_key) {
 	ini_set('display_errors', 1);
 	ini_set('html_errors', 1);
+	error_reporting(E_ALL | E_STRICT);
 	header('Debug: Enabled');
 }
 
@@ -33,7 +34,6 @@ $router->route('/auth/email/start-verify', 'AuthEmailSendCode');
 $router->route('/auth/email/verify', 'AuthEmailVerify');
 
 // Public content routes
-$router->route('/', '/2015-london');
 $router->route('/:eventslug', 'PublicSite\Info');
 $router->route('/:eventslug/(?<page>schedule|faq|hub)', 'PublicSite\Info');
 $router->route('/:eventslug/register', 'PublicSite\Register');
@@ -56,6 +56,9 @@ $router->route('/admin/exports/(?<export>panels|attendees)', 'Admin\Export');
 
 $router->route('/hub', '/2014-sf/hub');
 $router->route('/feedback', 'https://docs.google.com/forms/d/1bVPMF3FJjLPyj9-ECCko4leA4kV-6y0gbOYiEGvB-18/viewform');
+
+$router->route('/', '/2015-london');
+$router->route('/faq(?:\.html)', '/2015-london/faq');
 
 
 
