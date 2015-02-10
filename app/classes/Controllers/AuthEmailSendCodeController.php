@@ -38,6 +38,5 @@ class AuthEmailSendCodeController extends \Controllers\BaseController {
 
 		$sendgrid = new \SendGrid($this->app->config->sendgrid->username, $this->app->config->sendgrid->password);
 		$resp = $sendgrid->send($email);
-		var_dump($email, $sendgrid, $resp);
     }
 }
