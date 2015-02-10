@@ -76,29 +76,18 @@ class InviteController extends \Controllers\Admin\AdminBaseController {
 		$this->resp->redirect('/admin/invite');
 	}
 
-	private function sendEmail($to, $subj, $text, $html) {
+	private function sendEmail($to, $subj, $text, $html=null) {
 
-		// Set up mime headers...
-		$mime1 = '==MultipartBoundary_'.md5(time() + rand());
+		$email = new \SendGrid\Email();
+		$email->addCategory($subj);
+		$email->addTo($to);
+		$email->setFrom('hello@edgeconf.com');
+		$email->setFromName('Edge conf');
+		$email->setSubject($subj);
+		$email->setText($text);
+		if ($html) $email->setHtml($html);
 
-		// Put together the message body
-		$email = 'This is a multipart message in MIME format.'."\n\n";
-		$email .= '--'.$mime1."\n";
-		$email .= 'Content-Type: text/plain; charset="UTF-8"'."\n";
-		$email .= 'Content-Transfer-Encoding: base64'."\n\n";
-		$email .= chunk_split(base64_encode($text), 76, "\n");
-		if (substr($text, -1) != "\n") $email .= "\n";
-		$email .= '--'.$mime1."\n";
-		$email .= 'Content-Type: text/html; charset="UTF-8"'."\n";
-		$email .= 'Content-Transfer-Encoding: base64'."\n\n";
-		$email .= chunk_split(base64_encode($html), 76, "\n");
-		if (substr($html, -1) != "\n") $email .= "\n";
-		$email .= '--'.$mime1."--\n";
-
-		// Finally set the MIME headers for this message
-		$mimeheaders = "MIME-Version: 1.0\nContent-Type: multipart/alternative; boundary=\"".$mime1."\"\nFrom: \"Edge\" <edgeconf@labs.ft.com>\nReply-To: hello@edgeconf.com";
-
-		// Send
-		return mail($to, $subj, $email, $mimeheaders, '-f noreply@labs.ft.com');
+		$sendgrid = new \SendGrid($this->app->config->sendgrid->username, $this->app->config->sendgrid->password);
+		$resp = $sendgrid->send($email);
 	}
 }
