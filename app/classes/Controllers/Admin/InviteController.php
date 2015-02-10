@@ -35,8 +35,8 @@ class InviteController extends \Controllers\Admin\AdminBaseController {
 			if ($this->req->getPost('action') === 'invite') {
 
 				$attendance = $this->app->db->queryRow('SELECT * FROM attendance WHERE person_id=%d AND event_id=%d', $personid, $event['id']);
-				if ($attendance['type'] == 'VIP') {
-					$code = $this->app->config->eventbrite->vipcode; // $50 off
+				if ($attendance['type'] == 'VIP' && $this->app->config->eventbrite->vipcode) {
+					$code = $this->app->config->eventbrite->vipcode;
 				} else {
 					$code = $this->app->db->querySingle('SELECT code FROM codes c LEFT JOIN attendance a ON c.code=a.invite_code WHERE a.invite_code IS NULL LIMIT 1;');
 					if (!$code) {
