@@ -4,30 +4,45 @@ namespace Controllers\PublicSite;
 
 class RegisterController extends \Controllers\PublicSite\PublicBaseController {
 
-	private $user, $sessions;
+	private $sessions;
 
 	public function get() {
 
-		if ($this->loadCommon() === false) return false;
+		$this->authenticate();
 
-		if (!empty($this->user)) {
-			$data = $this->app->db->queryRow('SELECT * FROM people WHERE email=%s', $this->user['email']);
-			if (is_array($data)) {
-				$existing = $this->app->db->queryRow('SELECT * FROM attendance WHERE person_id=%d AND event_id=%d', $data['id'], $this->event['id']);
-				$this->user = $existing ? array_merge($data, $existing) : $data;
-				$this->user['proposals'] = $this->app->db->queryLookupTable('SELECT session_id as k, proposal as v FROM participation WHERE person_id=%d AND session_id IN %d|list', $this->user['id'], array_keys($this->sessions));
-				$this->user['sessions'] = array_keys($this->user['proposals']);
-			}
+		$this->sessions = $this->app->db->queryLookupTable('SELECT id as k, name as v FROM sessions WHERE event_id=%d AND type=%s ORDER BY start_time', $this->event['id'], 'Session');
+
+		if (!empty($this->person)) {
+			$this->person['attendance'] = $this->app->db->queryRow('SELECT * FROM attendance WHERE person_id=%d AND event_id=%d', $this->person['id'], $this->event['id']);
+			$this->person['proposals'] = $this->app->db->queryLookupTable('SELECT session_id as k, proposal as v FROM participation WHERE person_id=%d AND session_id IN %d|list', $this->person['id'], array_keys($this->sessions));
+			$this->person['sessions'] = array_keys($this->person['proposals']);
 		}
 
-		$this->buildResponse();
+		$countries = $this->app->db->queryLookupTable('SELECT iso as k, name as v FROM countries ORDER BY name');
+		$countries['--'] = 'Rather not say';
+		$this->addViewData(array(
+			'person'=> $this->person,
+			'sessions' => $this->sessions,
+			'countries' => $countries,
+			'stripe_key' => $this->app->config->stripe->public_key,
+			'state' => $this->req->getQuery('state')
+		));
+
+		// Google auth redirect URL - currently not used for public site
+		if (!$this->person) {
+			$this->addViewData('auth_url', $this->app->auth->getAuthRedirectUrl());
+		}
+		$this->resp->setCacheTTL(0);
+		$this->renderView('register');
 	}
 
 	public function post() {
 
-		if ($this->loadCommon() === false) return false;
+		$this->authenticate();
 
-		$data = array_merge($this->req->getPost(), array('email'=>$this->user['email'], 'event_id'=>$this->event['id']));
+		$this->sessions = $this->app->db->queryLookupTable('SELECT id as k, name as v FROM sessions WHERE event_id=%d AND type=%s ORDER BY start_time', $this->event['id'], 'Session');
+
+		$data = array_merge($this->req->getPost(), array('email'=>$this->person['email'], 'event_id'=>$this->event['id']));
 
 		// Insert a new person record or update the details if already there
 		$this->app->db->query('INSERT INTO people SET {email}, {given_name}, {family_name}, {travel_origin}, {org}, created_at=NOW() ON DUPLICATE KEY UPDATE {given_name}, {family_name}, {travel_origin}, {org}', $data);
@@ -45,41 +60,6 @@ class RegisterController extends \Controllers\PublicSite\PublicBaseController {
 			));
 			$this->app->db->query('INSERT INTO participation SET {person_id}, {session_id}, {proposal}, {role}, created_at=NOW() ON DUPLICATE KEY UPDATE {proposal}, rating=NULL, rated_by=NULL, rating_date=NULL', $proposaldata);
 		}
-		$this->addViewData('saved', true);
-
-		$this->buildResponse();
+		$this->resp->redirect($this->req->getPath().'?state=registered');
 	}
-
-
-	/* Methods shared by GET and POST requests */
-
-	private function loadCommon() {
-
-		// Authenticate the user
-		$this->user = $this->app->auth->authenticate(false);
-
-		// Check for email aliases
-		if ($this->user) {
-			$target = $this->app->db->querySingle('SELECT target FROM emailaliases WHERE source=%s', $this->user['email']);
-			if ($target) $this->user['email'] = $target;
-		}
-
-		$this->sessions = $this->app->db->queryLookupTable('SELECT id as k, name as v FROM sessions WHERE event_id=%d AND type=%s ORDER BY start_time', $this->event['id'], 'Session');
-	}
-
-	private function buildResponse() {
-		$countries = $this->app->db->queryLookupTable('SELECT iso as k, name as v FROM countries ORDER BY name');
-		$countries['--'] = 'Rather not say';
-		$this->addViewData(array(
-			'user' => $this->user,
-			'sessions' => $this->sessions,
-			'countries' => $countries,
-		));
-		if (!$this->user) {
-			$this->addViewData('auth_url', $this->app->auth->getAuthRedirectUrl());
-		}
-		$this->resp->setCacheTTL(0);
-		$this->renderView('register');
-	}
-
 }

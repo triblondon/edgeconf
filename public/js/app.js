@@ -21,7 +21,7 @@ _gaq.push(['_trackPageview']);
 // Registration form
 $(function() {
 	var isdirty = false;
-	$('form.register').submit(function(e) {
+	$('.register form').submit(function(e) {
 		var errorhtml = '<div class="note error">You forgot this one</div>';
 		$('.error').remove();
 		if (!$('#txtgiven_name').val()) $('#txtgiven_name').parent().append(errorhtml);
@@ -43,7 +43,7 @@ $(function() {
 		}
 		isdirty = false;
 	});
-	$('form.register').on('click change', '#chklistsessions .form-chklist__chk', function() {
+	$('.register form').on('click change', '#chklistsessions .form-chklist__chk', function() {
 		$('#proposalgroup_'+this.value)[this.checked?"show":"hide"]();
 		$('#noproposals')[$('.proposal:visible').length?"hide":"show"]();
 	});
@@ -52,7 +52,7 @@ $(function() {
 		$('#noproposals').hide();
 	});
 
-	$('form.register').on('click change', 'input, select', function() {
+	$('.register form').on('click change', 'input, select', function() {
 		isdirty = true;
 	});
 	$(window).on('beforeunload', function(e) {
@@ -95,7 +95,7 @@ $(function() {
 		$.ajax({
 			type: 'POST',
 			url: '/auth/email/verify',
-			data: {email:$('#txtemail').val(),code:$('#txtemailverify').val()},
+			data: {email:$('#txtemail').val(),session_auth:$('#txtemailverify').val()},
 			success: function() {
 				isdirty = false;
 				window.location.reload();
@@ -354,3 +354,59 @@ $('input[data-filter-for]').each(function() {
 		}
 	}
 })
+
+
+// Stripe checkout
+$(function() {
+	var btn = $('#buy-ticket');
+	if (!btn.length) return;
+
+	var handler = StripeCheckout.configure({
+		key: btn.attr('data-stripe-key'),
+		image: btn.attr('data-stripe-image'),
+		name: 'Edge conference',
+		description: btn.attr('data-stripe-description'),
+		amount: btn.attr('data-stripe-amount'),
+		currency: btn.attr('data-stripe-currency'),
+		email: btn.attr('data-stripe-email'),
+		allowRememberMe: false,
+		token: function(token) {
+			$.post('/'+btn.attr('data-stripe-event')+'/pay/charge', {token:token}, function(resp) {
+				if (resp === true) {
+					btn.html('Processing payment...');
+					location.href=location.pathname+'?state=paid';
+				} else {
+					alert(resp);
+					btn.removeAttr('disabled');
+				}
+			});
+		},
+		closed: function() {
+			btn.removeAttr('disabled');
+		}
+	});
+	btn.on('click', function(e) {
+		btn.attr('disabled', 'disabled');
+		handler.open();
+		e.preventDefault();
+	});
+});
+
+// Cancel ticket
+$('#cancel-ticket').on('click', function() {
+	var btn = $(this);
+	btn.attr('disabled', 'disabled');
+	$.post('/'+btn.attr('data-event')+'/pay/cancel', function(resp) {
+		if (resp === true) {
+			btn.html('Cancelling...');
+			location.href=location.pathname+'?state=cancelled';
+		} else {
+			alert(resp);
+			btn.removeAttr('disabled');
+		}
+	});
+});
+
+$('.close-modal').on('click', function() {
+	$(this).closest('.reveal-modal').foundation('reveal', 'close');
+});

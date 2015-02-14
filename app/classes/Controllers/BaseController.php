@@ -57,6 +57,24 @@ abstract class BaseController {
 		$_SESSION['alerts'][$type][] = $content;
 	}
 
+	protected function sendEmail($to, $subj, $text, $html=null) {
+
+		$email = new \SendGrid\Email();
+		$email->addCategory($subj);
+		$email->addTo($to);
+		$email->setFrom('hello@edgeconf.com');
+		$email->setFromName('Edge conf');
+		$email->setSubject($subj);
+		$email->setText($text);
+		if ($html) {
+			$emogrifier = new \Pelago\Emogrifier($html, file_get_contents(realpath(__DIR__.'/../../../public/css/email.css')));
+			$email->setHtml($emogrifier->emogrify());
+		}
+
+		$sendgrid = new \SendGrid($this->app->config->sendgrid->username, $this->app->config->sendgrid->password);
+		$resp = $sendgrid->send($email);
+	}
+
 
 
 

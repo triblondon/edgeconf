@@ -28,3 +28,11 @@ dsn = [____________]
 
 [mailgun]
 api_key = [____________]
+
+[sendgrid]
+username = [____________]
+password = [____________]
+
+[stripe]
+public_key = [____________]
+secret_key = [____________]

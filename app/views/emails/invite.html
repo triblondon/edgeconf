@@ -1,28 +1,22 @@
 {% extends 'emails/layout.html' %}
 
 {% block content %}
-<div style="text-align:left; margin:0px;">
-	<p style="font-size:25px; line-height:30px; text-align:center">You're invited.</p>
-	<p style="font-size:13px; line-height:17px;">{% if attendance.type == 'VIP' %}
-	You are receiving this special invite because we think you'd bring enormous value to Edge, and we'd very much like to see you there.  This may be because you've contributed to a previous Edge event, or simply because we'd especially value your contribution.<br><br>You're invited to skip our normal ticket application process and book a ticket immediately.
+	<h2 class='space'>You're invited!</h2>
+	{% if attendance.type == 'VIP' %}
+	<p class="lead">You are receiving this special invite because we think you'd bring enormous value to Edge, and we'd very much like to see you there.</p>
+	<p>This may be because you've contributed to a previous Edge event, or simply because you're known to be a respected thinker on the topics we are featuring this year. You're invited to skip our normal ticket application process and book a ticket immediately.</p>
 	{% else %}
-	Thanks for registering, we're looking forward to seeing you on {{event.start_time|date("F jS")}}.
+	<p>Thanks for registering, we're looking forward to seeing you on {{event.start_time|date("F jS")}}.</p>
 	{% endif %}
-	</p>
-	<p style="font-size:13px; line-height:17px;">To claim a ticket, visit your personal <a style="color: #0F90BA;" href="http://www.eventbrite.co.uk/e/{{event.eventbrite_id}}?access={{code}}">Eventbrite invitation page</a>. If prompted, here's your unique promo code:</p>
-	<p style="font-size:16px; line-height:20px; font-family: monospace; background-color: #eee; padding: 10px; margin-bottom: 3px; text-align:center">Your code:
-	<strong>{{code}}</strong></p>
-	<p style='font-size:10px; line-height: 15px; margin-top:0; text-align: center'>Enter this code on
-	<a style="color: #0F90BA;" href='http://www.eventbrite.co.uk/e/{{event.eventbrite_id}}?access={{code}}'>http://www.eventbrite.co.uk/e/{{event.eventbrite_id}}</a> if your ticket does not unlock automatically.</p>
-	<p style="font-size:13px; line-height:17px;">We will continue to issue invitations until all tickets are sold, and tickets are available on a
-	<strong>first come first served basis</strong> to anyone with an invitation. This invitation therefore
-	<strong>does not guarantee that you will get a ticket</strong>, and we encourage you to use it to buy a ticket as soon as possible.</p>
-	<p style="font-size:13px; line-height:17px;">This invitation was generated for {{person.email}}.</p>
-</div>
-<div style="margin-top:24px;">
-	<img src="https://ebmedia.eventbrite.com/s3-s3/marketing/emails/invites/lottering.png" alt="divider" width="500" height="8" />
-</div>
-{% include 'emails/partials/location.html' %}
-<img src="https://ebmedia.eventbrite.com/s3-s3/marketing/emails/invites/lottering.png" alt="divider" width="500" height="8" />
-{% include 'emails/partials/about.html' %}
+
+	<p>Click or tap below to claim your ticket:</p>
+
+	<p><a href="https://edgeconf.com/{{event.slug}}/register?invite_preauth={{code}}" class="btn">Claim ticket</a></p>
+
+	<p>We will continue to issue invitations until all tickets are sold, and tickets are available on a <strong>first come first served basis</strong> to anyone with an invitation. This invitation therefore <strong>does not guarantee that you will get a ticket</strong>, and we encourage you to use it to buy a ticket as soon as possible.</p>
+
+	<p>This invitation was generated for {{person.email}}.</p>
+
+	{% include 'emails/partials/location.html' %}
+	{% include 'emails/partials/about.html' %}
 {% endblock %}

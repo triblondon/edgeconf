@@ -1,0 +1,11 @@
+{% extends 'emails/layout.html' %}
+
+{% block content %}
+	<p style="margin: 20px 0; padding: 20px; font-size: 30px; font-family: monospace; text-align: center; background: #eee;">
+		{{code}}
+	</p>
+
+	<p>As part of the registration process on edgeconf.com (the website for the Edge web conference) we ask people to verify that they own the email address they are using to register.  Someone is asserting that they own {{email}}, so this email is intended to allow them to prove that they can receive mail sent to that address.  If you didn't register for Edge, you can ignore this email, or reply for further assistance.</p>
+
+	<p>Code generated for {{email}} on {{now|date('H:i l F jS, Y')}}.</p>
+{% endblock %}

@@ -8,7 +8,9 @@
 		"johnnyfreeman/coseva": "dev-master",
 		"raven/raven": "0.10.0",
 		"mailgun/mailgun-php": "~1.7.2",
-		"sendgrid/sendgrid": "2.2.0"
+		"sendgrid/sendgrid": "2.2.0",
+		"stripe/stripe-php": "1.*",
+		"pelago/emogrifier": "@dev"
 	},
 	"autoload": {
 		"psr-0": {

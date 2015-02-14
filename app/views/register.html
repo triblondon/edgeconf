@@ -24,105 +24,156 @@
 			</div>
 		</section>
 
-	{% elseif saved %}
+	{% elseif state %}
 		<section class="layer">
 			<div class="row">
 				<div class="small-12 columns">
-					<h2>Thanks!</h2>
-					<p>Your application has been recorded against the email address <strong>{{user.email}}</strong>.  We'll be in touch soon (invitations will be sent gradually over the period leading up to the conference, with plenty of time to book travel).</p>
-					<p>If you want to change your application, just start again, and we'll open your existing application for editing.</p>
+
+					{% if state == 'registered' %}
+						<h2>Thanks!</h2>
+						<p>Your application has been recorded against the email address <strong>{{person.email}}</strong>.  We'll be in touch soon (invitations will be sent gradually over the period leading up to the conference, with plenty of time to book travel).</p>
+						<p>If you want to change your application, just start again, and we'll open your existing application for editing.</p>
+
+					{% elseif state == 'paid' %}
+						<h2>Thanks!</h2>
+						<p>Your card was successfully billed {{thisevent.currency_symb}}{{thisevent.price}}.  A receipt has been sent to <strong>{{person.email}}</strong>.  See you at Edge!</p>
+						<p>Please note that Edge tickets are non-transferrable, but you can cancel your ticket up to 7 days before the conference for a full refund (no refunds after that).</p>
+
+					{% elseif state == 'cancelled' %}
+						<h2>Bummer</h2>
+						<p>Sorry to hear you won't be able to attend Edge.  Your refund was processed and an email was sent to {{person.email}}.</p>
+						<p>Your registration data for this event has been removed, so if you reload the registration page you will be at the beginning of the process.</p>
+					{% endif %}
 				</div>
 			</div>
 		</section>
 	{% else %}
-		<section class="layer">
+		<section class="layer edgeform register">
 			<div class="row">
 				<div class="small-12 columns">
-					<p>Tickets to Edge cost {{thisevent.cost}}.  The space in the venue is quite limited, and we expect this event to be popular, so we are operating a pre-registration process to allocate tickets fairly and ensure a broad cross-section of the development community is able to attend.</p>
+					<p>Tickets to Edge cost {{thisevent.currency_symb}}{{thisevent.price}}.  The space in the venue is quite limited, and we expect this event to be popular, so we are operating a pre-registration process to allocate tickets fairly and ensure a broad cross-section of the development community is able to attend.</p>
+					{% if person is empty %}
 					<p>To register your interest, update an existing registration, or claim a reserved ticket, first sign in.</p>
+					{% endif %}
 				</div>
 			</div>
-			<form class='edgeform register' action='/{{thisevent.slug}}/register' method='post'>
-				<div class="row form-field">
-					<div class="small-12 large-4 columns">
-						<label>Event</label>
-					</div>
-					<div class='small-12 large-8 columns'>
-						Edge conference in <strong>{{thisevent.location}}</strong>, on <strong>{{thisevent.start_time|date('jS F Y')}}</strong>
+			<div class="row form-field">
+				<div class="small-12 large-4 columns">
+					<label>Event</label>
+				</div>
+				<div class='small-12 large-8 columns'>
+					Edge conference in <strong>{{thisevent.location}}</strong>, on <strong>{{thisevent.start_time|date('jS F Y')}}</strong>
+				</div>
+			</div>
+			<div class="row form-field">
+				<div class="small-12 large-4 columns">
+					<label for='txtemail'>Email address</label>
+				</div>
+				<div class='small-12 large-8 columns email-field'>
+					{% if person.email %}
+						{{person.email}} (<a href='/auth/logout?redir={{server.request_uri}}'>Not correct?</a>)
+					{% else %}
+						<input type='text' name='email' class='inline-field' id='txtemail' />
+						<input type='button' value='Verify' class='email-verify-button small button' />
+						<span class='email-verify-code'>
+							<input type='text' name='emailverify' id='txtemailverify' class='inline-field' style='max-width:150px' placeholder='Paste code here' />
+							<input type='button' value='Submit' class='email-verify2-button small button' />
+							or <a href='javascript:void(0)' class='email-verify-reset-link'>start again</a>
+						</span>
+						<span class='note'>You need to verify that you own this email address.  Click verify and enter the code that you receive by email (please allow 10 minutes for the email to arrive, and check your spam folder!)</span>
+					{% endif %}
+				</div>
+			</div>
+			{% if person.attendance.ticket_type or person.attendance.invite_code %}
+				<div class='row'>
+					<div class='small-12 columns'>
+						<div class='alert'>
+						{% if person.attendance.ticket_type %}
+							<h4>You're coming!</h4>
+							<p>You already have a ticket, and we're looking forward to seeing you at Edge conf.  You don't need to bring your ticket but please bring some ID.
+							{% if thisevent.cancelable %}
+								You can't transfer the ticket to someone else, but you can cancel your ticket for a full refund until {{thisevent.latest_cancel_date|date('jS F')}}.</p>
+								<button data-reveal-id='cancel-modal'>Cancel my ticket</button>
+								<div id="cancel-modal" class="reveal-modal" data-reveal>
+									<h2>Are you sure you want to cancel?</h2>
+									<p class="lead">Here's how it works:</p>
+									<ul>
+										<li>We will refund your full ticket fee to the same card you used to buy it</li>
+										<li>If you change your mind, you may be able to reapply for a fresh ticket, but only if there are tickets available at the time</li>
+										<li>You will stay on the Edge mailing list, but you can unsubscribe by clicking the unsubscribe link in any list email you receive</li>
+									</ul>
+									<button id='cancel-ticket' data-event="{{thisevent.slug}}">Yes, cancel me</button>
+									<button class='close-modal'>No, I want to keep my ticket</button>
+									<a class="close-reveal-modal">&#215;</a>
+								</div>
+							{% else %}
+								This ticket is not transferrable or cancelable, but if you can't make it, please <a href='mailto:hello@edgeconf.com'>let us know</a>.</p>
+							{% endif %}
+						{% elseif person.attendance.invite_code %}
+							<h4>Ticket waiting for you!</h4>
+							<p>You have an invitation available to use immediately.  All you need to do now is pay using a credit or debit card.</p>
+							<script src="https://checkout.stripe.com/checkout.js"></script>
+							<button
+								id="buy-ticket"
+								data-stripe-key='{{stripe_key}}'
+								data-stripe-event='{{thisevent.slug}}'
+								data-stripe-description='Ticket for {{person.family_name}}, {{person.given_name}}'
+								data-stripe-currency='{{thisevent.currency}}'
+								data-stripe-amount='{{thisevent.price*100}}'
+								data-stripe-email='{{user.email}}'
+								data-stripe-image='https://edgeconf.com/images/events/{{thisevent.slug}}/logo_social.png'>Claim ticket for {{thisevent.cost}}
+							</button>
+							{% endif %}
+						</div>
 					</div>
 				</div>
-				<div class="row form-field">
-					<div class="small-12 large-4 columns">
-						<label for='txtemail'>Email address</label>
-					</div>
-					<div class='small-12 large-8 columns email-field'>
-						{% if user.email %}
-							{{user.email}} (<a href='/auth/logout?redir={{server.request_uri}}'>Not correct?</a>)
-							<input type='hidden' name='email' value='{{user.email}}'/>
-						{% else %}
-							<input type='text' name='email' class='inline-field' id='txtemail' />
-							<input type='button' value='Verify' class='email-verify-button small button' />
-							<span class='email-verify-code'>
-								<input type='text' name='emailverify' id='txtemailverify' class='inline-field' style='max-width:150px' placeholder='Paste code here' />
-								<input type='button' value='Submit' class='email-verify2-button small button' />
-								or <a href='javascript:void(0)' class='email-verify-reset-link'>start again</a>
-							</span>
-							<span class='note'>You need to verify that you own this email address.  Click verify and enter the code that you receive by email (please allow 10 minutes for the email to arrive, and check your spam folder!)</span>
-						{% endif %}
-					</div>
-				</div>
-				{% if user.event_id %}
+
+			{% else %}
+				{% if person.attendance %}
 					<div class='row'>
 						<div class='small-12 columns'>
-							<p class='alert'>
-							{% if user.ticket_type %}
-								<strong>You're coming!</strong>  You already have a ticket, and we're looking forward to seeing you at Edge conf.  Need to cancel?  Use the link in your Eventbrite confirmation email or <a href='mailto:hello@edgeconf.com'>email us</a>.
-								{% set user = null %}
-							{% elseif user.invite_code %}
-								<strong>Ticket waiting for you!</strong>  Your account has an invitation available to use immediately.  Would you like to <a href='https://www.eventbrite.co.uk/e/{{thisevent.eventbrite_id}}?access={{user.invite_code}}'>buy your ticket now on Eventbrite</a>
-								{% set user = null %}
-							{% else %}
-								We already have a registration on file for you.  If you'd like to edit your details or session proposals, please update them in the form below.  If your application has been reviewed already it may be queued for review again.
-							{% endif %}
-							</p>
+							<p class='alert'>We already have a registration on file for you.  If you'd like to edit your details or session proposals, please update them in the form below.  If your application has been reviewed already it may be queued for review again.</p>
 						</div>
 					</div>
 				{% endif %}
 
-				{% set nouser = user is empty %}
+				<form action='/{{thisevent.slug}}/register' method='post'>
+					<input type='hidden' name='email' value='{{user.email}}'/>
 
-				{{ forms.text('given_name', 'Given name', user, 'Usually your first name', nouser) }}
-				{{ forms.text('family_name', 'Family name', user, 'Usually your last name', nouser) }}
-				{{ forms.select('travel_origin', 'Location', user, countries, nouser, true, 'Choose the ISO 3166 country you are most likely to be travelling from to attend the conference.  We use this to figure out where we should host Edge next time.') }}
-				{{ forms.text('org', 'Organisation/affiliation', user, 'eg. IBM', nouser, 'Your company, school or institution name. We try to avoid having too many delegates from the same company. <strong>This will get printed on your name badge</strong>') }}
-				{{ forms.chklist('sessions', 'Sessions of interest', user, sessions, nouser, 'Which sessions interest you the most?  Choose up to four.') }}
+					{% set nouser = person is empty %}
+					{{ forms.text('given_name', 'Given name', person, 'Usually your first name', nouser) }}
+					{{ forms.text('family_name', 'Family name', person, 'Usually your last name', nouser) }}
+					{{ forms.select('travel_origin', 'Location', person, countries, nouser, true, 'Choose the ISO 3166 country you are most likely to be travelling from to attend the conference.  We use this to figure out where we should host Edge next time.') }}
+					{{ forms.text('org', 'Organisation/affiliation', person, 'eg. IBM', nouser, 'Your company, school or institution name. We try to avoid having too many delegates from the same company. <strong>This will get printed on your name badge</strong>') }}
+					{{ forms.chklist('sessions', 'Sessions of interest', person.sessions, sessions, nouser, 'Which sessions interest you the most?  Choose up to four.') }}
 
-				<div class="row form-field{{ nouser ? ' disabled' : '' }}">
-					<div class="small-12 large-4 columns">
-						<label>Expertise</label>
+					<div class="row form-field{{ nouser ? ' disabled' : '' }}">
+						<div class="small-12 large-4 columns">
+							<label>Expertise</label>
+						</div>
+						<div class='small-12 large-8 columns'>
+							<div class='note'>What kind of experience or expertise can you bring to the sessions that most interest you?  We'll use this to prioritise invitations for those who have the most to contribute on the day, using an anonymised selection process.</div>
+							{% for id,name in sessions %}
+								<div class='proposal' id='proposalgroup_{{id}}'><label class='sublabel' for='txtproposal_{{id}}' id='lblproposal_{{session.id}}'>{{name}}</label><textarea name='proposal_{{id}}' id='txtproposal_{{id}}'>{{person.proposals[id]}}</textarea></div>
+							{% endfor %}
+							<div class='note' id='noproposals'>Choose some sessions above in order to answer this question.</div>
+						</div>
 					</div>
-					<div class='small-12 large-8 columns'>
-						<div class='note'>What kind of experience or expertise can you bring to the sessions that most interest you?  We'll use this to prioritise invitations for those who have the most to contribute on the day, using an anonymised selection process.</div>
-						{% for id,name in sessions %}
-							<div class='proposal' id='proposalgroup_{{id}}'><label class='sublabel' for='txtproposal_{{id}}' id='lblproposal_{{session.id}}'>{{name}}</label><textarea name='proposal_{{id}}' id='txtproposal_{{id}}'>{{user.proposals[id]}}</textarea></div>
-						{% endfor %}
-						<div class='note' id='noproposals'>Choose some sessions above in order to answer this question.</div>
-					</div>
-				</div>
 
-				<div class="row form-field{{ nouser ? ' disabled' : '' }}">
-					<div class='small-12 columns'>
-						<h3>Important - know before you go:</h3>
-						<ul class='bullets'>
-							<li>We prepare all our questions <strong>in advance</strong>.  We use Google Moderator to source topic suggestions from attendees, but we rewrite them for clarity, conciseness and consistency.</li>
-							<li>On the day, the audience will be expected to get very involved in the discussion, but contributions should be <strong>opinions</strong> or debate points, not questions.  We want to know what <em>you</em> think, not just what the panel have to say.  This is important because at conferences it's generally considered rude to express an opinion during Q&amp;A rather than asking a question.  That is not true at Edge.</li>
-							<li>We deal only with engineering topics that relate to specifications.  Therefore topics like UX, management, culture or social issues, while very important, are not included in the Edge programme.</li>
-						</ul>
-						<p>Before you submit, make sure you all the details are correct.  Your application will be queued for review.</p>
-						<p style='text-align:right'><input type='submit' class='button' value='Submit' /></p>
+					<div class="row form-field{{ nouser ? ' disabled' : '' }}">
+						<div class='small-12 columns'>
+							<h3>Important - know before you go:</h3>
+							<ul class='bullets'>
+								<li>We prepare all our questions <strong>in advance</strong>.  We use Google Moderator to source topic suggestions from attendees, but we rewrite them for clarity, conciseness and consistency.</li>
+								<li>On the day, the audience will be expected to get very involved in the discussion, but contributions should be <strong>opinions</strong> or debate points, not questions.  We want to know what <em>you</em> think, not just what the panel have to say.  This is important because at conferences it's generally considered rude to express an opinion during Q&amp;A rather than asking a question.  That is not true at Edge.</li>
+								<li>We deal only with engineering topics that relate to specifications.  Therefore topics like UX, management, culture or social issues, while very important, are not included in the Edge programme.</li>
+							</ul>
+							<p>Before you submit, make sure you all the details are correct.  Your application will be queued for review.</p>
+							<p style='text-align:right'><input type='submit' class='button' value='Submit' /></p>
+						</div>
 					</div>
-				</div>
-			</form>
+				</form>
+			{% endif %}
 		</section>
 	{% endif %}
 {% endblock %}

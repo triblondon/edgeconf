@@ -1,31 +1,51 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-	<meta http-equiv="”Content-Type”" content="”text/html;" charset="UTF-8”" />
-	<title></title>
+<meta name="viewport" content="width=device-width" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
-<body bgcolor='#222222'>
-	<div style="position: relative; margin: 0 auto; width: 600px; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 13px; background-color: #f7f7f7;">
-		<table border="0" cellpadding="0" cellspacing="0" width="600">
-			<tr>
-				<td style='text-align:center'>
-					<img src='http://edgeconf.com/images/events/{{event.slug}}/mailheader.jpg' width='600' />
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<table width="600" border="0" cellspacing="0" cellpadding="0" style="border-left:1px solid #dedede;border-right:1px solid #dedede;padding-top:0px;padding-bottom:0px;">
-						<tr>
-							<td width="20"></td>
-							<td style="color:#515151;">
-								{% block content %}{% endblock %}
-							</td>
-							<td width="20"></td>
-						</tr>
-					</table>
-				</td>
-			</tr>
-		</table>
-	</div>
+
+<body bgcolor="#FFFFFF">
+
+	{% if summary %}
+	<table class="head-wrap head_teaser" bgcolor="#222222">
+		<tr>
+			<td></td>
+			<td class="header container">
+				<div class="content">{{summary}}</div>
+			</td>
+			<td></td>
+		</tr>
+	</table>
+	{% endif %}
+
+	{% if event %}
+	<table class="head-wrap hero_bg" bgcolor="#000000">
+		<tr>
+			<td></td>
+			<td class="header container">
+				<img src='https://edgeconf.com/images/events/{{event.slug}}/mailheader.jpg?v=2' width='100%' />
+			</td>
+			<td></td>
+		</tr>
+	</table>
+	{% endif %}
+
+	<table class="body-wrap">
+		<tr>
+			<td></td>
+			<td class="container" bgcolor="#FFFFFF">
+
+				<div class="content">
+				<table><tr><td>
+					{% block content %}{% endblock %}
+				</td></tr></table>
+				</div>
+
+			</td>
+			<td></td>
+		</tr>
+	</table>
+
 </body>
 </html>

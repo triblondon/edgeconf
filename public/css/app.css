@@ -16,7 +16,7 @@ a:link, a:visited {
 a:hover, a:active {
   color: #44bca4; }
 
-a.button {
+button, .button {
   background: #333;
   border: none;
   -webkit-border-radius: 4px;
@@ -28,7 +28,7 @@ a.button {
   color: #fff;
   text-transform: uppercase; }
 
-.button:hover {
+button:hover, .button:hover {
   background: #f9f900;
   color: #333; }
 
@@ -331,76 +331,66 @@ form select {
       .schedule-slot .slot-sessions .participant {
         display: none; } }
 /* Registration form */
-form.edgeform {
-  margin: 0;
-  padding: 0; }
-  form.edgeform input, form.edgeform select {
-    margin: 0; }
-  form.edgeform .form-field {
-    margin-bottom: 25px; }
-    form.edgeform .form-field label:not(.inline) {
-      font-size: 18px;
-      margin: 0.1em 0 0.5em 0;
-      color: black; }
-    form.edgeform .form-field .note {
-      margin: 0.5em 0;
-      color: #333;
-      font-size: 13px;
-      display: block;
-      line-height: normal; }
-    form.edgeform .form-field .error {
-      margin-top: 0.5em;
-      color: red; }
-    form.edgeform .form-field .error:before {
-      content: '▲';
-      margin-right: 5px; }
-    form.edgeform .form-field label.sublabel {
-      font-size: 13px;
-      color: #555;
-      font-weight: bold; }
-    form.edgeform .form-field label.inline {
-      margin: 0;
-      padding: 0.3em 0;
-      display: inline-block;
-      min-width: 49%; }
-    form.edgeform .form-field label.inline input {
-      margin: 0 10px 0 0; }
-  form.edgeform .button {
-    background: #333;
-    border: none;
-    -webkit-border-radius: 4px;
-    -moz-border-radius: 4px;
-    -ms-border-radius: 4px;
-    -o-border-radius: 4px;
-    border-radius: 4px;
-    box-shadow: none;
-    color: #FFF;
-    text-transform: uppercase; }
-  form.edgeform .button:hover {
-    background: yellow;
+.edgeform input, .edgeform select {
+  margin: 0; }
+.edgeform .form-field {
+  margin-bottom: 25px; }
+  .edgeform .form-field label:not(.inline) {
+    font-size: 18px;
+    margin: 0.1em 0 0.5em 0;
     color: black; }
-  form.edgeform .proposal {
-    display: none; }
-  form.edgeform #noproposals {
-    font-style: italic; }
-  form.edgeform .form-field.disabled {
-    opacity: 0.5;
-    pointer-events: none; }
-  form.edgeform .alert {
-    border-radius: 4px;
-    background: #eee;
-    padding: 10px; }
-  form.edgeform .alert strong {
-    display: block; }
-  form.edgeform textarea {
-    resize: vertical;
-    min-height: 100px; }
-
-form.register .email-verify-code {
+  .edgeform .form-field .note {
+    margin: 0.5em 0;
+    color: #333;
+    font-size: 13px;
+    display: block;
+    line-height: normal; }
+  .edgeform .form-field .error {
+    margin-top: 0.5em;
+    color: red; }
+  .edgeform .form-field .error:before {
+    content: '▲';
+    margin-right: 5px; }
+  .edgeform .form-field label.sublabel {
+    font-size: 13px;
+    color: #555;
+    font-weight: bold; }
+  .edgeform .form-field label.inline {
+    margin: 0;
+    padding: 0.3em 0;
+    display: inline-block;
+    min-width: 49%; }
+  .edgeform .form-field label.inline input {
+    margin: 0 10px 0 0; }
+.edgeform .proposal {
   display: none; }
-form.register .inline-field {
+.edgeform #noproposals {
+  font-style: italic; }
+.edgeform .form-field.disabled {
+  opacity: 0.5;
+  pointer-events: none; }
+.edgeform textarea {
+  resize: vertical;
+  min-height: 100px; }
+
+.register .email-verify-code {
+  display: none; }
+.register .inline-field {
   max-width: 200px;
   display: inline-block; }
+
+.alert {
+  border-radius: 4px;
+  background: #eee;
+  padding: 25px;
+  margin: 15px 0;
+  overflow: hidden; }
+  .alert h4 {
+    font-weight: bold;
+    margin-bottom: 20px; }
+  .alert button {
+    display: block;
+    margin: 15px 0 0 auto; }
 
 /* Video search */
 #videos {

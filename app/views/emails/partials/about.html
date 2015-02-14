@@ -1,14 +1,17 @@
-<table width="500" border="0" cellpadding="0" cellspacing="0" style="font-size:13px; line-height:18px; margin:20px 0 24px 0;">
-	<tr>
-		<td>
-			<div id="invite_body_custom_message">
-				<p style="color:#333; font-size: 17px; line-height: 20px; font-weight: bold">About Edge</p>
-				<p style="color:#515151;">Edge is a new kind of one-day conference on advanced web technologies for developers and browser vendors, presented by London Web Performance group, the Financial Times and Facebook.
-				<br />
-				<br />Tickets cost {{event.cost}}, which will go towards some contributors' travel expenses and help us ensure that the venue is full without having to oversell. {% if event.partner_name %}Any money we have left will be donated to {{event.partner_name}}. {% endif %}For more information visit the conference website, <a style="color: #0F90BA;" href='http://edgeconf.com'>http://edgeconf.com</a>.
-				<br />
-				<br />See you there!</p>
-			</div>
-		</td>
-	</tr>
-</table>
+<h3 class='space'>About Edge</h3>
+<p>Edge is a one-day conference on advanced web technologies for developers and browser vendors, presented by London Web Performance group, the Financial Times and Facebook.</p>
+
+<p>Tickets cost {{event.cost}}, which will go towards some contributors' travel expenses and help us ensure that the venue is full without having to oversell. {% if event.partner_name %}Any money we have left will be donated to {{event.partner_name}}. {% endif %}For more information visit the conference website, <a href='https://edgeconf.com'>https://edgeconf.com</a>.</p>
+
+<table class="social space"><tr><td>
+	<table align="left" class="column"><tr><td>
+		<h5>Follow and share us:</h5>
+		<p><a href="https://facebook.com/edgeconf" class="soc-btn fb">Facebook</a> <a href="https://twitter.com/edgeconf" class="soc-btn tw">Twitter</a> <a href="https://plus.google.com/+Edgeconf" class="soc-btn gp">Google+</a></p>
+	</td></tr></table>
+	<table align="left" class="column"><tr><td>
+		<h5>Contact the organisers:</h5>
+		<p style='font-size: 80%'>Edge is run by <a href='http://ldnwebperf.org'>London Web Performance</a>, an unincorporated non-profit community group, and is curated by <a href='http://labs.ft.com'>FT Labs</a>, an emerging web technology team at the Financial Times.</p>
+		<p>Email: <strong><a href='mailto:hello@edgeconf.com'>hello@edgeconf.com</a></strong><br/>
+	</td></tr></table>
+	<span class="clear"></span>
+</td></tr></table>

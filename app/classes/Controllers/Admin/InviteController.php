@@ -10,10 +10,10 @@ class InviteController extends \Controllers\Admin\AdminBaseController {
 		$event = $this->app->db->queryRow('SELECT * FROM events WHERE end_time > NOW() ORDER BY start_time ASC LIMIT 1');
 
 		// Fetch people who could be invited
-		$invitable = $this->app->db->queryAllRows('SELECT p.id, p.given_name, p.family_name, p.email, p.org, GROUP_CONCAT(s.name) as sessions, AVG(pa.rating) as avgrating, a.type FROM people p INNER JOIN attendance a ON p.id=a.person_id AND a.event_id=%d LEFT JOIN participation pa ON p.id=pa.person_id LEFT JOIN sessions s ON pa.session_id=s.id AND s.event_id=%d WHERE a.ticket_type IS NULL AND a.invite_code IS NULL GROUP BY p.id ORDER BY avgrating DESC', $event['id'], $event['id'], $event['id']);
+		$invitable = $this->app->db->queryAllRows('SELECT p.id, p.given_name, p.family_name, p.email, p.org, GROUP_CONCAT(s.name) as sessions, AVG(pa.rating) as avgrating, a.type FROM people p INNER JOIN attendance a ON p.id=a.person_id AND a.event_id=%d LEFT JOIN participation pa ON p.id=pa.person_id INNER JOIN sessions s ON pa.session_id=s.id AND s.event_id=%d WHERE a.ticket_type IS NULL AND a.invite_code IS NULL GROUP BY p.id ORDER BY avgrating DESC', $event['id'], $event['id'], $event['id']);
 
 		// Fetch people who could be reminded
-		$remindable = $this->app->db->queryAllRows('SELECT p.id, p.given_name, p.family_name, p.email, p.org, GROUP_CONCAT(s.name) as sessions, AVG(pa.rating) as avgrating FROM people p INNER JOIN attendance a ON p.id=a.person_id AND a.event_id=%d LEFT JOIN participation pa ON p.id=pa.person_id LEFT JOIN sessions s ON pa.session_id=s.id WHERE a.invite_code IS NOT NULL AND a.ticket_type IS NULL AND a.invite_date_reminded IS NULL AND a.invite_date_sent < (NOW() - INTERVAL 7 DAY) GROUP BY p.id ORDER BY avgrating DESC', $event['id']);
+		$remindable = $this->app->db->queryAllRows('SELECT p.id, p.given_name, p.family_name, p.email, p.org, GROUP_CONCAT(s.name) as sessions, AVG(pa.rating) as avgrating FROM people p INNER JOIN attendance a ON p.id=a.person_id AND a.event_id=%d LEFT JOIN participation pa ON p.id=pa.person_id INNER JOIN sessions s ON pa.session_id=s.id WHERE a.invite_code IS NOT NULL AND a.ticket_type IS NULL AND a.invite_date_reminded IS NULL AND a.invite_date_sent < (NOW() - INTERVAL 7 DAY) GROUP BY p.id ORDER BY avgrating DESC', $event['id']);
 
 		$this->addViewData(array(
 			'event' => $event,
@@ -31,21 +31,14 @@ class InviteController extends \Controllers\Admin\AdminBaseController {
 
 		foreach ($this->req->getPost('people') as $personid) {
 			$person = $this->app->db->queryRow('SELECT * FROM people WHERE id=%d', $personid);
+			$attendance = $this->app->db->queryRow('SELECT * FROM attendance WHERE person_id=%d AND event_id=%d', $personid, $event['id']);
 
 			if ($this->req->getPost('action') === 'invite') {
 
-				$attendance = $this->app->db->queryRow('SELECT * FROM attendance WHERE person_id=%d AND event_id=%d', $personid, $event['id']);
-				if ($attendance['type'] == 'VIP' && $this->app->config->eventbrite->vipcode) {
-					$code = $this->app->config->eventbrite->vipcode;
-				} else {
-					$code = $this->app->db->querySingle('SELECT code FROM codes c LEFT JOIN attendance a ON c.code=a.invite_code WHERE a.invite_code IS NULL LIMIT 1;');
-					if (!$code) {
-						$this->alert('warning', 'Could not invite '.$person['email'].' because we\'re out of promo codes.');
-						continue;
-					}
-				}
+				$code = substr(str_shuffle('QWERTYUIOPASDFGHJKLZXCVBNM1234567890'), 0, 20);
 
 				$viewdata = array(
+					'summary'=>"You're invited to Edge: claim your ticket now",
 					'person'=>$person,
 					'event'=>$event,
 					'attendance'=>$attendance,
@@ -74,20 +67,5 @@ class InviteController extends \Controllers\Admin\AdminBaseController {
 		}
 		$this->app->db->query("COMMIT");
 		$this->resp->redirect('/admin/invite');
-	}
-
-	private function sendEmail($to, $subj, $text, $html=null) {
-
-		$email = new \SendGrid\Email();
-		$email->addCategory($subj);
-		$email->addTo($to);
-		$email->setFrom('hello@edgeconf.com');
-		$email->setFromName('Edge conf');
-		$email->setSubject($subj);
-		$email->setText($text);
-		if ($html) $email->setHtml($html);
-
-		$sendgrid = new \SendGrid($this->app->config->sendgrid->username, $this->app->config->sendgrid->password);
-		$resp = $sendgrid->send($email);
 	}
 }

@@ -1,20 +1,16 @@
-<div style="margin-top:24px;">
-	<p style="color:#333; font-size: 17px; line-height: 20px; font-weight: bold">Place and time</p>
-	<p style="line-height:18px; margin-top:0px; color:#515151;">Here's a reminder of where and when Edge will be held:</p>
-</div>
-<table width="500" border="0" cellspacing="0" cellpadding="0">
-	<tr>
-		<td id="invite_body_logo" width="240" valign="top" style="display:inline;">
-			<img style="border: 1px solid #cac4c4" src="https://maps.googleapis.com/maps/api/staticmap?center={{event.venue_address|tourl}}&amp;zoom=15&amp;size=260x145&amp;markers=color:blue%7C{{event.venue_address|tourl}}" />
-		</td>
-		<td valign="top" style="font-size:13px; line-height:18px;">
-			<p style="color:#515151; width: 200px; margin-top: 0">{{event.start_time|date('l F jS, Y')}}</p>
-			<p style="color:#515151;">
-			<b>{{event.venue_name}}</b>
-			<br />{{event.venue_address|nl2br}}
-			<br />
-			<br />
-			<a href="{{event.venue_map_url|raw}}" style="color:#0F90BA; text-decoration:none;" target="_blank">View Map</a></p>
-		</td>
-	</tr>
-</table>
+<h3 class='space'>Place and time</h3>
+<p>Here's a reminder of where and when Edge will be held:</p>
+
+<table align="left" class="column"><tr><td>
+	<img style="border: 1px solid #999999" src="https://maps.googleapis.com/maps/api/staticmap?center={{event.venue_address|tourl}}&amp;zoom=15&amp;size=600x400&amp;markers=color:blue%7C{{event.venue_address|tourl}}" />
+</td></tr></table>
+
+<table align="left" class="column"><tr><td>
+	<div class='content'>
+		<p><strong>{{event.venue_name}}</strong><br />{{event.venue_address|nl2br}}</p>
+		<p>{{event.start_time|date('ga, l F jS, Y')}}</p>
+		<p><a class='btn' href="{{event.venue_map_url|raw}}">View Map</a></p>
+	</div>
+</td></tr></table>
+
+<span class="clear"></span>

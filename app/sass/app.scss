@@ -41,7 +41,7 @@ a:link, a:visited {
 a:hover, a:active {
 	color: lighten($edgeGreen, 5);
 }
-a.button {
+button, .button {
 	background: #333;
 	border: none;
 	@include prefixes(border-radius, 4px);
@@ -49,7 +49,7 @@ a.button {
 	color: #fff;
 	text-transform: uppercase;
 }
-.button:hover {
+button:hover, .button:hover {
 	background: $edgeYellow;
 	color: #333;
 }
@@ -462,9 +462,7 @@ form select {
 
 /* Registration form */
 
-form.edgeform {
-	margin: 0;
-	padding: 0;
+.edgeform {
 	input, select {
 		margin: 0;
 	}
@@ -505,22 +503,6 @@ form.edgeform {
 		  margin: 0 10px 0 0;
 		}
 	}
-	.button {
-		background: #333;
-		border: none;
-		-webkit-border-radius: 4px;
-		-moz-border-radius: 4px;
-		-ms-border-radius: 4px;
-		-o-border-radius: 4px;
-		border-radius: 4px;
-		box-shadow: none;
-		color: #FFF;
-		text-transform: uppercase;
-	}
-	.button:hover {
-		background: yellow;
-		color: black;
-	}
 	.proposal {
 		display:none;
 	}
@@ -531,20 +513,12 @@ form.edgeform {
 		opacity: 0.5;
 		pointer-events: none;
 	}
-	.alert {
-		border-radius: 4px;
-		background: #eee;
-		padding: 10px;
-	}
-	.alert strong {
-		display: block;
-	}
 	textarea {
 		resize: vertical;
 		min-height: 100px;
 	}
 }
-form.register {
+.register {
 	.email-verify-code {
 		display: none;
 	}
@@ -553,6 +527,23 @@ form.register {
 		display: inline-block;
 	}
 }
+
+.alert {
+	border-radius: 4px;
+	background: #eee;
+	padding: 25px;
+	margin: 15px 0;
+	overflow: hidden;
+	h4 {
+		font-weight: bold;
+		margin-bottom: 20px;
+	}
+	button {
+		display: block;
+		margin: 15px 0 0 auto;
+	}
+}
+
 
 
 /* Video search */

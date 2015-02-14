@@ -12,12 +12,11 @@ if (isset($_SERVER['HTTP_DEBUG']) and $_SERVER['HTTP_DEBUG'] == $app->config->de
 	ini_set('html_errors', 1);
 	error_reporting(E_ALL | E_STRICT);
 	header('Debug: Enabled');
+} else {
+	$error_handler = new Raven_ErrorHandler($app->sentry);
+	set_error_handler(array($error_handler, 'handleError'));
+	set_exception_handler(array($error_handler, 'handleException'));
 }
-
-$error_handler = new Raven_ErrorHandler($app->sentry);
-set_error_handler(array($error_handler, 'handleError'));
-set_exception_handler(array($error_handler, 'handleException'));
-
 
 /* Define routing and dispatch controllers to build response */
 
@@ -30,8 +29,8 @@ $router->setPattern('id', '\d+');
 // Authentication routes
 $router->route('/auth/callback', 'AuthCallback');
 $router->route('/auth/logout', 'AuthLogout');
-$router->route('/auth/email/start-verify', 'AuthEmailSendCode');
-$router->route('/auth/email/verify', 'AuthEmailVerify');
+$router->route('/auth/email/start-verify', 'PublicSite\AuthEmailSendCode');
+$router->route('/auth/email/verify', 'PublicSite\AuthEmailVerify');
 
 // Public content routes
 $router->route('/:eventslug', 'PublicSite\Info');
@@ -39,6 +38,8 @@ $router->route('/:eventslug/(?<page>schedule|faq|hub)', 'PublicSite\Info');
 $router->route('/:eventslug/register', 'PublicSite\Register');
 $router->route('/:eventslug/video', 'PublicSite\VideoAPI');
 $router->route('/:eventslug/video/(?<video_id>[\w\d\-\_]+)', 'PublicSite\VideoAPI');
+$router->route('/:eventslug/pay/charge', 'PublicSite\BillingCharge');
+$router->route('/:eventslug/pay/cancel', 'PublicSite\BillingCancel');
 
 // Public tools
 $router->route('/sign', 'Signage');
@@ -54,7 +55,7 @@ $router->route('/admin/rate', 'Admin\Rate');
 $router->route('/admin/badges', 'Admin\Badges');
 $router->route('/admin/exports/(?<export>panels|attendees)', 'Admin\Export');
 
-$router->route('/hub', '/2014-sf/hub');
+$router->route('/hub', '/2015-london/hub');
 $router->route('/feedback', 'https://docs.google.com/forms/d/1bVPMF3FJjLPyj9-ECCko4leA4kV-6y0gbOYiEGvB-18/viewform');
 
 $router->route('/', '/2015-london');
