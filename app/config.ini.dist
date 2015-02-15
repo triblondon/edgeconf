@@ -7,11 +7,15 @@ db_name = edgeconf
 [eventbrite]
 appkey = [____________]
 userkey = [____________]
-vipcode = [____________]
 
 [mailchimp]
 api_key = [____________]
 list_id = [____________]
+
+[google]
+client_id = [____________]
+secret = [____________]
+callback = https://edgeconf.com/auth/callback
 
 [view]
 cache_path = /tmp/viewscache

@@ -56,9 +56,16 @@ class ServicesContainer extends Pimple {
 
 		$this['auth'] = function($c) {
 			if (!session_id()) session_start();
-			return new \Services\GoogleAuth\GoogleAuth($_SESSION, array(
-				'canceldest' => 'http://edgeconf.com/'
-			));
+			$host = $_SERVER['HTTP_HOST'];
+			return new \Services\GoogleAuth\GoogleAuth(
+				$_SESSION,
+				$c->config->google->client_id,
+				$c->config->google->secret,
+				array(
+					'canceldest' => 'http://edgeconf.com/',
+					'callback' => $c->config->google->callback
+				)
+			);
 		};
 
 		$this['sentry'] = function($c) {
