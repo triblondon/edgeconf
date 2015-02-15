@@ -42,7 +42,7 @@ class RegisterController extends \Controllers\PublicSite\PublicBaseController {
 
 		$this->sessions = $this->app->db->queryLookupTable('SELECT id as k, name as v FROM sessions WHERE event_id=%d AND type=%s ORDER BY start_time', $this->event['id'], 'Session');
 
-		$data = array_merge($this->req->getPost(), array('email'=>$this->person['email'], 'event_id'=>$this->event['id']));
+		$data = array_merge($this->req->getPost(), array('email'=>$this->user['email'], 'event_id'=>$this->event['id']));
 
 		// Insert a new person record or update the details if already there
 		$this->app->db->query('INSERT INTO people SET {email}, {given_name}, {family_name}, {travel_origin}, {org}, created_at=NOW() ON DUPLICATE KEY UPDATE {given_name}, {family_name}, {travel_origin}, {org}', $data);
