@@ -7,7 +7,7 @@ require __DIR__."/../vendor/autoload.php";
 
 $app = new ServicesContainer();
 
-if (isset($_SERVER['HTTP_DEBUG']) and $_SERVER['HTTP_DEBUG'] == $app->config->debug->debug_key) {
+if (isset($_SERVER['HTTP_DEBUG']) and $_SERVER['HTTP_DEBUG'] === $app->config->debug->debug_key) {
 	ini_set('display_errors', 1);
 	ini_set('html_errors', 1);
 	error_reporting(E_ALL | E_STRICT);
