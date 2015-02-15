@@ -140,7 +140,7 @@
 				<form action='/{{thisevent.slug}}/register' method='post'>
 					<input type='hidden' name='email' value='{{user.email}}'/>
 
-					{% set nouser = person is empty %}
+					{% set nouser = user is empty %}
 					{{ forms.text('given_name', 'Given name', person, 'Usually your first name', nouser) }}
 					{{ forms.text('family_name', 'Family name', person, 'Usually your last name', nouser) }}
 					{{ forms.select('travel_origin', 'Location', person, countries, nouser, true, 'Choose the ISO 3166 country you are most likely to be travelling from to attend the conference.  We use this to figure out where we should host Edge next time.') }}
