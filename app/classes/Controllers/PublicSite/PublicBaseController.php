@@ -4,7 +4,7 @@ namespace Controllers\PublicSite;
 
 class PublicBaseController extends \Controllers\BaseController {
 
-	protected $event, $person;
+	protected $event, $user, $person;
 	private $currencysymbs = array('GBP'=>'£', 'USD'=>'$', 'EUR'=>'€');
 
 	public function initialise() {
@@ -68,7 +68,7 @@ class PublicBaseController extends \Controllers\BaseController {
 		}
 
 		// Allow admins to use Google auth on public pages
-		$user = $this->app->auth->authenticate(false);
+		$this->user = $this->app->auth->authenticate(false);
 
 		// Check for email aliases
 		if ($user) {
