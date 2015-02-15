@@ -69,12 +69,12 @@ class PublicBaseController extends \Controllers\BaseController {
 
 		// Allow admins to use Google auth on public pages
 		$this->user = $this->app->auth->authenticate(false);
-		$this->addViewData('user', $this->user);
-
-		// Check for email aliases
 		if ($this->user) {
 			$target = $this->app->db->querySingle('SELECT target FROM emailaliases WHERE source=%s', $this->user['email']);
 			if ($target) $user['email'] = $target;
+			$this->addViewData('user', $this->user);
+
+			// Provide full person data if there's a  match
 			$persondata = $this->app->db->queryRow('SELECT * FROM people WHERE email=%s', $this->user['email']);
 			if ($persondata) {
 				$this->person = $persondata;
