@@ -11,6 +11,7 @@ class AdminBaseController extends \Controllers\BaseController {
 		$validusers = preg_split('/\s*,\s*/', $this->app->config->auth->admins);
 		if (!in_array(strtolower($user['email']), $validusers)) {
 			$this->resp->setStatus(403);
+			$this->addViewData('user', $user);
 			$this->renderView('errors/403');
 			return false;
 		} else {
