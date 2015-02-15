@@ -55,11 +55,13 @@ $router->route('/admin/rate', 'Admin\Rate');
 $router->route('/admin/badges', 'Admin\Badges');
 $router->route('/admin/exports/(?<export>panels|attendees)', 'Admin\Export');
 
-$router->route('/hub', '/2015-london/hub');
+// Shortcuts
+$promotedevent = '/2015-london';
+$router->route('/', $promotedevent);
+$router->route('/register', $promotedevent.'/register');
+$router->route('/faq(?:\.html)', $promotedevent.'/faq');
+$router->route('/hub', $promotedevent.'/hub');
 $router->route('/feedback', 'https://docs.google.com/forms/d/1bVPMF3FJjLPyj9-ECCko4leA4kV-6y0gbOYiEGvB-18/viewform');
-
-$router->route('/', '/2015-london');
-$router->route('/faq(?:\.html)', '/2015-london/faq');
 
 
 
