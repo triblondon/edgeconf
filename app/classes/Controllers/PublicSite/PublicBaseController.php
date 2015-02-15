@@ -73,9 +73,9 @@ class PublicBaseController extends \Controllers\BaseController {
 
 		// Check for email aliases
 		if ($this->user) {
-			$target = $this->app->db->querySingle('SELECT target FROM emailaliases WHERE source=%s', $user['email']);
+			$target = $this->app->db->querySingle('SELECT target FROM emailaliases WHERE source=%s', $this->user['email']);
 			if ($target) $user['email'] = $target;
-			$persondata = $this->app->db->queryRow('SELECT * FROM people WHERE email=%s', $user['email']);
+			$persondata = $this->app->db->queryRow('SELECT * FROM people WHERE email=%s', $this->user['email']);
 			if ($persondata) {
 				$this->person = $persondata;
 				$this->addViewData('user', $this->person);
