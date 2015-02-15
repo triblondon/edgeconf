@@ -74,8 +74,11 @@ class PublicBaseController extends \Controllers\BaseController {
 		if ($user) {
 			$target = $this->app->db->querySingle('SELECT target FROM emailaliases WHERE source=%s', $user['email']);
 			if ($target) $user['email'] = $target;
-			$this->person = $this->app->db->queryRow('SELECT * FROM people WHERE email=%s', $user['email']);
-			$this->addViewData('user', $this->person);
+			$persondata = $this->app->db->queryRow('SELECT * FROM people WHERE email=%s', $user['email']);
+			if ($persondata) {
+				$this->person = $persondata;
+				$this->addViewData('user', $this->person);
+			}
 		}
 	}
 }

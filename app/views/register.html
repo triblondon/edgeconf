@@ -70,8 +70,8 @@
 					<label for='txtemail'>Email address</label>
 				</div>
 				<div class='small-12 large-8 columns email-field'>
-					{% if person.email %}
-						{{person.email}} (<a href='/auth/logout?redir={{server.request_uri}}'>Not correct?</a>)
+					{% if user.email %}
+						{{user.email}} (<a href='/auth/logout?redir={{server.request_uri}}'>Not correct?</a>)
 					{% else %}
 						<input type='text' name='email' class='inline-field' id='txtemail' />
 						<input type='button' value='Verify' class='email-verify-button small button' />
@@ -120,7 +120,7 @@
 								data-stripe-description='Ticket for {{person.family_name}}, {{person.given_name}}'
 								data-stripe-currency='{{thisevent.currency}}'
 								data-stripe-amount='{{thisevent.price*100}}'
-								data-stripe-email='{{user.email}}'
+								data-stripe-email='{{person.email}}'
 								data-stripe-image='https://edgeconf.com/images/events/{{thisevent.slug}}/logo_social.png'>Claim ticket for {{thisevent.cost}}
 							</button>
 							{% endif %}
