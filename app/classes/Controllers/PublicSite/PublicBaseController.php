@@ -69,6 +69,7 @@ class PublicBaseController extends \Controllers\BaseController {
 
 		// Allow admins to use Google auth on public pages
 		$this->user = $this->app->auth->authenticate(false);
+		$this->addViewData('user', $this->user);
 
 		// Check for email aliases
 		if ($user) {
