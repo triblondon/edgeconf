@@ -16,6 +16,12 @@ class RegisterController extends \Controllers\PublicSite\PublicBaseController {
 			$this->person['attendance'] = $this->app->db->queryRow('SELECT * FROM attendance WHERE person_id=%d AND event_id=%d', $this->person['id'], $this->event['id']);
 			$this->person['proposals'] = $this->app->db->queryLookupTable('SELECT session_id as k, proposal as v FROM participation WHERE person_id=%d AND session_id IN %d|list', $this->person['id'], array_keys($this->sessions));
 			$this->person['sessions'] = array_keys($this->person['proposals']);
+		} else {
+
+			// If there's a state query param but user is not logged in, strip query string and redirect
+			if ($this->req->getQuery('state')) {
+				return $this->resp->redirect($this->req->getPath());
+			}
 		}
 
 		$countries = $this->app->db->queryLookupTable('SELECT iso as k, name as v FROM countries ORDER BY name');
