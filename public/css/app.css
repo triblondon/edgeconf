@@ -279,7 +279,9 @@ form select {
     line-height: 1.3;
     display: block;
     white-space: nowrap;
-    text-overflow: ellipsis; }
+    text-overflow: ellipsis;
+    font-size: 0.9em;
+    font-weight: bold; }
   .schedule-slot .session-participants .org {
     font-style: italic;
     font-size: 12px;
