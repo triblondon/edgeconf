@@ -24,10 +24,10 @@ $(function() {
 	$('.register form').submit(function(e) {
 		var errorhtml = '<div class="note error">You forgot this one</div>';
 		$('.error').remove();
-		if (!$('#txtgiven_name').val()) $('#txtgiven_name').parent().append(errorhtml);
-		if (!$('#txtfamily_name').val()) $('#txtfamily_name').parent().append(errorhtml);
-		if (!$('#seltravel_origin').val()) $('#seltravel_origin').parent().append(errorhtml);
-		if (!$('#txtorg').val()) $('#txtorg').parent().append(errorhtml);
+		if (!$('#txtgiven_name').val().trim()) $('#txtgiven_name').parent().append(errorhtml);
+		if (!$('#txtfamily_name').val().trim()) $('#txtfamily_name').parent().append(errorhtml);
+		if (!$('#seltravel_origin').val().trim()) $('#seltravel_origin').parent().append(errorhtml);
+		if (!$('#txtorg').val().trim()) $('#txtorg').parent().append(errorhtml);
 		if (!$('#chklistsessions .form-chklist__chk:checked').length) $('#chklistsessions').append('<div class="note error">Please choose at least one</div>');
 		if ($('#chklistsessions .form-chklist__chk:checked').length > 4) $('#chklistsessions').append('<div class="note error">Too many.  Please choose no more than 4 options</div>');
 		$('.proposal:visible').each(function() {
@@ -63,14 +63,17 @@ $(function() {
 		return msg;
 	});
 
-	$('.email-verify-button').click(function() {
+	$('.email-verify-button').click(submitEmail);
+	$('#txtemail').on('keypress', function(e) { if (e.keyCode === 13) submitEmail() });
+	$('.email-verify-reset-link').click(resetEmailField);
+	function submitEmail() {
 		$('.email-field .error').remove();
 		if (!/^\S+@\S+\.\S+$/.test($('#txtemail').val())) {
 			$('.email-verify-button').after('<div class="note error"><em>Probably</em> not a valid email address</div>');
 			return;
 		}
 		this.blur();
-		$('#txtemail').attr('disabled', 'disabled');
+		$('#txtemail, .email-verify-button').attr('disabled', 'disabled');
 		$.ajax({
 			type: 'POST',
 			url: '/auth/email/start-verify',
@@ -82,12 +85,11 @@ $(function() {
 			},
 			error: resetEmailField
 		});
-	});
-	$('.email-verify-reset-link').click(resetEmailField);
+	};
 	function resetEmailField() {
 		$('.email-verify-code').hide().find('input:text').val('');
 		$('.email-verify-button').show();
-		$('#txtemail').removeAttr('disabled').focus();
+		$('#txtemail, .email-verify-button').removeAttr('disabled').focus();
 	}
 
 	$('.email-verify2-button').click(function() {
