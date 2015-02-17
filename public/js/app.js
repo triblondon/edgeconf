@@ -398,13 +398,14 @@ $(function() {
 $('#cancel-ticket').on('click', function() {
 	var btn = $(this);
 	btn.attr('disabled', 'disabled');
+	btn.closest('.reveal-modal').find('.action').attr('disabled', 'disabled');
 	$.post('/'+btn.attr('data-event')+'/pay/cancel', function(resp) {
 		if (resp === true) {
 			btn.html('Cancelling...');
 			location.href=location.pathname+'?state=cancelled';
 		} else {
 			alert(resp);
-			btn.removeAttr('disabled');
+			btn.closest('.reveal-modal').find('.action').removeAttr('disabled');
 		}
 	});
 });
