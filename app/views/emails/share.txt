@@ -1,0 +1,11 @@
+
+Hi!
+
+Your friend or colleague {{person.first_name}} {{person.family_name}} asked us to let you know about Edge, and give you the chance to register to attend the conference, taking place in {{thisevent.location}} on {{thisevent.start_time|date('F jS, Y')}}.
+
+View the schedule: https://edgeconf.com/{{event.slug}}/schedule
+Register now: https://edgeconf.com/{{event.slug}}/register
+
+------
+
+{% include 'emails/partials/about.txt' %}

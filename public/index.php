@@ -40,6 +40,7 @@ $router->route('/:eventslug/video', 'PublicSite\VideoAPI');
 $router->route('/:eventslug/video/(?<video_id>[\w\d\-\_]+)', 'PublicSite\VideoAPI');
 $router->route('/:eventslug/pay/charge', 'PublicSite\BillingCharge');
 $router->route('/:eventslug/pay/cancel', 'PublicSite\BillingCancel');
+$router->route('/:eventslug/share', 'PublicSite\ShareByEmail');
 
 // Public tools
 $router->route('/sign', 'Signage');

@@ -27,24 +27,50 @@
 	{% elseif state and person %}
 		<section class="layer">
 			<div class="row">
-				<div class="small-12 columns">
 
-					{% if state == 'registered' %}
+				{% if state == 'registered' %}
+					<div class="small-12 columns">
 						<h2>Thanks!</h2>
 						<p>Your application has been recorded against the email address <strong>{{person.email}}</strong>.  We'll be in touch soon (invitations will be sent gradually over the period leading up to the conference, with plenty of time to book travel).</p>
 						<p>If you want to change your application, just start again, and we'll open your existing application for editing.</p>
+					</div>
 
-					{% elseif state == 'paid' %}
+				{% elseif state == 'paid' %}
+					<div class="small-12 columns">
 						<h2>Thanks!</h2>
 						<p>Your card was successfully billed {{thisevent.currency_symb}}{{thisevent.price}}.  A receipt has been sent to <strong>{{person.email}}</strong>.  See you at Edge!</p>
 						<p>Please note that Edge tickets are non-transferrable, but you can cancel your ticket up to 7 days before the conference for a full refund (no refunds after that).</p>
+						<p>Now that you've got your ticket, you're going to want to make sure the best people in the community come along so we can all get the most out of Edge.  We'd really appreciate it if you'd take a moment to:</p>
+					</div>
+					</div><div class="row">
+					<div class='small-12 medium-4 columns'>
+						<h3>Say you're going</h3>
+						<p>Go to our <a href='http://lanyrd.com/2015/edgeconf/'>event page on Lanyrd</a> and click the big <strong>I'm attending this event</strong> button.</p>
+						<p><a href='http://lanyrd.com/2015/edgeconf/'><img src='/images/events/{{thisevent.slug}}/lanyrd.png' /></a></p>
+					</div>
+					<div class='small-12 medium-4 columns'>
+						<h3>Tweet about it</h3>
+						<p>You could tweet something like this (click the button to tweet it now):</p>
+						<div class='tweet-this'>
+							<textarea style='margin-bottom: 5px; display: block; height: 100px; resize: none'>Got my ticket for Edge conf. You should definitely check out this conference.</textarea>
+							<div style='text-align:right'><input type='button' value='Tweet this' class='small button' style='padding: 11px' /></div>
+						</div>
+					</div>
+					<div class='small-12 medium-4 columns'>
+						<h3>Invite someone else</h3>
+						<p>Drop in the email address of someone who you think should be at Edge.  We'll send them a note.</p>
+						<input type='text' id='txtinviteemail' placeholder='user@example.com' style='width: 75%; display: inline-block' />
+						<input type='button' value='Send' class='invite-send-button small button' style='padding: 11px' />
+						<p style='font-size: 90%'>We don't retain the email address and won't send the invite if the recipient is already registered.</p>
+					</div>
 
-					{% elseif state == 'cancelled' %}
+				{% elseif state == 'cancelled' %}
+					<div class="small-12 columns">
 						<h2>Bummer</h2>
 						<p>Sorry to hear you won't be able to attend Edge.  Your refund was processed and an email was sent to {{person.email}}.</p>
 						<p>Your registration data for this event has been removed, so if you reload the registration page you will be at the beginning of the process.</p>
-					{% endif %}
-				</div>
+					</div>
+				{% endif %}
 			</div>
 		</section>
 	{% else %}
@@ -176,4 +202,6 @@
 			{% endif %}
 		</section>
 	{% endif %}
+
+	<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 {% endblock %}

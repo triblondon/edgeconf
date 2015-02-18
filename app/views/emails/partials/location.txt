@@ -1,4 +1,4 @@
-Here's a reminder of where and when Edge will be held:
+Here's where and when Edge will be held:
 
 {{event.start_time|date('l F jS, Y')}}
 

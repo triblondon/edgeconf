@@ -1,0 +1,14 @@
+{% extends 'emails/layout.html' %}
+
+{% block content %}
+	<h3 class='space'>Hi!</h3>
+
+	<p>Your friend or colleague {{person.given_name}} {{person.family_name}} asked us to let you know about Edge, and give you the chance to register to attend the conference, taking place in {{event.location}} on {{event.start_time|date('F jS, Y')}}.</p>
+
+	<p>
+		<a href="https://edgeconf.com/{{event.slug}}/schedule" class="btn">View the schedule</a>
+		<a href="https://edgeconf.com/{{event.slug}}/register" class="btn">Register now</a>
+	</p>
+
+	{% include 'emails/partials/about.html' %}
+{% endblock %}

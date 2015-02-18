@@ -413,3 +413,20 @@ $('#cancel-ticket').on('click', function() {
 $('.close-modal').on('click', function() {
 	$(this).closest('.reveal-modal').foundation('reveal', 'close');
 });
+
+$('.tweet-this .button').on('click', function() {
+	var txt = encodeURIComponent($(this).blur().closest('.tweet-this').find('textarea').val());
+	window.open("https://twitter.com/intent/tweet?text="+txt+"&url=https://edgeconf.com/2015-london/register&related=edgeconf", "tweet_this", "menubar=no,location=no,resizable=no,scrollbars=no,status=no,width=646,height=436");
+});
+
+$('.invite-send-button').on('click', function() {
+	if (!/^\S+@\S+\.\S+$/.test($('#txtinviteemail').val())) {
+		$('.invite-send-button').after('<div class="note error"><em>Probably</em> not a valid email address</div>');
+		return;
+	}
+	$(this).blur().attr('disabled', 'disabled');
+	$.post('share', {email:$('#txtinviteemail').val()}, function(resp) {
+		alert('Invitation sent.  Thanks!');
+		$('.invite-send-button').removeAttr('disabled');
+	});
+});
