@@ -19,7 +19,8 @@ class BillingChargeController extends \Controllers\PublicSite\PublicBaseControll
 				"amount" => ($this->event['price']*100),
 				"currency" => $this->event['currency'],
 				"card" => $token['id'],
-				"description" => "Ticket for ".$this->person['email']
+				"description" => "Ticket for ".$this->person['email'],
+				"receipt_email" => $this->person['email']
 			);
 			$charge = \Stripe_Charge::create($data);
 
