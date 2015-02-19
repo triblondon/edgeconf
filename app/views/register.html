@@ -33,6 +33,28 @@
 						<h2>Thanks!</h2>
 						<p>Your application has been recorded against the email address <strong>{{person.email}}</strong>.  We'll be in touch soon (invitations will be sent gradually over the period leading up to the conference, with plenty of time to book travel).</p>
 						<p>If you want to change your application, just start again, and we'll open your existing application for editing.</p>
+						<p>Wondering what to do now?  Glad you asked.</p>
+					</div>
+					</div><div class="row">
+					<div class='small-12 medium-4 columns'>
+						<h3>Say you're tracking</h3>
+						<p>Go to our <a href='http://lanyrd.com/2015/edgeconf/'>event page on Lanyrd</a> and click the big <strong>Track this event</strong> button.</p>
+						<p><a href='http://lanyrd.com/2015/edgeconf/'><img src='/images/events/{{thisevent.slug}}/lanyrd.png' /></a></p>
+					</div>
+					<div class='small-12 medium-4 columns'>
+						<h3>Tweet about it</h3>
+						<p>You could tweet something like this (click the button to tweet it now):</p>
+						<div class='tweet-this'>
+							<textarea style='margin-bottom: 5px; display: block; height: 100px; resize: none'>Check out the schedule for @edgeconf in London (June 27).  I've signed up.</textarea>
+							<div style='text-align:right'><input type='button' value='Tweet this' class='small button' style='padding: 11px' /></div>
+						</div>
+					</div>
+					<div class='small-12 medium-4 columns'>
+						<h3>Invite someone else</h3>
+						<p>Drop in the email address of someone who you think should be at Edge.  We'll send them a note.</p>
+						<input type='text' id='txtinviteemail' placeholder='user@example.com' style='width: 75%; display: inline-block' />
+						<input type='button' value='Send' class='invite-send-button small button' style='padding: 11px' />
+						<p style='font-size: 90%'>We don't retain the email address and won't send the invite if the recipient is already registered.</p>
 					</div>
 
 				{% elseif state == 'paid' %}
