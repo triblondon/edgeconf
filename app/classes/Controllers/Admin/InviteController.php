@@ -10,7 +10,7 @@ class InviteController extends \Controllers\Admin\AdminBaseController {
 		$event = $this->app->db->queryRow('SELECT * FROM events WHERE end_time > NOW() ORDER BY start_time ASC LIMIT 1');
 
 		// Fetch people who could be invited
-		$people = $this->app->db->queryAllRows('SELECT p.id, p.given_name, p.family_name, p.email, p.org, GROUP_CONCAT(s.name) as sessions, AVG(pa.rating) as avgrating, a.type, a.invite_code, a.invite_date_sent, a.invite_date_reminded, a.ticket_type, a.ticket_id, IF(ticket_type IS NOT NULL, %s, IF(a.invite_code IS NOT NULL, %s, %s)) as status FROM people p INNER JOIN attendance a ON p.id=a.person_id AND a.event_id=%d LEFT JOIN participation pa ON p.id=pa.person_id INNER JOIN sessions s ON pa.session_id=s.id AND s.event_id=%d GROUP BY p.id ORDER BY status, a.type=%s DESC, avgrating DESC', 'Attending', 'Invited', 'Registered', $event['id'], $event['id'], 'VIP');
+		$people = $this->app->db->queryAllRows('SELECT p.id, p.given_name, p.family_name, p.email, p.org, AVG(pa.rating) as avgrating, a.type, a.invite_code, a.invite_date_sent, a.invite_date_reminded, a.ticket_type, a.ticket_id, IF(ticket_type IS NOT NULL, %s, IF(a.invite_code IS NOT NULL, %s, %s)) as status FROM people p INNER JOIN attendance a ON p.id=a.person_id AND a.event_id=%d LEFT JOIN participation pa ON p.id=pa.person_id GROUP BY p.id ORDER BY status, a.type=%s DESC, avgrating DESC', 'Attending', 'Invited', 'Registered', $event['id'], $event['id'], 'VIP');
 
 		$this->addViewData(array(
 			'event' => $event,
