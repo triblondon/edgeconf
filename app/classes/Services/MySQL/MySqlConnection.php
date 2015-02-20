@@ -356,7 +356,7 @@ class MySqlConnection {
 		}
 		if (!$resultObject and !$this->suppressErrors) {
 			$this->runQuery("ROLLBACK");
-			throw new MySqlQueryException("$resultDetails[errorMsg] ($resultDetails[errorNo]) eh:caller occured in query: $queryExpr", $resultDetails['errorNo'], get_defined_vars());
+			throw new MySqlQueryException($resultDetails['errorMsg']." (".$resultDetails['errorNo'].") eh:caller occured in query: ".$queryExpr, $resultDetails['errorNo']);
 		}
 
 		// If the result worked, reset the deadlockretry variable
