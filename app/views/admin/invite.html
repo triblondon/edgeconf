@@ -4,54 +4,42 @@
 
 {% block content %}
 <div class='container'>
-	<h3 style='margin: 40px 0 20px0 '>Send invites</h3>
+	<h2>Edge {{event.id}} {{event.location}}</h2>
 
-	<p>Target event = Edge {{event.id}} {{event.location}}</p>
-
+	{% if people %}
 	<form method='post' action='/admin/invite'>
-	<input type='hidden' name='action' value='invite' />
 	<table>
-		<thead>
-			<tr><th>Name</th><th>Org</th><th>Email</th><th>Sessions</th><th>Avg rating</th><th></th></tr>
-		</thead>
+		<thead><tr><th>Name</th><th>Org</th><th>Email</th><th>Status</th><th>Detail</th><th></th></tr></thead>
 		<tbody>
-			{% for person in invitable %}
+			{% for person in people %}
 			<tr>
-				<td>{{person.given_name}} {{person.family_name}}</td>
+				<td><a href='/admin/people/{{person.id}}'>{{person.given_name}} {{person.family_name}}</a></td>
 				<td>{{person.org}}</td>
 				<td>{{person.email}}</td>
-				<td>{{person.sessions}}</td>
-				<td>{% if person.type == 'VIP' %}VIP{% else %}{{person.avgrating|round(1)}}{% endif %}</td>
-				<td><input type='checkbox' name='people[]' value="{{person.id}}" /></td>
+				<td>{{person.status}}</td>
+				{% if person.status == 'Attending' %}
+				<td>
+					{{person.ticket_type}}
+					{% if person.ticket_id %}
+					(<a href='https://dashboard.stripe.com/payments/{{person.ticket_id}}'>{{person.ticket_id}}</a>)
+					{% endif %}
+				</td><td>
+					<input type='button' value='Cancel ticket' class='admin-cancel-ticket' data-person-id='{{person.id}}' />
+				</td>
+				{% elseif person.invite_date_reminded %}
+				<td>{{person.invite_date_reminded|timeago}} (Reminded)</td><td></td>
+				{% elseif person.invite_code %}
+				<td>{{person.invite_date_sent|timeago}} (Invited)</td>
+				<td><input type='button' value='Send reminder' class='admin-remind' data-person-id='{{person.id}}' /></td>
+				{% else %}
+				<td>{% if person.type == 'VIP' %}VIP{% else %}Rated {{person.avgrating|round(1)}}{% endif %}</td>
+				<td><input type='button' value='Invite' class='admin-invite' data-person-id='{{person.id}}' /></td>
+				{% endif %}
 			</tr>
 			{% endfor %}
 		</tbody>
 	</table>
-	<p style='text-align:right; margin-top: 10px'><input type='submit' class='button' value='Invite selected' /></p>
 	</form>
-
-	<h3 style='margin: 40px 0 20px 0'>Send reminders</h3>
-
-	<form method='post' action='/admin/invite'>
-	<input type='hidden' name='action' value='remind' />
-	<table>
-		<thead>
-			<tr><th>Name</th><th>Org</th><th>Email</th><th>Sessions</th><th>Avg rating</th><th></th></tr>
-		</thead>
-		<tbody>
-			{% for person in remindable %}
-			<tr>
-				<td>{{person.given_name}} {{person.family_name}}</td>
-				<td>{{person.org}}</td>
-				<td>{{person.email}}</td>
-				<td>{{person.sessions}}</td>
-				<td>{{person.avgrating|round(1)}}</td>
-				<td><input type='checkbox' name='people[]' value="{{person.id}}" /></td>
-			</tr>
-			{% endfor %}
-		</tbody>
-	</table>
-	<p style='text-align:right; margin-top: 10px'><input type='submit' class='button' value='Remind selected' /></p>
-	</form>
+	{% endif %}
 </div>
 {% endblock %}

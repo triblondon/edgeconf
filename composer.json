@@ -10,7 +10,8 @@
 		"mailgun/mailgun-php": "~1.7.2",
 		"sendgrid/sendgrid": "2.2.0",
 		"stripe/stripe-php": "1.*",
-		"pelago/emogrifier": "@dev"
+		"pelago/emogrifier": "@dev",
+		"nesbot/carbon": "*"
 	},
 	"autoload": {
 		"psr-0": {

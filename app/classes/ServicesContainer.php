@@ -1,5 +1,7 @@
 <?php
 
+use Carbon\Carbon;
+
 class ServicesContainer extends Pimple {
 
 	function __construct() {
@@ -43,6 +45,9 @@ class ServicesContainer extends Pimple {
 			}));
 			$twig->addFilter(new Twig_SimpleFilter('tourl', function ($string) {
 				return rawurlencode(str_replace('\n', ',', $string));
+			}));
+			$twig->addFilter(new Twig_SimpleFilter('timeago', function ($date) {
+				return Carbon::instance($date)->diffForHumans();
 			}));
 			$twig->addGlobal('server', array(
 				'request_uri' => $_SERVER['REQUEST_URI']

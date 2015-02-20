@@ -430,3 +430,26 @@ $('.invite-send-button').on('click', function() {
 		$('.invite-send-button').removeAttr('disabled');
 	});
 });
+
+
+$('.admin-cancel-ticket').click(function() {
+	var btn = $(this);
+	btn.attr('disabled', 'disabled');
+	$.post('/admin/invite', {action:'cancel', person_id:btn.attr('data-person-id')}, function() {
+		btn.replaceWith('<span class="result">Cancelled</span>');
+	});
+});
+$('.admin-remind').click(function() {
+	var btn = $(this);
+	btn.attr('disabled', 'disabled');
+	$.post('/admin/invite', {action:'remind', person_id:btn.attr('data-person-id')}, function() {
+		btn.replaceWith('<span class="result">Sent reminder</span>');
+	});
+});
+$('.admin-invite').click(function() {
+	var btn = $(this);
+	btn.attr('disabled', 'disabled');
+	$.post('/admin/invite', {action:'invite', person_id:btn.attr('data-person-id')}, function() {
+		btn.replaceWith('<span class="result">Sent invite</span>');
+	});
+});
