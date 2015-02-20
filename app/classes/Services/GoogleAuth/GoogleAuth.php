@@ -50,7 +50,7 @@ class GoogleAuth {
 
 		// Validate state
 		if (empty($params['state']) or $params['state'] !== $this->session['csrf']) {
-			throw new \Exception("CRSF check failed");
+			throw new \Exception("CSRF check failed");
 		}
 
 		if (!empty($params['error'])) {
