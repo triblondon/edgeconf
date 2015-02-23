@@ -24,6 +24,7 @@ class MySqlResult implements Iterator, Countable {
 		$this->errorNo = (int)$resultDetails['errorNo'];
 		$this->errorMsg = (string)$resultDetails['errorMsg'];
 		$this->queryExpr = (string)$resultDetails['queryExpr'];
+		if ($timezone == '+00:00') $timezone = 'UTC';
 		$this->timezone = $timezone;
 
 		if (isset($resultDetails["timeTaken"])) {
