@@ -197,10 +197,10 @@
 
 					<div class="row form-field{{ nouser ? ' disabled' : '' }}">
 						<div class="small-12 large-4 columns">
-							<label>Expertise</label>
+							<label>Your views</label>
 						</div>
 						<div class='small-12 large-8 columns'>
-							<div class='note'>What point would you make in this session?  Or what question would you ask?  We'll use this to prioritise invitations for those who have the most to contribute on the day, using an anonymised selection process.  Questions are good, opinions even better!</div>
+							<div class='note'>What point would you make in this session?  What's your opinion on this topic?  We'll use this to prioritise invitations for those who have the most to contribute on the day, using an anonymised selection process.</div>
 							{% for id,name in sessions %}
 								<div class='proposal' id='proposalgroup_{{id}}'><label class='sublabel' for='txtproposal_{{id}}' id='lblproposal_{{session.id}}'>{{name}}</label><textarea name='proposal_{{id}}' id='txtproposal_{{id}}'>{{person.proposals[id]}}</textarea></div>
 							{% endfor %}
