@@ -80,6 +80,12 @@ form select {
 }
 
 
+/* Override Foundation grid max-width */
+.row, .contain-to-grid .top-bar {
+  max-width: 80rem;
+}
+
+
 /* Objects */
 
 .top-bar, .contain-to-grid, .top-bar-section li a:not(.button) {

@@ -52,6 +52,10 @@ table {
 form select {
   min-width: 85px; }
 
+/* Override Foundation grid max-width */
+.row, .contain-to-grid .top-bar {
+  max-width: 80rem; }
+
 /* Objects */
 .top-bar, .contain-to-grid, .top-bar-section li a:not(.button) {
   background-color: black; }
