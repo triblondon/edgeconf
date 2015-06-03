@@ -26,6 +26,10 @@ $router = new Routing\Router($app);
 $router->setPattern('eventslug', '\d{4}\-\w+');
 $router->setPattern('id', '\d+');
 
+// Cope with Andrew's extreme muppetry
+$router->route('/2014-sf/register', '/2015-london/register');
+
+
 // Authentication routes
 $router->route('/auth/callback', 'AuthCallback');
 $router->route('/auth/logout', 'AuthLogout');
