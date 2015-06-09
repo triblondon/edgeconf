@@ -27,16 +27,15 @@ class ExportController extends \Controllers\Admin\AdminBaseController {
 					);
 				}
 			}
-			$gsheet = new \GSheet('0AqIP_kC-Q_iIdE9oWU9xb0I5dF82RHhiOTJuQk1GNWc', 4);
+			$gsheet = new \GSheet($this->app->config->google->question_sheet, $this->app->config->google->question_sheet_gid);
 			foreach ($gsheet as $row) {
-				if (is_numeric($row[1]) and $row[2]) {
+				if (is_numeric($row[1]) and !empty($row[2])) {
 					$data[self::slugify($row[0])]['questions'][] = $row[2];
 				}
 			}
 		} elseif ($this->routeargs['export'] == 'attendees') {
 			$attendees = $this->app->db->queryAllRows('SELECT pe.id, pe.family_name, pe.given_name, pe.email, pe.org, a.ticket_type, a.ticket_date FROM people pe INNER JOIN attendance a ON a.person_id=pe.id WHERE a.event_id=%d AND ticket_type IS NOT NULL', $event['id']);
 			foreach ($attendees as $pe) {
-				$pe['ticket_date'] = new \DateTime($pe['ticket_date']);
 				$data[] = array(
 					'Attendee no.' => $pe['id'],
 					'Date' => $pe['ticket_date']->format('j M Y'),

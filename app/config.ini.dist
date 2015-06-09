@@ -16,6 +16,8 @@ list_id = [____________]
 client_id = [____________]
 secret = [____________]
 callback = https://edgeconf.com/auth/callback
+question_sheet = [______________]
+question_sheet_gid = [___]
 
 [view]
 cache_path = /tmp/viewscache
