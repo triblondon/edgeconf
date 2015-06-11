@@ -66,7 +66,7 @@ $router->route('/', $promotedevent);
 $router->route('/register', $promotedevent.'/register');
 $router->route('/faq(?:\.html)', $promotedevent.'/faq');
 $router->route('/hub', $promotedevent.'/hub');
-$router->route('/feedback', 'https://docs.google.com/forms/d/1bVPMF3FJjLPyj9-ECCko4leA4kV-6y0gbOYiEGvB-18/viewform');
+$router->route('/feedback', 'https://docs.google.com/forms/d/1exJhCC0YjwPBh3qXf8BRNKSZ2kiY7XRGk_LLg_lhl3M/viewform');
 
 
 
