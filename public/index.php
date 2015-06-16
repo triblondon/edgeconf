@@ -46,6 +46,8 @@ $router->route('/:eventslug/pay/charge', 'PublicSite\BillingCharge');
 $router->route('/:eventslug/pay/cancel', 'PublicSite\BillingCancel');
 $router->route('/:eventslug/share', 'PublicSite\ShareByEmail');
 
+$router->route('/bot', 'PublicSite\Bot');
+
 // Public tools
 $router->route('/sign', 'Signage');
 
