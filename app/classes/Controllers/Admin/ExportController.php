@@ -48,8 +48,19 @@ class ExportController extends \Controllers\Admin\AdminBaseController {
 				);
 			}
 		}
-
-		$this->resp->setJSON($data);
+		if (empty($this->routeargs['format']) or $this->routeargs['format'] === 'json') {
+			$this->resp->setJSON($data);
+		} else {
+			$csv = array(join(",", array_keys($data[0])));
+			foreach ($data as $row) {
+				$csvline = array();
+				foreach ($row as $field) $csvline[] = is_string($field) ? json_encode($field) : json_encode(json_encode($field));
+				$csv[] = join(',', $csvline);
+			}
+			$this->resp->setContent(join("\n", $csv));
+			$this->resp->setHeader('Content-Type', 'text/csv');
+			$this->resp->setHeader('Content-disposition', 'attachment; filename=export.csv');
+		}
 	}
 
 	private static function slugify($str, $sep='_') {

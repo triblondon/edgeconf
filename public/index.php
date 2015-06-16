@@ -58,7 +58,7 @@ $router->route('/admin/panels', 'Admin\Panels');
 $router->route('/admin/invite', 'Admin\Invite');
 $router->route('/admin/rate', 'Admin\Rate');
 $router->route('/admin/badges', 'Admin\Badges');
-$router->route('/admin/exports/(?<export>panels|attendees)', 'Admin\Export');
+$router->route('/admin/exports/(?<export>panels|attendees)(?:\.(?<format>csv|json))?', 'Admin\Export');
 
 // Shortcuts
 $promotedevent = '/2015-london';
