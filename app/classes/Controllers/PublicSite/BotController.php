@@ -7,9 +7,8 @@ class BotController extends \Controllers\PublicSite\PublicBaseController {
 	public function post() {
 
 		$resp = '';
-		$qry = strtolower(preg_replace('/^\@?edgebot\s*\:?\s+/i', '', $this->req->getPost('text')));
 
-		if ($qry === 'now') {
+		if ($this->routeargs['command'] === 'now') {
 
 			$sessions = $this->app->db->queryAllRows('SELECT * FROM sessions WHERE start_time < NOW() AND end_time > NOW()');
 			if (!count($sessions)) {
@@ -17,28 +16,40 @@ class BotController extends \Controllers\PublicSite\PublicBaseController {
 			} else {
 				$resp = 'Sessions in progress:';
 				foreach ($sessions as $session) {
-					$resp .= "\n    • `".$session['start_time']->format('H:i')."` *" . $session['name'] . "*";
+					$resp .= "\n    •  `".$session['start_time']->format('H:i')."`  *" . $session['name'] . "*";
 					if ($session['room']) {
 						$resp .= " (in " . $session['room'] . ")";
 					}
 				}
 			}
 
+		} elseif ($this->routeargs['command'] === 'next') {
 
-		} else {
+			$timeslot = $this->app->db->querySingle('SELECT start_time FROM sessions WHERE start_time > NOW() ORDER BY start_time LIMIT 1');
+			$sessions = $this->app->db->queryAllRows('SELECT * FROM sessions WHERE start_time = %s|date', $timeslot);
+			if (!count($sessions)) {
+				$resp = "There are no upcoming sessions";
+			} else {
+				$resp = 'Coming up:';
+				foreach ($sessions as $session) {
+					$resp .= "\n    •  `".$session['start_time']->format('H:i')."`  *" . $session['name'] . "*";
+					if ($session['room']) {
+						$resp .= " (in " . $session['room'] . ")";
+					}
+				}
+			}
 
-			$help = array(
-				'now' => "What sessions are happening now",
-				'next' => "What sessions are coming up next",
-				'feedback <text>' => "Log feedback"
-			);
-			$resp = 'Usage:';
-			foreach ($help as $term => $helpstr) $resp .= '\n    • `'.$term.'` - '.$helpstr;
+		} elseif ($this->routeargs['command'] === 'feedback') {
+
+			if ($this->req->getPost('text')) {
+				$this->app->db->query('INSERT INTO feedback SET {user_name}, {channel_name}, {text}, created_at=NOW()', $this->req->getPost());
+				$resp = 'Thank you, your feedback has been recorded';
+			} else {
+				$resp = 'Usage: `/feedback <feedback text>`';
+			}
 		}
 
-		if ($resp) {
-			$this->resp->setJSON(array("text"=>$resp));
-		}
+		if ($resp) $this->resp->setContent($resp);
 	}
 
 }

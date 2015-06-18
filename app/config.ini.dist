@@ -42,3 +42,7 @@ password = [____________]
 [stripe]
 public_key = [____________]
 secret_key = [____________]
+
+[slack]
+incoming_webhook = [____________]
+announce_channel = [____________]
