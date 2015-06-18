@@ -202,9 +202,6 @@ class MySqlResult implements Iterator, Countable {
 	 * @return array Array containing one element per row in the resultset
 	 */
 	public function getAllRows() {
-
-		// If the fetch_all method exists (requires mysqlnd), then use it.
-		if (method_exists($this->result, 'fetch_all')) return $this->result->fetch_all(MYSQLI_ASSOC);
 		$data = array();
 		foreach ($this as $row) {
 			$data[] = $this->convertDateTimes($row);
