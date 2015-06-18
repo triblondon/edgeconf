@@ -116,14 +116,14 @@ class MySqlConnection {
 			'filename' => $filename,
 		);
 		if (!is_file($filename)) {
-			throw new MySqlConnectionException('MySqlConnection config file not found', 0, null, $exceptionContext);
+			throw new MySqlConnectionException('MySqlConnection config file not found');
 		} elseif (!is_readable($filename)) {
-			throw new MySqlConnectionException('MySqlConnection config file not readable', 0, null, $exceptionContext);
+			throw new MySqlConnectionException('MySqlConnection config file not readable');
 		} elseif (($variable = @file_get_contents($filename)) === false) {
 			if (($error = error_get_last()) !== null) {
 				$exceptionContext['error'] = $error['message'];
 			}
-			throw new MySqlConnectionException('Error attempting to read from MySqlConnection config file', 0, null, $exceptionContext);
+			throw new MySqlConnectionException('Error attempting to read from MySqlConnection config file');
 		} else {
 			return trim($variable);
 		}
@@ -142,7 +142,7 @@ class MySqlConnection {
 		$this->connectionOpened = false;
 
 		if (!($this->conn = mysqli_init()) instanceof mysqli) {
-			throw new MySqlConnectionException('Unable to create MySQLi instance', get_defined_vars());
+			throw new MySqlConnectionException('Unable to create MySQLi instance');
 
 		} else {
 			$failedConnectionAttempts = 0;
@@ -150,18 +150,14 @@ class MySqlConnection {
 
 				// It is necessary to set the connection timeout and autocommit inside this loop, since MySQLi will reset these variables after a failed connection attempt
 				if (!$this->conn->options(MYSQLI_OPT_CONNECT_TIMEOUT, 2)) {
-					throw new MySqlConnectionException("Error setting MySQL connection timeout: $this->conn->error", $this->conn->errno, get_defined_vars());
+					throw new MySqlConnectionException("Error setting MySQL connection timeout: $this->conn->error", $this->conn->errno);
 
 				} elseif (!$this->conn->options(MYSQLI_INIT_COMMAND, 'SET autocommit = 1')) {
-					throw new MySqlConnectionException("Error enabling MySQL 'autocommit' system variable: $this->conn->error", $this->conn->errno, get_defined_vars());
+					throw new MySqlConnectionException("Error enabling MySQL 'autocommit' system variable: $this->conn->error", $this->conn->errno);
 
 				} elseif (!@$this->conn->real_connect($this->server, $this->username, $this->password, $this->dbname)) {
 					if (++$failedConnectionAttempts == self::MAX_CONNECTION_FAILURES) {
-						throw new MySqlConnectionException("Connection to database server '{$this->server}' could not be established: {$this->conn->error}", $this->conn->errno, array(
-							'context' => get_defined_vars(),
-							'eh:hashcode'=>'587CD2E0',
-							'eh:noreport'=>true,
-						));
+						throw new MySqlConnectionException("Connection to database server '{$this->server}' could not be established: {$this->conn->error}", $this->conn->errno);
 					} else {
 						trigger_error("Database connection error '{$this->conn->error}' server '{$this->server}' (will try again) eh:noreport eh:hashcode=DB".str_pad($this->conn->errno, 6, '0', STR_PAD_LEFT).' eh:tolerance=10/day', E_USER_WARNING);
 						sleep($failedConnectionAttempts);
@@ -172,10 +168,10 @@ class MySqlConnection {
 			} while (!$this->connectionOpened);
 
 			if (!$this->conn->set_charset('utf8')) {
-				throw new MySqlConnectionException("Error setting MySQL client character set: $this->conn->error", $this->conn->errno, get_defined_vars());
+				throw new MySqlConnectionException("Error setting MySQL client character set: $this->conn->error", $this->conn->errno);
 
 			} elseif (!empty($this->timezone) and $this->runQuery('SET time_zone = "' . $this->sqlenc($this->timezone) . '"') === false) {
-				throw new MySqlConnectionException("Error setting MySQL session time zone: $this->conn->error", $this->conn->errno, get_defined_vars());
+				throw new MySqlConnectionException("Error setting MySQL session time zone: $this->conn->error", $this->conn->errno);
 			}
 		}
 	}
@@ -297,7 +293,7 @@ class MySqlConnection {
 						$error = "Unknown PREG error.";
 						break;
 				}
-				throw new MySqlQueryException("Query is empty: $error eh:caller", get_defined_vars());
+				throw new MySqlQueryException("Query is empty: $error eh:caller");
 			}
 		} while (empty($queryExpr));
 
@@ -343,7 +339,7 @@ class MySqlConnection {
 				$mysqldebug_proclist = array();
 				while ($row = $proclistres->fetch_assoc()) $mysqldebug_proclist[] = $row;
 			}
-			throw new MySqlLockTimeoutException('MySQL lock wait timeout eh:caller', get_defined_vars());
+			throw new MySqlLockTimeoutException('MySQL lock wait timeout eh:caller');
 		}
 		if (!$resultObject and $resultDetails['errorNo'] == self::ER_LOCK_DEADLOCK) {
 
@@ -414,7 +410,7 @@ class MySqlConnection {
 		else $modifiers = explode('_', strtolower($modifierString));
 		if ($this->mode == 'sprintf') {
 			if (!count($this->args)) {
-				throw new MySqlQueryException('Not enough parameters. eh:caller', get_defined_vars());
+				throw new MySqlQueryException('Not enough parameters. eh:caller');
 			}
 			$value = array_shift($this->args);
 			$sprintfFormat = trim($match[1], '%');
@@ -424,7 +420,7 @@ class MySqlConnection {
 
 			// Use array_key_exists instead of isset because isset returns false if value is null
 			if (!array_key_exists($key, $this->args)) {
-				throw new MySqlQueryException("Can't find argument for '$key'. eh:caller", get_defined_vars());
+				throw new MySqlQueryException("Can't find argument for '$key'. eh:caller");
 			}
 			$value = $this->args[$key];
 			$sprintfFormat = null;
@@ -531,7 +527,7 @@ class MySqlConnection {
 		}
 
 		if (!is_null($value) && !is_scalar($value) && !(is_object($value) && method_exists($value, '__toString'))) {
-			throw new MySqlQueryException('Can\'t convert value to string eh:caller', get_defined_vars());
+			throw new MySqlQueryException('Can\'t convert value to string eh:caller');
 		}
 
 		if ($sprintfFormat and !is_null($value)) $value = sprintf('%'.$sprintfFormat, $value);
@@ -624,7 +620,7 @@ class MySqlConnection {
 		$this->dbname = $dbname;
 		if ($this->isConnected()) {
 			if (!$this->conn->select_db($dbname)) {
-				throw new MySqlConnectionException('Database was not found eh:hashcode=74154CDD', get_defined_vars());
+				throw new MySqlConnectionException('Database was not found eh:hashcode=74154CDD');
 			}
 		} else {
 			$this->_connect();
