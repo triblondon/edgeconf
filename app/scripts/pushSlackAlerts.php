@@ -9,7 +9,7 @@ $ALERT_SOON = 1;
 $ALERT_NOW = 2;
 
 // Find any sessions that have just started
-$sessions = $app->db->queryAllRows("SELECT * FROM sessions WHERE start_time < NOW() AND start_time > (NOW() - INTERVAL 2 MONTH) AND alert_flags & %d = 0", $ALERT_NOW);
+$sessions = $app->db->queryAllRows("SELECT * FROM sessions WHERE start_time < NOW() AND start_time > (NOW() - INTERVAL 2 MINUTE) AND alert_flags & %d = 0", $ALERT_NOW);
 if ($sessions) {
 	$op = 'Starting now:';
 	$ids = array();
