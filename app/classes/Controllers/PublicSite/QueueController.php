@@ -151,7 +151,7 @@ class QueueController extends \Controllers\PublicSite\PublicBaseController {
 		return $indexedqueue;
 	}
 
-	private sendQueueToAdminChannel() {
+	private function sendQueueToAdminChannel() {
 		$queue = $this->getQueue();
 		$queueop = array();
 		foreach ($queue as $id => $spk) {
