@@ -27,6 +27,11 @@ class Request {
 		$this->files = $files;
 	}
 
+	public function getHeader($key=null) {
+		$key = strtolower($key);
+		return $key ? isset($this->headers[$key]) ? $this->headers[$key] : null : $this->headers;
+	}
+
 	public function getQuery($key=null) {
 		return $key ? isset($this->query[$key]) ? $this->query[$key] : null : $this->query;
 	}

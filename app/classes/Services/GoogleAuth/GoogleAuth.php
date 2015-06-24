@@ -87,7 +87,7 @@ class GoogleAuth {
 
 		// Get the email address
 		list($username, $domain) = explode('@', $data['email']);
-		$doman = strtolower($domain);
+		$domain = strtolower($domain);
 
 		// Canonicalise GMail addresses: googlemail and gmail are the same,
 		// dots in username are ignored, as is anything after a +

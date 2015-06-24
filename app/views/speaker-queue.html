@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en"><![endif]-->
+<!--[if gt IE 8]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width" />
+	<title>Edge Conference</title>
+
+	<link rel="icon" type="image/vnd.microsoft.icon" href="/favicon.ico">
+
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.min.css" />
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/normalize/2.1.3/normalize.min.css" />
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/foundation/5.0.2/css/foundation.css" />
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/flexslider/2.2.0/flexslider-min.css" />
+	<link rel='stylesheet' href='//fonts.googleapis.com/css?family=Lato:300,400,700,900'>
+	<link rel="stylesheet" href="/css/app.css" />
+
+	<script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.7.1/modernizr.min.js"></script>
+</head>
+<body class='{{ thisevent.slug }}'>
+	<div class="row">
+		<div class="small-12 columns speaker-queue">
+		{% for speaker in queue %}
+			<div class='queued-speaker' id='speaker-{{speaker.id}}'>
+				<img src='https://secure.gravatar.com/avatar/{{speaker.gravatar_hash}}?d=mm&amp;s=50' />
+				<h4>{{speaker.given_name}} {{speaker.family_name}}</h4>
+				<p>{{speaker.org}}</p>
+			</div>
+		{% endfor %}
+		</div>
+	</div>
+	<script src="//cdn.polyfill.io/v1/polyfill.min.js?features=String.prototype.trim"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+	<script src="/js/speaker-list.js"></script>
+</body>
+</html>
