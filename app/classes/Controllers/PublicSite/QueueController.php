@@ -73,13 +73,7 @@ class QueueController extends \Controllers\PublicSite\PublicBaseController {
 					$this->triggerEvent('add', $person['id']);
 					$resp = "Added you to the speaking queue.  To remove, say `/q` again.";
 				}
-				$queue = $this->getQueue();
-				$queueop = array();
-				foreach ($queue as $id => $spk) {
-					$queueop[] = '    `'.$id.'` *'.$spk['given_name'].' '.$spk['family_name']. '*, '.$spk['org'];
-				}
-				if (!count($queueop)) $queueop[] = 'Empty';
-				$this->sendPublicMsg($this->app->config->slack->queue_admin_channel, "Updated speaker queue:\n".join("\n", $queueop));
+				$this->sendQueueToAdminChannel();
 			}
 
 		} elseif (preg_match("/^\s*register\s+(.*\@.*)$/i", $body, $m)) {
@@ -118,16 +112,17 @@ class QueueController extends \Controllers\PublicSite\PublicBaseController {
 					$this->sendPublicMsg($session_channel, 'Speaker: *'.$person['given_name'].' '.$person['family_name']. '*, '.$person['org']);
 					$resp = 'Announced '.$person['given_name'].' '.$person['family_name'].' as the active speaker';
 				} else {
-					$resp = 'Removed '.$person['given_name'].' '.$person['family_name'].' from the speaking queue but cannot announce them in Slack as no session is in progress that has a slack channel';
+					$resp = 'Cannot announce '.$person['given_name'].' '.$person['family_name'].' in Slack as no session is in progress that has a slack channel';
 				}
 				if ($person['queued_to_speak']) {
 					$this->triggerEvent('remove', $person['id']);
+					$this->sendQueueToAdminChannel();
 				}
 			} else {
 				$resp = $m[1].' does not match a known user';
 			}
 		} else {
-			$resp = 'Unrecognised command';
+			$resp = 'Unrecognised command.  To join the speaking queue just type `/q`.';
 		}
 
 		if ($resp) $this->resp->setContent($resp);
@@ -154,6 +149,16 @@ class QueueController extends \Controllers\PublicSite\PublicBaseController {
 			$indexedqueue[$speaker['id']] = $speaker;
 		}
 		return $indexedqueue;
+	}
+
+	private sendQueueToAdminChannel() {
+		$queue = $this->getQueue();
+		$queueop = array();
+		foreach ($queue as $id => $spk) {
+			$queueop[] = '    `'.$id.'` *'.$spk['given_name'].' '.$spk['family_name']. '*, '.$spk['org'];
+		}
+		$msg = count($queueop) ? "Updated speaker queue:\n".join("\n", $queueop) : 'The speaker queue is now empty.';
+		$this->sendPublicMsg($this->app->config->slack->queue_admin_channel, $msg);
 	}
 
 	private function sendPublicMsg($channel, $msg) {
