@@ -9,12 +9,13 @@ $ALERT_SOON = 1;
 $ALERT_NOW = 2;
 
 // Find any sessions that have just started
-$sessions = $app->db->queryAllRows("SELECT * FROM sessions WHERE start_time < NOW() AND start_time > (NOW() - INTERVAL 2 MINUTE) AND alert_flags & %d = 0", $ALERT_NOW);
+$sessions = $app->db->queryAllRows("SELECT s.start_time, s.name, s.room, s.type, e.time_zone FROM sessions s INNER JOIN events e ON s.event_id=e.id WHERE s.start_time < NOW() AND s.start_time > (NOW() - INTERVAL 2 MINUTE) AND s.alert_flags & %d = 0", $ALERT_NOW);
 if ($sessions) {
 	$op = 'Starting now:';
 	$ids = array();
 	foreach ($sessions as $s) {
-		$op .= "\n    •  `".$s['start_time']->format('H:i')."`  *" . $s['name'] . "*";
+		$tz = new \DateTimeZone($session['time_zone']);
+		$op .= "\n    •  `".$s['start_time']->setTimeZone($tz)->format('H:i')."`  *" . $s['name'] . "*";
 		if ($s['room']) {
 			$op .= " (in " . $s['room'] . ")";
 		}
@@ -33,7 +34,8 @@ if ($sessions) {
 	$op = 'Coming up next:';
 	$ids = array();
 	foreach ($sessions as $s) {
-		$op .= "\n    •  `".$s['start_time']->format('H:i')."`  *" . $s['name'] . "*";
+		$tz = new \DateTimeZone($session['time_zone']);
+		$op .= "\n    •  `".$s['start_time']->setTimeZone($tz)->format('H:i')."`  *" . $s['name'] . "*";
 		if ($s['room']) {
 			$op .= " (in " . $s['room'] . ")";
 		}
