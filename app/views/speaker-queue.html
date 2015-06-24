@@ -18,16 +18,16 @@
 	<script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.7.1/modernizr.min.js"></script>
 </head>
 <body class='{{ thisevent.slug }}'>
-	<div class="row">
-		<div class="small-12 columns speaker-queue">
+	<div class="row speaker-queue">
 		{% for speaker in queue %}
-			<div class='queued-speaker' id='speaker-{{speaker.id}}'>
+		<div class="small-12 medium-6 columns" id='speaker-{{speaker.id}}'>
+			<div class='queued-speaker'>
 				<img src='https://secure.gravatar.com/avatar/{{speaker.gravatar_hash}}?d=mm&amp;s=50' />
 				<h4>{{speaker.given_name}} {{speaker.family_name}}</h4>
 				<p>{{speaker.org}}</p>
 			</div>
-		{% endfor %}
 		</div>
+		{% endfor %}
 	</div>
 	<script src="//cdn.polyfill.io/v1/polyfill.min.js?features=String.prototype.trim"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>

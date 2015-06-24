@@ -3,12 +3,12 @@
 'use strict';
 
 $(function() {
-	var evtSource = new EventSource("/q");
+	var evtSource = new EventSource("/q", { withCredentials: false });
 	evtSource.addEventListener("add", function(e) {
 		console.log(e.id, 'add', e.data);
 		var spk = JSON.parse(e.data);
 		if ($('#speaker-'+spk.id).length === 0) {
-			$('.speaker-queue').append("<div class='queued-speaker' id='speaker-"+htmlEncode(spk.id)+"'><img src='https://secure.gravatar.com/avatar/"+htmlEncode(spk.gravatar_hash)+"?d=mm&amp;s=50' /><h4>"+htmlEncode(spk.given_name)+" "+htmlEncode(spk.family_name)+"</h4><p>"+htmlEncode(spk.org)+"</p></div>").slideDown();
+			$('.speaker-queue').append("<div class='small-12 medium-6 columns' id='speaker-"+htmlEncode(spk.id)+"'><div class='queued-speaker'><img src='https://secure.gravatar.com/avatar/"+htmlEncode(spk.gravatar_hash)+"?d=mm&amp;s=50' /><h4>"+htmlEncode(spk.given_name)+" "+htmlEncode(spk.family_name)+"</h4><p>"+htmlEncode(spk.org)+"</p></div></div>").slideDown();
 		}
 	}, false);
 	evtSource.addEventListener("remove", function(e) {
