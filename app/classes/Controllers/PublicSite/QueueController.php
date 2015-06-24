@@ -14,10 +14,10 @@ class QueueController extends \Controllers\PublicSite\PublicBaseController {
 
 			// If a session is in progress, kill it to avoid blocking
 			if (session_id()) {
-				session_destroy();
+				session_write_close();
 			}
 
-			echo "retry: 5000\n\n";
+			echo "retry: 1000\n\n";
 
 			if ($this->req->getHeader('Last-Event-ID')) {
 				$start = $this->req->getHeader('Last-Event-ID');
@@ -31,7 +31,9 @@ class QueueController extends \Controllers\PublicSite\PublicBaseController {
 					echo "id: ".$row['id']."\n";
 					echo "event: ".$row['event']."\n";
 					echo "data: ".$row['data']."\n\n";
-					$start = max($start, $row['id']);
+
+					// Something seems to be buffering, so we'll live with long polling
+					exit;
 				}
 
 				if (ob_get_level()) ob_flush();
