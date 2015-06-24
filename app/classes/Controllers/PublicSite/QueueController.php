@@ -20,38 +20,19 @@ class QueueController extends \Controllers\PublicSite\PublicBaseController {
 			echo "retry: 5000\n\n";
 
 			if ($this->req->getHeader('Last-Event-ID')) {
-				$res = $this->app->db->query('SELECT * FROM queueevents WHERE id > %d', $this->req->getHeader('Last-Event-ID'));
+				$start = $this->req->getHeader('Last-Event-ID');
+			} else {
+				$start = $this->app->db->querySingle('SELECT MAX(id) FROM queueevents');
+			}
+
+			for ($i=1; $i<=$this->sseduration; $i++) {
+				$res = $this->app->db->query('SELECT * FROM queueevents WHERE id > %d', $start);
 				foreach ($res as $row) {
 					echo "id: ".$row['id']."\n";
 					echo "event: ".$row['event']."\n";
 					echo "data: ".$row['data']."\n\n";
+					$start = max($start, $row['id']);
 				}
-			}
-
-			$prevqueue = $this->getQueue();
-
-			if (ob_get_level()) ob_flush();
-			flush();
-			for ($i=1; $i<=$this->sseduration; $i++) {
-				$queue = $this->getQueue();
-				$add = array_diff(array_keys($queue), array_keys($prevqueue));
-				$rem = array_diff(array_keys($prevqueue), array_keys($queue));
-
-				foreach($add as $id) {
-					$data = json_encode($queue[$id]);
-					$res = $this->app->db->query('INSERT INTO queueevents SET event=%s, data=%s', 'add', $data);
-					echo "id: ".$res->getInsertId()."\n";
-					echo "event: add\n";
-					echo "data: ".$data."\n\n";
-				}
-				foreach($rem as $id) {
-					$data = json_encode($prevqueue[$id]);
-					$res = $this->app->db->query('INSERT INTO queueevents SET event=%s, data=%s', 'remove', $data);
-					echo "id: ".$res->getInsertId()."\n";
-					echo "event: remove\n";
-					echo "data: ".$data."\n\n";
-				}
-				$prevqueue = $queue;
 
 				if (ob_get_level()) ob_flush();
 				flush();
@@ -95,6 +76,7 @@ class QueueController extends \Controllers\PublicSite\PublicBaseController {
 				foreach ($queue as $id => $spk) {
 					$queueop[] = '    `'.$id.'` *'.$spk['given_name'].' '.$spk['family_name']. '*, '.$spk['org'];
 				}
+				if (!count($queueop)) $queueop[] = 'Empty';
 				$this->sendPublicMsg($this->app->config->slack->queue_admin_channel, "Updated speaker queue:\n".join("\n", $queueop));
 			}
 
