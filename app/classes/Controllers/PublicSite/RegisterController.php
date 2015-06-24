@@ -31,7 +31,8 @@ class RegisterController extends \Controllers\PublicSite\PublicBaseController {
 			'sessions' => $this->sessions,
 			'countries' => $countries,
 			'stripe_key' => $this->app->config->stripe->public_key,
-			'state' => $this->req->getQuery('state')
+			'state' => $this->req->getQuery('state'),
+			'closed' => !$this->event['ticketsavailable']
 		));
 
 		// Google auth redirect URL - currently not used for public site
