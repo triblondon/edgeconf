@@ -304,31 +304,33 @@ $(function() {
 	});
 
 	function onPlayerReady(evt) {
-		for (var i=0, s=livePlaylist.length; i<s; i++) {
-			livePlaylist[i].start_time = Date.parse(livePlaylist[i].start_time);
-			livePlaylist[i].end_time = Date.parse(livePlaylist[i].end_time);
-		}
 		setInterval(checkCurrent, 5000);
 	}
 
 	function checkCurrent() {
-		var now = (new Date()).getTime();
+		var now = (new Date()).getTime() / 1000;
 		var current = player.getVideoUrl();
 		for (var i=0, s=livePlaylist.length; i<s; i++) {
-			if (livePlaylist[i].start_time < now && livePlaylist[i].end_time > now && livePlaylist[i].youtube_id) {
-				if (current.indexOf(livePlaylist[i].youtube_id) === -1) {
-					cue(livePlaylist[i]);
+			if (livePlaylist[i].start_time < now && livePlaylist[i].end_time > now) {
+				if (livePlaylist[i].youtube_id) {
+					if (current.indexOf(livePlaylist[i].youtube_id) === -1) {
+						cue(livePlaylist[i]);
+						$('.videoframe').addClass('playing');
+					}
+				} else {
+					$('.videoframe').removeClass('playing');
+					$('#ytfallbacklink').hide();
 				}
-				$('.videoframe').addClass('playing');
+				$('#current-session').html(livePlaylist[i].name);
 				return;
 			}
-			$('.videoframe').removeClass('playing');
 		}
 	}
 
 	function cue(session) {
+		console.log('Cueing video for', session);
 		player.loadVideoById(session.youtube_id);
-		$('#current-session').html(session.name);
+		$('#ytfallbacklink').show().attr('href', 'http://www.youtube.com/watch?v='+session.youtube_id);
 	}
 
 });

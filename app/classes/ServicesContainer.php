@@ -49,6 +49,17 @@ class ServicesContainer extends Pimple {
 			$twig->addFilter(new Twig_SimpleFilter('timeago', function ($date) {
 				return Carbon::instance($date)->diffForHumans();
 			}));
+			$twig->addFilter(new Twig_SimpleFilter('jsdates', function ($thing) {
+				function recurseDates($thing) {
+					if (is_array($thing)) {
+						foreach($thing as $k => $subthing) $thing[$k] = recurseDates($subthing);
+					} elseif ($thing instanceOf DateTime) {
+						$thing = (integer)$thing->format('U');
+					}
+					return $thing;
+				}
+				return recurseDates($thing);
+			}));
 			$twig->addGlobal('server', array(
 				'request_uri' => $_SERVER['REQUEST_URI']
 			));
