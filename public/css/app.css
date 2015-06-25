@@ -333,9 +333,7 @@ form select {
         flex: none;
         overflow: hidden;
         margin: 0;
-        border-right: 0; }
-      .schedule-slot .slot-sessions .participant {
-        display: none; } }
+        border-right: 0; } }
 /* Registration form */
 .edgeform input, .edgeform select {
   margin: 0; }
