@@ -1,3 +1,6 @@
+/* global $, YT, console, livePlaylist, StripeCheckout */
+
+"use strict";
 
 // Foundation
 $(document).foundation();
@@ -13,7 +16,7 @@ _gaq.push(['_setAccount', 'UA-36962287-1']);
 _gaq.push(['_trackPageview']);
 (function() {
 	var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-	ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+	ga.src = ('https:' === document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
 	var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
 })();
 
@@ -85,7 +88,7 @@ $(function() {
 			},
 			error: resetEmailField
 		});
-	};
+	}
 	function resetEmailField() {
 		$('.email-verify-code').hide().find('input:text').val('');
 		$('.email-verify-button').show();
@@ -157,7 +160,7 @@ $(function() {
 			parts.forEach(function(part) {
 				part = part.split('=');
 				_GET[part[0]] = part[1];
-			})
+			});
 		}
 
 		// Load caption data
@@ -210,7 +213,7 @@ $(function() {
 		// Bind to cues
 		$('#videos').on('click', '.cue', function() {
 			var cue = cues[$(this).attr('data-index')];
-			if (player.getVideoUrl().indexOf(cue.videoId) != -1){
+			if (player.getVideoUrl().indexOf(cue.videoId) !== -1){
 				player.seekTo(cue.startTime, true);
 			} else {
 				player.loadVideoById(cue.videoid, cue.startTime);
@@ -355,7 +358,7 @@ $('input[data-filter-for]').each(function() {
 			table.find('.filterable').show();
 		}
 	}
-})
+});
 
 
 // Stripe checkout
@@ -378,7 +381,7 @@ $(function() {
 					btn.html('Processing payment...');
 					location.href=location.pathname+'?state=paid';
 				} else {
-					alert(resp);
+					window.alert(resp);
 					btn.removeAttr('disabled');
 				}
 			});
@@ -404,7 +407,7 @@ $('#cancel-ticket').on('click', function() {
 			btn.html('Cancelling...');
 			location.href=location.pathname+'?state=cancelled';
 		} else {
-			alert(resp);
+			window.alert(resp);
 			btn.closest('.reveal-modal').find('.action').removeAttr('disabled');
 		}
 	});
@@ -426,7 +429,7 @@ $('.invite-send-button').on('click', function() {
 	}
 	$(this).blur().attr('disabled', 'disabled');
 	$.post('share', {email:$('#txtinviteemail').val()}, function(resp) {
-		alert('Invitation sent.  Thanks!');
+		window.alert('Invitation sent.  Thanks!');
 		$('.invite-send-button').removeAttr('disabled');
 	});
 });
