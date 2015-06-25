@@ -489,7 +489,7 @@ form select {
     text-align: center !important; }
     .videoframe > #noVideo h2 {
       color: white;
-      margin: 50px 50px 30px 50px; }
+      margin: 0; }
     .videoframe > #noVideo p {
       margin: 30px 50px 0 50px;
       text-align: center !important; }
@@ -498,6 +498,11 @@ form select {
   display: block; }
 .videoframe.playing #noVideo {
   display: none; }
+
+.vcenter {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%); }
 
 .toolbar {
   background: black; }

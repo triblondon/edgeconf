@@ -3,7 +3,7 @@
     <p><span class='live'>Live</span> coverage of Edge conf {{ thisevent.location }} {{ thisevent.start_time|date('Y') }}<span style='float:right;'>Now: <span id='current-session'>{{ livesession.name }}</span></span></p>
     <div class='videoframe{% if livesession.youtube_id %} playing{% endif %}'>
       <iframe id='youTubePlayer' data-current='{{ livesession.youtube_id }}' src='https://www.youtube-nocookie.com/embed/{{ livesession.youtube_id }}?autoplay=1&amp;enablejsapi=1&amp;origin=http://{{ SERVER.HTTP_HOST }}&amp;autohide=1&amp;modestbranding=1&amp;rel=0' frameborder='0'></iframe>
-      <div id='noVideo'><h2>Stand by</h2><p>The live stream will resume when the next session begins</p></div>
+      <div id='noVideo'><div class='vcenter'><h2>Stand by</h2><p>The live stream will resume when the next session begins</p></div></div>
     </div>
     {% if livesession.youtube_id %}
         <a href="https://www.youtube.com/watch?v={{ livesession.youtube_id }}">View on YouTube</a>

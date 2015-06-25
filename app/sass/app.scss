@@ -666,7 +666,7 @@ form select {
 		text-align:center !important;
 		h2 {
 			color:white;
-			margin: 50px 50px 30px 50px;
+			margin: 0;
 		}
 		p {
 			margin: 30px 50px 0 50px;
@@ -681,6 +681,12 @@ form select {
 	#noVideo {
 		display:none;
 	}
+}
+
+.vcenter {
+	position: relative;
+	top: 50%;
+	transform: translateY(-50%);
 }
 
 .toolbar {
