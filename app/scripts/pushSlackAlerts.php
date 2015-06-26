@@ -20,7 +20,7 @@ if ($sessions) {
 			$op .= " (in " . $s['room'] . ")";
 		}
 		if (count($ids) > 1) {
-			$op .= "\nJoining small breakout sessions late is disruptive, so if you've been delayed please join the session in the main space.";
+			$op .= "\nDon't join late: if you've been delayed please join the session in the main space.";
 		}
 		$ids[] = $s['id'];
 	}
