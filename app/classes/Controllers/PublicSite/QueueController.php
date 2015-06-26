@@ -37,9 +37,6 @@ class QueueController extends \Controllers\PublicSite\PublicBaseController {
 					echo "id: ".$row['id']."\n";
 					echo "event: ".$row['event']."\n";
 					echo "data: ".$row['data']."\n\n";
-
-					// Something seems to be buffering, so we'll live with long polling
-					exit;
 				}
 
 				if (ob_get_level()) ob_flush();
