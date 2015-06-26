@@ -3,6 +3,9 @@
 'use strict';
 
 var evtSource = new EventSource("/q", { withCredentials: false });
+var disconnectedBeats = 1;
+var alertTimer;
+
 evtSource.addEventListener("add", function(e) {
 	console.log(e.id, 'add', e.data);
 	var spk = JSON.parse(e.data);
@@ -18,9 +21,32 @@ evtSource.addEventListener("remove", function(e) {
 	});
 }, false);
 
+setInterval(function() {
+	if (evtSource.readyState === EventSource.OPEN) {
+		if (disconnectedBeats) {
+			alertMsg('Connected!', 2000);
+			disconnectedBeats = 0;
+		}
+	} else if (disconnectedBeats > 5) {
+		location.reload();
+	} else {
+		$('#alertbar').html('Connecting').addClass('visible');
+		disconnectedBeats++;
+	}
+}, 1000);
 
 function htmlEncode(value){
   //create a in-memory div, set it's inner text(which jQuery automatically encodes)
   //then grab the encoded contents back out.  The div never exists on the page.
   return $('<div/>').text(value).html();
+}
+
+function alertMsg(msg, timeout) {
+	clearTimeout(alertTimer);
+	$('#alertbar').html(msg).addClass('visible');
+	if (timeout) {
+		alertTimer = setTimeout(function() {
+			$('#alertbar').removeClass('visible');
+		}, timeout);
+	}
 }
