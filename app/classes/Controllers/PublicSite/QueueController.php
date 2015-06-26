@@ -58,6 +58,7 @@ class QueueController extends \Controllers\PublicSite\PublicBaseController {
 		$user = $this->req->getPost('user_name');
 		$body = $this->req->getPost('text');
 		$channel = $this->req->getPost('channel_name');
+		$channelid = $this->req->getPost('channel_id');
 
 		$session_channel = $this->app->db->querySingle('SELECT slack_channel FROM sessions WHERE start_time < NOW() AND end_time > NOW()');
 
@@ -91,7 +92,7 @@ class QueueController extends \Controllers\PublicSite\PublicBaseController {
 			}
 
 		} elseif ($body === 'clear') {
-			if ($channel === $this->app->config->slack->queue_admin_channel) {
+			if ($channelid === $this->app->config->slack->queue_admin_channel_id) {
 				$queue = $this->getQueue();
 				foreach ($queue as $id => $person) {
 					$this->triggerEvent('remove', $id);
@@ -102,7 +103,7 @@ class QueueController extends \Controllers\PublicSite\PublicBaseController {
 					$this->sendPublicMsg($session_channel, 'The speaking queue has been cleared by a moderator.  Anyone already in the queue, type `/q` to queue yourself anew.');
 				}
 			} else {
-				$resp = 'Only moderators can do that, sorry';
+				$resp = 'Only moderators can do that, sorry ('.$channelid.'/'.$this->app->config->slack->queue_admin_channel_id.')';
 			}
 		} elseif (preg_match("/^\s*(\d+|\@.*)$/i", $body, $m)) {
 			if (is_numeric($m[1])) {
