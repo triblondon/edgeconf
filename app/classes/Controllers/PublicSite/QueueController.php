@@ -8,14 +8,14 @@ class QueueController extends \Controllers\PublicSite\PublicBaseController {
 
 	public function get() {
 
+		// If a session is in progress, kill it to avoid blocking
+		if (session_id()) {
+			session_write_close();
+		}
+
 		if ($this->req->getHeader('Accept') == 'text/event-stream') {
 
 			header("Content-Type: text/event-stream");
-
-			// If a session is in progress, kill it to avoid blocking
-			if (session_id()) {
-				session_write_close();
-			}
 
 			echo "retry: 1000\n\n";
 
