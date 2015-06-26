@@ -17,6 +17,12 @@ class QueueController extends \Controllers\PublicSite\PublicBaseController {
 
 			header("Content-Type: text/event-stream");
 
+			// Send around 4KB of padding
+			for ($i=1; $i<60; $i++) {
+				echo ':'.str_repeat(".", 70)."\n";
+			}
+			echo "\n";
+
 			echo "retry: 1000\n\n";
 
 			if ($this->req->getHeader('Last-Event-ID')) {
