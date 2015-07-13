@@ -84,11 +84,17 @@
 					</div>
 				</div>
 				<div id="videos-container" class="small-12 large-4 columns">
+					{% if hassrt %}
 					<input id="query" type="text" class='input-block-level' placeholder="Search video transcripts"/>
 					<div class='help-block'>Enter text to search transcripts, then click on a result to view video, or choose from one of the sessions:
+					{% else %}
+					<div class='help-block'>Choose a session to watch video coverage:
+					{% endif %}
 					<ul class='video-list'>
 						{% for session in sessions %}
-						<li><a href='?v={{session.youtube_id}}'>{{session.name}}</a></li>
+							{% if session.youtube_id %}
+							<li><a href='?v={{session.youtube_id}}'>{{session.name}}</a></li>
+							{% endif %}
 						{% endfor %}
 					</ul>
 					</div>
